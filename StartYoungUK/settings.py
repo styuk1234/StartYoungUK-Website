@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'contact.apps.ContactConfig',
     'about.apps.AboutConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms',
+    'bootstrap_modal_forms',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
