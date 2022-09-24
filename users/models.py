@@ -9,7 +9,7 @@ class StartYoungUKUsers(models.Model):
     username = models.OneToOneField(User, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=50, null=False)
     email_id = models.EmailField(max_length=50, null=False, unique=True)
-    address = models.EmailField(max_length=100, null=False)
+    address = models.TextField(max_length=100, null=False)
     phone_number = PhoneNumberField(null=False, blank=False, unique=True)
     # Customer Registration Number (CRN) is UK-equivalent of GST number
     crn_no = models.IntegerField(null=True, validators=[DecimalValidator(max_digits=8, decimal_places=8)], unique=True)

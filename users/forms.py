@@ -16,7 +16,10 @@ class UserRegisterForm(UserCreationForm):
                                 ),
                                 required=True,
                                 )
-    address = forms.CharField(required=True)
+    address = forms.CharField(
+                                widget=forms.Textarea(),
+                                required=True,
+                            )
     Company_Registration_Number = forms.CharField(required=False, help_text="If you're signing up as a corporate, please enter your CRN")
     
     class Meta:
