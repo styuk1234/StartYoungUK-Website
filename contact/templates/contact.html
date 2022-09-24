@@ -32,29 +32,57 @@
     <div class="container">
       <div class="row block-9">
         <div class="col-md-6 pr-md-5">
-          <form action="#">
+          <form id="ajax-contact" name="google-sheet" method="POST">
             <div class="form-group">
-              <input type="text" class="form-control px-3 py-3" placeholder="Your Name">
+              <input type="text" name="Name" id="Name" class="form-control px-3 py-3" placeholder="Your Name" required>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control px-3 py-3" placeholder="Your Email">
+              <input type="email" name="Email" id="Email" class="form-control px-3 py-3" placeholder="Your Email"required>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control px-3 py-3" placeholder="Subject">
+              <input type="text" name="Subject" id="Subject" class="form-control px-3 py-3" placeholder="Subject" required>
             </div>
             <div class="form-group">
-              <textarea name="" id="" cols="30" rows="7" class="form-control px-3 py-3" placeholder="Message"></textarea>
+              <textarea name="Message" id="Message" cols="30" rows="7" class="form-control px-3 py-3" placeholder="Message..." required></textarea>
             </div>
             <div class="form-group">
-              <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+              <button id="submit" name="Submit" type="submit" class="btn btn-primary py-3 px-5">Send Message</button>
             </div>
+            <div id="snackbar"></div>
           </form>
         
         </div>
+
+        <script>
+          function showToast(message, color) {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+            x.innerHTML = message;
+            x.style.backgroundColor = color;
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+          }
+        </script>
+        <script>
+          const scriptURL = "https://script.google.com/macros/s/AKfycbyxIzRJZHPOhkWFX68jF_ngKiV1FbVwdbBlvpIJxiQ-jF7a1vDHTDZhWHUYua4-rfI88g/exec"
+          const form = document.forms['google-sheet']
+          
+          form.addEventListener('submit', e => {
+            e.preventDefault()
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => showToast("Message sent successfully!", "green"))
+            .catch(error => showToast("There was an error sending your message, please try again!", "red"))
+          })
+         </script>
 
         <div class="col-md-6" id="map"></div>
       </div>
     </div>
   </div>
 
+ 
   {% endblock %}
