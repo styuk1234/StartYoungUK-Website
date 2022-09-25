@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect
 from .forms import DonationForm
 from django.contrib import messages
-from sponsor.models import Donations
 from django.conf import settings
 from django.core.mail import EmailMessage
 from fpdf import FPDF

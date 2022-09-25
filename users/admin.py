@@ -2,7 +2,6 @@ from django.contrib import admin
 from users.models import StartYoungUKUser
 
 # Register your models here.
-#admin.site.register(StartYoungUKUser)
 
 @admin.register(StartYoungUKUser)
 class StartYoungUKUserAdmin(admin.ModelAdmin):

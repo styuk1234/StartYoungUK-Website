@@ -1,7 +1,7 @@
 from django import forms
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
-from sponsor.models import Donations
+from sponsor.models import Donation
 
 
 class DonationForm(forms.ModelForm):
@@ -15,5 +15,5 @@ class DonationForm(forms.ModelForm):
                                 )
     amount = forms.IntegerField()
     class Meta:
-        model = Donations
+        model = Donation
         fields = ['name', 'email_id','mobile_no','amount']

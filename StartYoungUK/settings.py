@@ -107,7 +107,7 @@ DATABASES = {
         'PASSWORD' : 'Codefest#123',
         'HOST': 'youngcoders.database.windows.net',
         'OPTIONS': {
-            'driver': 'ODBC Driver 13 for SQL Server',
+            'driver': 'ODBC Driver 18 for SQL Server',
             # 'isolation_level': 'READ_UNCOMMITTED',
         }
     }
