@@ -3,8 +3,6 @@ from .forms import UserRegisterForm
 from django.contrib import messages
 from users.models import StartYoungUKUser
 from django.contrib.auth.models import User
-from phonenumber_field.phonenumber import PhoneNumber
-
 
 # Create your views here.
 

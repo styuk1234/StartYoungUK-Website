@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
-from django.core.validators import DecimalValidator
+from django.core.validators import MinLengthValidator
 
 # Create your models here.
 
@@ -12,7 +12,7 @@ class StartYoungUKUser(models.Model):
     address = models.TextField(max_length=100, null=False)
     phone_number = PhoneNumberField(null=False, blank=False, unique=True)
     # Customer Registration Number (CRN) is UK-equivalent of GST number
-    crn_no = models.IntegerField(validators=[DecimalValidator(max_digits=8, decimal_places=8)], unique=True)
+    crn_no = models.CharField(default='00000000', max_length=8, validators=[MinLengthValidator(limit_value=8)])
     user_type = models.CharField(max_length=10, choices=[('I', 'Individual'), ('C', 'Corporate')], null=False)
     is_verified = models.BooleanField(default=False)
 

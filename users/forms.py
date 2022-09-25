@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 from users.models import StartYoungUKUser
+from django.core.validators import MinLengthValidator
 
 
 class UserRegisterForm(UserCreationForm):
@@ -23,7 +24,12 @@ class UserRegisterForm(UserCreationForm):
                                 widget=forms.Textarea(),
                                 required=True,
                             )
-    crn_no = forms.CharField(label="Company Registration Number (CRN)", required=False, help_text="If you're signing up as a corporate, please enter your CRN")
+    crn_no = forms.CharField(
+                                label="Company Registration Number (CRN)", 
+                                required=False, 
+                                help_text="If you're signing up as a corporate, please enter your CRN", 
+                                validators=[MinLengthValidator(limit_value=8)],
+                                )
     
     class Meta:
         model = User
@@ -42,8 +48,6 @@ class UserRegisterForm(UserCreationForm):
     
     
     def clean_phone_number(self):
-        from phonenumber_field.phonenumber import PhoneNumber
-
         # Validate unique phone_number
         phone_number = self.cleaned_data["phone_number"]
 
@@ -63,13 +67,14 @@ class UserRegisterForm(UserCreationForm):
         user_type = self.cleaned_data["user_type"]
 
         try:
-            StartYoungUKUser.objects.get(crn_no=crn_no)
-
+            # Check if CRN exists and is non-default
+            StartYoungUKUser.objects.get(crn_no=crn_no) and bool(crn_no)
+                
         except StartYoungUKUser.DoesNotExist:
             if user_type == 'C' and not crn_no:
             # If user is corporate type but has not entered CRN, prompt validation error
                 raise ValidationError(
-                    "If you're a corporate user, please enter your CRN for validation."
+                    "Since you've chosen corporate user, please enter your CRN for validation."
                 )
             elif user_type == 'I' and crn_no:
             # Individual user might have put something by mistake in CRN field, so just get rid of it
