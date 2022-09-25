@@ -5,8 +5,12 @@
 <li class="nav-item active"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
             <!-- <li class="nav-item"><a href="how-it-works.html" class="nav-link">How It Works</a></li> -->
             <li class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Sponsor</a></li>
+            {% if user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+            {% else %}
             <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
             <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li>
+            {% endif %}
             <li class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
             <li class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Contact</a></li>
           </ul>
@@ -45,7 +49,7 @@
         <div class="col-md-6 welcome-text">
           <h2 class="display-4 mb-3">Our Aim</h2>
           <p class="mb-4">To work alongside local schools and communities in supporting young people and families in achieving their full potential as a member of the community. Supporting the education career path from 5-16 yrs whilst securing apprenticeships, sponsorships, work experience for the young adults.  We do this by  our buddy system,  imparting knowledge, guidance, life learned lessons, and challenges to instill hope, value and aspiration.</p>
-          <p class="mb-4">We can all be a part of change , and it takes a second to sign up. If you would like to support, volunteer, donate, or simply just find out more about what we do . Please contact us , as we look forward to hearing from you.</p>
+          <p class="mb-4">We can all be a part of change and it takes a second to sign up. If you would like to support, volunteer, donate, or simply just find out more about what we do , then please contact us, as we look forward to hearing from you!</p>
           <!-- <p class="mb-0"><a href="#" class="btn btn-primary px-3 py-2">Learn More</a></p> -->
         </div>
       </div>

@@ -2,12 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% if title %}
+    <title>StartYoungUK - {{title}} </title>
+    {% else %}
     <title>StartYoungUK &mdash; Empowering Young People to Achieve</title>
+    {% endif %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css?family=Overpass:300,400,500|Dosis:400,700" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css'%}">
+    <link rel="icon" href="{% static 'images/startyounguk-logo.jpg' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
@@ -23,10 +29,10 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/form-style.css' %}">
-    {% block header %}
-    {% endblock %}
 
   </head>
+  {% block header %}
+  {% endblock %}
   <body>
     
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">

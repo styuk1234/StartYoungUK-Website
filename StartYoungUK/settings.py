@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap_modal_forms',
     'phonenumber_field',
+    #'verify_email.apps.VerifyEmailConfig',
+    'captcha',
     # 'corsheaders',
     # 'rest_framework',
 ]
@@ -82,7 +84,7 @@ TEMPLATES = [
     },
 ]
 
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 WSGI_APPLICATION = 'StartYoungUK.wsgi.application'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -92,6 +94,12 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'youngcoders.codefest@gmail.com'
 EMAIL_HOST_PASSWORD = 'dnziblkvhptubmfa'
 
+#DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
+#EXPIRE_AFTER = "1h" # Verification Link will expire after one hour from link generation
+
+RECAPTCHA_PUBLIC_KEY = '6LdilSsiAAAAALkeAdLLWLiqUkdxTvoS3k7OqzyN'
+RECAPTCHA_PRIVATE_KEY = '6LdilSsiAAAAACxlSATIX41xQyg9VAc9RqjTtaXy'
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -161,4 +169,5 @@ STATIC_FILES_DIR = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_REDIRECT_URL = 'home' #Temporary redirect to homepage after login
+LOGIN_URL = "login"

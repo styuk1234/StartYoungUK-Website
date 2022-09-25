@@ -5,8 +5,12 @@
 <li class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
             <!-- <li class="nav-item"><a href="how-it-works.html" class="nav-link">How It Works</a></li> -->
             <li class="nav-item active"><a href="{% url 'sponsor-us' %}" class="nav-link">Sponsor</a></li>
+            {% if user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+            {% else %}
             <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
             <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li>
+            {% endif %}
             <li class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
             <li class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Contact</a></li>
           </ul>

@@ -3,6 +3,7 @@ from .forms import UserRegisterForm
 from django.contrib import messages
 from users.models import StartYoungUKUser
 from django.contrib.auth.models import User
+from verify_email.email_handler import send_verification_email
 
 # Create your views here.
 
@@ -11,7 +12,8 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
+            #inactive_user = send_verification_email(request, form)
+            username = form.cleaned_data['username']
             syuk_user = StartYoungUKUser()
             syuk_user.user = User.objects.get(email=form.cleaned_data.get('email'))
             syuk_user.display_name = form.cleaned_data.get('display_name')

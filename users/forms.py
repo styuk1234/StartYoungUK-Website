@@ -7,6 +7,8 @@ from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 from users.models import StartYoungUKUser
 from django.core.validators import MinLengthValidator
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 
 class UserRegisterForm(UserCreationForm):
@@ -30,10 +32,11 @@ class UserRegisterForm(UserCreationForm):
                                 help_text="If you're signing up as a corporate, please enter your CRN", 
                                 validators=[MinLengthValidator(limit_value=8)],
                                 )
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
     
     class Meta:
         model = User
-        fields = ['display_name', 'user_type', 'email', 'phone_number', 'address', 'crn_no', 'username', 'password1','password2']
+        fields = ['display_name', 'user_type', 'email', 'phone_number', 'address', 'crn_no', 'username', 'password1','password2', 'captcha']
 
     def clean_email(self):
         #Validate unique email

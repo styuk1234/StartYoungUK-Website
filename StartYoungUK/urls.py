@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users import views as user_views
+from home import views as home_views
 from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
     path('', include('home.urls')),
-    path('home/', include('home.urls')),
+    path('home/', home_views.home, name='home'),
     path('about/', include('about.urls')),
     path('users/', include('users.urls')),
     path('contact/', include('contact.urls')),
@@ -30,4 +31,5 @@ urlpatterns = [
     path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
     path('admin/', admin.site.urls),
     path('sponsor/', include('sponsor.urls')),
+    #path('verification/', include('verify_email.urls')),
 ]
