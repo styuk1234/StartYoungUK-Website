@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap_modal_forms',
     'phonenumber_field',
-    #'verify_email.apps.VerifyEmailConfig',
+    'verify_email.apps.VerifyEmailConfig',
     'captcha',
     # 'corsheaders',
     # 'rest_framework',
@@ -94,8 +94,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'youngcoders.codefest@gmail.com'
 EMAIL_HOST_PASSWORD = 'dnziblkvhptubmfa'
 
-#DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
-#EXPIRE_AFTER = "1h" # Verification Link will expire after one hour from link generation
+DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
+EXPIRE_AFTER = "1h" # Verification Link will expire after one hour from link generation
 
 RECAPTCHA_PUBLIC_KEY = '6LdilSsiAAAAALkeAdLLWLiqUkdxTvoS3k7OqzyN'
 RECAPTCHA_PRIVATE_KEY = '6LdilSsiAAAAACxlSATIX41xQyg9VAc9RqjTtaXy'
@@ -146,7 +146,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
