@@ -32,7 +32,7 @@ def register(request):
         else:
             for key, error in list(form.errors.items()):
                 if key == 'captcha' and error[0] == 'This field is required.':
-                    messages.error(request, "You must pass the reCAPTCHA test")
+                    messages.error(request, "You must pass the reCAPTCHA test to register.")
                     continue
                 
                 messages.error(request, error) 
@@ -52,7 +52,6 @@ def captcha_login(request):
             )
             if user is not None:
                 login(request, user)
-                messages.success(request, f"Hello <b>{user.username}</b>! You have been logged in!")
                 return redirect("home")
 
         else:
@@ -60,7 +59,7 @@ def captcha_login(request):
                 if key == 'captcha' and error[0] == 'This field is required.':
                     messages.error(request, "You must pass the reCAPTCHA test to login.")
                     continue
-                
+   
                 messages.error(request, error) 
     else:
         form = UserLoginForm()
@@ -74,5 +73,5 @@ def captcha_login(request):
 @login_required
 def captcha_logout(request):
     logout(request)
-    messages.info(request, "You have been logged out successfully!")
-    return redirect("home")
+    messages.success(request, "You have been logged out successfully!")
+    return redirect("login")
