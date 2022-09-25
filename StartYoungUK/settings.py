@@ -46,7 +46,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap_modal_forms',
     'phonenumber_field',
+    # 'corsheaders',
+    # 'rest_framework',
 ]
+
+# CORS_ORIGIN_ALLOW_ALL=True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'corsheader.middleware.CorsMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'StartYoungUK.urls'
@@ -76,6 +82,7 @@ TEMPLATES = [
     },
 ]
 
+CRISPY_TEMPLATE_PACK = 'uni_form'
 WSGI_APPLICATION = 'StartYoungUK.wsgi.application'
 
 
@@ -84,8 +91,17 @@ WSGI_APPLICATION = 'StartYoungUK.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'sql_server.pyodbc',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME' : 'StartYoungUK',
+        'USER': 'youngcoders-admin',
+        'PASSWORD' : 'Codefest#123',
+        'HOST': 'youngcoders.database.windows.net',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+            # 'isolation_level': 'READ_UNCOMMITTED',
+        }
     }
 }
 

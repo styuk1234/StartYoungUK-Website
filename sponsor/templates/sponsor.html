@@ -39,6 +39,13 @@
           <p class="mb-5"><a href="#" class="link-underline">View All Donations</a></p>
         </div>
         </div>
+        {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
         <p style="text-align: center;"><button style="max-width: 300px;" data-toggle="modal" data-target="#donate-form" class="btn btn-white px-3 py-2">Click here to Donate</button></p>
 
       <div class="row">
@@ -95,16 +102,32 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form>
+        {% load crispy_forms_tags %}
+                    <form method="POST" class="post-form">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            {{ form|crispy }}
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="signup-btn btn btn-primary" type="submit">Send</button>
+                        </div>                           
+                    </form>
+                    
+        <!-- <form>
           <div class="modal-body">
+            <div class="form-group">
+              <label for="name1">Full Name</label>
+              <input type="text" class="form-control" id="name1" placeholder="Full Name">
+            </div>
             <div class="form-group">
               <label for="email1">Email address</label>
               <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
               <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small>
             </div>
             <div class="form-group">
-              <label for="name1">Full Name</label>
-              <input type="text" class="form-control" id="name1" placeholder="Full Name">
+              <label for="mobile1">Mobile Number</label>
+              <input type="mobile" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small>
             </div>
             <div class="form-group">
               <label for="amount1">Amount</label>
@@ -114,7 +137,7 @@
           <div class="modal-footer border-top-0 d-flex justify-content-center">
             <button style="max-width: 100px;" type="submit" class="btn btn-success">Send</button>
           </div>
-        </form>
+        </form> -->
       </div>
     </div>
   </div>
