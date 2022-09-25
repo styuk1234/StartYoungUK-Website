@@ -1,9 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-
 {% block header %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -32,13 +28,27 @@
 {% endblock header %}
 
 {% block content %}
+
+<li class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
+<!-- <li class="nav-item"><a href="how-it-works.html" class="nav-link">How It Works</a></li> -->
+<li class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Sponsor</a></li>
+<!-- <li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li> -->
+<li class="nav-item active "><a href="{% url 'register' %}" class="nav-link">Login/Register</a></li>
+<li class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
+<li class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Contact</a></li>
+</ul>
+</div>
+</div>
+</nav>
+
+
     <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
         <div class="wrapper wrapper--w960">
             <div class="card card-2">
                 <div class="card-heading"></div>
                 <div class="card-body">
                     
-                    <h2 class="title">You have been logged out from Khaan-दान. Please visit again!</h2>
+                    <h2 class="title">You have been logged out. Please visit again!</h2>
 
                     <div class="border-top pt-3">
                         <p class="text-muted">Don't have an account? <a class="ml-2" href="{% url 'Register' %}">Sign Up</a></p>
@@ -61,5 +71,3 @@
     <!-- Main JS-->
     <script src="{% static 'js/global.js' %}"></script>
 {% endblock content %}
-</html>
-<!-- end document-->
