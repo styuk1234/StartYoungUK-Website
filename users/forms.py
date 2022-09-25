@@ -1,7 +1,7 @@
 from xml.dom import ValidationErr
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.exceptions import ValidationError
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
@@ -43,7 +43,7 @@ class UserRegisterForm(UserCreationForm):
         email = self.cleaned_data["email"]
 
         try:
-            match_email = User.objects.get(email=email)
+            User.objects.get(email=email)
         except User.DoesNotExist:
             return email
             
@@ -84,6 +84,20 @@ class UserRegisterForm(UserCreationForm):
             # when entering it into the database
                 self.cleaned_data['crn_no'] = '00000000'
 
-            return crn_no
+            return self.cleaned_data['crn_no']
             
         raise forms.ValidationError("This CRN is already registered.")
+
+
+class UserLoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Username'}),
+        )
+
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'form-control', 'placeholder': 'Password'}))
+
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
