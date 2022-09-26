@@ -18,6 +18,8 @@ from django.urls import path, include
 from users import views as user_views
 from home import views as home_views
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -34,4 +36,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('sponsor/', include('sponsor.urls')),
     path('verification/', include('verify_email.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

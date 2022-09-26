@@ -6,7 +6,7 @@ django-cors-headers==3.13.0
 django-crispy-forms==1.14.0
 django-phonenumber-field==7.0.0
 django-phonenumbers==1.0.1
-django-recaptcha=3.0.0
+django-recaptcha==3.0.0
 django-verify-email==2.0.3
 djangorestframework==3.14.0
 fpdf==1.7.2
