@@ -184,137 +184,28 @@
         <div class="col-md-8 text-center">
           <h2>Thank You</h2>
           <!-- <p class="lead">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-          <p class="mb-5"><a href="#" class="link-underline">View All Donations</a></p>
+          <p class="mb-5">Top Donations</p>
         </div>
       </div>
 
       <div class="row">
+        {% for entry in top_donations %}
         <div class="col-md-6 col-lg-3 mb-5">
           <div class="person-donate text-center">
-            <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder" class="img-fluid">
+            <img src="{% static 'images/person_3.jpg' %}" alt="Image placeholder" class="img-fluid">
             <div class="donate-info">
-              <h2>Person 1</h2>
-              <span class="time d-block mb-3">Donated Just now</span>
-              <p>Donated <span class="text-success">$252</span> 
+              <h2>{{entry.fields.name}}</h2>
+              <!-- <span class="time d-block mb-3">Donated Just now</span> -->
+              <p>Donated <span class="text-success">${{entry.fields.amount}}</span> 
                 <!-- <br>  -->
                 <!-- <em>for</em> <a href="#" class="link-underline fundraise-item">Water Is Life. Clean Water In Urban Area</a> -->
               </p>
             </div>
           </div>    
         </div>
-
-        <div class="col-md-6 col-lg-3 mb-5">
-          <div class="person-donate text-center">
-            <img src="{% static 'images/person_2.jpg' %}" alt="Image placeholder" class="img-fluid">
-            <div class="donate-info">
-              <h2>Person 2</h2>
-              <span class="time d-block mb-3">Donated 1 hour ago</span>
-              <p>Donated <span class="text-success">$400</span> 
-                <!-- <br>  -->
-                <!-- <em>for</em> <a href="#" class="link-underline fundraise-item">Children Needs Education</a> -->
-                </p>
-            </div>
-          </div>    
-        </div>
-
-        <div class="col-md-6 col-lg-3 mb-5">
-          <div class="person-donate text-center">
-            <img src="{% static 'images/person_3.jpg' %}" alt="Image placeholder" class="img-fluid">
-            <div class="donate-info">
-              <h2>Person 3</h2>
-              <span class="time d-block mb-3">Donated 4 hours ago</span>
-              <p>Donated <span class="text-success">$1,200</span> 
-                <!-- <br> <em>for</em> <a href="#" class="link-underline fundraise-item">Need Shelter for Children in Africa</a> -->
-              </p>
-            </div>
-          </div>    
-        </div>
-
-        <div class="col-md-6 col-lg-3 mb-5">
-          <div class="person-donate text-center">
-            <img src="{% static 'images/person_4.jpg' %}" alt="Image placeholder" class="img-fluid">
-            <div class="donate-info">
-              <h2>Person 4</h2>
-              <span class="time d-block mb-3">Donated 9 hours ago</span>
-              <p>Donated <span class="text-success">$100</span> 
-                <!-- <br> <em>for</em> <a href="#" class="link-underline fundraise-item">Water Is Life. Clean Water In Urban Area</a> -->
-              </p>
-            </div>
-          </div>    
-        </div>
+        {% endfor %}
       </div>
-    </div>
-  </div> <!-- .section -->
-
-  <!-- <div class="featured-section overlay-color-2" style="background-image: url('images/bg_3.jpg');">
-    
-    <div class="container">
-      <div class="row">
-
-        <div class="col-md-6">
-          <img src="{% static 'images/bg_3.jpg' %}" alt="Image placeholder" class="img-fluid">
-        </div>
-
-        <div class="col-md-6 pl-md-5">
-          <span class="featured-text d-block mb-3">Success Stories</span>
-          <h2>Water Is Life. We Successfuly Provide Clean Water in South East Asia</h2>
-          <p class="mb-3">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-          <span class="fund-raised d-block mb-5">We have raised $100,000</span>
-
-          <p><a href="#" class="btn btn-success btn-hover-white py-3 px-5">Read The Full Story</a></p>
-        </div>
-        
       </div>
-    </div> -->
-
-  <!-- </div>  -->
-  <!-- .featured-donate -->
-
-  <!-- <div class="site-section bg-light">
-    <div class="container">
-      <div class="row mb-5">
-        <div class="col-md-12">
-          <h2>Latest News</h2>
-        </div>
       </div>
-
-      <div class="row">
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
-          <div class="post-entry">
-            <a href="#" class="mb-3 img-wrap">
-              <img src="{% static 'images/img_4.jpg' %}" alt="Image placeholder" class="img-fluid">
-            </a>
-            <h3><a href="#">Be A Volunteer Today</a></h3>
-            <span class="date mb-4 d-block text-muted">July 26, 2018</span>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-            <p><a href="#" class="link-underline">Read More</a></p>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
-          <div class="post-entry">
-            <a href="#" class="mb-3 img-wrap">
-              <img src="{% static 'images/img_5.jpg' %}" alt="Image placeholder" class="img-fluid">
-            </a>
-            <h3><a href="#">You May Save The Life of A Child</a></h3>
-            <span class="date mb-4 d-block text-muted">July 26, 2018</span>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-            <p><a href="#" class="link-underline">Read More</a></p>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
-          <div class="post-entry">
-            <a href="#" class="mb-3 img-wrap">
-              <img src="{% static 'images/img_6.jpg' %}" alt="Image placeholder" class="img-fluid">
-            </a>
-            <h3><a href="#">Children That Needs Care</a></h3>
-            <span class="date mb-4 d-block text-muted">July 26, 2018</span>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-            <p><a href="#" class="link-underline">Read More</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>  -->
-  <!-- .section -->
 
 {% endblock %}
