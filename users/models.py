@@ -1,3 +1,6 @@
+from email.policy import default
+from pyexpat import model
+from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
@@ -15,6 +18,7 @@ class StartYoungUKUser(models.Model):
     crn_no = models.CharField(default='00000000', max_length=8, validators=[MinLengthValidator(limit_value=8)])
     user_type = models.CharField(max_length=10, choices=[('I', 'Individual'), ('C', 'Corporate')], null=False)
     is_verified = models.BooleanField(default=False)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
     def __str__(self):
-        return f"{self.email}"
+        return f"{self.email}"        

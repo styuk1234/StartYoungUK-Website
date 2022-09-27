@@ -52,7 +52,7 @@ def captcha_login(request):
             )
             if user is not None:
                 login(request, user)
-                return redirect("sponsor")
+                return redirect("userhome")
 
         else:
             for key, error in list(form.errors.items()):
@@ -75,3 +75,7 @@ def captcha_logout(request):
     logout(request)
     messages.success(request, "You have been logged out successfully!")
     return redirect("login")
+
+@login_required
+def userhome(request):
+    return render(request, 'userhome.html')

@@ -28,25 +28,11 @@
 {% endblock header %}
 
 {% block content %}
-
-<li class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
-<!-- <li class="nav-item"><a href="how-it-works.html" class="nav-link">How It Works</a></li> -->
-<li class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Sponsor</a></li>
-{% if user.is_authenticated %}
-<li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
-{% else %}
-<li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li>
-{% endif %}
-<li class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
-<li class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Contact</a></li>
-</ul>
-</div>
-</div>
-</nav>
-
-
-    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
-        <div class="wrapper wrapper--w960">
+<script>
+    document.getElementById('nav-userhome').classList.add('active');
+</script>
+    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo" style="background-color:grey ;">
+        <!-- <div class="wrapper wrapper--w960"> -->
                 {% if messages %}
                 {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
@@ -54,29 +40,36 @@
                 </div>
                 {% endfor %}
             {% endif %}
-            <div class="card card-2">
+            <!-- <div class="card card-2"> -->
                 <div class="card-heading"></div>
                 <div class="card-body">
                     
-                    <h2 class="title">Start Young UK : Login Page</h2>
-                    {% load crispy_forms_tags %}
-                    <form method="POST" class="post-form">
-                        {% csrf_token %}
-                        <fieldset class="form-group">
-                            {{ form|crispy }}
-                        </fieldset>
-                        <div class="form-group">
-                            <button class="login-btn btn btn-primary" type="submit">Login</button>
-                        </div>
-                            
-                    </form>
-                    <div class="border-top pt-3">
-                        <small class="text-muted">Don't have an account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a></small>
-                    </div>
+                    <h2 class="title">Hi {{user.username}}<br>
+                    You are signed up as 
+                    {% if user.startyoungukuser.user_type in "I" %}
+                    Individual
+                    {% else %}
+                    Corporate
+                    {% endif %}
+                    <br>
+                    What would you like to do today?</h2>
+                    
+                <!-- </div> -->
+            </div>
+            <div class="row">
+                <div>
+                    {% if user.startyoungukuser.user_type in "I" %}
+                    <button>Mentor A Child</button>
+                    {% else %}
+                    <button>Start a Campaign</button>
+                    {% endif %}
+                    <button>Monetary Donation</button>
+                    <button>Donate in Kind</button>
+                    <button>Systematic Donation Plan</button>
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 
     <!-- Jquery JS-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>

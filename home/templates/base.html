@@ -45,6 +45,24 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav ml-auto">
 
+            <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
+            <!-- <li class="nav-item"><a href="how-it-works.html" class="nav-link">How It Works</a></li> -->
+            <li id="nav-donate" class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Donate</a></li>
+            {% if user.is_authenticated %}
+            <li id="nav-userhome" class="nav-item"><a href="{% url 'userhome' %}" class="nav-link">{{user.username}}</a></li>
+            <li id="nav-logout" class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+            {% else %}
+            <li id="nav-login" class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+            <li id="nav-register" class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li>
+            {% endif %}
+            <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
+            <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
   {% block content %}
 
   {% if messages%}
