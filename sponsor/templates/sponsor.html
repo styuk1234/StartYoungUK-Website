@@ -45,6 +45,30 @@
     </div>
   </div> <!-- .section -->
 
+  <div class="site-section fund-raisers">
+    <div class="container">
+      <div class="row mb-3 justify-content-center">
+        <div class="col-md-8 text-center">
+          <h2>Donate in Kind</h2>
+          <p class="lead">Donation is not all about money. You can donate in whatever way you can. Eg. books, clothes, your time with kids, food</p>
+          <p class="mb-5"><a href="#" class="link-underline">View All Donations</a></p>
+        </div>
+        </div>
+        {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+        <input style="text-align: center;"><button style="max-width: 300px;" data-toggle="modal" data-target="#donate-form" class="btn btn-white px-3 py-2">Click here to Donate</button></p>
+
+      <div class="row">
+        
+      </div>
+    </div>
+  </div>
+
   <div class="modal fade" id="donate-form" tabindex="-1" role="dialog" aria-labelledby="donateModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
