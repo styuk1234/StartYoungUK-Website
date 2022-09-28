@@ -97,3 +97,8 @@ def sdp(request):
 @login_required
 def mentor(request):
     return render(request, 'mentor.html')
+
+def count(request):
+    cnt_buddy = len(Mentor.objects.all())
+    cnt_child = len(Child.objects.all())
+    return render(request, 'home.html', {'cnt_buddy': cnt_buddy, 'cnt_child': cnt_child})

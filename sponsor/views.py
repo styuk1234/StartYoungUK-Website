@@ -16,7 +16,8 @@ def sponsor(request):
             print('invalid')
             messages.error(request, 'Invalid Form')
 
-    form = DonationForm()
+    form = DonationForm() 
+    #cnt_sponsor = len(User.objects.all())
     return render(request, 'sponsor.html', {'form':form})
 
 def sendthankyoumail(email_id):
