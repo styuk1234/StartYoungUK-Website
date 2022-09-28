@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import UserRegisterForm, UserLoginForm
 from django.contrib import messages
-from users.models import StartYoungUKUser
+from users.models import StartYoungUKUser, Mentor, Child
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required

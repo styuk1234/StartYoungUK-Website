@@ -33,6 +33,7 @@ class Child(models.Model):
     hobbies = models.CharField(max_length=10,default="0000000000")
     mentor = models.PositiveIntegerField(null=True)
     date = models.DateTimeField(auto_created=True)
+    
     def __str__(self):
         return f"{self.child_id}"   
 
@@ -44,6 +45,6 @@ class Mentor(models.Model):
     date = models.DateTimeField(auto_created=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     occupation = models.CharField(max_length=20, null=False)
+    
     def __str__(self):
-        return f"{self.mentor_id}"   
-
+        return f"{self.mentor_id}"
