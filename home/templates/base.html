@@ -65,6 +65,79 @@
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
+/* body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;} */
+
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+  background-color: green;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 100px;
+  z-index: 1;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 200px;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
     </style>
   </head>
   {% block header %}
@@ -82,15 +155,18 @@
           <ul class="navbar-nav ml-auto">
 
             <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
-            <!-- <li class="nav-item"><a href="how-it-works.html" class="nav-link">How It Works</a></li> -->
+            <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}#campaigns" class="nav-link">Campaigns</a></li>
+            <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
             <li id="nav-donate" class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Donate</a></li>
+            <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">The Buddy System</a></li>  
+            <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Contact</a></li>
             {% if user.is_authenticated %}
             <div class="dropdown">
             <li id="nav-userhome" class="nav-item"><a href="{% url 'userhome' %}" class="nav-link">{{user.username}}</a></li>
             <div class="dropdown-content">
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
+              <a href="{% url 'profile' %}">Update Profile</a>
+              <a href="{% url 'sdp' %}">Systematic Donation Plan</a>
+              <a href="{% url 'mentor' %}">Mentor a Child</a>
             </div>
             </div>
             <li id="nav-logout" class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
@@ -98,8 +174,6 @@
             <li id="nav-login" class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
             <li id="nav-register" class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li>
             {% endif %}
-            <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
-            <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -210,6 +284,31 @@
       </div>
     </div>
   </footer>
+  <button class="open-button" onclick="openForm()">ChatBot Support</button>
+
+  <div class="chat-popup" id="myChat">
+    <form class="form-container">
+      <!-- <h1>Chat</h1> -->
+      <iframe src="https://web.powerva.microsoft.com/environments/Default-364cf7f1-1376-4387-9baf-d7a322fc4a98/bots/new_bot_fb8ed8dd7acd48968baea220109ea72c/webchat" frameborder="0" style="width: 300px; height: 400px;"></iframe>
+  
+      <!-- <label for="msg"><b>Message</b></label>
+      <textarea placeholder="Type message.." name="msg" required></textarea>
+  
+      <button type="submit" class="btn">Send</button> -->
+      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+  </div>
+  
+  <script>
+  function openForm() {
+    document.getElementById("myChat").style.display = "block";
+  }
+  
+  function closeForm() {
+    document.getElementById("myChat").style.display = "none";
+  }
+  </script>
+  
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>

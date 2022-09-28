@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .decorators import user_not_authenticated
 from verify_email.email_handler import send_verification_email
 
+
 # Create your views here.
 
 @user_not_authenticated
@@ -26,7 +27,8 @@ def register(request):
             syuk_user.user_type = form.cleaned_data.get('user_type')
             syuk_user.crn_no = form.cleaned_data.get('crn_no')
             syuk_user.save()
-            messages.success(request,f'Account created successfully for {username}! Check email to complete verification.')
+            messages.success(request,
+                             f'Account created successfully for {username}! Check email to complete verification.')
             inactive_user = send_verification_email(request, form)
             return redirect('login')
         else:
@@ -39,7 +41,8 @@ def register(request):
     else:
         form = UserRegisterForm()
 
-    return render(request, 'users/register.html', {'form':form})
+    return render(request, 'users/register.html', {'form': form})
+
 
 @user_not_authenticated
 def captcha_login(request):
@@ -68,7 +71,8 @@ def captcha_login(request):
         request=request,
         template_name="users/login.html",
         context={"form": form}
-        )
+    )
+
 
 @login_required
 def captcha_logout(request):
@@ -76,9 +80,37 @@ def captcha_logout(request):
     messages.success(request, "You have been logged out successfully!")
     return redirect("login")
 
+
 @login_required
 def userhome(request):
     return render(request, 'userhome.html')
+
+
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
+
+
+# def donate_money(request):
+#     return redirect('donate')
+
+# def donate_kind(request):
+#     return redirect('donate')
+
+@login_required
+def sdp(request):
+    return render(request, 'sdp.html')
+
+
+@login_required
+def mentor(request):
+    return render(request, 'mentor.html')
+
+
+def count(request):
+    cnt_buddy = len(Mentor.objects.all())
+    cnt_child = len(Child.objects.all())
+    return render(request, 'home.html', {'cnt_buddy': cnt_buddy, 'cnt_child': cnt_child})
 
 
 @login_required

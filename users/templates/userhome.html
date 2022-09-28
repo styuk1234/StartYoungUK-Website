@@ -46,7 +46,7 @@
                     
                     <h2 class="title">Hi {{user.username}}<br>
                     You are signed up as 
-                    {% if user.startyoungukuser.user_type in "I" %}
+                    {% if user.startyoungukuser.user_type == "I" %}
                     Individual
                     {% else %}
                     Corporate
@@ -58,15 +58,15 @@
             </div>
             <div class="row">
                 <div>
-                    {% if user.startyoungukuser.user_type in "I" %}
-                    <button>Mentor A Child</button>
+                    {% if user.startyoungukuser.user_type == "I" %}
+                    <a href="{% url 'mentor' %}"><button>Mentor A Child</button></a>
                     {% else %}
                     <button>Start a Campaign</button>
                     {% endif %}
-                    <button>Monetary Donation</button>
-                    <button>Donate in Kind</button>
-                    <button onclick="">Systematic Donation Plan</button>
-                    <button onclick="">Update Profile</button>
+                    <!-- <a href="{% url 'mentor' %}"></a><button>Monetary Donation</button> -->
+                    <!-- <button>Donate in Kind</button> -->
+                    <a href="{% url 'sdp' %}"><button>Systematic Donation Plan</button></a>
+                    <a href="{% url 'profile' %}"><button>Update Profile</button></a>
                 </div>
             </div>
         </div>

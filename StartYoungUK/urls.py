@@ -36,4 +36,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('sponsor/', include('sponsor.urls')),
     path('verification/', include('verify_email.urls')),
+    path('buddy/', home_views.buddysystem, name="buddy-system"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

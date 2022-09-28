@@ -1,4 +1,5 @@
 from xml.dom import ValidationErr
+from xmlrpc.client import Boolean
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -69,20 +70,22 @@ class UserRegisterForm(UserCreationForm):
 
         try:
             # Check if CRN exists and is non-default
-            StartYoungUKUser.objects.get(crn_no=crn_no) and bool(crn_no)
-
-        except StartYoungUKUser.DoesNotExist:
+            StartYoungUKUser.objects.get(crn_no=crn_no) and crn_no != ""
             if user_type == 'C' and not crn_no:
                 # If user is corporate type but has not entered CRN, prompt validation error
+                print("in except 1")
                 raise ValidationError(
                     "Since you've chosen corporate user, please enter your CRN for validation."
                 )
-            elif user_type == 'I' and crn_no:
+            elif user_type == 'I':
                 # Individual user might have put something by mistake in CRN field, so just get rid of it
                 # when entering it into the database
                 self.cleaned_data['crn_no'] = '00000000'
+                print("in except 2")
+                return "00000000"
 
-            return self.cleaned_data['crn_no']
+        except StartYoungUKUser.DoesNotExist:
+            return crn_no
 
         raise forms.ValidationError("This CRN is already registered.")
 
@@ -101,6 +104,20 @@ class UserLoginForm(AuthenticationForm):
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
 
+class MentorRegistrationForm(forms.Form):
+    painting = forms.BooleanField()
+    football = forms.BooleanField()
+    reading = forms.BooleanField()
+    dancing = forms.BooleanField()
+    singing = forms.BooleanField()
+    cooking = forms.BooleanField()
+    cricket = forms.BooleanField()
+    arts_and_crafts = forms.BooleanField()
+    adventure = forms.BooleanField()
+    writing = forms.BooleanField()
+    occupation = forms.CharField(max_length=20)
+
+
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = User
@@ -112,7 +129,6 @@ class UpdateUserForm(forms.ModelForm):
 
     display_name = forms.CharField(required=True)
     user_type = forms.ChoiceField(choices=(('I', 'Individual'), ('C', 'Corporate')), required=True)
-
 
     # email = forms.EmailField(required=True)
     phone_number = PhoneNumberField(
@@ -181,4 +197,3 @@ class UpdateUserForm(forms.ModelForm):
             return self.cleaned_data['crn_no']
 
         raise forms.ValidationError("This CRN is already registered.")
-

@@ -1,6 +1,6 @@
-from email.policy import default
 from pyexpat import model
-from tkinter import CASCADE
+from sqlite3 import Timestamp
+from statistics import mode
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
@@ -21,4 +21,29 @@ class StartYoungUKUser(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
     def __str__(self):
-        return f"{self.email}"        
+        return f"{self.email}"
+
+class Child(models.Model):
+    child_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50, null=False)
+    age = models.PositiveIntegerField(null=False)
+    gender = models.CharField(max_length=10, choices=[('M', 'Female'), ('F', 'Female'), ('O', 'Others')], null=False)
+    class_std = models.CharField(max_length=10, null=False)
+    school = models.CharField(max_length=50, null=False)
+    hobbies = models.CharField(max_length=10,default="0000000000")
+    mentor = models.PositiveIntegerField(null=True)
+    date = models.DateTimeField(auto_created=True)
+    def __str__(self):
+        return f"{self.child_id}"   
+
+
+class Mentor(models.Model):
+    mentor_id=models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50, null=False)
+    hobbies = models.CharField(max_length=10,default="0000000000")
+    date = models.DateTimeField(auto_created=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    occupation = models.CharField(max_length=20, null=False)
+    def __str__(self):
+        return f"{self.mentor_id}"   
+
