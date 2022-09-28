@@ -618,6 +618,9 @@ textarea.form-control {
 .border-top {
   border-top: 1px solid #f2f2f2 !important; }
 
+.bg-yellow {
+    background: #faebd7; }
+
 .ftco-bg-dark {
   background: #3c312e; }
 

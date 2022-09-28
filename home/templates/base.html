@@ -70,16 +70,17 @@
 
 /* Button used to open the chat form - fixed at the bottom of the page */
 .open-button {
-  background-color: green;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-  position: fixed;
-  bottom: 23px;
-  right: 28px;
-  width: 100px;
+    background-color: rgb(11, 85, 106);
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    width: 100px;
+    z-index: 1;
 }
 
 /* The popup chat - hidden by default */
@@ -154,6 +155,7 @@
           <ul class="navbar-nav ml-auto">
 
             <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
+            <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}#campaigns" class="nav-link">Campaigns</a></li>
             <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
             <li id="nav-donate" class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Donate</a></li>
             <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">The Buddy System</a></li>  
@@ -282,7 +284,7 @@
       </div>
     </div>
   </footer>
-  <button class="open-button" onclick="openForm()">Chat</button>
+  <button class="open-button" onclick="openForm()">Young AI Chatbot</button>
 
   <div class="chat-popup" id="myChat">
     <form class="form-container">

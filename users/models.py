@@ -21,7 +21,7 @@ class StartYoungUKUser(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
     def __str__(self):
-        return f"{self.email}"   
+        return f"{self.email}"
 
 class Child(models.Model):
     child_id = models.AutoField(primary_key=True)
