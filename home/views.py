@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from sponsor.models import Donation
 from django.core.serializers import serialize
 import json
@@ -8,3 +8,6 @@ def home(request):
     serial_donation= json.loads(serialize('json', top_donation))
     # print(serial_donation[1]['fields']['name'])
     return render(request, 'home.html', {'top_donations':serial_donation})
+
+def buddysystem(request):
+    return render (request, 'buddy.html')

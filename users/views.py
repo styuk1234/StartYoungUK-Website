@@ -79,3 +79,21 @@ def captcha_logout(request):
 @login_required
 def userhome(request):
     return render(request, 'userhome.html')
+
+@login_required
+def profile(request):
+    return render(request, 'profile.html')
+
+# def donate_money(request):
+#     return redirect('donate')
+
+# def donate_kind(request):
+#     return redirect('donate')
+
+@login_required
+def sdp(request):
+    return render(request, 'sdp.html')
+
+@login_required
+def mentor(request):
+    return render(request, 'mentor.html')
