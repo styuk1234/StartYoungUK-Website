@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from django.shortcuts import render, redirect
 from .forms import SDPForm, UserRegisterForm, UserLoginForm, UpdateUserForm, MentorRegistrationForm
 from django.contrib import messages
@@ -153,7 +152,7 @@ def mentor(request):
     for x in best_match_child:
         if(x != -1):
             childx=Child.objects.get(child_id=x)
-            if(childx.mentor==NULL):
+            if(childx.mentor__isnull == True):
                 recommended_child.append()
     return render(request, 'mentor.html', {'form':form, 'recommended_child':recommended_child})
 
