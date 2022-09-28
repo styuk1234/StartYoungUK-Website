@@ -2,8 +2,53 @@
 {% load static %}
 {% block content %}
 
+<div class="site-section fund-raisers">
+    <div class="container">
+      <div class="row mb-3 justify-content-center">
+        <div class="col-md-8 text-center">
+          <h2>Please enter below details so that we can better match you with child</h2>
+        </div>
+        </div>
+        {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% load crispy_forms_tags %}
+<form method="POST" class="post-form">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+        <button class="signup-btn btn btn-primary" type="submit">Save</button>
+    </div>                           
+</form>
 <div>
-    <h1></h1>
+    <h1>Recommended Child profiles</h1>
+    <div class="row">
+      {% for entry in recommended_child %}
+      <div class="col-md-6 col-lg-4 mb-5">
+          <div class="card text-center">
+              <!-- <img src="{% static 'images/person_3.jpg' %}" alt="Image placeholder" class="img-fluid"> -->
+              <div class="donate-info">
+                  <h2>{{entry.name}}</h2>
+                  <!-- <span class="time d-block mb-3">Donated Just now</span> -->
+                  <p>
+                      <!-- Donated <span class="text-success">${{entry.fields.amount}}</span> -->
+                      <!-- <br>  -->
+                      <!-- <em>for</em> <a href="#" class="link-underline fundraise-item">Water Is Life. Clean Water In Urban Area</a> -->
+                  </p>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
 </div>
+
+    </div>
+  </div>
 
 {% endblock %}

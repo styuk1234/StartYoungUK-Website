@@ -1,3 +1,5 @@
+from math import fabs
+import re
 from xml.dom import ValidationErr
 from xmlrpc.client import Boolean
 from django import forms
@@ -106,14 +108,14 @@ class UserLoginForm(AuthenticationForm):
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
 class MentorRegistrationForm(forms.Form):
-    painting=forms.BooleanField()
-    football=forms.BooleanField()
-    reading=forms.BooleanField()
-    dancing=forms.BooleanField()
-    singing=forms.BooleanField()
-    cooking=forms.BooleanField()
-    cricket=forms.BooleanField()
-    arts_and_crafts=forms.BooleanField()
-    adventure=forms.BooleanField()
-    writing=forms.BooleanField()
+    painting=forms.BooleanField(required=False)
+    football=forms.BooleanField(required=False)
+    reading=forms.BooleanField(required=False)
+    dancing=forms.BooleanField(required=False)
+    singing=forms.BooleanField(required=False)
+    cooking=forms.BooleanField(required=False)
+    cricket=forms.BooleanField(required=False)
+    arts_and_crafts=forms.BooleanField(required=False)
+    adventure=forms.BooleanField(required=False)
+    writing=forms.BooleanField(required=False)
     occupation=forms.CharField(max_length=20)

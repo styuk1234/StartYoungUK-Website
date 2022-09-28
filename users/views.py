@@ -1,7 +1,8 @@
+from asyncio.windows_events import NULL
 from django.shortcuts import render,redirect
-from .forms import UserRegisterForm, UserLoginForm
+from .forms import UserRegisterForm, UserLoginForm, MentorRegistrationForm
 from django.contrib import messages
-from users.models import StartYoungUKUser
+from users.models import Child, Mentor, StartYoungUKUser
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -96,4 +97,48 @@ def sdp(request):
 
 @login_required
 def mentor(request):
-    return render(request, 'mentor.html')
+    if(request.method=='POST'):
+        form = MentorRegistrationForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            bitmap=""
+            hobbies=['painting','football','reading','dancing','singing','cooking','cricket','arts_and_crafts','adventure','writing']
+            form = form.cleaned_data
+            for i in range(10):
+                if(form.get(hobbies[i])==True):
+                    bitmap+="1"
+                else:
+                    bitmap+="0"
+            # print(request.user.username)
+            # print(User.objects.get(username=request.user.username))
+            # mentor.name=StartYoungUKUser.display_name
+            try:
+                mentor = Mentor.objects.get(user=request.user)
+            except Mentor.DoesNotExist:
+                mentor = Mentor()
+            mentor.hobbies=bitmap   
+            mentor.occupation=form.get('occupation')
+            mentor.user=User.objects.get(username=request.user.username)
+            mentor.save()
+            messages.success(request,f'Mentor profile updated successfully! Please see recommended child profiles.')
+    best_match_score=[0,0,0]
+    best_match_child=[-1,-1,-1]
+    for child in Child.objects.all():
+        scr=bin(int(child.hobbies,2) & int(request.user.mentor.hobbies,2)).count("1")
+        if scr>best_match_score[0]:
+            best_match_score[0]=scr
+            best_match_child[0]=child.child_id
+        elif scr> best_match_score[1]:
+            best_match_score[1]=scr
+            best_match_child[1]=child.child_id
+        elif scr> best_match_score[2]:
+            best_match_score[2]=scr
+            best_match_child[2]=child.child_id
+    recommended_child=[]
+    for x in best_match_child:
+        if(x != -1):
+            childx=Child.objects.get(child_id=x)
+            if(childx.mentor==NULL):
+                recommended_child.append()
+    form = MentorRegistrationForm()
+    return render(request, 'mentor.html', {'form':form, 'recommended_child':recommended_child})
