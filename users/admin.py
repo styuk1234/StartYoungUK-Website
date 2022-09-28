@@ -1,6 +1,5 @@
 from django.contrib import admin
-from users.models import Child, Mentor, StartYoungUKUser
-from users.views import mentor
+from users.models import StartYoungUKUser, Mentor, Child
 
 # Register your models here.
 
