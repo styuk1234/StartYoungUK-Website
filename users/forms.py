@@ -1,4 +1,5 @@
 from xml.dom import ValidationErr
+from xmlrpc.client import Boolean
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -103,3 +104,16 @@ class UserLoginForm(AuthenticationForm):
         attrs={'class': 'form-control', 'placeholder': 'Password'}))
 
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+
+class MentorRegistrationForm(forms.Form):
+    painting=forms.BooleanField()
+    football=forms.BooleanField()
+    reading=forms.BooleanField()
+    dancing=forms.BooleanField()
+    singing=forms.BooleanField()
+    cooking=forms.BooleanField()
+    cricket=forms.BooleanField()
+    arts_and_crafts=forms.BooleanField()
+    adventure=forms.BooleanField()
+    writing=forms.BooleanField()
+    occupation=forms.CharField(max_length=20)
