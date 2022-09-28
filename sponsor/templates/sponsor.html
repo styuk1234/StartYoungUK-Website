@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div class="site-section fund-raisers">
+  <div class="site-section fund-raisers" id="donate-money">
     <div class="container">
       <div class="row mb-3 justify-content-center">
         <div class="col-md-8 text-center">
@@ -45,13 +45,13 @@
     </div>
   </div> <!-- .section -->
 
-  <div class="site-section fund-raisers">
+  <div class="site-section fund-raisers" id="donate-in-kind">
     <div class="container">
       <div class="row mb-3 justify-content-center">
         <div class="col-md-8 text-center">
           <h2>Donate in Kind</h2>
           <p class="lead">Donation is not all about money. You can donate in whatever way you can. Eg. books, clothes, your time with kids, food</p>
-          <p class="mb-5"><a href="#" class="link-underline">View All Donations</a></p>
+          <!-- <p class="mb-5"><a href="#" class="link-underline">View All Donations</a></p> -->
         </div>
         </div>
         {% if messages %}
@@ -61,7 +61,8 @@
     {% endfor %}
 </ul>
 {% endif %}
-        <input style="text-align: center;"><button style="max-width: 300px;" data-toggle="modal" data-target="#donate-form" class="btn btn-white px-3 py-2">Click here to Donate</button></p>
+        <textarea placeholder="Input your comments here"></textarea>
+        <button>Submit</button>
 
       <div class="row">
         
