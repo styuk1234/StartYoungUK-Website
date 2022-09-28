@@ -106,19 +106,20 @@
 
         <div class="col-md-12 block-11">
             <div class="nonloop-block-11 owl-carousel">
-
+            {% for campaign, collected_so_far in campaigns_zip %}
                 <div class="card fundraise-item">
-                    <a href="#"><img class="card-img-top" src="{% static 'images/img_1.jpg' %}" alt="Image placeholder"></a>
+                    <a href="#"><img class="card-img-top" src="{{ campaign.campaign_image.url  }}" alt="Image placeholder"></a>
                     <div class="card-body">
-                        <h3 class="card-title"><a href="#">Christmas Gifting</a></h3>
-                        <p class="card-text">Some text</p>
+                        <h3 class="card-title"><a href="#">{{ campaign.campaign_title }}</a></h3>
+                        <p class="card-text">{{ campaign.campaign_description }}</p>
                         <span class="donation-time mb-3 d-block">Last donation 1w ago</span>
                         <div class="progress custom-progress-success">
                             <div class="progress-bar bg-primary" role="progressbar" style="width: 28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <span class="fund-raised d-block">$12,000 raised of $30,000</span>
+                        <span class="fund-raised d-block">${{ collected_so_far }} raised of ${{ campaign.collection_target }}</span>
                     </div>
                 </div>
+                {% endfor %}
 
                 <div class="card fundraise-item">
                     <a href="#"><img class="card-img-top" src="{% static 'images/img_3.jpg' %}" alt="Image placeholder"></a>
