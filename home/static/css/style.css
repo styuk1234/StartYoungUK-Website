@@ -495,7 +495,7 @@ textarea.form-control {
     text-transform: uppercase;
     letter-spacing: .2em; }
   .featured-donate .donation-time, .featured-section .donation-time {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(0, 0, 0, 0.7);
     display: block;
     font-style: italic;
     font-size: 15px; }
@@ -598,7 +598,7 @@ textarea.form-control {
     .fundraise-item a:hover {
       color: #f7ca44; }
   .fundraise-item .donation-time {
-    color: #ccc;
+    color: #000;
     display: block;
     font-style: italic;
     font-size: 15px; }

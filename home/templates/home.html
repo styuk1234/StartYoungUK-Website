@@ -95,7 +95,7 @@
             <div class="col-md-8 text-center">
                 <h2>Latest Campaigns</h2>
                 <!-- <p class="lead">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                <p><a href="#" class="link-underline">View All Campaigns</a></p>
+                <!--<p><a href="#" class="link-underline">View All Campaigns</a></p>-->
             </div>
         </div>
     </div>
@@ -112,7 +112,7 @@
                     <div class="card-body">
                         <h3 class="card-title"><a href="#">{{ campaign.campaign_title }}</a></h3>
                         <p class="card-text">{{ campaign.campaign_description }}</p>
-                        <span class="donation-time mb-3 d-block">Last donation 1w ago</span>
+                        <span class="donation-time mb-3 d-block">Campaign Deadline: {{ campaign.campaign_deadline }}</span>
                         <div class="form-group">
                             <button class="login-btn btn btn-primary" type="submit">Donate</button>
                         </div>
@@ -123,45 +123,6 @@
                     </div>
                 </div>
                 {% endfor %}
-
-                <div class="card fundraise-item">
-                    <a href="#"><img class="card-img-top" src="{% static 'images/img_3.jpg' %}" alt="Image placeholder"></a>
-                    <div class="card-body">
-                        <h3 class="card-title"><a href="#">Children Needs Education</a></h3>
-                        <p class="card-text">Some text</p>
-                        <span class="donation-time mb-3 d-block">Last donation 1w ago</span>
-                        <div class="progress custom-progress-success">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <span class="fund-raised d-block">$12,000 raised of $30,000</span>
-                    </div>
-                </div>
-
-                <div class="card fundraise-item">
-                    <a href="#"><img class="card-img-top" src="{% static 'images/img_6.jpg' %}" alt="Image placeholder"></a>
-                    <div class="card-body">
-                        <h3 class="card-title"><a href="#">Voluteer </a></h3>
-                        <p class="card-text">Some text</p>
-                        <span class="donation-time mb-3 d-block">Last donation 1w ago</span>
-                        <div class="progress custom-progress-success">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <span class="fund-raised d-block">$12,000 raised of $30,000</span>
-                    </div>
-                </div>
-
-                <div class="card fundraise-item">
-                    <a href="#"><img class="card-img-top" src="{% static 'images/img_3.jpg' %}" alt="Image placeholder"></a>
-                    <div class="card-body">
-                        <h3 class="card-title"><a href="#">Children Needs Food</a></h3>
-                        <p class="card-text">Some text</p>
-                        <span class="donation-time mb-3 d-block">Last donation 1w ago</span>
-                        <div class="progress custom-progress-success">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <span class="fund-raised d-block">$12,000 raised of $30,000</span>
-                    </div>
-                </div>
 
             </div>
         </div>
