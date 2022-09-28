@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegisterForm, UserLoginForm, UpdateUserForm
+from .forms import SDPForm, UserRegisterForm, UserLoginForm, UpdateUserForm, MentorRegistrationForm
 from django.contrib import messages
 from users.models import StartYoungUKUser, Mentor, Child
 from django.contrib.auth.models import User
@@ -99,11 +99,18 @@ def profile(request):
 
 @login_required
 def sdp(request):
-    return render(request, 'sdp.html')
+    form=SDPForm()
+    if request.method=='POST':
+        form = SDPForm(request.POST)
+        if form.is_valid():
+            messages.success(request,
+                             f'You have successfully subscribed to Systematic Donatino Plan.')
+    return render(request, 'sdp.html', {'form':form})
 
 
 @login_required
 def mentor(request):
+    form = MentorRegistrationForm()
     if(request.method=='POST'):
         form = MentorRegistrationForm(request.POST)
         if form.is_valid():
@@ -147,7 +154,6 @@ def mentor(request):
             childx=Child.objects.get(child_id=x)
             if(childx.mentor==NULL):
                 recommended_child.append()
-    form = MentorRegistrationForm()
     return render(request, 'mentor.html', {'form':form, 'recommended_child':recommended_child})
 
 

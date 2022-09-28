@@ -2,6 +2,29 @@
 {% load static %}
 {% block content %}
 
+<div>
+    <h1>Systematic Donation Plan (SDP)</h1>
+    <h2>Return on investment would be continued returns in the form of smile on child's face.</h2>
+</div>
 
+{% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+
+{% load crispy_forms_tags %}
+<form method="POST" class="post-form">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+        <button class="signup-btn btn btn-primary" type="submit">Start SDP</button>
+    </div>                           
+</form>
+        
 
 {% endblock %}

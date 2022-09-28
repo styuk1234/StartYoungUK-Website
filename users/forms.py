@@ -198,3 +198,8 @@ class UpdateUserForm(forms.ModelForm):
             return self.cleaned_data['crn_no']
 
         raise forms.ValidationError("This CRN is already registered.")
+
+class SDPForm(forms.Form):
+    amount=forms.IntegerField(required=True)
+    frequency=forms.ChoiceField(required=True,choices=(('W', 'Weekly'), ('F', '15-days'), ('M', 'Monthly'), ('Q', 'Quaterly')))
+    
