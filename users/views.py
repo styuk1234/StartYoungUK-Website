@@ -154,7 +154,7 @@ def mentor(request):
         if(x != -1):
             childx=Child.objects.get(child_id=x)
             if(childx.mentor==NULL):
-                recommended_child.append()
+                recommended_child.append(childx)
     return render(request, 'mentor.html', {'form':form, 'recommended_child':recommended_child})
 
 
