@@ -1,5 +1,5 @@
-from django.shortcuts import render,redirect
-from .forms import UserRegisterForm, UserLoginForm
+from django.shortcuts import render, redirect
+from .forms import UserRegisterForm, UserLoginForm, UpdateUserForm
 from django.contrib import messages
 from users.models import StartYoungUKUser
 from django.contrib.auth.models import User
@@ -34,11 +34,11 @@ def register(request):
                 if key == 'captcha' and error[0] == 'This field is required.':
                     messages.error(request, "You must pass the reCAPTCHA test to register.")
                     continue
-                
-                messages.error(request, error) 
+
+                messages.error(request, error)
     else:
         form = UserRegisterForm()
-        
+
     return render(request, 'users/register.html', {'form':form})
 
 @user_not_authenticated
@@ -59,8 +59,8 @@ def captcha_login(request):
                 if key == 'captcha' and error[0] == 'This field is required.':
                     messages.error(request, "You must pass the reCAPTCHA test to login.")
                     continue
-   
-                messages.error(request, error) 
+
+                messages.error(request, error)
     else:
         form = UserLoginForm()
 
@@ -79,3 +79,38 @@ def captcha_logout(request):
 @login_required
 def userhome(request):
     return render(request, 'userhome.html')
+
+
+@login_required
+def profile(request):
+    current_user = request.user
+    print(current_user.email)
+    if request.method == 'POST':
+        form = UpdateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            syuk_user = StartYoungUKUser()
+            syuk_user.user = User.objects.get(email=form.cleaned_data['email'])
+            syuk_user.display_name = form.cleaned_data.get('display_name')
+            syuk_user.phone_number = form.cleaned_data.get('phone_number')
+            syuk_user.email = form.cleaned_data.get('email')
+            syuk_user.address = form.cleaned_data.get('address')
+            syuk_user.user_type = form.cleaned_data.get('user_type')
+            syuk_user.crn_no = form.cleaned_data.get('crn_no')
+            syuk_user.save()
+            messages.success(request,
+                             f'Account created successfully for {username}! Check email to complete verification.')
+            inactive_user = send_verification_email(request, form)
+            return redirect('login')
+        else:
+            for key, error in list(form.errors.items()):
+                if key == 'captcha' and error[0] == 'This field is required.':
+                    messages.error(request, "You must pass the reCAPTCHA test to register.")
+                    continue
+
+                messages.error(request, error)
+    else:
+        form = UpdateUserForm(instance=request.user)
+
+    return render(request, 'profile.html', {'form': form})
