@@ -161,8 +161,8 @@
             <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">The Buddy System</a></li>  
             <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Contact</a></li>
             {% if user.is_authenticated %}
-            <div class="dropdown" style="margin-top: 22px;">
-            <li id="nav-userhome" class="nav-item"><a href="{% url 'userhome' %}" class="nav-link">{{user.username}}</a></li>
+            <div class="dropdown">
+            <li id="nav-userhome" class="nav-item"><a style="padding-top:28px;" href="{% url 'userhome' %}" class="nav-link">{{user.username}}</a></li>
             <div class="dropdown-content">
               <a href="{% url 'profile' %}">Update Profile</a>
               <a href="{% url 'sdp' %}">Systematic Donation Plan</a>
