@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import SDPForm, UserRegisterForm, UserLoginForm, UpdateUserForm, MentorRegistrationForm
+from home.forms import CampaignForm
+from home.models import Campaign
 from django.contrib import messages
 from users.models import StartYoungUKUser, Mentor, Child
 from django.contrib.auth.models import User
@@ -102,6 +104,37 @@ def sdp(request):
                              f'You have successfully subscribed to Systematic Donatino Plan.')
     return render(request, 'sdp.html', {'form':form})
 
+
+@login_required
+def start_campaign(request):
+    if request.method=='POST':
+        form = CampaignForm(request.POST)
+        print("It's a POST request")
+        if form.is_valid():
+            print("Is Valid?")
+            form.save()
+            '''
+            campaign_obj = Campaign()
+            campaign_obj.campaign_title = form.cleaned_data.get('campaign_title')
+            print(campaign_obj.title)
+            campaign_obj.campaign_description = form.cleaned_data.get('campaign_description')
+            campaign_obj.collection_target = form.cleaned_data.get('collection_target')
+            campaign_obj.campaign_deadline = form.cleaned_data.get('campaign_deadline')
+            campaign_obj.campaign_image = form.cleaned_data.get('campaign_image')
+            
+            campaign_obj.save()
+            '''
+            print("Object saved successfully!")
+            messages.success(request,
+                             f'Thanks for starting a campaign with us, your campaign has been posted successfully!')
+            return redirect('userhome')
+        else:
+            for key, error in list(form.errors.items()):
+                messages.error(request, f'{key}, {error}')
+    else:
+        form = CampaignForm()
+
+    return render(request, 'start_campaign.html', {'form':form})
 
 @login_required
 def mentor(request):

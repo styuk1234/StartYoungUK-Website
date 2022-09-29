@@ -32,7 +32,7 @@
     document.getElementById('nav-userhome').classList.add('active');
 </script>
 
-<div class="site-section fund-raisers" style="padding-top: 150px;background-color: gainsboro;">
+<div class="site-section fund-raisers" style="padding-top: 150px;background-image: url('/static/images/bg_1.jpg');">
     <div class="container">
       <div class="row mb-3 justify-content-center">
         <div class="col-md-8 text-center">
@@ -43,10 +43,34 @@
             {% else %}
             Corporate 
             {% endif %}
-            Sponsor
-            <br>
-            What would you like to do today?</h2>
-            </p>
+            <!-- <div class="card card-2"> -->
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    
+                    <h2 class="title">Hi {{user.username}}<br>
+                    You are signed up as 
+                    {% if user.startyoungukuser.user_type == "I" %}
+                    Individual
+                    {% else %}
+                    Corporate
+                    {% endif %}
+                    <br>
+                    What would you like to do today?</h2>
+                    
+                <!-- </div> -->
+            </div>
+            <div class="row">
+                <div>
+                    {% if user.startyoungukuser.user_type == "I" %}
+                    <a href="{% url 'mentor' %}"><button>Mentor A Child</button></a>
+                    {% else %}
+                    <a href="{%url 'start_campaign' %}"><button>Start a Campaign</button></a>
+                    {% endif %}
+
+                    <a href="{% url 'sdp' %}"><button>Systematic Donation Plan</button></a>
+                    <a href="{% url 'profile' %}"><button>Update Profile</button></a>
+                </div>
+            </div>
         </div>
         </div>
         {% if messages %}

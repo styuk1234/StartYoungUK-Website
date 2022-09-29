@@ -8,4 +8,5 @@ urlpatterns = [
     # path('donate', views.donate, name="donate-money"),
     path('sdp', views.sdp, name="sdp"),
     path('mentor', views.mentor, name="mentor"),
+    path('start_campaign', views.start_campaign, name="start_campaign")
 ]
