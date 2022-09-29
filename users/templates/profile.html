@@ -40,13 +40,13 @@
 
                                 <h2 class="title">Start Young UK : Update Profile Page</h2>
                                 {% load crispy_forms_tags %}
-                      <form method="POST" class="post-form">
+                      <form method="POST" class="post-form" enctype="multipart/form-data">
                         {% csrf_token %}
                         <fieldset class="form-group">
                             {{ form|crispy }}
                         </fieldset>
                         <div class="form-group">
-                            <button class="signup-btn btn btn-primary" type="submit">Profile</button>
+                            <button class="signup-btn btn btn-primary" type="submit">Update Profile</button>
                         </div>
                     </form>
                 </div>

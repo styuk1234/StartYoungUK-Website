@@ -86,11 +86,6 @@ def userhome(request):
     return render(request, 'userhome.html')
 
 
-@login_required
-def profile(request):
-    return render(request, 'profile.html')
-
-
 # def donate_money(request):
 #     return redirect('donate')
 
@@ -152,7 +147,7 @@ def mentor(request):
     for x in best_match_child:
         if(x != -1):
             childx=Child.objects.get(child_id=x)
-            if(childx.mentor__isnull == True):
+            if(childx.mentor__isnull == None):
                 recommended_child.append(childx)
     return render(request, 'mentor.html', {'form':form, 'recommended_child':recommended_child})
 
