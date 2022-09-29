@@ -7,7 +7,7 @@ from users.models import StartYoungUKUser, Mentor, Child
 class StartYoungUKUserAdmin(admin.ModelAdmin):
     admin.site.site_header = 'StartYoungUK Administration'
     admin.site.site_title = ' '
-    admin.site.index_title = ' '
+    admin.site.index_title = 'StartYoungUK Management'
 
     list_display = ("email", "display_name", "user_type", "is_verified", "phone_number")
     list_filter = ("is_verified", "user_type", )
