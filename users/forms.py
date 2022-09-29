@@ -14,6 +14,7 @@ class UserRegisterForm(UserCreationForm):
     display_name = forms.CharField(required=True)
     user_type = forms.ChoiceField(choices=(('I', 'Individual'), ('C', 'Corporate')), required=True)
     email = forms.EmailField(required=True)
+    #accept_tou = forms.BooleanField(required=True, label="I agree to the Terms of Use and Privacy.")
     phone_number = PhoneNumberField(
         widget=PhoneNumberPrefixWidget(
             initial='GB',  # GB works, not UK

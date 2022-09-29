@@ -60,6 +60,9 @@
                         {% csrf_token %}
                         <fieldset class="form-group">
                             {{ form|crispy }}
+                            <div class="border-top pt-3">
+                              <small class="text-muted">By signing up, you're agreeing to our<a class="ml-2" href="https://startyounguk.com/tou">Terms of Use and Privacy.</a></small>
+                          </div>
                         </fieldset>
                         <div class="form-group">
                             <button class="signup-btn btn btn-primary" type="submit">Register</button>
