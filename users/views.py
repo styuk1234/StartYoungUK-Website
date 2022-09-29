@@ -109,7 +109,7 @@ def sdp(request):
 def start_campaign(request):
     if request.method=='POST':
         form = CampaignForm(request.POST)
-        print("Valid POST request")
+        print("It's a POST request")
         if form.is_valid():
             print("Is Valid?")
             form.save()
@@ -128,6 +128,9 @@ def start_campaign(request):
             messages.success(request,
                              f'Thanks for starting a campaign with us, your campaign has been posted successfully!')
             return redirect('userhome')
+        else:
+            for key, error in list(form.errors.items()):
+                messages.error(request, f'{key}, {error}')
     else:
         form = CampaignForm()
 
