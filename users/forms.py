@@ -118,7 +118,7 @@ class MentorRegistrationForm(forms.Form):
 
 class UpdateUserForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = StartYoungUKUser
         fields = ['display_name', 'email', 'phone_number', 'address', 'image', 'captcha']
 
     def __init__(self, *args, **kwargs):
@@ -141,17 +141,6 @@ class UpdateUserForm(forms.ModelForm):
     )
     
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
-
-    def clean_email(self):
-        # Validate unique email
-
-        email = self.cleaned_data["email"]
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(email__iexact=email).count() > 1:
-            raise forms.ValidationError('This email address is already in use. '
-                                        'Please supply a different email address.')
-        else:
-            return email
 
 
 class SDPForm(forms.Form):

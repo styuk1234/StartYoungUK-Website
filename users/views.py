@@ -198,21 +198,22 @@ def profile(request):
     if request.method == 'POST':
         form = UpdateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            syuk_user = StartYoungUKUser()
-            syuk_user.user = User.objects.get(email=form.cleaned_data['email'])
-            syuk_user.display_name = form.cleaned_data.get('display_name')
-            syuk_user.phone_number = form.cleaned_data.get('phone_number')
-            syuk_user.email = form.cleaned_data.get('email')
-            syuk_user.address = form.cleaned_data.get('address')
-            syuk_user.user_type = form.cleaned_data.get('user_type')
-            syuk_user.crn_no = form.cleaned_data.get('crn_no')
-            syuk_user.save()
-            messages.success(request,
-                             f'Account created successfully for {username}! Check email to complete verification.')
-            inactive_user = send_verification_email(request, form)
-            return redirect('login')
+            if User.objects.filter(email__iexact=form.cleaned_data.get('email')).exclude(current_user.email).count() > 1:
+                messages.error(request, "This email address is already in use. Please supply a different email address.")
+            else:
+                syuk_user = StartYoungUKUser.objects.get(user=request.user)
+                username = form.cleaned_data.get('username')
+                syuk_user.display_name = form.cleaned_data.get('display_name')
+                syuk_user.phone_number = form.cleaned_data.get('phone_number')
+                syuk_user.email = form.cleaned_data.get('email')
+                syuk_user.address = form.cleaned_data.get('address')
+                syuk_user.save()
+                userx = User.objects.get(email=form.cleaned_data['email'])
+                userx.email = form.cleaned_data['email']
+                userx.save()
+                messages.success(request,
+                                f'Account updated successfully for {username}!')
+                return redirect('profile')
         else:
             for key, error in list(form.errors.items()):
                 if key == 'captcha' and error[0] == 'This field is required.':
@@ -221,6 +222,6 @@ def profile(request):
 
                 messages.error(request, error)
     else:
-        form = UpdateUserForm(instance=request.user)
+        form = UpdateUserForm(instance=request.user.startyoungukuser)
 
     return render(request, 'profile.html', {'form': form})

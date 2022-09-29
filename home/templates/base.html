@@ -165,9 +165,13 @@
             <div class="dropdown">
             <li id="nav-userhome" class="nav-item"><a style="padding-top:28px;" href="{% url 'userhome' %}" class="nav-link">{{user.username}}</a></li>
             <div class="dropdown-content">
-              <a href="{% url 'profile' %}">Update Profile</a>
-              <a href="{% url 'sdp' %}">Systematic Donation Plan</a>
+              {% if user.startyoungukuser.user_type == "I" %}
               <a href="{% url 'mentor' %}">Mentor a Child</a>
+              {% else %}
+              <a href="{% url 'start_campaign' %}">Start a Campaign</a>
+              {% endif %}
+              <a href="{% url 'sdp' %}">Systematic Donation Plan</a>
+              <a href="{% url 'profile' %}">Update Profile</a>
             </div>
           </div>
             <li id="nav-logout" class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
