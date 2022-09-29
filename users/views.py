@@ -112,9 +112,9 @@ def mentor(request):
             print(form.cleaned_data)
             bitmap=""
             hobbies=['painting','football','reading','dancing','singing','cooking','cricket','arts_and_crafts','adventure','writing']
-            form = form.cleaned_data
+            form_data = form.cleaned_data
             for i in range(10):
-                if(form.get(hobbies[i])==True):
+                if(form_data.get(hobbies[i])==True):
                     bitmap+="1"
                 else:
                     bitmap+="0"
@@ -126,7 +126,7 @@ def mentor(request):
             except Mentor.DoesNotExist:
                 mentor = Mentor()
             mentor.hobbies=bitmap   
-            mentor.occupation=form.get('occupation')
+            mentor.occupation=form_data.get('occupation')
             mentor.user=User.objects.get(username=request.user.username)
             mentor.save()
             messages.success(request,f'Mentor profile updated successfully! Please see recommended child profiles.')
@@ -147,7 +147,7 @@ def mentor(request):
     for x in best_match_child:
         if(x != -1):
             childx=Child.objects.get(child_id=x)
-            if(childx.mentor__isnull == None):
+            if(childx.mentor == 0):
                 recommended_child.append(childx)
     return render(request, 'mentor.html', {'form':form, 'recommended_child':recommended_child})
 
