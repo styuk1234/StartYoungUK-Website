@@ -320,16 +320,22 @@ h1, h2, h3, h4, h5,
     .block-11 .owl-nav .owl-prev.disabled, .block-11 .owl-nav .owl-next.disabled {
       opacity: .2; }
 
+.homepage-nav .owl-nav.disabled {
+    display: none;
+}
+
+
 .btn {
-  cursor: pointer;
-  border-radius: 0px;
-  border: 2px solid transparent;
-  font-size: 14px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: #999999;
-  -webkit-box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.5); }
+    cursor: pointer;
+    border-radius: 0px;
+    border: 2px solid transparent;
+    font-size: 14px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #999999;
+    -webkit-box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.5);
+}
   .btn.btn-hover-white:hover {
     background: transparent;
     color: #fff !important; }
