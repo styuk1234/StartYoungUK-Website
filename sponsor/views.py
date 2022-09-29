@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.core.mail import EmailMessage
 from fpdf import FPDF
+from .models import Donation
 
 def sponsor(request):
     if request.method == 'POST':
@@ -15,8 +16,16 @@ def sponsor(request):
         else:
             print('invalid')
             messages.error(request, 'Invalid Form')
-
-    form = DonationForm() 
+    if request.user.is_authenticated:
+      donate=Donation()
+      donate.campaign_id=0
+      donate.user_id=request.user.startyoungukuser.user_id
+      donate.name=request.user.startyoungukuser.display_name
+      donate.email_id=request.user.startyoungukuser.email
+      donate.mobile_no=request.user.startyoungukuser.phone_number
+      form = DonationForm(instance=donate) 
+    else:
+      form = DonationForm()
     #cnt_sponsor = len(User.objects.all())
     return render(request, 'sponsor.html', {'form':form})
 
