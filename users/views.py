@@ -184,13 +184,6 @@ def mentor(request):
                 recommended_child.append(childx)
     return render(request, 'mentor.html', {'form':form, 'recommended_child':recommended_child})
 
-
-def count(request):
-    cnt_buddy = len(Mentor.objects.all())
-    cnt_child = len(Child.objects.all())
-    return render(request, 'home.html', {'cnt_buddy': cnt_buddy, 'cnt_child': cnt_child})
-
-
 @login_required
 def profile(request):
     current_user = request.user

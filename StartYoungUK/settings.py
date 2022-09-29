@@ -109,7 +109,7 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'ENGINE': 'sql_server.pyodbc',
         'ENGINE' : 'mssql',
-        'NAME' : 'test',
+        'NAME' : 'StartYoungUK',
         'USER': 'youngcoders-admin',
         'PASSWORD' : 'Codefest#123',
         'HOST': 'youngcoders.database.windows.net',
