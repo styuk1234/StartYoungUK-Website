@@ -170,6 +170,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'user-home' #Temporary redirect to homepage after login
 LOGIN_URL = "login"
+SUBJECT = "Verify your email to access your StartYoungUK Dashboard"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
