@@ -2,10 +2,9 @@
 {% load static %}
 {% block content %}
 
-<div>
+<div style="padding:140px;">
     <h1>Systematic Donation Plan (SDP)</h1>
     <h2>Return on investment would be continued returns in the form of smile on child's face.</h2>
-</div>
 
 {% if messages %}
                 {% for message in messages %}
@@ -22,9 +21,10 @@
         {{ form|crispy }}
     </fieldset>
     <div class="form-group">
-        <button class="signup-btn btn btn-primary" type="submit">Start SDP</button>
+        <p style="text-align:center;"><button style="width:300px;" class="signup-btn btn btn-primary" type="submit">Start SDP</button></p>
     </div>                           
 </form>
+</div>
         
 
 {% endblock %}
