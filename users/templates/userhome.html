@@ -36,13 +36,7 @@
     <div class="container">
       <div class="row mb-3 justify-content-center">
         <div class="col-md-8 text-center">
-          <h2>Hello {{user.username}}</h2>
-          <p class="lead">You are signed up as 
-            {% if user.startyoungukuser.user_type == "I" %}
-            Individual 
-            {% else %}
-            Corporate 
-            {% endif %}
+
             <!-- <div class="card card-2"> -->
                 <div class="card-heading"></div>
                 <div class="card-body">
@@ -59,18 +53,6 @@
                     
                 <!-- </div> -->
             </div>
-            <div class="row">
-                <div>
-                    {% if user.startyoungukuser.user_type == "I" %}
-                    <a href="{% url 'mentor' %}"><button>Mentor A Child</button></a>
-                    {% else %}
-                    <a href="{%url 'start_campaign' %}"><button>Start a Campaign</button></a>
-                    {% endif %}
-
-                    <a href="{% url 'sdp' %}"><button>Systematic Donation Plan</button></a>
-                    <a href="{% url 'profile' %}"><button>Update Profile</button></a>
-                </div>
-            </div>
         </div>
         </div>
         {% if messages %}
@@ -82,7 +64,11 @@
 {% endif %}
 
       <div class="row">
+        {% if user.startyoungukuser.user_type == "I" %}
         <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'mentor' %}">Mentor a Child</a></p></div>
+        {% else %}
+        <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'start_campaign' %}">Start a Campaign</a></p></div>
+        {% endif %}
         <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'sdp' %}">Systematic Donation Plan</a></p></div>
         <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'profile' %}">Update Profile</a></p></div>
         
