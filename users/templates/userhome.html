@@ -31,46 +31,40 @@
 <script>
     document.getElementById('nav-userhome').classList.add('active');
 </script>
-    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo" style="background-color:grey ;">
-        <!-- <div class="wrapper wrapper--w960"> -->
-                {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-                {% endfor %}
+
+<div class="site-section fund-raisers" style="padding-top: 150px;background-color: gainsboro;">
+    <div class="container">
+      <div class="row mb-3 justify-content-center">
+        <div class="col-md-8 text-center">
+          <h2>Hello {{user.username}}</h2>
+          <p class="lead">You are signed up as 
+            {% if user.startyoungukuser.user_type == "I" %}
+            Individual 
+            {% else %}
+            Corporate 
             {% endif %}
-            <!-- <div class="card card-2"> -->
-                <div class="card-heading"></div>
-                <div class="card-body">
-                    
-                    <h2 class="title">Hi {{user.username}}<br>
-                    You are signed up as 
-                    {% if user.startyoungukuser.user_type == "I" %}
-                    Individual
-                    {% else %}
-                    Corporate
-                    {% endif %}
-                    <br>
-                    What would you like to do today?</h2>
-                    
-                <!-- </div> -->
-            </div>
-            <div class="row">
-                <div>
-                    {% if user.startyoungukuser.user_type == "I" %}
-                    <a href="{% url 'mentor' %}"><button>Mentor A Child</button></a>
-                    {% else %}
-                    <button>Start a Campaign</button>
-                    {% endif %}
-                    <!-- <a href="{% url 'mentor' %}"></a><button>Monetary Donation</button> -->
-                    <!-- <button>Donate in Kind</button> -->
-                    <a href="{% url 'sdp' %}"><button>Systematic Donation Plan</button></a>
-                    <a href="{% url 'profile' %}"><button>Update Profile</button></a>
-                </div>
-            </div>
+            Sponsor
+            <br>
+            What would you like to do today?</h2>
+            </p>
         </div>
-    <!-- </div> -->
+        </div>
+        {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+      <div class="row">
+        <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'mentor' %}">Mentor a Child</a></p></div>
+        <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'sdp' %}">Systematic Donation Plan</a></p></div>
+        <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'profile' %}">Update Profile</a></p></div>
+        
+      </div>
+    </div>
+  </div>
 
     <!-- Jquery JS-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
