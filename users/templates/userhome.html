@@ -61,10 +61,9 @@
                     {% if user.startyoungukuser.user_type == "I" %}
                     <a href="{% url 'mentor' %}"><button>Mentor A Child</button></a>
                     {% else %}
-                    <button>Start a Campaign</button>
+                    <a href="{%url 'start_campaign' %}"><button>Start a Campaign</button></a>
                     {% endif %}
-                    <!-- <a href="{% url 'mentor' %}"></a><button>Monetary Donation</button> -->
-                    <!-- <button>Donate in Kind</button> -->
+
                     <a href="{% url 'sdp' %}"><button>Systematic Donation Plan</button></a>
                     <a href="{% url 'profile' %}"><button>Update Profile</button></a>
                 </div>

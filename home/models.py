@@ -13,14 +13,3 @@ class Campaign(models.Model):
 
     def __str__(self):
         return f"{self.campaign_id, self.campaign_title}"
-    
-    '''
-    def save(self):
-        super().save()
-
-        img = Image.open(self.campaign_image.path)
-        if img.height > 363 or img.width > 218:
-            img_size = (363, 218)
-            img.thumbnail(img_size)
-            img.save(self.img.path)
-    '''
