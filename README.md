@@ -61,3 +61,13 @@ StartYoungUK is a brand new NGO that is looking for growing its footprint within
 * [ ] Introduce gift boxes in Donate tab for people to make monetary donations specific to gift boxes that can help a child
 * [ ] Implement curated newsletter based on user persona (Mentor, Corporate, Child) for registered users, that can be opted out any time
 * [ ] Block edit capability of admin for any financial transaction table
+
+### Tech Stack of our Project:
+
+* Frontend: HTML, CSS, JavaScript, Bootstrap4, Jinja2
+* Backend: Python3
+* Framework: Django
+* Database: Microsoft SQL for Azure
+* Chatbot: Power Virtual Agents
+* Dashboard: PowerBI
+* Libraries: Available in [requirements.txt](https://github.com/arghyadeep99/CodeFest-StartYoungUK-YoungCoders/blob/main/requirements.txt).
