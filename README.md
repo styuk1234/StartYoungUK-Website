@@ -1,4 +1,4 @@
-<h1 align="center">StartYoungUK Website Overhaul by Team YoungCoders</h1>
+<h1 align="center">StartYoungUK Website Overhaul by Team Young Coders</h1>
 
 <div align="center">
 <img src = "https://github.com/arghyadeep99/CodeFest-StartYoungUK-YoungCoders/blob/main/home/static/images/startyounguk-logo.jpg" width="250" />
@@ -19,13 +19,44 @@
 
 ---
 
-### About:
+<b>Submission for CodeFest Hackathon by Barclays 💖</b> 
+
+<b> UPDATE: This project won the first prize for the given problem statement by Start Young UK and Barclays. A blog on our journey to build this website is coming up soon! </b>
+
+---
+
+### About
 
 StartYoungUK is a brand new NGO that is looking for growing its footprint within UK to reach out to help more children in need, contact sponsors for their noble charity work, onboard mentors and engage with more schools to help their children directly. They were in need of more advanced capabilities on their website to drive their growth, sponsorship and engagement.
 
-**StartYoungUK Website Overhaul** is an attempt by **Team YoungCoders** to re-design the entire website as part of Barclays' CodeFest Hackathon 2022, sponsored by Microsoft! Our solution focusses on growing their sponsorship and engagement, which is a driving force behind their growth. Hence, we have tried to touch on all three pillars through our attempt. This repository contains the winning solution of the global round that happened across the United Kingdom, India and the United States! 💖
+**StartYoungUK Website Overhaul** is an attempt by **Team Young Coders** to re-design the entire website as part of Barclays' CodeFest Hackathon 2022, sponsored by Microsoft! Our solution focusses on growing their sponsorship and engagement, which is a driving force behind their growth. Hence, we have tried to touch on all three pillars through our attempt. This repository contains the winning solution of the global round that happened across the United Kingdom, India and the United States!
 
-### Features:
+---
+
+#### Start Young UK Website Screenshots
+
+#### 1. Homepage
+[homepage-screencast.webm](https://user-images.githubusercontent.com/33197180/193996609-e6255009-6f92-4fd6-99ae-8305564a51f5.webm)
+
+#### 2. Chatbot
+[chatbot-screencast.webm](https://user-images.githubusercontent.com/33197180/193992426-333b5f0c-e80d-4180-a6e8-4e55ac32f074.webm)
+
+#### 3. About Page
+[about-screencast.webm](https://user-images.githubusercontent.com/33197180/194051685-05dc6cee-7086-4bd5-a9f5-403006f5a2fb.webm)
+
+#### 4. Contact Us Page
+[contact-screencast.webm](https://user-images.githubusercontent.com/33197180/194051287-0946140a-1702-4074-87b2-5c6ed05ee72a.webm)
+
+#### 5. Buddy System Page
+[buddy-screencast.webm](https://user-images.githubusercontent.com/33197180/194052240-06a45b9c-a722-456c-83ce-6c76870abc9c.webm)
+
+#### 6. Donate Page
+[donate-screencast.webm](https://user-images.githubusercontent.com/33197180/194054216-ff627aac-b968-4908-ac23-3c2add502315.webm)
+
+
+---
+
+### Features
 
 * Overhauled About, Contact Us, Buddy System and Home Page
 * **Campaigns**: Allow admins to create campaigns on the fly and broadcast on home page for people to donate to!
@@ -44,11 +75,11 @@ StartYoungUK is a brand new NGO that is looking for growing its footprint within
 * **Chatbot using Power Virtual Agents**: We built a simple chatbot using Power Virtual Agents to help users new to the website navigate direcly to things they want to do on the website, just by chatting to our bot! The bot provides links specific to the functionalities of our website.
 * **Simplified Admin Experience**: The admin login provides admin complete control over managing database of users, donations, campaigns, mentors, children, etc. 
 * **Statistics Dashboard using PowerBI**: PowerBI has been leveraged to generate statistics dashboard for the admin, to get useful insights into how their website is growing, in terms of onboarding mentors, children, sponsors, mentor-mentee mapping, etc. 
-* **Leveraging Security Features of Azure**: Azure provides a lot of out-of-the-box security features in terms of HTTPS, VPN, Firewall, IAM, etc. Some of these features have been leveraged, placing trust on the Azure ecosystem to safeguard the information of different entities.
+* **Leveraging Security Features of Azure**: Azure provides a lot of out-of-the-box security features in terms of HTTPS, VPN, Firewall, TLS, IAM, etc. Some of these features have been leveraged, placing trust on the Azure ecosystem to safeguard the information of different entities.
 
 ---
 
-### Future scope of this project:
+### Future scope of this project
 
 * [ ] Allow registration of more personas like School and Child
 * [ ] Implement Update Profile for different user personas
@@ -62,12 +93,23 @@ StartYoungUK is a brand new NGO that is looking for growing its footprint within
 * [ ] Implement curated newsletter based on user persona (Mentor, Corporate, Child) for registered users, that can be opted out any time
 * [ ] Block edit capability of admin for any financial transaction table
 
-### Tech Stack of our Project:
+### Tech Stack of our Project
 
 * Frontend: HTML, CSS, JavaScript, Bootstrap4, Jinja2
-* Backend: Python3
-* Framework: Django
+* Backend: Django (Python3)
 * Database: Microsoft SQL for Azure
 * Chatbot: Power Virtual Agents
 * Dashboard: PowerBI
 * Libraries: Available in [requirements.txt](https://github.com/arghyadeep99/CodeFest-StartYoungUK-YoungCoders/blob/main/requirements.txt).
+
+#### This project still has scope of development, so you can also contribute to this project as follows:
+* [Fork](https://github.com/arghyadeep99/CodeFest-StartYoungUK-YoungCoders) this Repository.
+* Clone your Fork on a different branch:
+	* `git clone -b <name-of-branch> https://github.com/arghyadeep99/CodeFest-StartYoungUK-YoungCoders.git`
+* After adding any feature:
+	* Go to your fork and create a pull request.
+	* We will test your modifications and merge changes.
+
+
+---
+<h3 align="center"><b>Developed with :heart: by Team Young Coders</b></h1>
