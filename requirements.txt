@@ -1,5 +1,5 @@
 asgiref==3.5.2
-Babel==2.10.3
+Babel==2.11.0
 captcha==0.4
 Django
 django-bootstrap-modal-forms==2.2.0
