@@ -12,7 +12,7 @@ Django-Verify-Email==2.0.3
 djangorestframework==3.14.0
 fpdf==1.7.2
 mssql-django==1.2
-phonenumbers==8.13.0
+phonenumbers==8.13.4
 Pillow==9.3.0
 pyodbc==4.0.35
 pytz==2022.6
