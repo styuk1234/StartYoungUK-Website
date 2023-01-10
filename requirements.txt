@@ -17,5 +17,5 @@ Pillow==9.3.0
 pyodbc==4.0.35
 pytz==2022.6
 sqlparse==0.4.3
-tzdata==2022.6
+tzdata==2022.7
 whitenoise==6.2.0
