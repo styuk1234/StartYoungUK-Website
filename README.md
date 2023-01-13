@@ -83,7 +83,7 @@ StartYoungUK is a brand new NGO that is looking for growing its footprint within
 
 * [ ] Allow registration of more personas like School and Child
 * [ ] Implement Update Profile for different user personas
-* [ ] Implement a common UI theme across all pages
+* [ ] Implement a common UI theme and page branding across all pages, including admin page
 * [ ] Integrate Donation endpoints with Payment gateways to make them functional
 * [ ] Use OAuth and IAM of Azure to register users more securely onto our website
 * [ ] Extend ReCAPTCHA to ad-hoc donation forms
@@ -106,6 +106,15 @@ StartYoungUK is a brand new NGO that is looking for growing its footprint within
 * [Fork](https://github.com/arghyadeep99/CodeFest-StartYoungUK-YoungCoders) this Repository.
 * Clone your Fork on a different branch:
 	* `git clone -b <name-of-branch> https://github.com/arghyadeep99/CodeFest-StartYoungUK-YoungCoders.git`
+* cd into the repository on terminal and run `pip3 install -r requirements.txt`
+* Delete the db.sqlite3 file in root of this repository.
+* Next, run the following command: `python3 manage.py migrate`. This will create the required tables in your SQLite3 database.
+* Create a Django superuser by the following command: `python3 manage.py createsuperuser`
+* Enter your desired username and password values
+* Finally, to run the project, enter in terminal: `python3 manage.py runserver`
+* This will generate a link to open in localhost at: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+* To login as a superuser, go to http://127.0.0.1:8000/admin
+
 * After adding any feature:
 	* Go to your fork and create a pull request.
 	* We will test your modifications and merge changes.
