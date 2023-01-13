@@ -106,17 +106,18 @@ SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME' : BASE_DIR / 'db.sqlite3',
         #'ENGINE': 'sql_server.pyodbc',
-        'ENGINE' : 'mssql',
-        'NAME' : 'StartYoungUK',
-        'USER': 'youngcoders-admin',
-        'PASSWORD' : 'Codefest#123',
-        'HOST': 'youngcoders.database.windows.net',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 18 for SQL Server',
+        # 'ENGINE' : 'mssql',
+        # 'NAME' : 'StartYoungUK',
+        # 'USER': 'youngcoders-admin',
+        # 'PASSWORD' : 'Codefest#123',
+        # 'HOST': 'youngcoders.database.windows.net',
+        # 'OPTIONS': {
+        #     'driver': 'ODBC Driver 18 for SQL Server',
             # 'isolation_level': 'READ_UNCOMMITTED',
-        }
+        # }
     }
 }
 
