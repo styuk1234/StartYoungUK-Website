@@ -1,4 +1,4 @@
-asgiref==3.5.2
+asgiref==3.6.0
 Babel==2.11.0
 captcha==0.4
 Django
