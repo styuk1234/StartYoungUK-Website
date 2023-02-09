@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e-5dkhxdgkp#e1+!*^*px4lpic+8d#!m0g(pfqw7&hc0y=2xpk'
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -88,17 +89,17 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 WSGI_APPLICATION = 'StartYoungUK.wsgi.application'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'codefest.youngcoders@gmail.com'
-EMAIL_HOST_PASSWORD = 'iwdnjcwmmokjuqhl'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
 EXPIRE_AFTER = "1h" # Verification Link will expire after one hour from link generation
 
-RECAPTCHA_PUBLIC_KEY = '6LdilSsiAAAAALkeAdLLWLiqUkdxTvoS3k7OqzyN'
-RECAPTCHA_PRIVATE_KEY = '6LdilSsiAAAAACxlSATIX41xQyg9VAc9RqjTtaXy'
+RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 # Database
@@ -110,10 +111,10 @@ DATABASES = {
         'NAME' : BASE_DIR / 'db.sqlite3',
         #'ENGINE': 'sql_server.pyodbc',
         # 'ENGINE' : 'mssql',
-        # 'NAME' : 'StartYoungUK',
-        # 'USER': 'youngcoders-admin',
-        # 'PASSWORD' : 'Codefest#123',
-        # 'HOST': 'youngcoders.database.windows.net',
+        # 'NAME' : config('DB_NAME'),
+        # 'USER': config('DB_USER'),
+        # 'PASSWORD' : config('DB_PASSWORD'),
+        # 'HOST': config('DB_HOST'),
         # 'OPTIONS': {
         #     'driver': 'ODBC Driver 18 for SQL Server',
             # 'isolation_level': 'READ_UNCOMMITTED',
@@ -175,4 +176,4 @@ SUBJECT = "Verify your email to access your StartYoungUK Dashboard"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-CSRF_TRUSTED_ORIGINS = ['https://startyounguk2.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = [config('HOSTING_URL')]
