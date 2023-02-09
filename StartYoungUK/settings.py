@@ -91,8 +91,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'youngcoders.codefest@gmail.com'
-EMAIL_HOST_PASSWORD = 'dnziblkvhptubmfa'
+EMAIL_HOST_USER = 'codefest.youngcoders@gmail.com'
+EMAIL_HOST_PASSWORD = 'iwdnjcwmmokjuqhl'
 
 DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
 EXPIRE_AFTER = "1h" # Verification Link will expire after one hour from link generation
