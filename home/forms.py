@@ -11,7 +11,7 @@ class CampaignForm(forms.ModelForm):
         required=True)
     collection_target = forms.IntegerField(required=True)
     campaign_deadline = forms.DateField(required=True, help_text="Enter date in YYYY-MM-DD format")
-    campaign_image = forms.ImageField(required=True)
+    campaign_image = forms.ImageField(required=False)
     
     class Meta:
         model = Campaign
