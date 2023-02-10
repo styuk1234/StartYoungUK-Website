@@ -16,15 +16,18 @@ def home(request):
     for campaign in campaigns:
         try:
             donation_object = Donation.objects.filter(campaign_id=campaign.campaign_id)
-            collection_by_campaign.append(sum(donation_object.amount))
-            percent_raised.append(int(collection_by_campaign//campaign.collection_target) * 100)
+            total_amount = sum([donation['amount'] for donation in donation_object.values()])
+            collection_by_campaign.append(total_amount)
+            percent = int(total_amount/campaign.collection_target * 100)
+            percent_raised.append(percent)
         except:
-            collection_by_campaign.append(100)
-            percent_raised.append(int(100*100//campaign.collection_target))
-
+            default_amount = 0
+            collection_by_campaign.append(default_amount)
+            percent = int(default_amount/campaign.collection_target * 100)
+            percent_raised.append(percent)
+            
     campaigns_zip = zip(campaigns, collection_by_campaign, percent_raised)
     cnt_usr = len(User.objects.all())
-    print(percent_raised)
     cnt_buddy = len(Mentor.objects.all())
     cnt_child = len(Child.objects.all())
 
