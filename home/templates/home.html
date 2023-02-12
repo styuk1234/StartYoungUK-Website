@@ -109,17 +109,21 @@
             {% for campaign, collected_so_far, percent_raised in campaigns_zip %}
                 <div class="card fundraise-item">
                     <a href="#"><img class="card-img-top" src="{{ campaign.campaign_image.url  }}" alt="Image placeholder" height=250 ></a>
-                    <div class="card-body">
-                        <h3 class="card-title"><a href="#">{{ campaign.campaign_title }}</a></h3>
-                        <p class="card-text">{{ campaign.campaign_description }}</p>
-                        <span class="donation-time mb-3 d-block">Campaign Deadline: {{ campaign.campaign_deadline }}</span>
-                        <div class="form-group">
-                            <button class="login-btn btn btn-primary" type="submit">Donate</button>
+                    <div class="card-body campaign-card">
+                        <div>
+                            <h3 class="card-title"><a href="#">{{ campaign.campaign_title }}</a></h3>
+                            <p class="card-text">{{ campaign.campaign_description }}</p>
                         </div>
-                        <div class="progress custom-progress-success">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{ percent_raised }}%" aria-valuenow="{{ percent_raised }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div>
+                            <span class="donation-time mb-3 d-block">Campaign Deadline: {{ campaign.campaign_deadline }}</span>
+                            <div class="form-group">
+                                <button class="donate-btn login-btn btn btn-primary" type="submit">Donate</button>
+                            </div>
+                            <div class="progress custom-progress-success">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{ percent_raised }}%" aria-valuenow="{{ percent_raised }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <span class="fund-raised d-block">£{{ collected_so_far }} raised of £{{ campaign.collection_target }}</span>
                         </div>
-                        <span class="fund-raised d-block">£{{ collected_so_far }} raised of £{{ campaign.collection_target }}</span>
                     </div>
                 </div>
                 {% endfor %}
@@ -204,7 +208,7 @@
 </div>
 
 <script>
-    document.getElementByClass("owl-stage").style("transform", "translate3d(0px, 0px, 0px)");
+    document.getElementByClass("owl-stage")
 </script>
 
 {% endblock %}
