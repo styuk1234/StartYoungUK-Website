@@ -158,7 +158,6 @@
             <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
             <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}#campaigns" class="nav-link">Campaigns</a></li>
             <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
-            <li id="nav-donate" class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Donate</a></li>
             <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">The Buddy System</a></li>  
             <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Contact</a></li>
             {% if user.is_authenticated %}
@@ -179,6 +178,7 @@
             <li id="nav-login" class="nav-item"><a href="{% url 'login' %}" class="nav-link">Sign In</a></li>
             <!-- <li id="nav-register" class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li> -->
             {% endif %}
+            <li id="nav-donate" class="nav-item btn btn-donate"><a href="{% url 'sponsor-us' %}" class="nav-link">Donate</a></li>
           </ul>
         </div>
       </div>
