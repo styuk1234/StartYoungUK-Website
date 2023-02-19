@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/form-style.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="">
     <style>
 .dropbtn {
   background-color: #04AA6D;
@@ -139,6 +140,10 @@
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }
+
+#map{
+  height: 500px;
+}
     </style>
   </head>
   {% block header %}
@@ -229,7 +234,7 @@
         <div class="col-md-6 col-lg-6 col-sm-12 ml-auto text-center">
               <ul class="ml-auto">
                 <li style=" display:inline">
-                  <a href="#" data-toggle="tooltip" data-placement="bottom" title="Newham, UK"><span style="font-size: 28px;" class="icon icon-map-marker"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="#" data-toggle="tooltip" data-placement="bottom" title="Newham, UK"><span style="font-size: 28px;" class="icon icon-map-marker"cd ></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </li>
                 <li style="display:inline;">
                   <a href="#" data-toggle="tooltip" data-placement="bottom" title="07946369885"><span style="font-size: 28px;" class="icon icon-phone"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -349,7 +354,8 @@
   
   <script src="{% static 'js/aos.js' %}"></script>
   <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
   <script src="{% static 'js/google-map.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
     
