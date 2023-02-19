@@ -1621,7 +1621,7 @@ textarea.form-control {
   list-style: none; }
 
 .block-23 ul li, .block-23 ul li > a {
-  display: table;
+  display: inline;
   line-height: 1.5;
   margin-bottom: 15px; }
 
