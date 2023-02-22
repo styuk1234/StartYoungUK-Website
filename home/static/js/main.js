@@ -89,7 +89,7 @@ $(document).ready(function($) {
 		});
 
 		$('.nonloop-block-11').owlCarousel({
-	    center: true,
+	    // center: true,
 	    items: 1,
 	    loop: false,
 			stagePadding: 0,
