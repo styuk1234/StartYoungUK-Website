@@ -221,13 +221,15 @@
                 <div class="nonloop-block-11 owl-carousel">
                     <!-- TODO: replace affiliations with a zip of its logo and name (and maybe description) -->
                 {% for affiliation in affiliations %}
-                    <!-- <div class="card fundraise-item">
-                        <a href="#"><img class="card-img-top" src="{{ campaign.campaign_image.url  }}" alt="Image placeholder" height=250 ></a>
-                        <div class="card-body">
-                            <h3 class="card-title"><a href="#">{{ campaign.campaign_title }}</a></h3>
-                            <p class="card-text">{{ campaign.campaign_description }}</p>
+                    {% if affiliation.affiliation_display %}
+                        <div class="card fundraise-item">
+                            <a href="#"><img class="card-img-top" src="{{ affiliation.affiliation_image  }}" alt="Image placeholder" height=250 ></a>
+                            <div class="card-body">
+                                <h3 class="card-title"><a href="#">{{ affiliation.affiliation_name }}</a></h3>
+                                <p class="card-text">{{ affiliation.affiliation_description }}</p>
+                            </div>
                         </div>
-                    </div> -->
+                    {% endif %}
                 {% endfor %}
                 </div>
             </div>

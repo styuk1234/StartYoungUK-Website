@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 import json
 
 def home(request):
-    affliations = Affiliation.objects.all()
+    affiliations = Affiliation.objects.all()
     top_donation = Donation.objects.all().order_by('-amount')[:4]
     serial_donation = json.loads(serialize('json', top_donation))
     # print(serial_donation[1]['fields']['name'])
@@ -28,8 +28,9 @@ def home(request):
     print(percent_raised)
     cnt_buddy = len(Mentor.objects.all())
     cnt_child = len(Child.objects.all())
+    
 
-    return render(request, 'home.html', {'affliations':affliations,'top_donations':serial_donation, 'cnt_usr': cnt_usr, 'campaigns_zip': campaigns_zip, 'cnt_buddy': cnt_buddy, 'cnt_child': cnt_child})
+    return render(request, 'home.html', {'affiliations':affiliations,'top_donations':serial_donation, 'cnt_usr': cnt_usr, 'campaigns_zip': campaigns_zip, 'cnt_buddy': cnt_buddy, 'cnt_child': cnt_child})
 
 def buddysystem(request):
     return render (request, 'buddy.html')
