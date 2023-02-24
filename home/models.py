@@ -19,7 +19,11 @@ class Opportunity(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50, null=False)
     description = models.TextField(max_length=400, null=False)
+    end_date = models.DateField(null=False)
+    salary = models.IntegerField(null=False)
+    duration = models.TextField(max_length=50, null=False)
     form_url = models.URLField(max_length=100, null=False)
+    position_filled = models.BooleanField(null=False, default=False)
 
     def __str__(self):
         return f"{self.id, self.title}"

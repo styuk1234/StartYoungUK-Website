@@ -34,4 +34,4 @@ def home(request):
     return render(request, 'home.html', {'top_donations':serial_donation, 'cnt_usr': cnt_usr, 'campaigns_zip': campaigns_zip, 'cnt_buddy': cnt_buddy, 'cnt_child': cnt_child})
 
 def buddysystem(request):
-    return render (request, 'buddy.html')
+    return render(request, 'buddy.html')
