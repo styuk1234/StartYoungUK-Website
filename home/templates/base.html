@@ -141,6 +141,18 @@
   opacity: 1;
 }
 
+.campaign-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.campaign-banner-link {
+  color: #000;
+  font-weight: 300;
+  font-family: "Dosis", sans-serif;
+}
+
 #map{
   height: 500px;
 }
@@ -165,7 +177,7 @@
             <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
             <li id="nav-donate" class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Donate</a></li>
             <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">The Buddy System</a></li>  
-            <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Contact</a></li>
+            <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Join Us</a></li>
             {% if user.is_authenticated %}
             <div class="dropdown">
             <li id="nav-userhome" class="nav-item"><a style="padding-top:28px;" href="{% url 'userhome' %}" class="nav-link">{{user.username}}</a></li>
@@ -219,7 +231,7 @@
                 <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
                 <li id="nav-donate" class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Donate</a></li>
                 <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">The Buddy System</a></li>  
-                <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Contact</a></li>
+                <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Join Us</a></li>
 
               </ul>
             </div>

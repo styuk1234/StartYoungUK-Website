@@ -11,3 +11,4 @@ class Donation(models.Model):
     email_id = models.EmailField(max_length=50, null=False)
     mobile_no = PhoneNumberField(null=False,blank=False)
     amount = models.PositiveIntegerField(null=False,validators=[MaxValueValidator(50)])
+    is_anonymous = models.BooleanField(null=False, default=False)

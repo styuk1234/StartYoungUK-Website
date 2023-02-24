@@ -109,17 +109,21 @@
             {% for campaign, collected_so_far, percent_raised in campaigns_zip %}
                 <div class="card fundraise-item">
                     <a href="#"><img class="card-img-top" src="{{ campaign.campaign_image.url  }}" alt="Image placeholder" height=250 ></a>
-                    <div class="card-body">
-                        <h3 class="card-title"><a href="#">{{ campaign.campaign_title }}</a></h3>
-                        <p class="card-text">{{ campaign.campaign_description }}</p>
-                        <span class="donation-time mb-3 d-block">Campaign Deadline: {{ campaign.campaign_deadline }}</span>
-                        <div class="form-group">
-                            <button class="login-btn btn btn-primary" type="submit">Donate</button>
+                    <div class="card-body campaign-card">
+                        <div>
+                            <h3 class="card-title"><a href="#">{{ campaign.campaign_title }}</a></h3>
+                            <p class="card-text">{{ campaign.campaign_description }}</p>
                         </div>
-                        <div class="progress custom-progress-success">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{ percent_raised }}%" aria-valuenow="{{ percent_raised }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div>
+                            <span class="donation-time mb-3 d-block">Campaign Deadline: {{ campaign.campaign_deadline }}</span>
+                            <div class="form-group">
+                                <button class="donate-btn login-btn btn btn-primary" type="submit">Donate</button>
+                            </div>
+                            <div class="progress custom-progress-success">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{ percent_raised }}%" aria-valuenow="{{ percent_raised }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <span class="fund-raised d-block">£{{ collected_so_far }} raised of £{{ campaign.collection_target }}</span>
                         </div>
-                        <span class="fund-raised d-block">£{{ collected_so_far }} raised of £{{ campaign.collection_target }}</span>
                     </div>
                 </div>
                 {% endfor %}
@@ -139,9 +143,8 @@
                 <div class="media block-6">
                     <div class="icon"><span class="ion-ios-bulb"></span></div>
                     <div class="media-body">
-                        <h3 class="heading">Christmas Gifting</h3>
+                        <a href="#" class="heading campaign-banner-link">Christmas Gifting</a>
                         <p>Be a real santa by gifting the children.</p>
-                        <!-- <p><a href="#" class="link-underline">Learn More</a></p> -->
                     </div>
                 </div>
             </div>
@@ -150,9 +153,8 @@
                 <div class="media block-6">
                     <div class="icon"><span class="ion-ios-cash"></span></div>
                     <div class="media-body">
-                        <h3 class="heading">Make Donations</h3>
+                        <a href="/sponsor/" class="heading campaign-banner-link">Make Donations</a>
                         <p>Help a child by making a donation. No amount is small.</p>
-                        <!-- <p><a href="#" class="link-underline">Learn More</a></p> -->
                     </div>
                 </div>
             </div>
@@ -161,9 +163,8 @@
                 <div class="media block-6">
                     <div class="icon"><span class="ion-ios-contacts"></span></div>
                     <div class="media-body">
-                        <h3 class="heading">We Need Volunteers</h3>
+                        <a href="/buddy" class="heading campaign-banner-link">We Need Volunteers</a>
                         <p>Support a child by volunteering with us.</p>
-                        <!-- <p><a href="#" class="link-underline">Learn More</a></p> -->
                     </div>
                 </div>
             </div>
@@ -184,6 +185,7 @@
 
         <div class="row">
             {% for entry in top_donations %}
+            {% if not entry.fields.is_anonymous %}
             <div class="col-md-6 col-lg-3 mb-5">
                 <div class="person-donate text-center">
                     <img src="{% static 'images/person_3.jpg' %}" alt="Image placeholder" class="img-fluid">
@@ -198,13 +200,14 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
 </div>
 
 <script>
-    document.getElementByClass("owl-stage").style("transform", "translate3d(0px, 0px, 0px)");
+    document.getElementByClass("owl-stage")
 </script>
 
 {% endblock %}
