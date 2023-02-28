@@ -16,7 +16,7 @@ class GalleryImage(models.Model):
 
     image_id = models.AutoField(primary_key=True)
     image_title = models.CharField(max_length=100, null=False)
-    image_image = models.ImageField(default='default_image.jpg', upload_to='gallery_pics')
+    gallery_image = models.ImageField(default='default_image.jpg', upload_to='gallery_pics')
 
     def __str__(self):
         return f"{self.image_id, self.image_title}"

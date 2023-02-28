@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from .models import TeamMember
+from .models import TeamMember, GalleryImage
 def about(request):
     members = TeamMember.objects.all()
-    return render(request, 'about.html', {"members": members})
+    images = GalleryImage.objects.all()
+    return render(request, 'about.html', {"members": members, "images": images})
+
