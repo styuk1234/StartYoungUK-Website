@@ -371,10 +371,6 @@ h1, h2, h3, h4, h5,
         border: 2px solid transparent;
         background: #f7ca44;
         color: #000; }
-  .btn.btn-donate {
-    background: #b73574;
-    border: 2px solid #b0318e;
-  }
   .btn.btn-outline-white {
     border-color: rgba(255, 255, 255, 0.8);
     background: none;
