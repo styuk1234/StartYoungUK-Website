@@ -206,6 +206,43 @@
     </div>
 </div>
 
+
+<section id="affiliations">
+<div class="site-section bg-yellow border-top">
+    <div class="container">
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-8 text-center">
+                <h2>Affiliations</h2>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+
+            <!-- <div class="row"> -->
+    
+            <div class="col-md-12 block-11">
+                <div class="nonloop-block-11 owl-carousel">
+                    <!-- TODO: replace affiliations with a zip of its logo and name (and maybe description) -->
+                {% for affiliation in affiliations %}
+                    {% if affiliation.affiliation_display %}
+                        <div class="card fundraise-item">
+                            <a href="#"><img class="card-img-top" src="{{ affiliation.affiliation_image.url  }}" alt="Image placeholder" height=250 ></a>
+                            <div class="card-body">
+                                <h3 class="card-title"><a href="#">{{ affiliation.affiliation_name }}</a></h3>
+                                <p class="card-text">{{ affiliation.affiliation_description }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+    
+</div>
+</section>
+
 <script>
     document.getElementByClass("owl-stage")
 </script>
