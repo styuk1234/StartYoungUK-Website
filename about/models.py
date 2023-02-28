@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Team_members(models.Model):
+class TeamMember(models.Model):
 
     member_id = models.AutoField(primary_key=True)
     member_name = models.CharField(max_length=100, null=False)
