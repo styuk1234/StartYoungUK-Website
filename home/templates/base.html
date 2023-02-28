@@ -175,10 +175,10 @@
           <ul class="navbar-nav ml-auto">
 
             <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
-            <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}#campaigns" class="nav-link">Campaigns</a></li>
+            <!--<li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}#campaigns" class="nav-link">Campaigns</a></li> -->
             <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
             <li id="nav-donate" class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Donate</a></li>
-            <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">The Buddy System</a></li>  
+            <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">Be A Buddy</a></li>  
             <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Join Us</a></li>
             {% if user.is_authenticated %}
             <div class="dropdown">
@@ -191,9 +191,10 @@
               {% endif %}
               <a href="{% url 'sdp' %}">Systematic Donation Plan</a>
               <a href="{% url 'profile' %}">Update Profile</a>
+              <a href="{% url 'logout' %}">Logout</a></li>
             </div>
           </div>
-            <li id="nav-logout" class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+            <!-- <li id="nav-logout" class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li> -->
             {% else %}
             <li id="nav-login" class="nav-item"><a href="{% url 'login' %}" class="nav-link">Sign In</a></li>
             <!-- <li id="nav-register" class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li> -->
@@ -241,10 +242,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav text-center">
                 <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
-                <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}#campaigns" class="nav-link">Campaigns</a></li>
-                <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
+                <!--<li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}#campaigns" class="nav-link">Campaigns</a></li> -->
+                <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About Us</a></li>
                 <li id="nav-donate" class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Donate</a></li>
-                <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">The Buddy System</a></li>  
+                <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">Be A Buddy</a></li>  
                 <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Join Us</a></li>
               </ul>
             </div>
