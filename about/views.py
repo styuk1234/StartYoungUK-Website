@@ -1,4 +1,5 @@
 from django.shortcuts import render
-
+from .models import TeamMember
 def about(request):
-    return render(request, 'about.html')
+    members = TeamMember.objects.all()
+    return render(request, 'about.html', {"members": members})

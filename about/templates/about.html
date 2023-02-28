@@ -46,62 +46,25 @@
         <div class="col-md-12 mb-5 text-center mt-5">
           <h2>Our Team</h2>
         </div>
+        {% for member in members %}
         <div class="col-md-6 col-lg-3">
           <div class="block-38 text-center">
             <div class="block-38-img">
+              
               <div class="block-38-header">
-                <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder">
-                <h3 class="block-38-heading">Person 1</h3>
-                <p class="block-38-subheading">Founder</p>
+                <img src="{{ member.member_image.url  }}" alt="Image placeholder">
+                <h3 class="block-38-heading"> {{ member.member_name }} </h3>
+                <p class="block-38-subheading">{{ member.member_title }} </p>
               </div>
               <div class="block-38-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae aut minima nihil sit distinctio recusandae doloribus ut fugit officia voluptate soluta. </p>
+                <p> {{ member.member_description }} </p>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="block-38 text-center">
-            <div class="block-38-img">
-              <div class="block-38-header">
-                <img src="{% static 'images/person_2.jpg' %}" alt="Image placeholder">
-                <h3 class="block-38-heading">Person 2</h3>
-                <p class="block-38-subheading">Manager</p>
-              </div>
-              <div class="block-38-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae aut minima nihil sit distinctio recusandae doloribus ut fugit officia voluptate soluta. </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="block-38 text-center">
-            <div class="block-38-img">
-              <div class="block-38-header">
-                <img src="{% static 'images/person_3.jpg' %}" alt="Image placeholder">
-                <h3 class="block-38-heading">Person 3</h3>
-                <p class="block-38-subheading">Sponsor</p>
-              </div>
-              <div class="block-38-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae aut minima nihil sit distinctio recusandae doloribus ut fugit officia voluptate soluta. </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="block-38 text-center">
-            <div class="block-38-img">
-              <div class="block-38-header">
-                <img src="{% static 'images/person_4.jpg' %}" alt="Image placeholder">
-                <h3 class="block-38-heading">Person 4</h3>
-                <p class="block-38-subheading">Volunteer</p>
-              </div>
-              <div class="block-38-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae aut minima nihil sit distinctio recusandae doloribus ut fugit officia voluptate soluta. </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
+
+        
       </div>
 
     </div>
