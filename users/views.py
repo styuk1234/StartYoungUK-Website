@@ -9,9 +9,41 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .decorators import user_not_authenticated
 from verify_email.email_handler import send_verification_email
-
+from verify_email.confirm import verify_user
+from django.core.signing import SignatureExpired, BadSignature
+from base64 import urlsafe_b64decode
+from verify_email.errors import (
+    InvalidToken,
+)
 
 # Create your views here.
+@user_not_authenticated
+def verify_user_and_activate(request,useremail, usertoken):
+    try:
+        verified = verify_user(useremail, usertoken)
+        if verified is True:
+            useremail=urlsafe_b64decode(str(useremail)).decode('UTF-8')
+            syuk_user=StartYoungUKUser.objects.get(email=str(useremail))
+            syuk_user.is_verified=True
+            syuk_user.save()
+            messages.success(request, "User has been verified")
+            return redirect('login')
+        else:
+            raise ValueError
+    except (ValueError, TypeError) as error:
+        messages.warning(request, "There is something wrong with this link... Verification failed")
+        return redirect('login')
+    except SignatureExpired:
+        messages.warning(request, "The link has lived its life. Request a new one !")
+        return redirect('login')
+    except BadSignature:
+        messages.warning(request, "This link was modified before verification.Faulty Link Detected!")
+        return redirect('login')
+    except InvalidToken:
+        messages.warning(request, "This link is invalid or been used already, we cannot verify using this link.")
+        return redirect('login')
+
+
 
 @user_not_authenticated
 def register(request):
@@ -49,21 +81,38 @@ def register(request):
 @user_not_authenticated
 def captcha_login(request):
     if request.method == "POST":
-        form = UserLoginForm(request=request, data=request.POST)
+        form = UserLoginForm(data=request.POST)
+        print(len(list(form.errors.items())))
+        print(form.errors.items())
         if form.is_valid():
             user = authenticate(
                 username=form.cleaned_data["username"],
                 password=form.cleaned_data["password"],
             )
+            
             if user is not None:
                 login(request, user)
                 return redirect("userhome")
 
-        else:
+        else:             
             for key, error in list(form.errors.items()):
                 if key == 'captcha' and error[0] == 'This field is required.':
                     messages.error(request, "You must pass the reCAPTCHA test to login.")
-                    continue
+                    return redirect('login')
+                
+                if key == '__all__' and error[0] == 'Please enter a correct username and password. Note that both fields may be case-sensitive.':
+                    try:
+                        userobj=User.objects.get(username=form.cleaned_data["username"])
+                        syukuser=StartYoungUKUser.objects.get(email=userobj.email)
+                        if not syukuser.is_verified and not userobj.is_active:
+                            messages.error(request,"Email not verified! Please check your email box")
+                            return redirect('login')
+                        messages.error(request,"Please enter a correct username and password. Note that both fields may be case-sensitive.")
+                        return redirect('login')
+                    
+                    except User.DoesNotExist:
+                        messages.error(request,"User does not exist ! Please create an account")
+                        return redirect('login')
 
                 messages.error(request, error)
     else:

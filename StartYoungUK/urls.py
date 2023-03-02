@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from users import views as user_views
 from home import views as home_views
+from verify_email import views as verify_email_views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+
 
 
 urlpatterns = [
@@ -35,6 +37,9 @@ urlpatterns = [
     path('logout/', user_views.captcha_logout, name='logout'),
     path('admin/', admin.site.urls),
     path('sponsor/', include('sponsor.urls')),
-    path('verification/', include('verify_email.urls')),
+    # path('verification/', include('verify_email.urls')),
+    path('verification/user/verify-email/<useremail>/<usertoken>/', user_views.verify_user_and_activate, name='verify-email'),
+    path('verification/user/verify-email/request-new-link/<useremail>/<usertoken>/', verify_email_views.request_new_link, name='request-new-link-from-token'),
+    path('verification/user/verify-email/request-new-link/', verify_email_views.request_new_link, name='request-new-link-from-email'),
     path('buddy/', home_views.buddysystem, name="buddy-system"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
