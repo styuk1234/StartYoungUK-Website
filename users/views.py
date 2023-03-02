@@ -62,7 +62,7 @@ def register(request):
             syuk_user.crn_no = form.cleaned_data.get('crn_no')
             syuk_user.save()
             messages.success(request,
-                             f'Account created successfully for {username}! Check email to complete verification.')
+                             f'Account created successfully for {username}! Check email to complete your verification and access the website.')
             inactive_user = send_verification_email(request, form)
             return redirect('login')
         else:
@@ -105,7 +105,7 @@ def captcha_login(request):
                         userobj=User.objects.get(username=form.cleaned_data["username"])
                         syukuser=StartYoungUKUser.objects.get(email=userobj.email)
                         if not syukuser.is_verified and not userobj.is_active:
-                            messages.error(request,"Email not verified! Please check your email box")
+                            messages.error(request,"This email address is not verified! Please check your inbox and verify from there to access the content.")
                             return redirect('login')
                         messages.error(request,"Please enter a correct username and password. Note that both fields may be case-sensitive.")
                         return redirect('login')
