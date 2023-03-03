@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'sponsor.apps.SponsorConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
-    'bootstrap_modal_forms',
+    'crispy_bootstrap5',
+    #'bootstrap_modal_forms',
     'phonenumber_field',
     'verify_email.apps.VerifyEmailConfig',
     'captcha',
@@ -85,7 +86,8 @@ TEMPLATES = [
     },
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 WSGI_APPLICATION = 'StartYoungUK.wsgi.application'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
