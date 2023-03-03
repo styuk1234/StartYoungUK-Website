@@ -6,7 +6,7 @@ from .models import TeamMember, GalleryImage
 class TeamMember(admin.ModelAdmin):
     list_display = ("member_id", "member_name", "member_title", "member_description")
     list_filter = ("member_id", "member_name", )
-    search_fields = ("member_name__startswith",)
+    search_fields = ("member_name__startswith", "member_title__startswith")
 
 @admin.register(GalleryImage)
 class GalleryImage(admin.ModelAdmin):
