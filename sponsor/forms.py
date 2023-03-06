@@ -6,14 +6,14 @@ from sponsor.models import Donation
 
 class DonationForm(forms.ModelForm):
     name = forms.CharField(required=True)
-    email_id = forms.EmailField(required=True)
-    mobile_no = PhoneNumberField(
+    email = forms.EmailField(required=True)
+    mobile_number = PhoneNumberField(
                                 widget=PhoneNumberPrefixWidget(
-                                    initial='GB', #GB works, not UK
+                                    initial='GB'
                                 ),
                                 required=True,
                                 )
     amount = forms.IntegerField()
     class Meta:
         model = Donation
-        fields = ['name', 'email_id','mobile_no','amount']
+        fields = ['name', 'email','mobile_number', 'amount']
