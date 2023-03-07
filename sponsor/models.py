@@ -1,7 +1,6 @@
 from wsgiref.validate import validator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-from django.core.validators import MaxValueValidator
 
 class Donation(models.Model):
     trxn_id = models.AutoField(primary_key=True)
@@ -10,5 +9,5 @@ class Donation(models.Model):
     name = models.CharField(max_length=50, null=False)
     email = models.EmailField(max_length=50, null=False)
     mobile_number = PhoneNumberField(null=False,blank=False)
-    amount = models.PositiveIntegerField(null=False,validators=[MaxValueValidator(50)])
+    amount = models.PositiveIntegerField(null=False)
     is_anonymous = models.BooleanField(null=False, default=False)

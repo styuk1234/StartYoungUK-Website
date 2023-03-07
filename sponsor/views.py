@@ -9,13 +9,21 @@ from .models import Donation
 def sponsor(request):
     if request.method == 'POST':
         form = DonationForm(request.POST)
-        if form.is_valid():
+        
+        if not request.user.is_authenticated and int(form['amount'].value()) > 40:
+            messages.error(request, 'We are not able to accept donations of more than £40 from unathenticated users. Please sign in to donate a larger amount!')
+        
+        elif form.has_error('captcha'):
+            messages.error(request, 'Please submit a Captcha before you click "Donate"')
+        
+        elif form.is_valid():
             form.save()
             messages.success(request,f'Thank you for your donation!')
             sendthankyoumail(form.cleaned_data['email'])
+        
         else:
-            print('invalid')
-            messages.error(request, 'Invalid Form')
+            print(form.errors.as_json(escape_html=False))
+            messages.error(request, 'There was an error with your donation. Please try again!')
             
     # Pre-populate user info if user is authenticated 
     if request.user.is_authenticated:
