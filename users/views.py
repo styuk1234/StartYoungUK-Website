@@ -150,7 +150,7 @@ def sdp(request):
         form = SDPForm(request.POST)
         if form.is_valid():
             messages.success(request,
-                             f'You have successfully subscribed to Systematic Donatino Plan.')
+                             f'You have successfully subscribed to Systematic Donation Plan.')
     return render(request, 'sdp.html', {'form':form})
 
 
