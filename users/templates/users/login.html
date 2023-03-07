@@ -58,7 +58,10 @@
                     <form method="POST" class="post-form">
                         {% csrf_token %}
                         <fieldset class="form-group">
-                            {{ form|crispy }}
+                            {{ form.username|as_crispy_field }}
+                            {{ form.password|as_crispy_field }}
+                            <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                            {{ form.captcha }}
                         </fieldset>
                         <div class="form-group">
                             <button class="login-btn btn btn-primary" type="submit">Login</button>
