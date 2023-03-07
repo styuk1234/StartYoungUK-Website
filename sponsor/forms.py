@@ -2,6 +2,8 @@ from django import forms
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 from sponsor.models import Donation
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 
 class DonationForm(forms.ModelForm):
@@ -13,7 +15,9 @@ class DonationForm(forms.ModelForm):
                                 ),
                                 required=True,
                                 )
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
     amount = forms.IntegerField()
+    
     class Meta:
         model = Donation
-        fields = ['name', 'email','mobile_number', 'amount']
+        fields = ['email', 'name', 'mobile_number', 'captcha', 'amount']
