@@ -107,6 +107,16 @@ class UserEmailPasswordResetForm(AuthenticationForm):
         super(UserEmailPasswordResetForm, self).__init__(*args, **kwargs)
     email = forms.EmailField(required=True)
 
+class UserUpadatePassword(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'form-control', 'placeholder': 'Password'}))
+    retyped_password = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'form-control', 'placeholder': 'Password'}))
+
+
 class MentorRegistrationForm(forms.Form):
     painting=forms.BooleanField(required=False)
     football=forms.BooleanField(required=False)
