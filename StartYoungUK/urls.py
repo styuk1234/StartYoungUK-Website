@@ -41,7 +41,7 @@ urlpatterns = [
     path('verification/user/verify-email/<useremail>/<usertoken>/', user_views.verify_user_and_activate, name='verify-email'),
     path('verification/user/verify-email/request-new-link/<useremail>/<usertoken>/', verify_email_views.request_new_link, name='request-new-link-from-token'),
     path('verification/user/verify-email/request-new-link/', verify_email_views.request_new_link, name='request-new-link-from-email'),
-    path('reset_password/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name = 'users/password_reset.html' ), name='password_reset'),
     path('reset_password_done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),

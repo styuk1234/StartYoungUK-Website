@@ -102,6 +102,10 @@ class UserLoginForm(AuthenticationForm):
 
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
+class UserEmailPasswordResetForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserEmailPasswordResetForm, self).__init__(*args, **kwargs)
+    email = forms.EmailField(required=True)
 
 class MentorRegistrationForm(forms.Form):
     painting=forms.BooleanField(required=False)
