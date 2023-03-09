@@ -9,27 +9,37 @@ from .models import Donation
 def sponsor(request):
     if request.method == 'POST':
         form = DonationForm(request.POST)
-        if form.is_valid():
+        
+        if not request.user.is_authenticated and int(form['amount'].value()) > 40:
+            messages.error(request, 'We are not able to accept donations of more than £40 from unathenticated users. Please sign in to donate a larger amount!')
+        
+        elif form.has_error('captcha'):
+            messages.error(request, 'Please submit a Captcha before you click "Donate"')
+        
+        elif form.is_valid():
             form.save()
             messages.success(request,f'Thank you for your donation!')
-            sendthankyoumail(form.cleaned_data['email_id'])
+            sendthankyoumail(form.cleaned_data['email'])
+        
         else:
-            print('invalid')
-            messages.error(request, 'Invalid Form')
+            print(form.errors.as_json(escape_html=False))
+            messages.error(request, 'There was an error with your donation. Please try again!')
+            
+    # Pre-populate user info if user is authenticated 
     if request.user.is_authenticated:
       donate=Donation()
       donate.campaign_id=0
       donate.user_id=request.user.startyoungukuser.user_id
       donate.name=request.user.startyoungukuser.display_name
-      donate.email_id=request.user.startyoungukuser.email
-      donate.mobile_no=request.user.startyoungukuser.phone_number
+      donate.email=request.user.startyoungukuser.email
+      donate.mobile_number=request.user.startyoungukuser.phone_number
       form = DonationForm(instance=donate) 
     else:
       form = DonationForm()
     #cnt_sponsor = len(User.objects.all())
     return render(request, 'sponsor.html', {'form':form})
 
-def sendthankyoumail(email_id):
+def sendthankyoumail(email):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size = 15)
@@ -41,7 +51,7 @@ def sendthankyoumail(email_id):
     subject = 'Thank you for your donation!'
     message = f'Hi, thank you for donation to our charity.'
     email_from = settings.EMAIL_HOST_USER
-    recipient_list = [email_id, ]
+    recipient_list = [email, ]
     email = EmailMessage(
     subject, message, email_from, recipient_list)
     email.attach_file('Receipt.pdf')
