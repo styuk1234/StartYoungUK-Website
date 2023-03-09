@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+  .modal-content {
+    padding: 20px;
+  }
+  .quick-donate-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .quick-donate-buttons > button {
+    width: 25%;
+    background-color: #e09f3a;
+  }
+</style>
 
 <script>
   document.getElementById("nav-donate").classList.add("active");
@@ -78,7 +91,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header border-bottom-0">
-          <h5 class="modal-title" id="donateModalLabel">Donate - Please Fill Details</h5>
+          <h5 class="modal-title" id="donateModalLabel">Donation Details</h5>
           <button type="button" style="max-width: 50px;" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -89,36 +102,28 @@
                         <fieldset class="form-group">
                             {{ form|crispy }}
                         </fieldset>
+                        <div class="form-group quick-donate-buttons">
+                          {% if user.is_authenticated %}
+                          <button onclick="fillAmount(20)" type="button">£20</button>
+                          <button onclick="fillAmount(50)" type="button">£50</button>
+                          <button onclick="fillAmount(100)" type="button">£100</button>
+                          {% else %}
+                          <button onclick="fillAmount(5)" type="button">£5</button>
+                          <button onclick="fillAmount(10)" type="button">£10</button>
+                          <button onclick="fillAmount(40)" type="button">£40</button>
+                          {% endif %}
+                      </div>
                         <div class="form-group">
-                            <button class="signup-btn btn btn-primary" type="submit">Send</button>
+                            <button class="signup-btn btn btn-primary" type="submit">Donate</button>
                         </div>                           
                     </form>
-                    
-        <!-- <form>
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="name1">Full Name</label>
-              <input type="text" class="form-control" id="name1" placeholder="Full Name">
-            </div>
-            <div class="form-group">
-              <label for="email1">Email address</label>
-              <input type="email" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
-              <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small>
-            </div>
-            <div class="form-group">
-              <label for="mobile1">Mobile Number</label>
-              <input type="mobile" class="form-control" id="email1" aria-describedby="emailHelp" placeholder="Enter email">
-              <small id="emailHelp" class="form-text text-muted">Your information is safe with us.</small>
-            </div>
-            <div class="form-group">
-              <label for="amount1">Amount</label>
-              <input type="number" class="form-control" id="amount1" placeholder="Amount">
-            </div>
-          </div>
-          <div class="modal-footer border-top-0 d-flex justify-content-center">
-            <button style="max-width: 100px;" type="submit" class="btn btn-success">Send</button>
-          </div>
-        </form> -->
+
+<!-- Populate 'amount' field when a quick button is clicked -->
+<script type="text/javascript">
+  function fillAmount(amount) {
+    document.getElementById("id_amount").value = amount
+  }
+</script>
       </div>
     </div>
   </div>
