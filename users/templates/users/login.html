@@ -59,8 +59,10 @@
                         {% csrf_token %}
                         <fieldset class="form-group">
                             {{ form.username|as_crispy_field }}
-                            {{ form.password|as_crispy_field }}
-                            <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                            {{ form.password|as_crispy_field }}                       
+                            <div class="form-group">
+                                <class="text-muted"><b><a class="ml-2" href="{% url 'password_reset' %}">Forgot Password?</a></b></class>
+                            </div>
                             {{ form.captcha }}
                         </fieldset>
                         <div class="form-group">
@@ -69,7 +71,7 @@
                             
                     </form>
                     <div class="border-top pt-3">
-                        <small class="text-muted">Don't have an account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a></small>
+                        <class="text-muted"><b>Don't have an account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a></b></class>
                     </div>
                 </div>
             </div>

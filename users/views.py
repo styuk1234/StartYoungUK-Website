@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import SDPForm, UserRegisterForm, UserLoginForm, UpdateUserForm, MentorRegistrationForm
+from .forms import SDPForm, UserRegisterForm, UserLoginForm, UpdateUserForm, MentorRegistrationForm, UserEmailPasswordResetForm
 from home.forms import CampaignForm
 from home.models import Campaign
 from django.contrib import messages
@@ -123,6 +123,20 @@ def captcha_login(request):
         template_name="users/login.html",
         context={"form": form}
     )
+
+@user_not_authenticated
+def password_email_reset(request):
+    if request.method == "POST":
+        form = UserEmailPasswordResetForm(data=request.POST)
+        print(len(list(form.errors.items())))
+        print(form.errors.items())
+
+    return render(
+        request=request,
+        template_name="users/password_reset.html",
+        context={"form": form}
+    )
+
 
 
 @login_required
