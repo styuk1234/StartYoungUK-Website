@@ -13,6 +13,13 @@
     width: 25%;
     background-color: #e09f3a;
   }
+  .fund-raisers {
+    padding: 2em 0;
+  }
+  #login-link {
+    color: #721c24;
+    text-decoration: underline;
+  }
 </style>
 
 <script>
@@ -30,60 +37,52 @@
           </div>
         </div>
       </div>
-      
     </div>
   </div>
 
   <div class="site-section fund-raisers" id="donate-money">
     <div class="container">
+      {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+              {% if message.tags == "error" %}
+              <div class="alert alert-danger">
+                  {{ message }}
+              </div>
+              {% else %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+              {% endif %}
+            {% endfor %}
+        </div>
+      </div>
+    {% endif %}
       <div class="row mb-3 justify-content-center">
         <div class="col-md-8 text-center">
           <h2>Donate</h2>
           <p class="lead">Help a child by making a donation. No amount is small.</p>
-          <p class="mb-5"><a href="#" class="link-underline">View All Donations</a></p>
         </div>
         </div>
-        {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+
         <p style="text-align: center;"><button style="max-width: 300px;" data-toggle="modal" data-target="#donate-form" class="btn btn-white px-3 py-2">Click here to Donate</button></p>
-
-      <div class="row">
-        
-      </div>
     </div>
-  </div> <!-- .section -->
+  </div>
 
-  <div class="site-section fund-raisers" id="donate-in-kind">
+  <div class="site-section fund-raisers">
     <div class="container">
       <div class="row mb-3 justify-content-center">
         <div class="col-md-8 text-center">
           <h2>Donate in Kind</h2>
           <p class="lead">Donation is not all about money. You can donate in whatever way you can. Eg. books, clothes, your time with kids, food</p>
-          <!-- <p class="mb-5"><a href="#" class="link-underline">View All Donations</a></p> -->
         </div>
         </div>
-        {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
 <input type="text" placeholder="Name">
 <br>
 <input type="email" placeholder="Email">
 <br>
         <textarea placeholder="Input your comments here"></textarea>
         <button>Submit</button>
-
-      <div class="row">
-        
-      </div>
     </div>
   </div>
 
@@ -97,26 +96,34 @@
           </button>
         </div>
         {% load crispy_forms_tags %}
-                    <form method="POST" class="post-form">
-                        {% csrf_token %}
-                        <fieldset class="form-group">
-                            {{ form|crispy }}
-                        </fieldset>
-                        <div class="form-group quick-donate-buttons">
-                          {% if user.is_authenticated %}
-                          <button onclick="fillAmount(20)" type="button">£20</button>
-                          <button onclick="fillAmount(50)" type="button">£50</button>
-                          <button onclick="fillAmount(100)" type="button">£100</button>
-                          {% else %}
-                          <button onclick="fillAmount(5)" type="button">£5</button>
-                          <button onclick="fillAmount(10)" type="button">£10</button>
-                          <button onclick="fillAmount(40)" type="button">£40</button>
-                          {% endif %}
-                      </div>
-                        <div class="form-group">
-                            <button class="signup-btn btn btn-primary" type="submit">Donate</button>
-                        </div>                           
-                    </form>
+            {% if not user.is_authenticated %}
+              <div class="form-group" style="margin-bottom: 0;">
+                <div class="alert alert-danger" style="margin-bottom: 0;">
+                  Unathenticated users have a maximum donation limit of £40. If you wish to donate more, please <a id="login-link" href="/login">sign in</a>.
+                </div>
+              </div>
+            {% endif %}
+
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group quick-donate-buttons">
+                  {% if user.is_authenticated %}
+                  <button onclick="fillAmount(20)" type="button">£20</button>
+                  <button onclick="fillAmount(50)" type="button">£50</button>
+                  <button onclick="fillAmount(100)" type="button">£100</button>
+                  {% else %}
+                  <button onclick="fillAmount(5)" type="button">£5</button>
+                  <button onclick="fillAmount(10)" type="button">£10</button>
+                  <button onclick="fillAmount(40)" type="button">£40</button>
+                  {% endif %}
+              </div>
+                <div class="form-group">
+                    <button class="signup-btn btn btn-primary" type="submit">Donate</button>
+                </div>                           
+            </form>
 
 <!-- Populate 'amount' field when a quick button is clicked -->
 <script type="text/javascript">
