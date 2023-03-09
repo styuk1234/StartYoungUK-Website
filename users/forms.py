@@ -12,7 +12,7 @@ from captcha.widgets import ReCaptchaV2Checkbox
 
 class UserRegisterForm(UserCreationForm):
     display_name = forms.CharField(required=True)
-    user_type = forms.ChoiceField(choices=(('I', 'Individual'), ('C', 'Corporate')), required=True)
+    user_type = forms.ChoiceField(choices=(('I', 'Individual '), ('C', 'Corporate')),widget=forms.Select(attrs={'class': 'form-select', 'style': 'width: 100%; height:40px'}),required=True)
     email = forms.EmailField(required=True)
     #accept_tou = forms.BooleanField(required=True, label="I agree to the Terms of Use and Privacy.")
     phone_number = PhoneNumberField(
@@ -22,7 +22,7 @@ class UserRegisterForm(UserCreationForm):
         required=True,
     )
     address = forms.CharField(
-        widget=forms.Textarea(),
+        widget=forms.Textarea(attrs={'rows': 4}),
         required=True,
     )
     crn_no = forms.CharField(
@@ -55,11 +55,9 @@ class UserRegisterForm(UserCreationForm):
 
         try:
             StartYoungUKUser.objects.get(phone_number=phone_number)
-
         except StartYoungUKUser.DoesNotExist:
-
             return phone_number
-
+        
         raise forms.ValidationError("This Phone Number is already registered.")
 
     def clean_crn_no(self):
@@ -119,24 +117,44 @@ class MentorRegistrationForm(forms.Form):
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = StartYoungUKUser
-        fields = ['display_name', 'email', 'phone_number', 'address', 'image', 'captcha']
+        fields = ['display_name', 'email', 'phone_number', 'address']
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(UpdateUserForm, self).__init__(*args, **kwargs)
+        self.fields['display_name'].widget.attrs.update({'readonly':'readonly'})
+        self.fields['display_name'].required=False
+        self.fields['email'].widget.attrs.update({'readonly':'readonly'})
+        self.fields['email'].required=False
+        # self.fields['image'].required=False
 
-    display_name = forms.CharField(required=True)
-    image = forms.ImageField()
+    def clean_phone_number(self):
+        # Validate unique phone_number
+        phone_number = self.cleaned_data["phone_number"]
 
-    # email = forms.EmailField(required=True)
+        try:
+            syukuser=StartYoungUKUser.objects.get(phone_number=phone_number)
+            if syukuser.email == self.cleaned_data['email']:
+                return phone_number
+            
+        except StartYoungUKUser.DoesNotExist:
+            return phone_number
+        
+        raise forms.ValidationError("This Phone Number is already registered.")
+
+
+    # image = forms.ImageField()
+
+    email = forms.EmailField(required=True)
+
     phone_number = PhoneNumberField(
         widget=PhoneNumberPrefixWidget(
             initial='GB',  # GB works, not UK
         ),
-        required=True,
+        required=True
     )
     address = forms.CharField(
-        widget=forms.Textarea(),
+        widget=forms.Textarea(attrs={'rows': 4}),
         required=True,
     )
     
