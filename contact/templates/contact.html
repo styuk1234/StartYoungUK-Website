@@ -10,11 +10,18 @@
   .opportunity-cards {
     margin-bottom: 5%;
   }
+  .card-text {
+  overflow: scroll;
+  max-height: 100%;
+}
+.card-top {
+  max-height: 30%;
+}
 </style>
 
 <div class="block-31" style="position: relative;">
-    <div class="owl-carousel loop-block-31 ">
-      <div class="block-30 block-30-sm item" style="background-image: url('/static/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+    <div class="owl-carousel loop-block-31 homepage-nav">
+      <div class="block-30 block-30-sm item" style="background-image: url('/static/images/join-us.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-md-7 text-center">
@@ -36,16 +43,20 @@
           {% if not opportunity.position_filled and today < opportunity.end_date %}
             <div class="card fundraise-item">
                 <div class="card-body campaign-card">
-                    <div>
-                        <h3 class="card-title"><a href="#">{{ opportunity.title }}</a></h3>
+                    <div class="card-top">
+                        <h3 class="card-title">{{ opportunity.title }}</h3>
                         <p class="card-text">{{ opportunity.description }}</p>
                     </div>
                     <div>
                         <span class="donation-time mb-3 d-block">Deadline: {{ opportunity.end_date }}</span>
                         <span class="donation-time mb-3 d-block">Duration: {{ opportunity.duration }}</span>
-                        <span class="donation-time mb-3 d-block">Salary: {{ opportunity.salary }} GBP</span>
+                        {% if opportunity.job_paid %}
+                        <span class="donation-time mb-3 d-block">Position Type: Paid</span>
+                        {% else %}
+                        <span class="donation-time mb-3 d-block">Position Type: Volunteer</span>
+                        {% endif %}
                         <div class="form-group">
-                            <button class="donate-btn login-btn btn btn-primary" type="button" onclick="location.href='{{ opportunity.form_url }}'">Register</button>
+                            <button class="donate-btn login-btn btn btn-primary" type="button"><a href="{{ opportunity.form_url }}" target="_blank" rel="noopener noreferrer">Register</a></button>
                         </div>
                     </div>
                 </div>

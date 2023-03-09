@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import SDPForm, UserRegisterForm, UserLoginForm, UpdateUserForm, MentorRegistrationForm
+from .forms import SDPForm, UserRegisterForm, UserLoginForm, UpdateUserForm, MentorRegistrationForm, UserEmailPasswordResetForm
 from home.forms import CampaignForm
 from home.models import Campaign
 from django.contrib import messages
@@ -124,6 +124,20 @@ def captcha_login(request):
         context={"form": form}
     )
 
+@user_not_authenticated
+def password_email_reset(request):
+    if request.method == "POST":
+        form = UserEmailPasswordResetForm(data=request.POST)
+        print(len(list(form.errors.items())))
+        print(form.errors.items())
+
+    return render(
+        request=request,
+        template_name="users/password_reset.html",
+        context={"form": form}
+    )
+
+
 
 @login_required
 def captcha_logout(request):
@@ -150,7 +164,7 @@ def sdp(request):
         form = SDPForm(request.POST)
         if form.is_valid():
             messages.success(request,
-                             f'You have successfully subscribed to Systematic Donatino Plan.')
+                             f'You have successfully subscribed to Systematic Donation Plan.')
     return render(request, 'sdp.html', {'form':form})
 
 

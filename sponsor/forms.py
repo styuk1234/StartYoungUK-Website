@@ -2,18 +2,22 @@ from django import forms
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 from sponsor.models import Donation
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 
 class DonationForm(forms.ModelForm):
     name = forms.CharField(required=True)
-    email_id = forms.EmailField(required=True)
-    mobile_no = PhoneNumberField(
+    email = forms.EmailField(required=True)
+    mobile_number = PhoneNumberField(
                                 widget=PhoneNumberPrefixWidget(
-                                    initial='GB', #GB works, not UK
+                                    initial='GB'
                                 ),
                                 required=True,
                                 )
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
     amount = forms.IntegerField()
+    
     class Meta:
         model = Donation
-        fields = ['name', 'email_id','mobile_no','amount']
+        fields = ['email', 'name', 'mobile_number', 'captcha', 'amount']
