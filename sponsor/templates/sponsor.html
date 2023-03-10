@@ -20,6 +20,15 @@
     color: #721c24;
     text-decoration: underline;
   }
+  #donate-in-kind-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 40%;
+    height: 500px;
+    position: relative;
+    left: 30%;
+  }
 </style>
 
 <script>
@@ -65,7 +74,7 @@
         </div>
         </div>
 
-        <p style="text-align: center;"><button style="max-width: 300px;" data-toggle="modal" data-target="#donate-form" class="btn btn-white px-3 py-2">Click here to Donate</button></p>
+        <p style="text-align: center;"><button style="max-width: 300px;" data-toggle="modal" data-target="#donate-form" class="signup-btn btn btn-primary">Make a Donation Today</button></p>
     </div>
   </div>
 
@@ -76,13 +85,13 @@
           <h2>Donate in Kind</h2>
           <p class="lead">Donation is not all about money. You can donate in whatever way you can. Eg. books, clothes, your time with kids, food</p>
         </div>
-        </div>
-<input type="text" placeholder="Name">
-<br>
-<input type="email" placeholder="Email">
-<br>
+      </div>
+      <form id="donate-in-kind-form">
+        <input type="text" placeholder="Name">
+        <input type="email" placeholder="Email">
         <textarea placeholder="Input your comments here"></textarea>
-        <button>Submit</button>
+        <button class="signup-btn btn btn-primary" type="submit">Submit</button>
+      </form>
     </div>
   </div>
 
@@ -135,4 +144,4 @@
     </div>
   </div>
 
-  {% endblock %}
+{% endblock %}

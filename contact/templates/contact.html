@@ -36,7 +36,7 @@
 
   <div class="site-section">
       <div class="col-md-12 block-11">
-        <h2 class="heading">Explore our Career Opportunities:</h2>
+        <h2 class="heading" style="text-align: center;">Explore our Career Opportunities</h2>
         <div class="nonloop-block-11 owl-carousel">
         {% for opportunity in opportunities %}
           {% if not opportunity.position_filled and today < opportunity.end_date %}
@@ -67,7 +67,7 @@
     </div>
 
     <div class="container">
-      <h2 class="heading">Contact Us:</h2>
+      <h2 class="heading" style="text-align: center; margin-bottom: 50px;">Contact Us</h2>
       <div class="row block-9">
         <div class="col-md-6 pr-md-5">
           <form id="ajax-contact" name="google-sheet" method="POST">
