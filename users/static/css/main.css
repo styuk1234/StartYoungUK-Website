@@ -472,9 +472,10 @@ input {
 }
 
 .card-2 .card-heading {
-  background: url("../images/bg-heading-02.jpg") top left/cover no-repeat;
-  width: 29.1%;
-  display: table-cell;
+  /* background: url("../images/bg-heading-02.jpg") top left/cover no-repeat; */
+  /* background-color: #a7986e; */
+  width: 5.1%;
+  /* display: table-cell; */
 }
 
 .card-2 .card-body {
@@ -489,8 +490,10 @@ input {
   }
   .card-2 .card-heading {
     width: 100%;
-    display: block;
-    padding-top: 300px;
+    /* display: block;
+    padding-top: 300px; */
+    display: flex;
+    align-items: center;
     background-position: left center;
   }
   .card-2 .card-body {

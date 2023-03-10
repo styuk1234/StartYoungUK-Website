@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -9,4 +11,4 @@ urlpatterns = [
     path('sdp', views.sdp, name="sdp"),
     path('mentor', views.mentor, name="mentor"),
     path('start_campaign', views.start_campaign, name="start_campaign")
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
