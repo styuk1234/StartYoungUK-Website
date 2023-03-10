@@ -18,7 +18,7 @@ class StartYoungUKUser(models.Model):
     crn_no = models.CharField(default='00000000', max_length=8, validators=[MinLengthValidator(limit_value=8)])
     user_type = models.CharField(max_length=10, choices=[('I', 'Individual'), ('C', 'Corporate')], null=False)
     is_verified = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
     def __str__(self):
         return f"{self.email}"

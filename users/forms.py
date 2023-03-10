@@ -12,7 +12,7 @@ from captcha.widgets import ReCaptchaV2Checkbox
 
 class UserRegisterForm(UserCreationForm):
     display_name = forms.CharField(required=True)
-    user_type = forms.ChoiceField(choices=(('I', 'Individual '), ('C', 'Corporate')),widget=forms.Select(attrs={'class': 'form-select', 'style': 'width: 100%; height:40px'}),required=True)
+    user_type = forms.ChoiceField(choices=(('I', 'Individual : If you are signing up as a personal donor'), ('C', 'Corporate : If you are signing up as a corporate affiliate')),widget=forms.Select(attrs={'class': 'form-select', 'style': 'width: 100%; height:40px'}),required=True)
     email = forms.EmailField(required=True)
     #accept_tou = forms.BooleanField(required=True, label="I agree to the Terms of Use and Privacy.")
     phone_number = PhoneNumberField(
@@ -131,7 +131,7 @@ class MentorRegistrationForm(forms.Form):
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = StartYoungUKUser
-        fields = ['display_name', 'email', 'phone_number', 'address']
+        fields = ['display_name', 'email', 'phone_number', 'address','image']
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -140,7 +140,7 @@ class UpdateUserForm(forms.ModelForm):
         self.fields['display_name'].required=False
         self.fields['email'].widget.attrs.update({'readonly':'readonly'})
         self.fields['email'].required=False
-        # self.fields['image'].required=False
+        self.fields['image'].initial=self.user.image
 
     def clean_phone_number(self):
         # Validate unique phone_number
@@ -156,10 +156,7 @@ class UpdateUserForm(forms.ModelForm):
         
         raise forms.ValidationError("This Phone Number is already registered.")
 
-
-    # image = forms.ImageField()
-
-    email = forms.EmailField(required=True)
+    # email = forms.EmailField()
 
     phone_number = PhoneNumberField(
         widget=PhoneNumberPrefixWidget(
@@ -171,7 +168,9 @@ class UpdateUserForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'rows': 4}),
         required=True,
     )
-    
+
+    # image =forms.ImageField(widget=forms.ClearableFileInput())
+
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
 

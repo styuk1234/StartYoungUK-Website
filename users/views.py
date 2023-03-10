@@ -12,6 +12,7 @@ from verify_email.email_handler import send_verification_email
 from verify_email.confirm import verify_user
 from django.core.signing import SignatureExpired, BadSignature
 from base64 import urlsafe_b64decode
+import os
 from verify_email.errors import (
     InvalidToken,
 )
@@ -251,7 +252,7 @@ def mentor(request):
 def profile(request):
     current_user = request.user
     if request.method == 'POST':
-        form = UpdateUserForm(request.POST, request.FILES,instance=current_user)
+        form = UpdateUserForm(request.POST, request.FILES,instance=current_user,user=request.user.startyoungukuser)
         if form.is_valid():
             if User.objects.filter(email__iexact=form.cleaned_data.get('email')).count() > 1:
                 messages.error(request, "This email address is already in use. Please supply a different email address.")
@@ -262,7 +263,10 @@ def profile(request):
                 syuk_user.phone_number = form.cleaned_data.get('phone_number')
                 syuk_user.email = form.cleaned_data.get('email')
                 syuk_user.address = form.cleaned_data.get('address')
-                #syuk_user.image = form.cleaned_data.get('image')
+                if len(request.FILES) !=0:
+                    if form.cleaned_data['image']:
+                        os.remove(syuk_user.image.path)
+                    syuk_user.image = form.cleaned_data.get('image')
                 syuk_user.save()
                 userx = User.objects.get(email=form.cleaned_data['email'])
                 userx.email = form.cleaned_data['email']
@@ -279,6 +283,5 @@ def profile(request):
                 messages.error(request, error)
             return redirect('profile')
     else:
-        form = UpdateUserForm(instance=request.user.startyoungukuser)
-
+        form = UpdateUserForm(user=request.user.startyoungukuser,instance=request.user.startyoungukuser)
     return render(request, 'profile.html', {'form': form})
