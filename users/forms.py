@@ -35,8 +35,7 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['display_name', 'user_type', 'email', 'phone_number', 'address', 'crn_no', 'username', 'password1',
-                  'password2', 'captcha']
+        fields = ['email', 'username', 'password1', 'password2', 'display_name', 'user_type', 'phone_number', 'address', 'crn_no', 'captcha']
 
     def clean_email(self):
         # Validate unique email
