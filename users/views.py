@@ -264,7 +264,7 @@ def profile(request):
                 syuk_user.email = form.cleaned_data.get('email')
                 syuk_user.address = form.cleaned_data.get('address')
                 if len(request.FILES) !=0:
-                    if form.cleaned_data['image']:
+                    if form.cleaned_data['image'] and os.path.exists(syuk_user.image.path):
                         os.remove(syuk_user.image.path)
                     syuk_user.image = form.cleaned_data.get('image')
                 syuk_user.save()
