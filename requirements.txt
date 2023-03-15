@@ -11,6 +11,7 @@ django-phonenumbers==1.0.1
 django-recaptcha==3.0.0
 Django-Verify-Email==2.0.3
 djangorestframework==3.14.0
+django-paypal==2.0
 fpdf==1.7.2
 mssql-django==1.2
 phonenumbers==8.13.7
