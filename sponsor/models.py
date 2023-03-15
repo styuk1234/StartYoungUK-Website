@@ -1,4 +1,3 @@
-from wsgiref.validate import validator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -11,3 +10,4 @@ class Donation(models.Model):
     mobile_number = PhoneNumberField(null=False,blank=False)
     amount = models.PositiveIntegerField(null=False)
     is_anonymous = models.BooleanField(null=False, default=False)
+    is_successful = models.BooleanField(null=False, default=False)
