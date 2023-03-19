@@ -107,11 +107,12 @@
           <p class="lead">Donation is not all about money. You can donate in whatever way you can (eg. books, clothes, your time with kids, food).</p>
         </div>
       </div>
-      <form class="donate-form" style="height: 500px;">
-        <input type="text" placeholder="Name">
-        <input type="email" placeholder="Email">
-        <textarea placeholder="Input your comments here"></textarea>
+      <form class="donate-form" name="google-sheet-donate" style="height: 500px;">
+        <input type="text" name="Name" placeholder="Name">
+        <input type="email" name="Email" placeholder="Email">
+        <textarea name="Comment" placeholder="Input your comments here"></textarea>
         <button class="signup-btn btn btn-primary" type="submit">Submit</button>
+        <div id="snackbar"></div>
       </form>
     </div>
   </div>
@@ -122,5 +123,30 @@
       document.getElementById("id_amount").value = amount
     }
   </script>
+  <script>
+    function showToast(message, color) {
+      // Get the snackbar DIV
+      var x = document.getElementById("snackbar");
+      x.innerHTML = message;
+      x.style.backgroundColor = color;
+
+      // Add the "show" class to DIV
+      x.className = "show";
+
+      // After 3 seconds, remove the show class from DIV
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+  </script>
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbz96p0pB3I5Kf77R_JZcf5MY2bZxda_X4ns8QjZ4qRLcenIpFK2KKEAYcBN4uWVFyf3bg/exec"
+    const form = document.forms['google-sheet-donate']
+    
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => showToast("Message sent successfully!", "green"))
+      .catch(error => showToast("There was an error sending your message, please try again!", "red"))
+    })
+    </script>
 
 {% endblock %}
