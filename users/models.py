@@ -19,6 +19,7 @@ class StartYoungUKUser(models.Model):
     user_type = models.CharField(max_length=10, choices=[('I', 'Individual'), ('C', 'Corporate')], null=False)
     is_verified = models.BooleanField(default=False)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    is_coordinator = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.email}"
@@ -37,7 +38,7 @@ class Child(models.Model):
     def __str__(self):
         return f"{self.child_id}"   
 
-
+# TODO do we want to make this a child model of startyoung uk user?
 class Mentor(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -46,6 +47,9 @@ class Mentor(models.Model):
     hobbies = models.CharField(max_length=10,default="0000000000")
     mentor_date = models.DateTimeField(auto_now_add=True)
     occupation = models.CharField(max_length=20, null=False)
+    status = models.CharField(max_length=256,choices=[('pending','pending'),('approved','approved'),('rejected','rejected')],default='pending')
+    # is_approved = models.BooleanField(default=False)
+
     
     def __str__(self):
         return f"{self.id}"

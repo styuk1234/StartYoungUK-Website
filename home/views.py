@@ -5,6 +5,7 @@ from users.models import Mentor, Child
 from django.core.serializers import serialize
 from django.contrib.auth.models import User
 import json
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 def home(request):
     affiliations = Affiliation.objects.all()
@@ -37,3 +38,8 @@ def home(request):
 
 def buddysystem(request):
     return render(request, 'buddy.html')
+
+@login_required
+@user_passes_test(lambda u: u.startyoungukuser.is_coordinator)
+def approve_mentors(request):
+    return render(request, 'mentor_approvals.html')
