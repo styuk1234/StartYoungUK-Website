@@ -42,4 +42,5 @@ def buddysystem(request):
 @login_required
 @user_passes_test(lambda u: u.startyoungukuser.is_coordinator)
 def approve_mentors(request):
-    return render(request, 'mentor_approvals.html')
+    mentors = Mentor.objects.all()
+    return render(request, 'mentor_approvals.html',{'mentors':mentors})

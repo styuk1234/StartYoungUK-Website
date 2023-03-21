@@ -12,8 +12,37 @@
       <div class="row">
         
         <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px;">
- 
-        </div>
+          <br><h2 style="text-align:center;">Mentors</h2><br>
+          <!-- <p class="mb-5">The Start Young Buddy plays a key part in making a change in a child's life, they encourage, mentor, value, respect, shift mindset and support throughout the educational road map. Ensuring every child reached their full potential. You can be a sleeping (SYB) or an active (SYB). In line with safeguarding all (SYB) contact is through the school and charity.</p> -->
+          <!-- <p class="lead">WHAT IS  A START YOUNG BUDDY (SYB)</p> -->
+            <p class="lead">Update Mentor Status</p>
+
+            <div class="mentors-table-wrapper">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for mentor in mentors %}
+                    <tr>
+                        <td><input type="checkbox" name="task_id" value="{{ mentor.id }}"></td>
+                        <td>{{ mentor.id }}</td>
+                        <td>{{ mentor.occupation }}</td>
+                        <td>{{ mentor.status }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+              </div>
+              
+              <p class="mb-0" style="text-align: center;"><a href="{% url 'login' %}" class="btn btn-white px-3 py-2">Be a Buddy/Mentor</a></p>
+            <br>
+            <br>
+            </div>
         
       </div>
     </div>
