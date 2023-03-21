@@ -18,9 +18,27 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 40%;
+    width: 60%;
     position: relative;
-    left: 30%;
+    left: 20%;
+  }
+  #donate-in-kind-form {
+      height: 500px;
+    }
+  @media screen and (min-width:900px) {
+    #donate-flex {
+      display: flex;
+      flex-direction: row;
+    }
+    .fund-raisers {
+    flex-basis: 50%;
+    }
+    #donate-in-kind-description {
+      margin-bottom: 25%;
+    }
+    #donate-in-kind-form {
+      height: 650px;
+    }
   }
 </style>
 
@@ -41,7 +59,7 @@
       </div>
     </div>
   </div>
-
+<div id="donate-flex">
   <div class="site-section fund-raisers">
     <div class="container">
 
@@ -92,22 +110,20 @@
                 <button onclick="fillAmount(10)" type="button">£10</button>
                 <button onclick="fillAmount(40)" type="button">£40</button>
                 {% endif %}
-            </div>
+              </div>
             <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-form'>Donate</button>
           </form>
     </div>
-    </div>
   </div>
-
   <div class="site-section fund-raisers">
     <div class="container">
       <div class="row mb-3 justify-content-center">
         <div class="col-md-8 text-center">
           <h2>Donate in Kind</h2>
-          <p class="lead">Donation is not all about money. You can donate in whatever way you can (eg. books, clothes, your time with kids, food).</p>
+          <p class="lead" id="donate-in-kind-description">Donation is not all about money. You can donate in whatever way you can (eg. books, clothes, your time with kids, food).</p>
         </div>
       </div>
-      <form class="donate-form" name="google-sheet-donate" style="height: 500px;">
+      <form class="donate-form" name="google-sheet-donate" id="donate-in-kind-form">
         <input type="text" name="Name" placeholder="Name">
         <input type="email" name="Email" placeholder="Email">
         <textarea name="Comment" placeholder="Input your comments here"></textarea>
@@ -116,6 +132,7 @@
       </form>
     </div>
   </div>
+</div>
 
   <!-- Populate 'amount' field when a quick button is clicked -->
   <script type="text/javascript">
@@ -147,6 +164,6 @@
       .then(response => showToast("Message sent successfully!", "green"))
       .catch(error => showToast("There was an error sending your message, please try again!", "red"))
     })
-    </script>
+  </script>
 
 {% endblock %}
