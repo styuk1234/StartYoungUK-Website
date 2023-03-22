@@ -48,11 +48,12 @@ def buddysystem(request):
 @user_passes_test(lambda u: u.startyoungukuser.is_coordinator)
 def approve_mentors(request):
     mentors = Mentor.objects.all()
+    current_user = request.user
     if request.method == 'POST':
         mentor_status = request.POST.get('mentor-status')
         checked_mentors = request.POST.getlist('chosen-mentors')
         for mentor_id in checked_mentors:
-            Mentor.objects.filter(pk=int(mentor_id)).update(status=mentor_status)
+            Mentor.objects.filter(pk=int(mentor_id)).update(status=mentor_status,approver=current_user.email)
         return render(request, 'mentor_approvals.html',{'mentors':mentors})
     return render(request, 'mentor_approvals.html',{'mentors':mentors})
 

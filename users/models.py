@@ -47,7 +47,7 @@ class Mentor(models.Model):
     mentor_date = models.DateTimeField(auto_now_add=True)
     occupation = models.CharField(max_length=20, null=False)
     status = models.CharField(max_length=256,choices=[('pending','pending'),('approved','approved'),('rejected','rejected')],default='pending')
-
+    approver = models.EmailField(max_length=256, null=True)
     
     def __str__(self):
         return f"{self.id}"
