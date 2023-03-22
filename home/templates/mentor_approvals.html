@@ -5,7 +5,12 @@
 <script>
   document.getElementById("nav-buddy").classList.add("active");
 </script>
-
+<!-- TODO: Move this style to the correct place -->
+<style>
+    body {
+        color: aliceblue;
+    }
+</style>
 <div class="featured-section overlay-color-2" style="background-image: url('/static/images/bg_2.jpg');">
     
     <div class="container">
@@ -16,7 +21,39 @@
           <!-- <p class="mb-5">The Start Young Buddy plays a key part in making a change in a child's life, they encourage, mentor, value, respect, shift mindset and support throughout the educational road map. Ensuring every child reached their full potential. You can be a sleeping (SYB) or an active (SYB). In line with safeguarding all (SYB) contact is through the school and charity.</p> -->
           <!-- <p class="lead">WHAT IS  A START YOUNG BUDDY (SYB)</p> -->
             <p class="lead">Update Mentor Status</p>
+            <form action="" method="POST">
+            {% csrf_token %}
+            <table class="table table-striped table-hover .table-responsive .mentor_table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Request Date</th>
+                  <th>Occupation</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for mentor in mentors %}
+                <tr>
+                  <td><input type="checkbox" name="chosen-mentors" value="{{ mentor.id }}"></td>
+                  <td>{{ mentor.user.first_name }}</td>
+                  <td>{{ mentor.user.last_name }}</td>
+                  <td>{{ mentor.mentor_date }}</td>
+                  <td>{{ mentor.occupation }}</td>
+                  <!-- <td><input type="checkbox" name="mentor-status" value="{{ mentor.id }}" {% if mentor.status == "approved" %}checked{% endif %}></td> -->
+                  <td>{{ mentor.status }}</td>
 
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <button class="btn btn-secondary" type="submit" name="mentor-status" value="approved">Approve</button>
+            <button class="btn btn-secondary" type="submit" name="mentor-status" value="rejected">Reject</button>
+
+            
+<!--  
             <div class="mentors-table-wrapper">
                 <table>
                     <thead>
@@ -42,7 +79,7 @@
               <p class="mb-0" style="text-align: center;"><a href="{% url 'login' %}" class="btn btn-white px-3 py-2">Be a Buddy/Mentor</a></p>
             <br>
             <br>
-            </div>
+            </div> -->
         
       </div>
     </div>

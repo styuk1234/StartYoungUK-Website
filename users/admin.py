@@ -20,4 +20,6 @@ class ChildAdmin(admin.ModelAdmin):
 
 @admin.register(Mentor)
 class MentorAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("id", "user",  "status")
+    list_filter = ("status", )
+    # search_fields = ("display_name__startswith", "email__startswith", )

@@ -42,13 +42,11 @@ class Child(models.Model):
 class Mentor(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # mentor_id=models.AutoField(primary_key=True)
     # name = models.CharField(max_length=50, null=False)
     hobbies = models.CharField(max_length=10,default="0000000000")
     mentor_date = models.DateTimeField(auto_now_add=True)
     occupation = models.CharField(max_length=20, null=False)
     status = models.CharField(max_length=256,choices=[('pending','pending'),('approved','approved'),('rejected','rejected')],default='pending')
-    # is_approved = models.BooleanField(default=False)
 
     
     def __str__(self):
