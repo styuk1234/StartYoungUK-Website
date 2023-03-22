@@ -6,6 +6,7 @@ from django.core.serializers import serialize
 from django.contrib.auth.models import User
 import json
 from django.contrib.auth.decorators import login_required, user_passes_test
+from .signals import sendMentorApprovalEmail
 
 
 from django.views.generic import ListView
@@ -53,7 +54,11 @@ def approve_mentors(request):
         mentor_status = request.POST.get('mentor-status')
         checked_mentors = request.POST.getlist('chosen-mentors')
         for mentor_id in checked_mentors:
-            Mentor.objects.filter(pk=int(mentor_id)).update(status=mentor_status,approver=current_user.email)
+            updated_mentors = Mentor.objects.filter(pk=int(mentor_id))
+            updated_mentors.update(status=mentor_status,approver=current_user.email)
+            # sendMentorApprovalEmail(mentor.email, mentor_status)
+            for updated_mentor in updated_mentors:
+                sendMentorApprovalEmail(updated_mentor.user.email, mentor_status)
         return render(request, 'mentor_approvals.html',{'mentors':mentors})
     return render(request, 'mentor_approvals.html',{'mentors':mentors})
 
