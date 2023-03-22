@@ -57,8 +57,8 @@ def approve_mentors(request):
             updated_mentors = Mentor.objects.filter(pk=int(mentor_id))
             updated_mentors.update(status=mentor_status,approver=current_user.email)
             # sendMentorApprovalEmail(mentor.email, mentor_status)
-            for updated_mentor in updated_mentors:
-                sendMentorApprovalEmail(updated_mentor.user.email, mentor_status)
+            # for updated_mentor in updated_mentors:
+            #     sendMentorApprovalEmail(updated_mentor.user.email, mentor_status)
         return render(request, 'mentor_approvals.html',{'mentors':mentors})
     return render(request, 'mentor_approvals.html',{'mentors':mentors})
 

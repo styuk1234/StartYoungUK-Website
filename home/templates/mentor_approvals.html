@@ -8,8 +8,23 @@
 <!-- TODO: Move this style to the correct place -->
 <style>
     body {
-        color: aliceblue;
+      color: rgb(248, 249, 249);
     }
+    .button-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .button-group button {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+      max-width: 100px;
+    }
+
+
+
 </style>
 <div class="featured-section overlay-color-2" style="background-image: url('/static/images/bg_2.jpg');">
     
@@ -49,8 +64,11 @@
                 {% endfor %}
               </tbody>
             </table>
-            <button class="btn btn-secondary" type="submit" name="mentor-status" value="approved">Approve</button>
-            <button class="btn btn-secondary" type="submit" name="mentor-status" value="rejected">Reject</button>
+            <div class="button-group">
+              <button class="btn btn-white" type="submit" name="mentor-status" value="approved">Approve</button>
+              <button class="btn btn-white" type="submit" name="mentor-status" value="rejected">Reject</button>
+            </div>
+            
 
             
 <!--  
