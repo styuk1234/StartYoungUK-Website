@@ -21,3 +21,14 @@ class DonationForm(forms.ModelForm):
     class Meta:
         model = Donation
         fields = ['email', 'name', 'mobile_number', 'captcha', 'amount']
+    
+    def __init__(self, *args, **kwargs):
+        self.user=kwargs.pop('user', None)
+        super(DonationForm, self).__init__(*args, **kwargs)
+        data = kwargs.pop('instance', None)
+        if not isinstance(data, type(None)):
+            self.fields['name'].widget.attrs.update({'readonly':'readonly'})
+            self.fields['email'].widget.attrs.update({'readonly':'readonly'})
+            self.fields['mobile_number'].widget.attrs.update({'readonly':'readonly'})
+
+
