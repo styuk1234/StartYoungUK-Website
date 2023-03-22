@@ -69,6 +69,36 @@
 
     </div>
   </div>
+<!-- TODO put the css where it belongs or so help me -->
+  <style>
+    figure {
+        border: thin #c0c0c0 solid;
+        display: flex;
+        flex-flow: column;
+        margin: auto;
+    }
+
+    img {
+        max-width: 1500px;
+        max-height: 690px;
+        object-fit: cover;
+    }
+
+    video {
+      max-width: 1500px;
+      height: 690px;
+      object-fit: cover;
+    }
+
+    figcaption {
+        background-color: #222;
+        color: #fff;
+        font: italic smaller sans-serif;
+        padding: 3px;
+        text-align: center;
+    }
+
+  </style>
 
   <div class="site-section">
     <!-- <div class="col-md-12 mb-5 text-center mt-5"> -->
@@ -79,13 +109,22 @@
           <div class="owl-carousel loop-block-31">
             {% for image in images %}
               {% if image.gallery_type == 'image' %}
-                <div class="block-30 no-overlay item" style="background-image: url('/media/{{ image.gallery_image }}');"></div>
+                <div class="block-30 no-overlay item">
+                  <figure>
+                    <img src="/media/{{ image.gallery_image }}" alt="{{ image.image_title }}">
+                    <figcaption>{{ image.image_title }}</figcaption>
+                  </figure>
+
+                </div>
               {% elif image.gallery_type == 'video' %}
                 <div class="block-30 no-overlay item">
-                  <video style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;" controls autoplay muted>
-                      <source src="/media/{{ image.gallery_image }}" type="video/mp4">
-                      Your browser does not support the video tag.
-                  </video>
+                  <figure>
+                    <video controls autoplay muted alt="{{ image.image_title }}">
+                        <source src="/media/{{ image.gallery_image }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>{{ image.image_title }}</figcaption>
+                  </figure>
                 </div>  
               {% endif %}
             {% endfor %}
