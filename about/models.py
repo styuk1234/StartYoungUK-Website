@@ -14,9 +14,15 @@ class TeamMember(models.Model):
     
 class GalleryImage(models.Model):
 
+    IMAGE_TYPE = (
+        ('image', 'Image'),
+        ('video', 'Video')
+    )
+    
     image_id = models.AutoField(primary_key=True)
     image_title = models.CharField(max_length=100, null=False)
-    gallery_image = models.ImageField(default='default_image.jpg', upload_to='gallery_pics')
+    gallery_image = models.FileField(default='default_image.jpg', upload_to='gallery_pics')
+    gallery_type = models.CharField(max_length=5, choices=IMAGE_TYPE, default='image')
 
     def __str__(self):
         return f"{self.image_id, self.image_title}"
