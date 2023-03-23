@@ -9,8 +9,8 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .signals import sendMentorApprovalEmail
 
 
-from django.views.generic import ListView
-from django.forms.widgets import CheckboxSelectMultiple
+# from django.views.generic import ListView
+# from django.forms.widgets import CheckboxSelectMultiple
 # from django.http import QueryDict
 
 def home(request):
@@ -48,11 +48,17 @@ def buddysystem(request):
 @login_required
 @user_passes_test(lambda u: u.startyoungukuser.is_coordinator)
 def approve_mentors(request):
-    mentors = Mentor.objects.all()
+    mentors = Mentor.objects.all().order_by('mentor_date')
     current_user = request.user
     if request.method == 'POST':
+        filter_status = request.POST.get('filter-status')
+        if filter_status == "all":
+            mentors = Mentor.objects.all().order_by('mentor_date')
+        else:
+            mentors = Mentor.objects.filter(status=filter_status).order_by('mentor_date')
         mentor_status = request.POST.get('mentor-status')
         checked_mentors = request.POST.getlist('chosen-mentors')
+        filter_status = request.POST.get('filter-status')
         for mentor_id in checked_mentors:
             updated_mentors = Mentor.objects.filter(pk=int(mentor_id))
             updated_mentors.update(status=mentor_status,approver=current_user.email)

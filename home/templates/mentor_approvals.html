@@ -30,14 +30,30 @@
 
 <div class="featured-section overlay-color-2" style="background-image: url('/static/images/bg_2.jpg');">
     
-    <div class="container">
-      <div class="row">
+  <div class="container">
+    <div class="row">
         
         <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px;">
-          <br><h2 style="text-align:center;">Mentors</h2><br>
+          <br><h2 style="text-align:center;">Buddies</h2><br>
           <!-- <p class="mb-5">The Start Young Buddy plays a key part in making a change in a child's life, they encourage, mentor, value, respect, shift mindset and support throughout the educational road map. Ensuring every child reached their full potential. You can be a sleeping (SYB) or an active (SYB). In line with safeguarding all (SYB) contact is through the school and charity.</p> -->
           <!-- <p class="lead">WHAT IS  A START YOUNG BUDDY (SYB)</p> -->
-            <p class="lead">Update Mentor Status</p>
+            <p class="lead">Update Buddy Status</p>
+            <form method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="status-filter">Filter by Status:</label>
+                <select class="form-control" id="status-filter" name="filter-status">
+                  <option value="all">All</option>
+                  <option value="pending">Pending</option>
+                  <option value="approved">Approved</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+              <div class="mentor-approval-button-group">
+                <button type="submit" class="btn btn-primary">Filter</button>
+              </div>
+            </form>
+            <br />
             <form action="" method="POST">
             {% csrf_token %}
             <div class="mentors-table-wrapper">
@@ -71,11 +87,12 @@
             <div class="mentor-approval-button-group">
               <button class="btn btn-white" type="submit" name="mentor-status" value="approved">Approve</button>
               <button class="btn btn-white" type="submit" name="mentor-status" value="rejected">Reject</button>
-            </div>        
-      </div>
+            </div> 
+            <br /> 
+        </div>           
     </div>
-
   </div>
+</div>
 
 
 {% endblock %}
