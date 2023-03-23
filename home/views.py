@@ -52,7 +52,7 @@ def approve_mentors(request):
     current_user = request.user
     if request.method == 'POST':
         filter_status = request.POST.get('filter-status')
-        if filter_status == "all":
+        if filter_status is None or filter_status == "all":
             mentors = Mentor.objects.all().order_by('mentor_date')
         else:
             mentors = Mentor.objects.filter(status=filter_status).order_by('mentor_date')

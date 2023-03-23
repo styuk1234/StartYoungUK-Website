@@ -54,7 +54,11 @@
               </div>
             </form>
             <br />
-            <p class="lead" style="text-transform: uppercase;">{{filter_status}} buddy list</p>
+            {% if filter_status == None %}
+              <p class="lead" style="text-transform: uppercase;">all buddy list</p>
+            {% else %}
+              <p class="lead" style="text-transform: uppercase;">{{filter_status}} buddy list</p>
+            {% endif %}
             <form action="" method="POST">
             {% csrf_token %}
             <div class="mentors-table-wrapper">
