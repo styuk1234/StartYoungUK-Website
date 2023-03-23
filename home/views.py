@@ -65,7 +65,7 @@ def approve_mentors(request):
             # TODO: send email update to buddy once they're accepted/rejected as mentor. The current email settings need to be changed for below code to work.
             # for updated_mentor in updated_mentors:
             #     sendMentorApprovalEmail(updated_mentor.user.email, mentor_status)
-        return render(request, 'mentor_approvals.html',{'mentors':mentors})
+        return render(request, 'mentor_approvals.html',{'mentors':mentors, 'filter_status':filter_status})
     return render(request, 'mentor_approvals.html',{'mentors':mentors})
 
     
