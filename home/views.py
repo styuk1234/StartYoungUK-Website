@@ -56,28 +56,10 @@ def approve_mentors(request):
         for mentor_id in checked_mentors:
             updated_mentors = Mentor.objects.filter(pk=int(mentor_id))
             updated_mentors.update(status=mentor_status,approver=current_user.email)
-            # sendMentorApprovalEmail(mentor.email, mentor_status)
+            # TODO: send email update to buddy once they're accepted/rejected as mentor. The current email settings need to be changed for below code to work.
             # for updated_mentor in updated_mentors:
             #     sendMentorApprovalEmail(updated_mentor.user.email, mentor_status)
         return render(request, 'mentor_approvals.html',{'mentors':mentors})
     return render(request, 'mentor_approvals.html',{'mentors':mentors})
 
-
-# @login_required
-# @user_passes_test(lambda u: u.startyoungukuser.is_coordinator)
-# class MentorListView(ListView):
-#     model = Mentor
-#     template_name = 'mentor_approvals.html'
-#     context_object_name = 'mentors'
-# @login_required
-# @user_passes_test(lambda u: u.startyoungukuser.is_coordinator)
-# def approve_mentors(request):
-#     mentors = Mentor.objects.all()
-#     form = MentorsUpdateForm(request.POST or None)
-#     if request.method == 'POST' and form.is_valid():
-#         selected_ids = form.cleaned_data['selected_ids']
-#         new_status = form.cleaned_data['new_status']
-#         selected_ids.update(status=new_status)
-#         return redirect('mentors')
-#     return render(request, 'mentor_approvals.html',{'mentors':mentors})
     
