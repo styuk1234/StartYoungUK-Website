@@ -1,4 +1,6 @@
 from django.db import models
+import os
+from .validators import validate_file_extension
 
 # Create your models here.
 class TeamMember(models.Model):
@@ -12,17 +14,24 @@ class TeamMember(models.Model):
     def __str__(self):
         return f"{self.member_id, self.member_title}"
     
-class GalleryImage(models.Model):
-
-    IMAGE_TYPE = (
-        ('image', 'Image'),
-        ('video', 'Video')
-    )
+class GalleryItem(models.Model):
     
-    image_id = models.AutoField(primary_key=True)
-    image_title = models.CharField(max_length=100, null=False)
-    gallery_image = models.FileField(default='default_image.jpg', upload_to='gallery_pics')
-    gallery_type = models.CharField(max_length=5, choices=IMAGE_TYPE, default='image')
+    item_id = models.AutoField(primary_key=True)
+    item_title = models.CharField(max_length=100, null=False)
+    item_file = models.FileField(default='default_image.jpg', upload_to='gallery_items',validators=[validate_file_extension])
+    # item_type = models.CharField(max_length=5, default='image')
+
+    # def save(self, *args, **kwargs):
+    #     ext = os.path.splitext(self.item_file.name)[1][1:].lower()
+
+    #     if ext in ['jpg', 'jpeg', 'png', 'gif']:
+    #         self.item_type = 'image'
+    #     elif ext in ['mp4', 'avi', 'mov']:
+    #         self.item_type = 'video'
+    #     else:
+    #         self.item_type = 'other'
+
+    #     super(GalleryItem, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.image_id, self.image_title}"
+        return f"{self.item_id, self.item_title}"

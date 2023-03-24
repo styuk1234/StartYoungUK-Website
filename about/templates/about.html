@@ -107,23 +107,23 @@
     <div class="container">
       <div class="block-31 mb-5" style="position: relative;">
           <div class="owl-carousel loop-block-31">
-            {% for image in images %}
-              {% if image.gallery_type == 'image' %}
+            {% for item, item_type in items %}
+              {% if item_type == 'image' %}
                 <div class="block-30 no-overlay item">
                   <figure>
-                    <img src="/media/{{ image.gallery_image }}" alt="{{ image.image_title }}">
-                    <figcaption>{{ image.image_title }}</figcaption>
+                    <img src="/media/{{ item.item_file }}" alt="{{ item.item_title }}">
+                    <figcaption>{{ item.item_title }}</figcaption>
                   </figure>
 
                 </div>
-              {% elif image.gallery_type == 'video' %}
+              {% elif item_type == 'video' %}
                 <div class="block-30 no-overlay item">
                   <figure>
-                    <video controls autoplay muted alt="{{ image.image_title }}">
-                        <source src="/media/{{ image.gallery_image }}" type="video/mp4">
+                    <video controls autoplay muted alt="{{ item.item_title }}">
+                        <source src="/media/{{ item.item_file }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                    <figcaption>{{ image.image_title }}</figcaption>
+                    <figcaption>{{ item.item_title }}</figcaption>
                   </figure>
                 </div>  
               {% endif %}
