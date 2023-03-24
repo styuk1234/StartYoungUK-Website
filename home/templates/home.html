@@ -115,7 +115,7 @@
                         <div>
                             <span class="donation-time mb-3 d-block">Campaign Deadline: {{ campaign.campaign_deadline }}</span>
                             <div class="form-group">
-                                <a href="/donate-campaign/{{campaign.campaign_id}}">
+                                <a href="{{campaign.get_absolute_url}}">
                                     <button class="donate-btn login-btn btn btn-primary" type="button">Donate</button>
                                 </a>
                             </div>

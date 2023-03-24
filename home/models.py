@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Campaign(models.Model):
 
@@ -9,9 +10,13 @@ class Campaign(models.Model):
     campaign_deadline = models.DateField(null=False)
     campaign_image = models.ImageField(default='campaign_pics/default_campaign.jpg', upload_to='campaign_pics')
     is_active = models.BooleanField(null=False, default=True)
+    slug = models.SlugField(null=False, unique=True)
 
     def __str__(self):
         return f"{self.campaign_id, self.campaign_title}"
+    
+    def get_absolute_url(self):
+        return reverse("campaign-donate", kwargs={"slug": self.slug})
 
 class Affiliation(models.Model):
 
