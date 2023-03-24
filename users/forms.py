@@ -66,7 +66,7 @@ class UserRegisterForm(UserCreationForm):
 
         try:
             # Check if CRN exists and is non-default
-            StartYoungUKUser.objects.get(crn_no=crn_no) and crn_no != ""
+            # StartYoungUKUser.objects.get(crn_no=crn_no) and crn_no != ""
             if user_type == 'C' and not crn_no:
                 # If user is corporate type but has not entered CRN, prompt validation error
                 print("in except 1")
@@ -114,7 +114,7 @@ class UserUpadatePassword(AuthenticationForm):
         attrs={'class': 'form-control', 'placeholder': 'Password'}))
 
 
-class MentorRegistrationForm(forms.Form):
+class BuddyRegistrationForm(forms.Form):
     painting=forms.BooleanField(required=False)
     football=forms.BooleanField(required=False)
     reading=forms.BooleanField(required=False)
@@ -176,3 +176,4 @@ class UpdateUserForm(forms.ModelForm):
 class SDPForm(forms.Form):
     amount=forms.IntegerField(required=True)
     frequency=forms.ChoiceField(required=True,choices=(('W', 'Weekly'), ('F', 'Fortnightly'), ('M', 'Monthly'), ('Q', 'Quaterly')))
+    toc=forms.BooleanField(required=True)

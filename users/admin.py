@@ -1,5 +1,5 @@
 from django.contrib import admin
-from users.models import StartYoungUKUser, Mentor, Child
+from users.models import StartYoungUKUser, Buddy, Child
 from home.models import Campaign
 
 # Register your models here.
@@ -18,6 +18,8 @@ class StartYoungUKUserAdmin(admin.ModelAdmin):
 class ChildAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Mentor)
-class MentorAdmin(admin.ModelAdmin):
-    pass
+@admin.register(Buddy)
+class BuddyAdmin(admin.ModelAdmin):
+    list_display = ("id", "user",  "status")
+    list_filter = ("status", )
+    # search_fields = ("display_name__startswith", "email__startswith", )
