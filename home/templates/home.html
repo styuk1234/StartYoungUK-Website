@@ -104,6 +104,7 @@
         <div class="col-md-12 block-11">
             <div class="nonloop-block-11 owl-carousel">
             {% for campaign, collected_so_far, percent_raised in campaigns_zip %}
+                {% if campaign.is_active %}
                 <div class="card fundraise-item">
                     <img class="card-img-top" src="{{ campaign.campaign_image.url  }}" alt="Image placeholder" height=250 >
                     <div class="card-body campaign-card">
@@ -125,6 +126,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             {% endfor %}
             </div>
         </div>

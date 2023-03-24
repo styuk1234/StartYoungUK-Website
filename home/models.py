@@ -1,6 +1,4 @@
 from django.db import models
-#from PIL import Image
-# Create your models here.
 
 class Campaign(models.Model):
 
@@ -10,6 +8,7 @@ class Campaign(models.Model):
     collection_target = models.IntegerField(null=False)
     campaign_deadline = models.DateField(null=False)
     campaign_image = models.ImageField(default='campaign_pics/default_campaign.jpg', upload_to='campaign_pics')
+    is_active = models.BooleanField(null=False, default=True)
 
     def __str__(self):
         return f"{self.campaign_id, self.campaign_title}"
