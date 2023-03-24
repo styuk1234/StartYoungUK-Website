@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.views.generic import TemplateView
 from decouple import config
@@ -28,10 +28,14 @@ def sponsor(request):
         
         elif form.is_valid():
             data = form.save()
+            form_data =DonationForm(instance=data)
             paypal_dict['amount'] = data.amount
             paypal_dict['invoice'] = data.trxn_id
             paypal_btn = PayPalPaymentsForm(initial=paypal_dict)
-            return render(request, 'paypal_modal.html', {'paypal_btn': paypal_btn})
+            button_enable=True
+            messages.success(request,"Please find the Paypal button below to complete the Donation!")
+            return render(request, 'sponsor.html', {'paypal_btn': paypal_btn,'form':form_data,'button_enable':button_enable})
+            # return redirect('sponsor-us')
         
         else:
             messages.error(request, 'There was an error with your donation. Please try again!')

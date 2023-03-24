@@ -33,9 +33,9 @@
     .fund-raisers {
     flex-basis: 50%;
     }
-    #donate-in-kind-description {
+    /* #donate-in-kind-description {
       margin-bottom: 25%;
-    }
+    } */
     #donate-in-kind-form {
       height: 650px;
     }
@@ -60,7 +60,7 @@
     </div>
   </div>
 <div id="donate-flex">
-  <div class="site-section fund-raisers">
+  <div class="site-section fund-raisers" id="paysection">
     <div class="container">
 
       {% if messages %}
@@ -111,8 +111,18 @@
                 <button onclick="fillAmount(40)" type="button">£40</button>
                 {% endif %}
               </div>
-            <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-form'>Donate</button>
+            {% if button_enable %}
+              <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-conatiner' hidden>Donate</button>
+            {% else %}
+            <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-container'>Donate</button>
+            {% endif %}
           </form>
+          <div id="paysection"></div>
+          {% if button_enable %}
+          <div id="paypal-container" class="row justify-content-center">
+            <div class="col-md-6">{{ paypal_btn.render }}</div>
+          </div>
+          {% endif %}
     </div>
   </div>
   <div class="site-section fund-raisers">
