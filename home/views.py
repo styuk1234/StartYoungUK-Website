@@ -1,5 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from sponsor.models import Donation
+from sponsor.forms import DonationForm
+from django.urls import reverse
+from decouple import config
+from paypal.standard.forms import PayPalPaymentsForm
+from django.contrib import messages
+from django.shortcuts import get_object_or_404
 from .models import Campaign, Affiliation
 from users.models import Buddy, Child
 from django.core.serializers import serialize
@@ -17,14 +23,13 @@ def home(request):
     affiliations = Affiliation.objects.all()
     top_donation = Donation.objects.all().order_by('-amount')[:4]
     serial_donation = json.loads(serialize('json', top_donation))
-    # print(serial_donation[1]['fields']['name'])
     campaigns = Campaign.objects.all().order_by('campaign_deadline')[:]
     collection_by_campaign = []
     percent_raised = []
     for campaign in campaigns:
         try:
             donation_object = Donation.objects.filter(campaign_id=campaign.campaign_id)
-            total_amount = sum([donation['amount'] for donation in donation_object.values()])
+            total_amount = sum([donation['amount'] for donation in donation_object.values() if donation['is_successful']])
             collection_by_campaign.append(total_amount)
             percent = int(total_amount/campaign.collection_target * 100)
             percent_raised.append(percent)
@@ -38,7 +43,6 @@ def home(request):
     cnt_usr = len(User.objects.all())
     cnt_buddy = len(Buddy.objects.all())
     cnt_child = len(Child.objects.all())
-    
 
     return render(request, 'home.html', {'affiliations':affiliations,'top_donations':serial_donation, 'cnt_usr': cnt_usr, 'campaigns_zip': campaigns_zip, 'cnt_buddy': cnt_buddy, 'cnt_child': cnt_child})
 
@@ -68,4 +72,56 @@ def approve_buddies(request):
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
 
+def campaign_donate(request, campaign_id):
+    campaign_name = get_object_or_404(Campaign, campaign_id=campaign_id).campaign_title
     
+    if request.method == 'POST':
+        form = DonationForm(request.POST)
+        
+        # Paypal Button instance
+        paypal_dict = {
+            "business": config('PAYPAL_BUSINESS_ACCOUNT'),
+            'currency_code': 'GBP',
+            "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+            "return": request.build_absolute_uri(reverse('paypal-return')),
+            "cancel_return": request.build_absolute_uri(reverse('paypal-cancel'))
+        }
+        
+        if not request.user.is_authenticated and int(form['amount'].value()) > 40:
+            messages.error(request, 'We are not able to accept donations of more than £40 from unathenticated users. Please sign in to donate a larger amount!')
+        
+        elif form.has_error('captcha'):
+            messages.error(request, 'Please submit a Captcha before you click "Donate"')
+        
+        elif form.is_valid():
+            data = form.save()
+            form_data =DonationForm(instance=data)
+            
+            # Update the donation object with current campaign's id
+            donation = Donation.objects.get(trxn_id=data.trxn_id)
+            donation.campaign_id = campaign_id
+            donation.save()
+            
+            # Update PayPal data with donation amount and invoce number
+            paypal_dict['amount'] = data.amount
+            paypal_dict['invoice'] = data.trxn_id
+            paypal_btn = PayPalPaymentsForm(initial=paypal_dict)
+            messages.success(request, "Please find the Paypal button below to complete the Donation!")
+            
+            return render(request, 'campaign_donate.html', {'paypal_btn': paypal_btn, 'form': form_data, 'button_enable': True, "campaign_name": campaign_name})
+        
+        else:
+            messages.error(request, 'There was an error with your donation. Please try again!')
+
+    # Pre-populate user info if user is authenticated 
+    if request.user.is_authenticated:
+        donate=Donation()
+        donate.user_id=request.user.startyoungukuser.user_id
+        donate.name=request.user.startyoungukuser.display_name
+        donate.email=request.user.startyoungukuser.email
+        donate.mobile_number=request.user.startyoungukuser.phone_number
+        form = DonationForm(instance=donate)
+    else:
+        form = DonationForm()
+      
+    return render(request, 'campaign_donate.html', {"form": form, "campaign_name": campaign_name})
