@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from .forms import SDPForm, UserRegisterForm, UserLoginForm, UpdateUserForm, MentorRegistrationForm, UserEmailPasswordResetForm
+from .forms import SDPForm, UserRegisterForm, UserLoginForm, UpdateUserForm, BuddyRegistrationForm, UserEmailPasswordResetForm
 from home.forms import CampaignForm
 from home.models import Campaign
 from django.contrib import messages
-from users.models import StartYoungUKUser, Mentor, Child
+from users.models import StartYoungUKUser, Buddy, Child
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -201,10 +201,10 @@ def start_campaign(request):
     return render(request, 'start_campaign.html', {'form':form})
 
 @login_required
-def mentor(request):
-    form = MentorRegistrationForm()
+def buddy(request):
+    form = BuddyRegistrationForm()
     if(request.method=='POST'):
-        form = MentorRegistrationForm(request.POST)
+        form = BuddyRegistrationForm(request.POST)
         if form.is_valid():
             print(form.cleaned_data)
             bitmap=""
@@ -217,20 +217,20 @@ def mentor(request):
                     bitmap+="0"
             # print(request.user.username)
             # print(User.objects.get(username=request.user.username))
-            # mentor.name=StartYoungUKUser.display_name
+            # buddy.name=StartYoungUKUser.display_name
             try:
-                mentor = Mentor.objects.get(user=request.user)
-            except Mentor.DoesNotExist:
-                mentor = Mentor()
-            mentor.hobbies=bitmap   
-            mentor.occupation=form_data.get('occupation')
-            mentor.user=User.objects.get(username=request.user.username)
-            mentor.save()
-            messages.success(request,f'Mentor profile updated successfully! Please see recommended child profiles.')
+                buddy = Buddy.objects.get(user=request.user)
+            except Buddy.DoesNotExist:
+                buddy = Buddy()
+            buddy.hobbies=bitmap   
+            buddy.occupation=form_data.get('occupation')
+            buddy.user=User.objects.get(username=request.user.username)
+            buddy.save()
+            messages.success(request,f'Buddy profile updated successfully! Please see recommended child profiles.')
     best_match_score=[0,0,0]
     best_match_child=[-1,-1,-1]
     for child in Child.objects.all():
-        scr=bin(int(child.hobbies,2) & int(request.user.mentor.hobbies,2)).count("1")
+        scr=bin(int(child.hobbies,2) & int(request.user.buddy.hobbies,2)).count("1")
         if scr>best_match_score[0]:
             best_match_score[0]=scr
             best_match_child[0]=child.child_id
