@@ -37,7 +37,7 @@ urlpatterns = [
     path('logout/', user_views.captcha_logout, name='logout'),
     path('admin/', admin.site.urls),
     path('sponsor/', include('sponsor.urls')),
-    path('mentor_approvals/', home_views.approve_mentors,name='mentor_approvals'),
+    path('buddy_approvals/', home_views.approve_buddies,name='buddy_approvals'),
     # path('verification/', include('verify_email.urls')),
     path('verification/user/verify-email/<useremail>/<usertoken>/', user_views.verify_user_and_activate, name='verify-email'),
     path('verification/user/verify-email/request-new-link/<useremail>/<usertoken>/', verify_email_views.request_new_link, name='request-new-link-from-token'),
@@ -46,5 +46,5 @@ urlpatterns = [
     path('reset_password_done/', auth_views.PasswordResetDoneView.as_view(template_name = 'users/password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name = 'users/password_reset_confirm.html'), name='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name = 'users/password_reset_complete.html'), name='password_reset_complete'),
-    path('buddy/', home_views.buddysystem, name='buddy-system'),
+    path('buddy/', home_views.buddy_system, name='buddy-system'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

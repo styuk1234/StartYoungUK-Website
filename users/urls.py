@@ -9,6 +9,6 @@ urlpatterns = [
     path('profile', views.profile, name="profile"),
     # path('donate', views.donate, name="donate-money"),
     path('sdp', views.sdp, name="sdp"),
-    path('mentor', views.mentor, name="mentor"),
+    path('mentor', views.buddy, name="mentor"),
     path('start_campaign', views.start_campaign, name="start_campaign")
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
