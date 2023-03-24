@@ -186,7 +186,10 @@
             <li id="nav-userhome" class="nav-item"><a style="padding-top:28px;" href="{% url 'userhome' %}" class="nav-link">{{user.username}}</a></li>
             <div class="dropdown-content">
               {% if user.startyoungukuser.user_type == "I" %}
-              <a href="{% url 'mentor' %}">Mentor a Child</a>
+              {% if request.user.startyoungukuser.is_coordinator %}
+              <a href="{% url 'buddy_approvals' %}">Buddy Approvals</a>
+              {% endif %}
+              <a href="{% url 'mentor' %}">Mentor A Child</a>
               {% else %}
               <a href="{% url 'start_campaign' %}">Start a Campaign</a>
               {% endif %}
