@@ -73,7 +73,7 @@
                 <tbody>
                   {% for buddy in buddies %}
                   <tr>
-                    <td><input type="checkbox" name="chosen-mentors" value="{{ buddy.id }}"></td>
+                    <td><input type="checkbox" name="chosen-buddies" value="{{ buddy.id }}"></td>
                     <td>{{ buddy.user.first_name }}</td>
                     <td>{{ buddy.user.last_name }}</td>
                     <td>{{ buddy.date_status_modified }}</td>
@@ -87,8 +87,8 @@
               </table>
             </div>
             <div class="mentor-approval-button-group">
-              <button class="btn btn-white" type="submit" name="mentor-status" value="approved">Approve</button>
-              <button class="btn btn-white" type="submit" name="mentor-status" value="rejected">Reject</button>
+              <button class="btn btn-white" type="submit" name="buddy-status" value="approved">Approve</button>
+              <button class="btn btn-white" type="submit" name="buddy-status" value="rejected">Reject</button>
             </div> 
             <br /> 
         </div>           

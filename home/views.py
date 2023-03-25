@@ -60,15 +60,15 @@ def approve_buddies(request):
             buddies = Buddy.objects.all().order_by('date_status_modified')
         else:
             buddies = Buddy.objects.filter(status=filter_status).order_by('date_status_modified')
-        Buddy_status = request.POST.get('Buddy-status')
+        buddy_status = request.POST.get('buddy-status')
         checked_buddies = request.POST.getlist('chosen-buddies')
         filter_status = request.POST.get('filter-status')
-        for Buddy_id in checked_buddies:
-            updated_buddies = Buddy.objects.filter(pk=int(Buddy_id))
-            updated_buddies.update(status=Buddy_status,approver=current_user.email)
-            # TODO: send email update to buddy once they're accepted/rejected as Buddy. The current email settings need to be changed for below code to work.
-            # for updated_Buddy in updated_buddies:
-            #     sendBuddyApprovalEmail(updated_Buddy.user.email, Buddy_status)
+        for buddy_id in checked_buddies:
+            updated_buddies = Buddy.objects.filter(pk=int(buddy_id))
+            updated_buddies.update(status=buddy_status,approver=current_user.email)
+
+            for updated_buddy in updated_buddies:
+                sendBuddyApprovalEmail(updated_buddy.user.email, buddy_status)
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
 

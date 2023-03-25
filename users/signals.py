@@ -7,9 +7,7 @@ import random
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if instance.is_superuser:
-        print(instance)
-        print(type(instance))
-        # instance.save()
+
         syuk_user = StartYoungUKUser()
         if not StartYoungUKUser.objects.filter(email=instance.email).exists():
             syuk_user.user = User.objects.get(email=instance.email)

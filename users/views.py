@@ -215,9 +215,7 @@ def buddy(request):
                     bitmap+="1"
                 else:
                     bitmap+="0"
-            # print(request.user.username)
-            # print(User.objects.get(username=request.user.username))
-            # buddy.name=StartYoungUKUser.display_name
+
             try:
                 buddy = Buddy.objects.get(user=request.user)
             except Buddy.DoesNotExist:
@@ -227,6 +225,7 @@ def buddy(request):
             buddy.user=User.objects.get(username=request.user.username)
             buddy.save()
             messages.success(request,f'Buddy profile updated successfully! Please see recommended child profiles.')
+            
     best_match_score=[0,0,0]
     best_match_child=[-1,-1,-1]
     for child in Child.objects.all():

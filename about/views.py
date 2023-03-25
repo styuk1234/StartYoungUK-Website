@@ -7,7 +7,7 @@ def about(request):
     item_type = []
     for item in items:
         ext = os.path.splitext(item.item_file.name)[1].lower()
-        if ext in ['.jpg', '.png']:
+        if ext in ['.jpg', '.png', '.jpeg']:
             item_type.append('image')
         elif ext in ['.mp4', '.mov']:
             item_type.append('video')
