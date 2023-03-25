@@ -83,7 +83,7 @@
 
         </div>
     </div>
-</div> <!-- .site-section -->
+</div>
 
 
 
@@ -101,14 +101,12 @@
     </div>
 
     <div class="container-fluid">
-
-        <!-- <div class="row"> -->
-
         <div class="col-md-12 block-11">
             <div class="nonloop-block-11 owl-carousel">
             {% for campaign, collected_so_far, percent_raised in campaigns_zip %}
+                {% if campaign.is_active %}
                 <div class="card fundraise-item">
-                    <a href="#"><img class="card-img-top" src="{{ campaign.campaign_image.url  }}" alt="Image placeholder" height=250 ></a>
+                    <img class="card-img-top" src="{{ campaign.campaign_image.url  }}" alt="Image placeholder" height=250 >
                     <div class="card-body campaign-card">
                         <div>
                             <h3 class="card-title"><a href="#">{{ campaign.campaign_title }}</a></h3>
@@ -117,7 +115,9 @@
                         <div>
                             <span class="donation-time mb-3 d-block">Campaign Deadline: {{ campaign.campaign_deadline }}</span>
                             <div class="form-group">
-                                <button class="donate-btn login-btn btn btn-primary" type="submit">Donate</button>
+                                <a href="{{campaign.get_absolute_url}}">
+                                    <button class="donate-btn login-btn btn btn-primary" type="button">Donate</button>
+                                </a>
                             </div>
                             <div class="progress custom-progress-success">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: {{ percent_raised }}%" aria-valuenow="{{ percent_raised }}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -126,11 +126,10 @@
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-
+                {% endif %}
+            {% endfor %}
             </div>
         </div>
-        <!-- </div> -->
     </div>
 </div>
 </section>
@@ -171,7 +170,7 @@
 
         </div>
     </div>
-</div> <!-- .site-section -->
+</div>
 
 <div class="site-section fund-raisers">
     <div class="container">
@@ -242,9 +241,5 @@
     
 </div>
 </section>
-
-<script>
-    document.getElementByClass("owl-stage")
-</script>
 
 {% endblock %}
