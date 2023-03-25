@@ -73,8 +73,8 @@ def approve_buddies(request):
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
 
 def campaign_donate(request, slug):
-    campaign_name = get_object_or_404(Campaign, slug=slug).campaign_title
-    campaign_id = get_object_or_404(Campaign, slug=slug).campaign_id
+    campaign_name = get_object_or_404(Campaign, slug=slug, is_active=True).campaign_title
+    campaign_id: int = get_object_or_404(Campaign, slug=slug, is_active=True).campaign_id
     
     if request.method == 'POST':
         form = DonationForm(request.POST)

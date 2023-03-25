@@ -18,6 +18,7 @@ class Campaign(models.Model):
     def get_absolute_url(self):
         return reverse("campaign-donate", kwargs={"slug": self.slug})
 
+
 class Affiliation(models.Model):
 
     affiliation_id = models.AutoField(primary_key=True)
@@ -30,6 +31,8 @@ class Affiliation(models.Model):
 
     def __str__(self):
         return f"{self.affiliation_id, self.affiliation_name}"
+
+
 class Opportunity(models.Model):
 
     id = models.AutoField(primary_key=True)

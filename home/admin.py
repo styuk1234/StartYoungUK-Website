@@ -3,8 +3,8 @@ from .models import Campaign, Affiliation,Opportunity
 
 @admin.register(Campaign)
 class CampaignAdmin(admin.ModelAdmin):
-    list_display = ("campaign_id", "campaign_title", "collection_target", "campaign_deadline")
-    list_filter = ("campaign_id", "campaign_title", )
+    list_display = ("campaign_id", "is_active", "campaign_title", "collection_target", "campaign_deadline")
+    list_filter = ("is_active", "campaign_id", "campaign_title", )
     search_fields = ("campaign_title__startswith",)
     prepopulated_fields = {"slug": ("campaign_title",)}
 
