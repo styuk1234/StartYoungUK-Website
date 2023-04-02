@@ -188,6 +188,7 @@
               {% if user.startyoungukuser.user_type == "I" %}
               {% if request.user.startyoungukuser.is_coordinator %}
               <a href="{% url 'buddy_approvals' %}">Buddy Approvals</a>
+              <a href="{% url 'letter_tracker' %}">Buddy Letter Tracker</a>
               {% endif %}
               <a href="{% url 'mentor' %}">Mentor A Child</a>
               {% else %}

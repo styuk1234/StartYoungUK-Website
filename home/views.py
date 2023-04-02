@@ -72,6 +72,14 @@ def approve_buddies(request):
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
 
+@login_required
+@user_passes_test(lambda u: u.startyoungukuser.is_coordinator)
+def letter_tracker(request):
+    buddies = Buddy.objects.filter(status="approved").order_by('letter_received')
+    return render(request, 'letter_tracker.html',{'buddies':buddies})
+    
+
+
 def campaign_donate(request, slug):
     campaign_name = get_object_or_404(Campaign, slug=slug, is_active=True).campaign_title
     campaign_id: int = get_object_or_404(Campaign, slug=slug, is_active=True).campaign_id
