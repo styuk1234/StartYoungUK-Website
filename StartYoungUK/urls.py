@@ -49,3 +49,8 @@ urlpatterns = [
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name = 'users/password_reset_complete.html'), name='password_reset_complete'),
     path('buddy/', home_views.buddy_system, name='buddy-system'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+handler404 = 'StartYoungUK.views.error_404'
+handler500 = 'StartYoungUK.views.error_500'
+#handler403 = 'StartYoungUK.views.error_403'
+#handler400 = 'StartYoungUK.views.error_400'
