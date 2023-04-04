@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from sponsor.models import Donation
 from sponsor.forms import DonationForm
 from django.urls import reverse
@@ -12,7 +12,7 @@ from django.core.serializers import serialize
 from django.contrib.auth.models import User
 import json
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .signals import sendBuddyApprovalEmail
+from .signals import sendBuddyApprovalEmail, sendLetterReminderEmail
 
 
 # from django.views.generic import ListView
@@ -71,6 +71,38 @@ def approve_buddies(request):
                 sendBuddyApprovalEmail(updated_buddy.user.email, buddy_status)
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
+
+@login_required
+@user_passes_test(lambda u: u.startyoungukuser.is_coordinator)
+def letter_tracker(request):
+    buddies = Buddy.objects.filter(status="approved").order_by('letter_received')
+
+    if request.method == 'POST':
+        checked_buddies = request.POST.getlist('chosen-buddies')
+        
+        if 'send-email' in request.POST:
+            for buddy_id in checked_buddies:
+                buddy = Buddy.objects.get(id=buddy_id)
+                sendLetterReminderEmail(buddy.user.email)
+            return redirect('letter_tracker')
+        
+        elif 'letter-received-true' in request.POST:
+            for buddy_id in checked_buddies:
+                buddy = Buddy.objects.get(id=buddy_id)
+                buddy.letter_received = True
+                buddy.save()
+            return redirect('letter_tracker')
+        
+        elif 'letter-received-false' in request.POST:
+            for buddy_id in checked_buddies:
+                buddy = Buddy.objects.get(id=buddy_id)
+                buddy.letter_received = False
+                buddy.save()
+            return redirect('letter_tracker')
+        
+    return render(request, 'letter_tracker.html',{'buddies':buddies})
+    
+
 
 def campaign_donate(request, slug):
     campaign_name = get_object_or_404(Campaign, slug=slug, is_active=True).campaign_title

@@ -38,6 +38,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('sponsor/', include('sponsor.urls')),
     path('buddy_approvals/', home_views.approve_buddies,name='buddy_approvals'),
+    path('letter_tracker/', home_views.letter_tracker,name='letter_tracker'),
     # path('verification/', include('verify_email.urls')),
     path('verification/user/verify-email/<useremail>/<usertoken>/', user_views.verify_user_and_activate, name='verify-email'),
     path('verification/user/verify-email/request-new-link/<useremail>/<usertoken>/', verify_email_views.request_new_link, name='request-new-link-from-token'),
