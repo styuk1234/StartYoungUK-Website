@@ -68,6 +68,7 @@ def approve_buddies(request):
         #     updated_buddies.update(status=buddy_status,approver=current_user.email)
         #     for updated_buddy in updated_buddies:
         #         sendBuddyApprovalEmail(updated_buddy.user.email, buddy_status)
+        
         #button only work if current status != update status
         for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
@@ -88,9 +89,10 @@ def letter_tracker(request):
         filter_status = request.POST.get('filter-status')
         if filter_status is None or filter_status == "all":
             buddies = Buddy.objects.filter(status="approved").order_by('letter_received')
-        else:
-            buddies = Buddy.objects.filter(status="approved", letter_received=filter_status)
-
+        elif filter_status == "received":
+            buddies = Buddy.objects.filter(status="approved", letter_received=True)
+        elif filter_status == "not received":
+            buddies = Buddy.objects.filter(status="approved", letter_received=False)
         #three bottom buttons functions    
         checked_buddies = request.POST.getlist('chosen-buddies')
         if 'send-email' in request.POST:
