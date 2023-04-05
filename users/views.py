@@ -225,6 +225,11 @@ def buddy(request):
             buddy.user=User.objects.get(username=request.user.username)
             buddy.save()
             messages.success(request,f'Buddy profile updated successfully! Please see recommended child profiles.')
+
+            # change the field is_buddy in startyoungukuser to true
+            buddy_user = StartYoungUKUser.objects.get(user=request.user)
+            buddy_user.is_buddy=True
+            buddy_user.save()
             
     best_match_score=[0,0,0]
     best_match_child=[-1,-1,-1]

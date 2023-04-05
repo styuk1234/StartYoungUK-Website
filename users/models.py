@@ -20,6 +20,7 @@ class StartYoungUKUser(models.Model):
     is_verified = models.BooleanField(default=False)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     is_coordinator = models.BooleanField(default=False)
+    is_buddy = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.email}"
