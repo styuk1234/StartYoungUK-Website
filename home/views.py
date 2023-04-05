@@ -63,12 +63,19 @@ def approve_buddies(request):
         buddy_status = request.POST.get('buddy-status')
         checked_buddies = request.POST.getlist('chosen-buddies')
         filter_status = request.POST.get('filter-status')
+        # for buddy_id in checked_buddies:
+        #     updated_buddies = Buddy.objects.filter(pk=int(buddy_id))
+        #     updated_buddies.update(status=buddy_status,approver=current_user.email)
+        #     for updated_buddy in updated_buddies:
+        #         sendBuddyApprovalEmail(updated_buddy.user.email, buddy_status)
+        
+        #button only work if current status != update status
         for buddy_id in checked_buddies:
-            updated_buddies = Buddy.objects.filter(pk=int(buddy_id))
-            updated_buddies.update(status=buddy_status,approver=current_user.email)
-
-            for updated_buddy in updated_buddies:
-                sendBuddyApprovalEmail(updated_buddy.user.email, buddy_status)
+                buddy = Buddy.objects.get(id=buddy_id)
+                if buddy.status != buddy_status:
+                    buddy.status = buddy_status
+                    buddy.save()
+                    sendBuddyApprovalEmail(buddy.user.email, buddy_status)
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
 
@@ -78,27 +85,39 @@ def letter_tracker(request):
     buddies = Buddy.objects.filter(status="approved").order_by('letter_received')
 
     if request.method == 'POST':
+        # filtering based on letter status
+        filter_status = request.POST.get('filter-status')
+        if filter_status is None or filter_status == "all":
+            buddies = Buddy.objects.filter(status="approved").order_by('letter_received')
+        elif filter_status == "received":
+            buddies = Buddy.objects.filter(status="approved", letter_received=True)
+        elif filter_status == "not received":
+            buddies = Buddy.objects.filter(status="approved", letter_received=False)
+        #three bottom buttons functions    
         checked_buddies = request.POST.getlist('chosen-buddies')
-        
         if 'send-email' in request.POST:
             for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
-                sendLetterReminderEmail(buddy.user.email)
+                #only send letter to buddy with false letter received
+                if buddy.letter_received == False:
+                    sendLetterReminderEmail(buddy.user.email)
             return redirect('letter_tracker')
-        
+        #update letter received to true
         elif 'letter-received-true' in request.POST:
             for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
                 buddy.letter_received = True
                 buddy.save()
             return redirect('letter_tracker')
-        
+        #update letter received to false
         elif 'letter-received-false' in request.POST:
             for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
                 buddy.letter_received = False
                 buddy.save()
             return redirect('letter_tracker')
+        
+        return render(request, 'letter_tracker.html',{'buddies':buddies, 'filter_status':filter_status})
         
     return render(request, 'letter_tracker.html',{'buddies':buddies})
     
