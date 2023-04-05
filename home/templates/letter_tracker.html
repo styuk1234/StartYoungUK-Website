@@ -32,7 +32,26 @@
         
         <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px;">
           <br><h2 style="text-align:center;">Track Buddy Letter Status</h2><br>
-            
+          <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="status-filter" style="color: white;">Filter by Letter Status:</label>
+              <select class="form-control" id="status-filter" name="filter-status">
+                <option value="all">All</option>
+                <option value=False>Not Received</option>
+                <option value=True>Received</option>
+              </select>
+            </div>
+            <div class="buddy-approval-button-group">
+              <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+          </form>
+          <br />
+          {% if filter_status == None or filter_status == "all" %}
+            <p class="lead" style="text-transform: uppercase;">all buddy list</p>
+          {% else %}
+            <p class="lead" style="text-transform: uppercase;">Letter received is {{ filter_status }} - buddy list</p>
+          {% endif %}
             <form action="" method="POST">
             {% csrf_token %}
             <div class="buddy-table-wrapper">
