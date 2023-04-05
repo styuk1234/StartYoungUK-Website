@@ -63,11 +63,18 @@ def approve_buddies(request):
         buddy_status = request.POST.get('buddy-status')
         checked_buddies = request.POST.getlist('chosen-buddies')
         filter_status = request.POST.get('filter-status')
+        # for buddy_id in checked_buddies:
+        #     updated_buddies = Buddy.objects.filter(pk=int(buddy_id))
+        #     updated_buddies.update(status=buddy_status,approver=current_user.email)
+        #     for updated_buddy in updated_buddies:
+        #         sendBuddyApprovalEmail(updated_buddy.user.email, buddy_status)
+        #button only work if current status != update status
         for buddy_id in checked_buddies:
-            updated_buddies = Buddy.objects.filter(pk=int(buddy_id))
-            updated_buddies.update(status=buddy_status,approver=current_user.email)
-            for updated_buddy in updated_buddies:
-                sendBuddyApprovalEmail(updated_buddy.user.email, buddy_status)
+                buddy = Buddy.objects.get(id=buddy_id)
+                if buddy.status != buddy_status:
+                    buddy.status = buddy_status
+                    buddy.save()
+                    sendBuddyApprovalEmail(buddy.user.email, buddy_status)
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
 
