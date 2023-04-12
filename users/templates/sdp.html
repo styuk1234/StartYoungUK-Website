@@ -1,37 +1,49 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+    #paypal-container {
+        width: 30%;
+        margin: 5% 0;
+    }
+    p {color: #060606}
+</style>
 
-<div style="padding:140px; background-image: url('/static/images/bg_1.jpg');">
+<div style="padding:140px; background-image: url('{% static 'images/bg_1.jpg' %}');">
     <h1>Systematic Donation Plan (SDP)</h1>
     <h2>Return on investment would be continued returns in the form of smile on child's face.</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if is_buddy %}
+        <class="text-muted"><b>By signing up for our Systematic Donation Plan, you agree to have a recurring weekly payment of £5.</b></class>
+        <div id="paypal-container">{{paypal_btn.render}}</div>
+    {% else %}
+        {% load crispy_forms_tags %}
+        <form method="POST" class="post-form">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <div id="paypal-container">{{paypal_btn.render}}</div>
+                <!-- <p style="text-align:center;"><button style="width:300px;" class="signup-btn btn btn-primary" type="submit">Start SDP</button></p> -->
+            </div>                           
+        </form>
+    {% endif %}
 
-{% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-                {% endfor %}
-            {% endif %}
+    <p>If you do not wish to use PayPal, you can set up a standing order from your bank account for the amount of £5 per week (minimum)
+        to support your child sponsor.</p>
+    <p>Once set up please email <a href="mailto:startyoung21@gmail.com">startyoung21@gmail.com</a> to confirm which month your
+        direct debit will begin.</p>
+    <p>Sort code: 60-03-19 <br> Account number: 79913334 <br> NatWest Bank</p>
 
-{% load crispy_forms_tags %}
-<form method="POST" class="post-form">
-    {% csrf_token %}
-    <fieldset class="form-group">
-        {{ form|crispy }}
-    </fieldset>
-    <div class="form-group">
-        <!-- <class="text-muted"><b><a class="ml-2" href="{% url 'password_reset' %}">Forgot Password?</a></b></class> -->
-        <class="text-muted"><b>I declare that I will set up a standing order for the amount of £5 per week (minimum)
-            to support my child sponsor.
-            Once set up please email Startyoung21@gmail.com to confirm which month your
-            direct debit will begin.
-            Bank sort code: 60-03-19 Account number: 79913334 NatWest Bank</b></class>
-    </div>
-    <div class="form-group">
-        <p style="text-align:center;"><button style="width:300px;" class="signup-btn btn btn-primary" type="submit">Start SDP</button></p>
-    </div>                           
-</form>
 </div>
         
 

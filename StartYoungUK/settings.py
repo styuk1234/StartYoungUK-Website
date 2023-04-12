@@ -178,7 +178,8 @@ SUBJECT = "Verify your email to access your StartYoungUK Dashboard"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-CSRF_TRUSTED_ORIGINS = [config('HOSTING_URL'), 'https://*.ngrok.io']
+CSRF_TRUSTED_ORIGINS = [config('HOSTING_URL'), 'https://*.ngrok.io', 'https://*.ngrok-free.app']
 
 PAYPAL_TEST = config('DEBUG', default=False, cast=bool)
 PAYPAL_BUY_BUTTON_IMAGE = MEDIA_URL + 'paypal.png'
+PAYPAL_SUBSCRIPTION_BUTTON_IMAGE = MEDIA_URL + 'paypal.png'

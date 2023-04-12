@@ -183,7 +183,8 @@
             <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Join Us</a></li>
             {% if user.is_authenticated %}
             <div class="dropdown">
-            <li id="nav-userhome" class="nav-item"><a style="padding-top:28px;" href="{% url 'userhome' %}" class="nav-link">{{user.username}}</a></li>
+            <!-- <li id="nav-userhome" class="nav-item"><a style="padding-top:28px;" href="{% url 'userhome' %}" class="nav-link">{{user.username}}</a></li> -->
+            <li id="nav-userhome" class="nav-item"><a style="padding-top:28px;" href="#" class="nav-link">{{user.username}}</a></li>
             <div class="dropdown-content">
               {% if user.startyoungukuser.user_type == "I" %}
               {% if request.user.startyoungukuser.is_coordinator %}
