@@ -248,12 +248,8 @@ def buddy(request):
             buddy.occupation=form_data.get('occupation')
             buddy.user=User.objects.get(username=request.user.username)
             buddy.save()
-            messages.success(request,f'Buddy profile updated successfully! Please see recommended child profiles.')
-
-            # change the field is_buddy in startyoungukuser to true
-            buddy_user = StartYoungUKUser.objects.get(user=request.user)
-            buddy_user.is_buddy=True
-            buddy_user.save()
+            # TODO: this message is hard notice. instead, if they are approved, or pending they should be taken to a different page to show their current status
+            messages.success(request,f'Buddy request has been sent and is pending approval. You will receive an email once your application is approved')
             
     best_match_score=[0,0,0]
     best_match_child=[-1,-1,-1]
