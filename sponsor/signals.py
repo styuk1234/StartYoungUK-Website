@@ -5,11 +5,14 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from fpdf import FPDF
 from .models import Donation
+from users.models import Buddy
 
 
 @receiver(valid_ipn_received)
 def paypal_payment_received(sender, **kwargs):
     ipn_obj = sender
+    
+    # Regular donations
     if ipn_obj.payment_status == ST_PP_COMPLETED:
         try:
             donation = Donation.objects.get(pk=ipn_obj.invoice)
@@ -21,6 +24,25 @@ def paypal_payment_received(sender, **kwargs):
             donation.is_successful = True
             donation.save()
             sendthankyoumail(donation.email)
+            
+    # Check Systematic Donation Plan
+    if ipn_obj.txn_type == "subscr_payment":
+        try:
+            buddy = Buddy.objects.get(user=ipn_obj.user)
+        except Exception:
+            print('Paypal ipn_obj data not valid!')
+        else:
+            buddy.sdp_active = True
+            buddy.save()
+
+    # check for failed subscription payment IPN
+    elif ipn_obj.txn_type == "subscr_failed":
+        print('subscription failed')
+
+    # check for subscription cancellation IPN
+    elif ipn_obj.txn_type == "subscr_cancel":
+        print('subscription cancelled')
+    
     else:
         print('Paypal payment status not completed: %s' % ipn_obj.payment_status)
 

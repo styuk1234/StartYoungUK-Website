@@ -13,6 +13,10 @@ from verify_email.confirm import verify_user
 from django.core.signing import SignatureExpired, BadSignature
 from base64 import urlsafe_b64decode
 import os
+from decouple import config
+from paypal.standard.forms import PayPalPaymentsForm
+from django.urls import reverse
+from django.views.generic import TemplateView
 from verify_email.errors import (
     InvalidToken,
 )
@@ -43,7 +47,6 @@ def verify_user_and_activate(request,useremail, usertoken):
     except InvalidToken:
         messages.warning(request, "This link is invalid or been used already, we cannot verify using this link.")
         return redirect('login')
-
 
 
 @user_not_authenticated
@@ -139,7 +142,6 @@ def password_email_reset(request):
     )
 
 
-
 @login_required
 def captcha_logout(request):
     logout(request)
@@ -152,21 +154,43 @@ def userhome(request):
     return render(request, 'userhome.html')
 
 
-# def donate_money(request):
-#     return redirect('donate')
-
-# def donate_kind(request):
-#     return redirect('donate')
-
 @login_required
 def sdp(request):
     form=SDPForm()
+    
+    amount = 5 if request.user.startyoungukuser.is_buddy else form['amount'].value()
+    paypal_dict = {
+        # "invoice": 4
+        "user": request.user.startyoungukuser.user,
+        "cmd": "_xclick-subscriptions",
+        "a3": amount,                      # monthly price
+        "p3": 1,                           # duration of each unit (depends on unit)
+        "t3": "W",                         # duration unit ("W for Weekly")
+        "src": "1",                        # make payments recur
+        "sra": "1",                        # reattempt payment on payment error
+        "no_note": "1",                    # remove extra notes
+        "item_name": "SYUK systematic donation",
+        "business": config('PAYPAL_BUSINESS_ACCOUNT'),
+        'currency_code': 'GBP',
+        "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+        "return": request.build_absolute_uri(reverse('sdp-return')),
+        "cancel_return": request.build_absolute_uri(reverse('sdp-cancel'))
+    }
+    paypal_btn = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
+
     if request.method=='POST':
         form = SDPForm(request.POST)
         if form.is_valid():
             messages.success(request,
                              f'You have successfully subscribed to Systematic Donation Plan.')
-    return render(request, 'sdp.html', {'form':form})
+    return render(request, 'sdp.html', {'form':form, 'paypal_btn': paypal_btn, 'is_buddy': request.user.startyoungukuser.is_buddy})
+
+
+class PaypalReturnView(TemplateView):
+    template_name = 'paypal_success.html'
+
+class PaypalCancelView(TemplateView):
+    template_name = 'paypal_cancel.html'
 
 
 @login_required
