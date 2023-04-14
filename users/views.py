@@ -4,6 +4,7 @@ from home.forms import CampaignForm
 from home.models import Campaign
 from django.contrib import messages
 from users.models import StartYoungUKUser, Buddy, Child
+from sponsor.models import Donation
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -309,3 +310,9 @@ def profile(request):
     else:
         form = UpdateUserForm(user=request.user.startyoungukuser,instance=request.user.startyoungukuser)
     return render(request, 'profile.html', {'form': form})
+
+@login_required
+def past_donations(request):
+    user_id = request.user.id
+    donations = Donation.objects.filter(user_id=user_id)
+    return render(request, 'past_donations.html',{'donations':donations})
