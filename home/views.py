@@ -76,11 +76,15 @@ def approve_buddies(request):
                     buddy.status = buddy_status
                     buddy.approver=current_user.email
                     buddy.save()
+                    buddy_user = StartYoungUKUser.objects.get(user=buddy.user)
                     if buddy.status =='approved':
                         # TODO: The buddy boolean is updated to reflect thier status being approved. Do we want to prevent updating this boolean from the admin portal
-                        buddy_user = StartYoungUKUser.objects.get(user=buddy.user)
                         buddy_user.is_buddy=True
                         buddy_user.save()
+                    else:
+                        buddy_user.is_buddy=False
+                        buddy_user.save()
+
                     sendBuddyApprovalEmail(buddy.user.email, buddy_status)
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
