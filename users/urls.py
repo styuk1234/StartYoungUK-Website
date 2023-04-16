@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.register, name="register"),
     path('home', views.userhome, name='userhome'),
     path('profile', views.profile, name="profile"),
+    path('past_donations', views.past_donations, name='past_donations'),
     # path('donate', views.donate, name="donate-money"),
     path('sdp', views.sdp, name="sdp"),
     path('mentor', views.buddy, name="mentor"),
