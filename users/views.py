@@ -22,6 +22,15 @@ from verify_email.errors import (
     InvalidToken,
 )
 
+
+#for pdf generation
+from django.http import FileResponse
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+
+
 # Create your views here.
 @user_not_authenticated
 def verify_user_and_activate(request,useremail, usertoken):
@@ -311,8 +320,38 @@ def profile(request):
         form = UpdateUserForm(user=request.user.startyoungukuser,instance=request.user.startyoungukuser)
     return render(request, 'profile.html', {'form': form})
 
+
 @login_required
 def past_donations(request):
     user_id = request.user.id
     donations = Donation.objects.filter(user_id=user_id)
     return render(request, 'past_donations.html',{'donations':donations})
+
+def donation_pdf_receipt(request):
+    buf = io.BytesIO()
+    c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
+    textob = c.beginText()
+    textob.setTextOrigin(inch, inch)
+    textob.setFont("Helvetica", 14)
+
+    # get checked donations
+    checked_donations = request.POST.getlist('chosen-donation')
+    user_id = request.user.id
+    donations = Donation.objects.filter(user_id=user_id,trxn_id__in=checked_donations)
+
+    lines = []
+
+    for donation in donations:
+        lines.append('Campaign ID: ' + str(donation.campaign_id))
+        lines.append('Amount: ' + str(donation.amount))
+        lines.append(" ")
+
+    for line in lines:
+        textob.textLine(line)
+
+    c.drawText(textob)
+    c.showPage()
+    c.save()
+    buf.seek(0)
+
+    return FileResponse(buf, as_attachment=True, filename='donations.pdf')
