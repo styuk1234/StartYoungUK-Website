@@ -71,7 +71,11 @@
                     <td><input type="checkbox" name="chosen-buddies" value="{{ buddy.id }}"></td>
                     <td>{{ buddy.user.first_name }}</td>
                     <td>{{ buddy.user.last_name }}</td>
-                    <td>{{ buddy.letter_received }}</td>
+                    {% if buddy.letter_received %} 
+                    <td>Yes</td>
+                    {% else %} 
+                    <td>No</td>
+                    {% endif %}
                   </tr>
                   {% endfor %}
                 </tbody>
