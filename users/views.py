@@ -337,10 +337,10 @@ def donation_pdf_receipt(request):
     # get checked donations
     checked_donations = request.POST.getlist('chosen-donation')
     user_id = request.user.id
-    user_displayname = request.user.display_name
+    user_name = str(request.user.first_name) +" "+ str(request.user.last_name)
     donations = Donation.objects.filter(user_id=user_id,trxn_id__in=checked_donations)
 
-    lines = ['Donor name: '+ user_displayname]
+    lines = ['Donor name: '+ user_name]
 
     for donation in donations:
         lines.append('Campaign ID: ' + str(donation.campaign_id))

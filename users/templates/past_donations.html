@@ -59,7 +59,7 @@
               <table class="table table-striped table-hover .table-responsive .buddy_table">
                 <thead>
                   <tr>
-                    <th><input type="checkbox" id="select-all-donations"></th>
+                    <th>ID</th>
                     <th>campaign_id</th>
                     <th>amount</th>
                   </tr>
@@ -88,12 +88,18 @@
 </div>
 
 <script>
-  document.getElementById("select-all-donations").addEventListener("click", function(){
-    var checkboxes = document.getElementsByName("chosen-donation");
-    for (var i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].checked = this.checked;
-    }
+  document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      if (this.checked) {
+        document.querySelectorAll('input[type="checkbox"]').forEach(function(otherCheckbox) {
+          if (otherCheckbox !== checkbox) {
+            otherCheckbox.checked = false;
+          }
+        });
+      }
+    });
   });
 </script>
+
 
 {% endblock %}
