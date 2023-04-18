@@ -60,16 +60,18 @@
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>campaign_id</th>
+                    <th>campaign name</th>
                     <th>amount</th>
+                    <th>date</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for donation in donations %}
+                  {% for donation, campaign_name in donation_zip %}
                   <tr>
                     <td><input type="checkbox" name="chosen-donation" value="{{ donation.trxn_id }}"></td>
-                    <td>{{ donation.campaign_id }}</td>
+                    <td>{{ campaign_name }}</td>
                     <td>{{ donation.amount }}</td>
+                    <td>{{ donation.date_donation }}</td>
                   </tr>
                   {% endfor %}
                 </tbody>

@@ -5,6 +5,7 @@ from home.models import Campaign
 from django.contrib import messages
 from users.models import StartYoungUKUser, Buddy, Child
 from sponsor.models import Donation
+from home.models import Campaign
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -325,7 +326,15 @@ def profile(request):
 def past_donations(request):
     user_id = request.user.id
     donations = Donation.objects.filter(user_id=user_id)
-    return render(request, 'past_donations.html',{'donations':donations})
+    campaign_names = []
+    for donation in donations:
+        if donation.campaign_id != 0:
+            campaign = Campaign.objects.get(pk=donation.campaign_id)
+            campaign_names.append(campaign.campaign_title)
+        else:
+            campaign_names.append("N/A")
+    donation_zip = zip(donations, campaign_names)
+    return render(request, 'past_donations.html',{'donation_zip': donation_zip})
 
 def donation_pdf_receipt(request):
     buf = io.BytesIO()
@@ -343,9 +352,14 @@ def donation_pdf_receipt(request):
     lines = ['Donor name: '+ user_name]
 
     for donation in donations:
-        lines.append('Campaign ID: ' + str(donation.campaign_id))
-        lines.append('Amount: ' + str(donation.amount))
         lines.append(" ")
+        if donation.campaign_id != 0:
+            campaign = Campaign.objects.get(pk=donation.campaign_id)
+            lines.append('Campaign Name: ' + campaign.campaign_title)
+        else:
+            lines.append('Campaign Name: N/A')
+        lines.append('Amount: ' + str(donation.amount))
+        lines.append('Date: ' + donation.date_donation.strftime("%Y-%m-%d %H:%M:%S"))
 
     for line in lines:
         textob.textLine(line)
