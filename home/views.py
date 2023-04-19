@@ -7,7 +7,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from .models import Campaign, Affiliation
-from users.models import Buddy, Child
+from users.models import Buddy, Child, StartYoungUKUser
 from django.core.serializers import serialize
 from django.contrib.auth.models import User
 import json
@@ -74,7 +74,17 @@ def approve_buddies(request):
                 buddy = Buddy.objects.get(id=buddy_id)
                 if buddy.status != buddy_status:
                     buddy.status = buddy_status
+                    buddy.approver=current_user.email
                     buddy.save()
+                    buddy_user = StartYoungUKUser.objects.get(user=buddy.user)
+                    if buddy.status =='approved':
+                        # TODO: The buddy boolean is updated to reflect thier status being approved. Do we want to prevent updating this boolean from the admin portal
+                        buddy_user.is_buddy=True
+                        buddy_user.save()
+                    else:
+                        buddy_user.is_buddy=False
+                        buddy_user.save()
+
                     sendBuddyApprovalEmail(buddy.user.email, buddy_status)
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})

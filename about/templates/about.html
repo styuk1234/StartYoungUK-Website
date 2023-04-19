@@ -111,7 +111,7 @@
               {% if item_type == 'image' %}
                 <div class="block-30 no-overlay item">
                   <figure>
-                    <img src="/media/{{ item.item_file }}" alt="{{ item.item_title }}">
+                    <img src="{{ item.item_file.url }}" alt="{{ item.item_title }}">
                     <figcaption>{{ item.item_title }}</figcaption>
                   </figure>
 
@@ -120,7 +120,7 @@
                 <div class="block-30 no-overlay item">
                   <figure>
                     <video controls autoplay muted alt="{{ item.item_title }}">
-                        <source src="/media/{{ item.item_file }}" type="video/mp4">
+                        <source src="{{ item.item_file.url }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <figcaption>{{ item.item_title }}</figcaption>

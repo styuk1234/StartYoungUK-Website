@@ -11,3 +11,4 @@ class Donation(models.Model):
     amount = models.PositiveIntegerField(null=False)
     is_anonymous = models.BooleanField(null=False, default=False)
     is_successful = models.BooleanField(null=False, default=False)
+    date_donation = models.DateTimeField(auto_now_add=True)

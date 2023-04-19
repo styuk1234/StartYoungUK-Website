@@ -4,6 +4,8 @@ from home.forms import CampaignForm
 from home.models import Campaign
 from django.contrib import messages
 from users.models import StartYoungUKUser, Buddy, Child
+from sponsor.models import Donation
+from home.models import Campaign
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -20,6 +22,15 @@ from django.views.generic import TemplateView
 from verify_email.errors import (
     InvalidToken,
 )
+
+
+#for pdf generation
+from django.http import FileResponse
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+
 
 # Create your views here.
 @user_not_authenticated
@@ -248,12 +259,8 @@ def buddy(request):
             buddy.occupation=form_data.get('occupation')
             buddy.user=User.objects.get(username=request.user.username)
             buddy.save()
-            messages.success(request,f'Buddy profile updated successfully! Please see recommended child profiles.')
-
-            # change the field is_buddy in startyoungukuser to true
-            buddy_user = StartYoungUKUser.objects.get(user=request.user)
-            buddy_user.is_buddy=True
-            buddy_user.save()
+            # TODO: this message is hard notice. instead, if they are approved, or pending they should be taken to a different page to show their current status
+            messages.success(request,f'Buddy request has been sent and is pending approval. You will receive an email once your application is approved')
             
     best_match_score=[0,0,0]
     best_match_child=[-1,-1,-1]
@@ -313,3 +320,53 @@ def profile(request):
     else:
         form = UpdateUserForm(user=request.user.startyoungukuser,instance=request.user.startyoungukuser)
     return render(request, 'profile.html', {'form': form})
+
+
+@login_required
+def past_donations(request):
+    user_id = request.user.id
+    donations = Donation.objects.filter(user_id=user_id)
+    campaign_names = []
+    for donation in donations:
+        if donation.campaign_id != 0:
+            campaign = Campaign.objects.get(pk=donation.campaign_id)
+            campaign_names.append(campaign.campaign_title)
+        else:
+            campaign_names.append("N/A")
+    donation_zip = zip(donations, campaign_names)
+    return render(request, 'past_donations.html',{'donation_zip': donation_zip})
+
+def donation_pdf_receipt(request):
+    buf = io.BytesIO()
+    c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
+    textob = c.beginText()
+    textob.setTextOrigin(inch, inch)
+    textob.setFont("Helvetica", 14)
+
+    # get checked donations
+    checked_donations = request.POST.getlist('chosen-donation')
+    user_id = request.user.id
+    user_name = str(request.user.first_name) +" "+ str(request.user.last_name)
+    donations = Donation.objects.filter(user_id=user_id,trxn_id__in=checked_donations)
+
+    lines = ['Donor name: '+ user_name]
+
+    for donation in donations:
+        lines.append(" ")
+        if donation.campaign_id != 0:
+            campaign = Campaign.objects.get(pk=donation.campaign_id)
+            lines.append('Campaign Name: ' + campaign.campaign_title)
+        else:
+            lines.append('Campaign Name: N/A')
+        lines.append('Amount: ' + str(donation.amount))
+        lines.append('Date: ' + donation.date_donation.strftime("%Y-%m-%d %H:%M:%S"))
+
+    for line in lines:
+        textob.textLine(line)
+
+    c.drawText(textob)
+    c.showPage()
+    c.save()
+    buf.seek(0)
+
+    return FileResponse(buf, as_attachment=True, filename='donations.pdf')
