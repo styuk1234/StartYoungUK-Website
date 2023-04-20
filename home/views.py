@@ -12,7 +12,7 @@ from django.core.serializers import serialize
 from django.contrib.auth.models import User
 import json
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .signals import sendBuddyApprovalEmail, sendLetterReminderEmail
+from .signals import sendEmail
 
 
 # from django.views.generic import ListView
@@ -63,13 +63,7 @@ def approve_buddies(request):
         buddy_status = request.POST.get('buddy-status')
         checked_buddies = request.POST.getlist('chosen-buddies')
         filter_status = request.POST.get('filter-status')
-        # for buddy_id in checked_buddies:
-        #     updated_buddies = Buddy.objects.filter(pk=int(buddy_id))
-        #     updated_buddies.update(status=buddy_status,approver=current_user.email)
-        #     for updated_buddy in updated_buddies:
-        #         sendBuddyApprovalEmail(updated_buddy.user.email, buddy_status)
-        
-        #button only work if current status != update status
+
         for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
                 if buddy.status != buddy_status:
@@ -85,7 +79,7 @@ def approve_buddies(request):
                         buddy_user.is_buddy=False
                         buddy_user.save()
 
-                    sendBuddyApprovalEmail(buddy.user.email, buddy_status)
+                    sendEmail(buddy.user.email)
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
 
@@ -110,7 +104,7 @@ def letter_tracker(request):
                 buddy = Buddy.objects.get(id=buddy_id)
                 #only send letter to buddy with false letter received
                 if buddy.letter_received == False:
-                    sendLetterReminderEmail(buddy.user.email)
+                    sendEmail(buddy.user.email)
             return redirect('letter_tracker')
         #update letter received to true
         elif 'letter-received-true' in request.POST:

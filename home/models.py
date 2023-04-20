@@ -46,3 +46,11 @@ class Opportunity(models.Model):
 
     def __str__(self):
         return f"{self.id, self.title}"
+
+class EmailContent(models.Model):
+    id = models.AutoField(primary_key=True)
+    email_type = models.CharField(choices=[('Approved', 'Approved'), ('Rejection', 'Rejection'), ('Letter', 'Letter')], max_length=50)
+    subject = models.CharField(max_length=100, null=False)
+    body = models.TextField()
+    attachment = models.FileField(upload_to='attachments/')
+    signature = models.TextField()
