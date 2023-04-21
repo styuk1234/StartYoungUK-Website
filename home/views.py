@@ -66,20 +66,20 @@ def approve_buddies(request):
 
         for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
+                email_content = EmailContent.objects.get(email_type=buddy_status)
                 if buddy.status != buddy_status:
                     buddy.status = buddy_status
                     buddy.approver=current_user.email
                     buddy.save()
                     buddy_user = StartYoungUKUser.objects.get(user=buddy.user)
                     if buddy.status =='approved':
-                        # TODO: The buddy boolean is updated to reflect thier status being approved. Do we want to prevent updating this boolean from the admin portal
                         buddy_user.is_buddy=True
                         buddy_user.save()
                     else:
                         buddy_user.is_buddy=False
                         buddy_user.save()
 
-                    sendEmail(buddy.user.email)
+                    sendEmail(buddy.user.email, email_content.email_type)
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
 
@@ -183,3 +183,4 @@ def campaign_donate(request, slug):
         form = DonationForm()
       
     return render(request, 'campaign_donate.html', {"form": form, "campaign_name": campaign_name})
+

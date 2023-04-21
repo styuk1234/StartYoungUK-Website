@@ -49,7 +49,7 @@ class Opportunity(models.Model):
 
 class EmailContent(models.Model):
     id = models.AutoField(primary_key=True)
-    email_type = models.CharField(choices=[('Approve', 'Buddy Approval Email'), ('Reject', 'Buddy Rejection Email'), ('Letter', 'Buddy Letter Reminder')], max_length=50)
+    email_type = models.CharField(choices=[('approved', 'Buddy Approval Email'), ('rejected', 'Buddy Rejection Email'), ('Letter', 'Buddy Letter Reminder')], max_length=50)
     subject = models.CharField(max_length=100, null=False)
     header = models.CharField(max_length=255, null=False)
     body = models.TextField()
