@@ -19,7 +19,7 @@ from .models import EmailContent
 #     email.send()
 
 
-def sendEmail(email):
+def sendEmail(email, email_type):
     html_tpl_path = 'email_templates/email_template.html'
     receiver_email = [email, ]
     subject = 'Reminder: write letter to your child'
@@ -34,11 +34,10 @@ def sendEmail(email):
         from_email=settings.EMAIL_HOST_USER,
         to=receiver_email,
         reply_to=[settings.EMAIL_HOST_USER],
-
     )
 
     # move this: pdf attachments
-    email_content = EmailContent.objects.get(email_type='Letter')
+    email_content = EmailContent.objects.get(email_type=email_type)
 
     email_msg.content_subtype = 'html'
     email_msg.send(fail_silently=False)

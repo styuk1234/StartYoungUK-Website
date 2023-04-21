@@ -6,7 +6,7 @@ from decouple import config
 from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from .models import Campaign, Affiliation
+from .models import Campaign, Affiliation, EmailContent
 from users.models import Buddy, Child, StartYoungUKUser
 from django.core.serializers import serialize
 from django.contrib.auth.models import User
@@ -100,11 +100,13 @@ def letter_tracker(request):
         #three bottom buttons functions    
         checked_buddies = request.POST.getlist('chosen-buddies')
         if 'send-email' in request.POST:
+            email_content = EmailContent.objects.get(email_type='Letter')
+
             for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
                 #only send letter to buddy with false letter received
                 if buddy.letter_received == False:
-                    sendEmail(buddy.user.email)
+                    sendEmail(buddy.user.email, email_content.email_type)
             return redirect('letter_tracker')
         #update letter received to true
         elif 'letter-received-true' in request.POST:
