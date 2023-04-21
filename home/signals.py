@@ -7,18 +7,6 @@ from email.mime.image import MIMEImage
 from functools import lru_cache
 from .models import EmailContent
 
-
-# def sendBuddyApprovalEmail(email,status):
-#     subject = 'Update: StartYoungUK mentor sign up update'
-#     message = f'Hi, thank you signing up to be a buddy, you\'ve been ' + status
-#     email_from = settings.EMAIL_HOST_USER
-#     recipient_list = [email, ]
-#     email = EmailMessage(
-#     subject, message, email_from, recipient_list)
-#     # email.attach_file('example_attachment.pdf')
-#     email.send()
-
-
 def sendEmail(email, email_type):
     html_tpl_path = 'email_templates/email_template.html'
     receiver_email = [email, ]
@@ -40,12 +28,21 @@ def sendEmail(email, email_type):
     email_content = EmailContent.objects.get(email_type=email_type)
 
     email_msg.content_subtype = 'html'
-    email_msg.send(fail_silently=False)
 
     email_msg.mixed_subtype = 'related'
     email_msg.attach_alternative(email_html_template, "text/html")
     email_msg.attach(logo_data())
-    email_msg.attach(email_content.attachment.name, email_content.attachment.read())
+
+    if email_content.attachment:
+        email_msg.attach(email_content.attachment.name, email_content.attachment.read())
+    if email_content.attachment2:
+        email_msg.attach(email_content.attachment2.name, email_content.attachment2.read())
+    if email_content.attachment3:
+        email_msg.attach(email_content.attachment3.name, email_content.attachment3.read())
+    if email_content.attachment4:
+        email_msg.attach(email_content.attachment4.name, email_content.attachment4.read())
+    if email_content.attachment5:
+        email_msg.attach(email_content.attachment5.name, email_content.attachment5.read())
 
     email_msg.send(fail_silently=False)
 
