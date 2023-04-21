@@ -11,31 +11,17 @@
     </div>
     <!-- Pink Section -->
     <div style="background-color: #fcbce2; color: #000000; font-family: Arial, sans-serif; padding: 20px;">
-        <h1 style="margin: 0; font-size: 24px;">Your letter submission is nearly up!</h1>
+        <h1 style="margin: 0; font-size: 24px;">{{ header|linebreaks }}</h1>
     </div>
     <!-- Gray Section -->
     <div style="background-color: #f5f5f5; color: #000000; font-family: Arial, sans-serif; padding: 20px;">
-        <p style="margin: 0; font-size: 18px;">The first of the month is drawing near and it is almost time to send
-            off your next letter.
-            <br >
-            If you are struggling to find inspiration or are unsure what to write,
-            please feel free to have a look at our guide or reach out to our
-            team of volunteers.
-            <br >
-            Start Young UK appreciates your generosity. By continuing to
-            engage as a mentor, you are being a positive force in the life of a
-            child </p>
+        <p style="margin: 0; font-size: 18px;">{{ body|linebreaks }}</p>
     </div>
     <!-- Dashed Line Separator -->
     <div style="border-top: 2px dashed #cccccc; margin: 20px 0;"></div>
     <!-- Best Regards Section -->
     <div style="background-color: #fcbce2; color: #ffffff; font-family: Arial, sans-serif; padding: 20px;">
-        <p style="margin: 0; font-size: 18px;">Best regards, 
-            <br >
-            Start Young UK
-            <br >
-            Registered Charity 1196028
-            </p>
+        <p style="margin: 0; font-size: 18px;">{{ signature|linebreaks }}</p>
     </div>
 </body>
 </html>

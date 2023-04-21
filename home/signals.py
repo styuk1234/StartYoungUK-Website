@@ -10,10 +10,13 @@ from .models import EmailContent
 def sendEmail(email, email_type):
     html_tpl_path = 'email_templates/email_template.html'
     receiver_email = [email, ]
-    subject = 'Reminder: write letter to your child'
+    email_content = EmailContent.objects.get(email_type=email_type)
+    subject = email_content.subject
     # Get the path to the logo image file
     logo_path = os.path.join(settings.STATIC_ROOT, 'images', 'startyounguk-logo.jpg')
-    context_data =  {'image_path': logo_path}
+
+    context_data =  {'image_path': logo_path, 'header':email_content.header,'body':email_content.body,'signature':email_content.signature }
+
     email_html_template = get_template(html_tpl_path).render(context_data)
 
     email_msg = EmailMultiAlternatives(
@@ -23,9 +26,6 @@ def sendEmail(email, email_type):
         to=receiver_email,
         reply_to=[settings.EMAIL_HOST_USER],
     )
-
-    # move this: pdf attachments
-    email_content = EmailContent.objects.get(email_type=email_type)
 
     email_msg.content_subtype = 'html'
 
