@@ -16,7 +16,7 @@ fpdf==1.7.2
 mssql-django==1.2
 phonenumbers==8.13.8
 Pillow==9.5.0
-pyodbc==4.0.35
+pyodbc==4.0.39
 python-decouple==3.8
 pytz==2023.3
 reportlab
