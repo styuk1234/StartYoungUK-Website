@@ -20,6 +20,6 @@ pyodbc==4.0.39
 python-decouple==3.8
 pytz==2023.3
 reportlab
-sqlparse==0.4.3
+sqlparse==0.4.4
 tzdata==2023.3
 whitenoise==6.4.0
