@@ -24,16 +24,18 @@ def sponsor(request):
             messages.error(request, 'We are not able to accept donations of more than £40 from unathenticated users. Please sign in to donate a larger amount!')
         
         elif form.has_error('captcha'):
-            messages.error(request, 'Please submit a Captcha before you click "Donate"')
+            messages.error(request, 'Please solve the Captcha before you click "Donate"')
         
         elif form.is_valid():
-            data = form.save()
-            form_data =DonationForm(instance=data)
-            paypal_dict['amount'] = data.amount
-            paypal_dict['invoice'] = data.trxn_id
+            donation = form.save(commit=False)
+            donation.user_id = request.user.id if request.user.is_authenticated else 0
+            form_data = DonationForm(instance=donation)
+            paypal_dict['amount'] = donation.amount
+            paypal_dict['invoice'] = donation.trxn_id
             paypal_btn = PayPalPaymentsForm(initial=paypal_dict)
             button_enable=True
             messages.success(request,"Please find the Paypal button below to complete the Donation!")
+            donation.save()
             return render(request, 'sponsor.html', {'paypal_btn': paypal_btn,'form':form_data,'button_enable':button_enable})
             # return redirect('sponsor-us')
         
@@ -42,15 +44,15 @@ def sponsor(request):
 
     # Pre-populate user info if user is authenticated 
     if request.user.is_authenticated:
-      donate=Donation()
-      donate.campaign_id=0
-      donate.user_id=request.user.startyoungukuser.user_id
-      donate.name=request.user.startyoungukuser.display_name
-      donate.email=request.user.startyoungukuser.email
-      donate.mobile_number=request.user.startyoungukuser.phone_number
-      form = DonationForm(instance=donate)
+        donate=Donation()
+        donate.campaign_id=0
+        donate.user_id=request.user.startyoungukuser.user_id
+        donate.name=request.user.startyoungukuser.display_name
+        donate.email=request.user.startyoungukuser.email
+        donate.mobile_number=request.user.startyoungukuser.phone_number
+        form = DonationForm(instance=donate)
     else:
-      form = DonationForm()
+        form = DonationForm()
 
     return render(request, 'sponsor.html', {'form': form})
         
