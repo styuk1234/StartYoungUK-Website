@@ -325,7 +325,7 @@ def profile(request):
 @login_required
 def past_donations(request):
     user_id = request.user.id
-    donations = Donation.objects.filter(user_id=user_id)
+    donations = Donation.objects.filter(user_id=user_id, is_successful=True)
     campaign_names = []
     for donation in donations:
         if donation.campaign_id != 0:
