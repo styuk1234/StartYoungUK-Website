@@ -11,8 +11,11 @@ from captcha.widgets import ReCaptchaV2Checkbox
 
 
 class UserRegisterForm(UserCreationForm):
-    display_name = forms.CharField(required=True)
     user_type = forms.ChoiceField(choices=(('I', 'Individual : If you are signing up as a personal donor'), ('C', 'Corporate : If you are signing up as a corporate affiliate')),widget=forms.Select(attrs={'class': 'form-select', 'style': 'width: 100%; height:40px'}),required=True)
+
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+    display_name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
     #accept_tou = forms.BooleanField(required=True, label="I agree to the Terms of Use and Privacy.")
     phone_number = PhoneNumberField(
@@ -35,7 +38,7 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password1', 'password2', 'display_name', 'user_type', 'phone_number', 'address', 'crn_no', 'captcha']
+        fields = ['user_type','first_name','last_name','email', 'username', 'password1', 'password2', 'display_name', 'user_type', 'phone_number', 'address', 'crn_no', 'captcha']
 
     def clean_email(self):
         # Validate unique email
