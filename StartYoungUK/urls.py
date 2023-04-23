@@ -58,4 +58,4 @@ handler500 = 'StartYoungUK.views.error_500'
 
 #Enable OTP on login
 # Comment below line to enable username-password login, without the OTP
-#admin.site.__class__ = OTPAdminSite
+admin.site.__class__ = OTPAdminSite
