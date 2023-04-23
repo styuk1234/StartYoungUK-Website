@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <title>Letter Reminder</title>
 </head>
-<body style="margin: 5em; padding: 0;">
+<body style="margin: 1em; padding: 0;">
     <!-- Company Logo -->
     <div style="background-color: #ffffff; text-align: center; padding: 20px;">
         <img src="cid:logo" alt="Company Logo" style="max-width: 100%;">
     </div>
+    {% if type == 'rejected' %}
+    <p>{{ header|linebreaks }}</p>
+    <p>{{ body|linebreaks }}</p>
+    <p>{{ signature|linebreaks }}</p></p>
+    {% else %}
     <!-- Pink Section -->
     <div style="background-color: #fcbce2; color: #000000; font-family: Arial, sans-serif; padding: 20px;">
         <h1 style="margin: 0; font-size: 24px;">{{ header|linebreaks }}</h1>
@@ -23,5 +28,6 @@
     <div style="background-color: #fcbce2; color: #ffffff; font-family: Arial, sans-serif; padding: 20px;">
         <p style="margin: 0; font-size: 18px;">{{ signature|linebreaks }}</p>
     </div>
+    {% endif %}
 </body>
 </html>

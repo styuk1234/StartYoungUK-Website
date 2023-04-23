@@ -15,7 +15,7 @@ def sendEmail(email, email_type):
     # Get the path to the logo image file
     logo_path = os.path.join(settings.STATIC_ROOT, 'images', 'startyounguk-logo.jpg')
 
-    context_data =  {'image_path': logo_path, 'header':email_content.header,'body':email_content.body,'signature':email_content.signature }
+    context_data =  {'image_path': logo_path, 'header':email_content.header,'body':email_content.body,'signature':email_content.signature, 'type': email_content.email_type }
 
     email_html_template = get_template(html_tpl_path).render(context_data)
 
