@@ -36,6 +36,7 @@ urlpatterns = [
     #path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
     path('login/', user_views.captcha_login, name='login'),
     path('logout/', user_views.captcha_logout, name='logout'),
+    path(str(config("ADMIN_URL")) + '/admin_tools_stats/', include('admin_tools_stats.urls')),
     path(str(config("ADMIN_URL")), admin.site.urls, name='admin'),
     path('sponsor/', include('sponsor.urls')),
     path('buddy_approvals/', home_views.approve_buddies,name='buddy_approvals'),

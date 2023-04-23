@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.contenttypes',
     'django_admin_env_notice',
+    'admin_tools_stats',
+    'django_nvd3',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
@@ -200,10 +202,18 @@ OTP_TOTP_ISSUER = "StartYoung UK Admin"
 
 # SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True
-# SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 # SECURE_BROWSER_XSS_FILTER = True
 # SECURE_HSTS_SECONDS = 31536000
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # SECURE_HSTS_PRELOAD = True
 # SECURE_CONTENT_TYPE_NOSNIFF = True
 # CSRF_COOKIE_SECURE = True
+
+# Cache settings for dashboard
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
