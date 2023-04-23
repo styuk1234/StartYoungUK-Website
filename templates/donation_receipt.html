@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PayPal Donation Receipt</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+
+		.logo {
+			max-width: 200px;
+			display: block;
+			margin: 0 auto;
+			margin-bottom: 20px;
+		}
+
+		.table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
+
+		.table th, .table td {
+			padding: 10px;
+			border: 1px solid #ccc;
+			text-align: left;
+		}
+
+		.table th {
+			background-color: #eee;
+		}
+
+		.charity-details {
+			margin-top: 20px;
+			border-top: 1px solid #ccc;
+			padding-top: 20px;
+			font-size: 12px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+    <!-- <link rel="icon" href="{% static 'images/startyounguk-logo.jpg' %}" type="image/x-icon"> -->
+	<div class="container">
+		<img src="{% static 'images/startyounguk-logo.jpg' %}" alt="Charity Logo" class="logo">
+		<h1>PayPal Donation Receipt</h1>
+		<p>Thank you for your donation to our charity. Your support helps us to continue our mission to make a difference in the lives of those in need.</p>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Donation Information</th>
+						<th></th>
+				</tr>
+			</thead>
+			<tbody>
+                <tr>
+					<td>Donation ID:</td>
+					<td>$50.00</td>
+				</tr>
+                <tr>
+					<td>Donation Status:</td>
+					<td>$50.00</td>
+				</tr>
+				<tr>
+					<td>Donation Amount:</td>
+					<td>$50.00</td>
+				</tr>
+				<tr>
+					<td>Donation Date:</td>
+					<td>April 23, 2023</td>
+				</tr>
+				<tr>
+					<td>Donor Name:</td>
+					<td>John Doe</td>
+				</tr>
+				<tr>
+					<td>Donor Email:</td>
+					<td>johndoe@example.com</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>If you have any questions about your donation or our charity, please don't hesitate to contact us at <b>Startyoung21@gmail.com</b>.</p>
+		<p>Thank you again for your support!</p>
+		<div class="charity-details">
+			<p>Start Young UK<br>
+			Address: Newham, UK<br>
+			Phone: 07946369885<br>
+			Email: Startyoung21@gmail.com<br>
+			Website: https://www.startyounguk.com/</p>
+			<p>Charity Number: 1196028</p>
+		</div>
+	</div>
+</body>
+</html>
