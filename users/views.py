@@ -169,10 +169,13 @@ def userhome(request):
 def sdp(request):
     form=SDPForm()
     
+    sdp_active = Buddy.objects.get(user=request.user.startyoungukuser.user).sdp_active
+    buddy_id = Buddy.objects.get(user=request.user.startyoungukuser.user).id
+    user_id = request.user.startyoungukuser.user.id
     amount = 5 if request.user.startyoungukuser.is_buddy else form['amount'].value()
+    
     paypal_dict = {
-        # "invoice": 4
-        "user": request.user.startyoungukuser.user,
+        "custom": "buddy_id %s user_id %s" % (buddy_id, user_id),
         "cmd": "_xclick-subscriptions",
         "a3": amount,                      # monthly price
         "p3": 1,                           # duration of each unit (depends on unit)
@@ -194,7 +197,7 @@ def sdp(request):
         if form.is_valid():
             messages.success(request,
                              f'You have successfully subscribed to Systematic Donation Plan.')
-    return render(request, 'sdp.html', {'form':form, 'paypal_btn': paypal_btn, 'is_buddy': request.user.startyoungukuser.is_buddy})
+    return render(request, 'sdp.html', {'form':form, 'paypal_btn': paypal_btn, 'is_buddy': request.user.startyoungukuser.is_buddy, 'sdp_active': sdp_active})
 
 
 class PaypalReturnView(TemplateView):
