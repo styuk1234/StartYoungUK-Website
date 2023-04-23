@@ -7,6 +7,7 @@ from captcha.widgets import ReCaptchaV2Checkbox
 
 
 class DonationForm(forms.ModelForm):
+    
     name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
     mobile_number = PhoneNumberField(

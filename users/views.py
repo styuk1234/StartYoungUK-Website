@@ -332,7 +332,7 @@ def past_donations(request):
             campaign = Campaign.objects.get(pk=donation.campaign_id)
             campaign_names.append(campaign.campaign_title)
         else:
-            campaign_names.append("N/A")
+            campaign_names.append("Standard Donation")
     donation_zip = zip(donations, campaign_names)
     return render(request, 'past_donations.html',{'donation_zip': donation_zip})
 
