@@ -88,4 +88,37 @@
         </div>
     </div>
 
+    <script>
+      $(document).ready(function() {
+          // Hide/show fields based on user_type
+          var userTypeField = $('#id_user_type');
+          var crnNoField = $('#id_crn_no');
+          var firstNameField = $('#id_first_name');
+          var lastNameField = $('#id_last_name');
+  
+          function toggleFields() {
+              var userType = userTypeField.val();
+              if (userType === 'I') {
+                  crnNoField.hide();
+                  firstNameField.show();
+                  lastNameField.show();
+              } else if (userType === 'C') {
+                  crnNoField.show();
+                  firstNameField.hide();
+                  lastNameField.hide();
+              }
+          }
+  
+          toggleFields();
+          userTypeField.change(toggleFields);
+      });
+  </script>
+  In this example, we're using jQuery to select the relevant form fields (userTypeField, crnNoField, firstNameField, and lastNameField) and defining a function toggleFields to show/hide them based on the value of the user_type field. We then call this function on document ready and whenever the user_type field changes.
+  
+  
+  
+  
+  
+  
+  
 {% endblock content %}
