@@ -34,9 +34,10 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
+    'django.contrib.contenttypes',
+    'django_admin_env_notice',
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -53,6 +54,8 @@ INSTALLED_APPS = [
     'captcha',
     'paypal.standard',
     'paypal.standard.ipn',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
     # 'corsheaders',
     # 'rest_framework',
 ]
@@ -68,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     # 'corsheader.middleware.CorsMiddleware',
 ]
 
@@ -81,6 +85,8 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django_admin_env_notice.context_processors.from_settings',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -162,10 +168,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
 STATIC_FILES_DIR = (
-    os.path.join(BASE_DIR, 'static'),    
+    BASE_DIR / 'static',    
 )
 
 # Default primary key field type
@@ -175,12 +181,29 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'user-home' #Temporary redirect to homepage after login
 LOGIN_URL = "login"
-SUBJECT = "Verify your email to access your StartYoungUK Dashboard"
+SUBJECT = "Verify your email to access your StartYoungUK Profile"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 CSRF_TRUSTED_ORIGINS = [config('HOSTING_URL'), 'https://*.ngrok.io', 'https://*.ngrok-free.app']
 
-PAYPAL_TEST = config('DEBUG', default=False, cast=bool)
-PAYPAL_BUY_BUTTON_IMAGE = MEDIA_URL + 'paypal.png'
-PAYPAL_SUBSCRIPTION_BUTTON_IMAGE = MEDIA_URL + 'paypal.png'
+PAYPAL_TEST = config('PAYPAL_TEST', default=False, cast=bool)
+PAYPAL_BUY_BUTTON_IMAGE = Path(STATIC_URL, 'images', 'paypal.png')
+PAYPAL_SUBSCRIPTION_BUTTON_IMAGE = Path(STATIC_URL, 'images', 'paypal.png')
+
+ENVIRONMENT_NAME = "Production Server" if not DEBUG else "Development Server"
+ENVIRONMENT_COLOR = "#FF2222" if not DEBUG else "#006400"
+ENVIRONMENT_FLOAT = True
+
+# 2FA Name to display on Authenticator App
+OTP_TOTP_ISSUER = "StartYoung UK Admin"
+
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_HSTS_SECONDS = 31536000
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# CSRF_COOKIE_SECURE = True
