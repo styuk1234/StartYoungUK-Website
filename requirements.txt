@@ -24,3 +24,4 @@ sqlparse==0.4.4
 tzdata==2023.3
 whitenoise==6.4.0
 django-admin-env-notice==1.0
+django-otp==1.1.6

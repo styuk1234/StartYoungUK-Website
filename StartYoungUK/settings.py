@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'captcha',
     'paypal.standard',
     'paypal.standard.ipn',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
     # 'corsheaders',
     # 'rest_framework',
 ]
@@ -69,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     # 'corsheader.middleware.CorsMiddleware',
 ]
 
@@ -191,3 +194,16 @@ PAYPAL_SUBSCRIPTION_BUTTON_IMAGE = Path(STATIC_URL, 'images', 'paypal.png')
 ENVIRONMENT_NAME = "Production Server" if not DEBUG else "Development Server"
 ENVIRONMENT_COLOR = "#FF2222" if not DEBUG else "#006400"
 ENVIRONMENT_FLOAT = True
+
+# 2FA Name to display on Authenticator App
+OTP_TOTP_ISSUER = "StartYoung UK Admin"
+
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_HSTS_SECONDS = 31536000
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# CSRF_COOKIE_SECURE = True

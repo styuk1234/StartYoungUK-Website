@@ -21,6 +21,7 @@ from verify_email import views as verify_email_views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+from django_otp.admin import OTPAdminSite
 from decouple import config
 
 
@@ -54,3 +55,7 @@ handler404 = 'StartYoungUK.views.error_404'
 handler500 = 'StartYoungUK.views.error_500'
 #handler403 = 'StartYoungUK.views.error_403'
 #handler400 = 'StartYoungUK.views.error_400'
+
+#Enable OTP on login
+# Comment below line to enable username-password login, without the OTP
+#admin.site.__class__ = OTPAdminSite
