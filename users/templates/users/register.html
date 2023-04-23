@@ -91,22 +91,31 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
-    // Hide all fields initially
-    $('input[name="first_name"]').hide();
-    $('input[name="last_name"]').hide();
-    $('input[name="crn_no"]').hide();
+    // Hide all fields and labels initially
+    $('.first_name').show();
+    $('.last_name').show();
+    $('.crn_no').hide();
+    $('label[for="id_first_name"]').show();
+    $('label[for="id_last_name"]').show();
+    $('label[for="id_crn_no"]').hide();
 
-    // Show fields based on user type selection
-    $('select[name="user_type"]').change(function() {
+    // Show fields and labels based on user type selection
+    $('#user_type').change(function() {
         var selectedOption = $(this).children("option:selected").val();
         if (selectedOption == 'I') {
-            $('input[name="first_name"]').show();
-            $('input[name="last_name"]').show();
-            $('input[name="crn_no"]').hide();
+            $('.first_name').show();
+            $('label[for="id_first_name"]').show();
+            $('.last_name').show();
+            $('label[for="id_last_name"]').show();
+            $('.crn_no').hide();
+            $('label[for="id_crn_no"]').hide();
         } else if (selectedOption == 'C') {
-            $('input[name="first_name"]').hide();
-            $('input[name="last_name"]').hide();
-            $('input[name="crn_no"]').show();
+            $('.first_name').hide();
+            $('label[for="id_first_name"]').hide();
+            $('.last_name').hide();
+            $('label[for="id_last_name"]').hide();
+            $('.crn_no').show();
+            $('label[for="id_crn_no"]').show();
         }
     });
 });
