@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
+    'django_admin_env_notice',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,6 +83,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django_admin_env_notice.context_processors.from_settings',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -175,12 +177,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'user-home' #Temporary redirect to homepage after login
 LOGIN_URL = "login"
-SUBJECT = "Verify your email to access your StartYoungUK Dashboard"
+SUBJECT = "Verify your email to access your StartYoungUK Profile"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 CSRF_TRUSTED_ORIGINS = [config('HOSTING_URL'), 'https://*.ngrok.io', 'https://*.ngrok-free.app']
 
-PAYPAL_TEST = config('DEBUG', default=False, cast=bool)
-PAYPAL_BUY_BUTTON_IMAGE = MEDIA_URL + 'paypal.png'
-PAYPAL_SUBSCRIPTION_BUTTON_IMAGE = MEDIA_URL + 'paypal.png'
+PAYPAL_TEST = config('PAYPAL_TEST', default=False, cast=bool)
+PAYPAL_BUY_BUTTON_IMAGE = Path(STATIC_URL, 'images', 'paypal.png')
+PAYPAL_SUBSCRIPTION_BUTTON_IMAGE = Path(STATIC_URL, 'images', 'paypal.png')
+
+ENVIRONMENT_NAME = "Production"
+ENVIRONMENT_COLOR = "#FF2222"
+
+ENVIRONMENT_ADMIN_SELECTOR = "grp-header"
+ENVIRONMENT_FLOAT = True

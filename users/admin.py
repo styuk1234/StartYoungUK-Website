@@ -6,9 +6,9 @@ from .models import StartYoungUKUser, Buddy, Child
 
 @admin.register(StartYoungUKUser)
 class StartYoungUKUserAdmin(admin.ModelAdmin):
-    admin.site.site_header = 'StartYoungUK Administration'
-    admin.site.site_title = ' '
-    admin.site.index_title = 'StartYoungUK Management'
+    admin.site.site_header = 'StartYoung UK Administration'
+    admin.site.site_title = 'StartYoung UK Admin Site '
+    admin.site.index_title = 'StartYoung UK Management'
 
     list_display = ("email", "display_name", "user_type", "is_verified", "phone_number")
     list_filter = ("is_verified", "user_type", )

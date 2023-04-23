@@ -21,7 +21,7 @@ from verify_email import views as verify_email_views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-
+from decouple import config
 
 
 urlpatterns = [
@@ -35,7 +35,7 @@ urlpatterns = [
     #path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
     path('login/', user_views.captcha_login, name='login'),
     path('logout/', user_views.captcha_logout, name='logout'),
-    path('admin/', admin.site.urls),
+    path(str(config("ADMIN_URL")), admin.site.urls, name='admin'),
     path('sponsor/', include('sponsor.urls')),
     path('buddy_approvals/', home_views.approve_buddies,name='buddy_approvals'),
     path('letter_tracker/', home_views.letter_tracker,name='letter_tracker'),
