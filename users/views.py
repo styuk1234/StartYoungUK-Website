@@ -335,7 +335,7 @@ def past_donations(request):
             campaign = Campaign.objects.get(pk=donation.campaign_id)
             campaign_names.append(campaign.campaign_title)
         else:
-            campaign_names.append("N/A")
+            campaign_names.append("Standard Donation")
     donation_zip = zip(donations, campaign_names)
     return render(request, 'past_donations.html',{'donation_zip': donation_zip})
 
@@ -353,16 +353,17 @@ def donation_pdf_receipt(request):
     donations = Donation.objects.filter(user_id=user_id,trxn_id__in=checked_donations)
 
     lines = ['Donor name: '+ user_name]
-
+    donation_date = None
     for donation in donations:
         lines.append(" ")
         if donation.campaign_id != 0:
             campaign = Campaign.objects.get(pk=donation.campaign_id)
             lines.append('Campaign Name: ' + campaign.campaign_title)
         else:
-            lines.append('Campaign Name: N/A')
-        lines.append('Amount: ' + str(donation.amount))
-        lines.append('Date: ' + donation.date_donation.strftime("%Y-%m-%d %H:%M:%S"))
+            lines.append('Campaign Name: Standard Donation')
+        lines.append('Amount: £' + str(donation.amount))
+        donation_date = donation.date_donation.strftime("%Y-%m-%d %H:%M:%S")
+        lines.append('Date: ' + donation_date)
 
     for line in lines:
         textob.textLine(line)
@@ -371,5 +372,5 @@ def donation_pdf_receipt(request):
     c.showPage()
     c.save()
     buf.seek(0)
-
-    return FileResponse(buf, as_attachment=True, filename='donations.pdf')
+    filename = f"donation_{user_name}_{donation_date}.pdf"
+    return FileResponse(buf, as_attachment=True, filename=filename)
