@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,16 +27,18 @@
 			width: 100%;
 			border-collapse: collapse;
 			margin-bottom: 20px;
+			font-size: 14px;
 		}
 
 		.table th, .table td {
-			padding: 10px;
+			padding: 5px;
 			border: 1px solid #ccc;
 			text-align: left;
 		}
 
 		.table th {
 			background-color: #eee;
+			font-weight: normal;
 		}
 
 		.charity-details {
@@ -48,7 +51,6 @@
 	</style>
 </head>
 <body>
-    <!-- <link rel="icon" href="{% static 'images/startyounguk-logo.jpg' %}" type="image/x-icon"> -->
 	<div class="container">
 		<img src="{% static 'images/startyounguk-logo.jpg' %}" alt="Charity Logo" class="logo">
 		<h1>PayPal Donation Receipt</h1>
@@ -56,35 +58,35 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Donation Information</th>
-						<th></th>
+					<th colspan="2">Donation Information</th>
 				</tr>
 			</thead>
 			<tbody>
-                <tr>
+				<tr>
 					<td>Donation ID:</td>
-					<td>$50.00</td>
+					<td>{{donation.trxn_id}}</td>
 				</tr>
-                <tr>
+				<tr>
 					<td>Donation Status:</td>
-					<td>$50.00</td>
+					<td>{{donation.is_successful}}</td>
 				</tr>
 				<tr>
 					<td>Donation Amount:</td>
-					<td>$50.00</td>
+					<td>{{donation.amount}}</td>
 				</tr>
 				<tr>
 					<td>Donation Date:</td>
-					<td>April 23, 2023</td>
+					<td>{{donation.date_donation}}</td>
 				</tr>
 				<tr>
 					<td>Donor Name:</td>
-					<td>John Doe</td>
+					<td>{{donation.name}}</td>
 				</tr>
 				<tr>
 					<td>Donor Email:</td>
-					<td>johndoe@example.com</td>
+					<td>{{donation.email}}</td>
 				</tr>
+
 			</tbody>
 		</table>
 		<p>If you have any questions about your donation or our charity, please don't hesitate to contact us at <b>Startyoung21@gmail.com</b>.</p>
@@ -98,5 +100,4 @@
 			<p>Charity Number: 1196028</p>
 		</div>
 	</div>
-</body>
-</html>
+</body
