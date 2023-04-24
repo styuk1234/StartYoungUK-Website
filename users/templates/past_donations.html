@@ -32,27 +32,7 @@
         
         <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px;">
           <br><h2 style="text-align:center;">Past Donations</h2><br>
-            <!-- <form method="POST">
-              {% csrf_token %}
-              <div class="form-group">
-                <label for="status-filter" style="color: white;">Filter by Status:</label>
-                <select class="form-control" id="status-filter" name="filter-status">
-                  <option value="all">All</option>
-                  <option value="pending">Pending</option>
-                  <option value="approved">Approved</option>
-                  <option value="rejected">Rejected</option>
-                </select>
-              </div>
-              <div class="buddy-approval-button-group">
-                <button type="submit" class="btn btn-primary">Filter</button>
-              </div>
-            </form> -->
-            <br />
-            <!-- {% if filter_status == None %}
-              <p class="lead" style="text-transform: uppercase;">all buddy list</p>
-            {% else %}
-              <p class="lead" style="text-transform: uppercase;">{{filter_status}} buddy list</p>
-            {% endif %} -->
+
             <form method="POST">
             {% csrf_token %}
             <div class="buddy-table-wrapper">
@@ -78,9 +58,7 @@
               </table>
             </div>
             <div class="buddy-approval-button-group">
-              <button class="btn btn-white" type="submit" name="buddy-status" value="approved">Generate PDFs</button>
-              <!-- <a href="{% url 'donation_pdf_receipt' %}"> -->
-                
+              <button class="btn btn-white" type="submit" name="buddy-status" value="approved">Generate PDFs</button>                
               </a>
             </div> 
             <br /> 
@@ -90,14 +68,20 @@
 </div>
 
 <script>
-  document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  const button = document.querySelector('button[name="buddy-status"]');
+
+  checkboxes.forEach(function(checkbox) {
     checkbox.addEventListener('change', function() {
       if (this.checked) {
-        document.querySelectorAll('input[type="checkbox"]').forEach(function(otherCheckbox) {
+        checkboxes.forEach(function(otherCheckbox) {
           if (otherCheckbox !== checkbox) {
             otherCheckbox.checked = false;
           }
         });
+        button.disabled = false;
+      } else {
+        button.disabled = true;
       }
     });
   });
