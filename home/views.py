@@ -6,13 +6,13 @@ from decouple import config
 from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from .models import Campaign, Affiliation
+from .models import Campaign, Affiliation, EmailContent
 from users.models import Buddy, Child, StartYoungUKUser
 from django.core.serializers import serialize
 from django.contrib.auth.models import User
 import json
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .signals import sendBuddyApprovalEmail, sendLetterReminderEmail
+from .signals import sendEmail
 
 
 # from django.views.generic import ListView
@@ -63,29 +63,23 @@ def approve_buddies(request):
         buddy_status = request.POST.get('buddy-status')
         checked_buddies = request.POST.getlist('chosen-buddies')
         filter_status = request.POST.get('filter-status')
-        # for buddy_id in checked_buddies:
-        #     updated_buddies = Buddy.objects.filter(pk=int(buddy_id))
-        #     updated_buddies.update(status=buddy_status,approver=current_user.email)
-        #     for updated_buddy in updated_buddies:
-        #         sendBuddyApprovalEmail(updated_buddy.user.email, buddy_status)
-        
-        #button only work if current status != update status
+
         for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
+                email_content = EmailContent.objects.get(email_type=buddy_status)
                 if buddy.status != buddy_status:
                     buddy.status = buddy_status
                     buddy.approver=current_user.email
                     buddy.save()
                     buddy_user = StartYoungUKUser.objects.get(user=buddy.user)
                     if buddy.status =='approved':
-                        # TODO: The buddy boolean is updated to reflect thier status being approved. Do we want to prevent updating this boolean from the admin portal
                         buddy_user.is_buddy=True
                         buddy_user.save()
                     else:
                         buddy_user.is_buddy=False
                         buddy_user.save()
 
-                    sendBuddyApprovalEmail(buddy.user.email, buddy_status)
+                    sendEmail(buddy.user.email, email_content.email_type)
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
 
@@ -106,11 +100,13 @@ def letter_tracker(request):
         #three bottom buttons functions    
         checked_buddies = request.POST.getlist('chosen-buddies')
         if 'send-email' in request.POST:
+            email_content = EmailContent.objects.get(email_type='Letter')
+
             for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
                 #only send letter to buddy with false letter received
                 if buddy.letter_received == False:
-                    sendLetterReminderEmail(buddy.user.email)
+                    sendEmail(buddy.user.email, email_content.email_type)
             return redirect('letter_tracker')
         #update letter received to true
         elif 'letter-received-true' in request.POST:
@@ -187,3 +183,4 @@ def campaign_donate(request, slug):
         form = DonationForm()
       
     return render(request, 'campaign_donate.html', {"form": form, "campaign_name": campaign_name})
+

@@ -30,7 +30,11 @@ import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
-
+from django.shortcuts import render
+from django.http import HttpResponse
+from io import BytesIO
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 # Create your views here.
 @user_not_authenticated
@@ -328,7 +332,7 @@ def profile(request):
 @login_required
 def past_donations(request):
     user_id = request.user.id
-    donations = Donation.objects.filter(user_id=user_id)
+    donations = Donation.objects.filter(user_id=user_id, is_successful=True)
     campaign_names = []
     for donation in donations:
         if donation.campaign_id != 0:
@@ -337,6 +341,27 @@ def past_donations(request):
         else:
             campaign_names.append("Standard Donation")
     donation_zip = zip(donations, campaign_names)
+
+    if request.method == 'POST':
+        selected_donation_id = request.POST.getlist('chosen-donation')
+        selected_donation = Donation.objects.get(trxn_id__in=selected_donation_id)
+        donation_date = selected_donation.date_donation.strftime("%Y-%m-%d %H:%M:%S")
+        template_path = 'donation_receipt.html'
+        context = {'donation': selected_donation}
+
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="receipt_{donation.name}_{donation_date}.pdf"'
+        buffer = BytesIO()
+        template = get_template(template_path)
+        html = template.render(context)
+        pisa_status = pisa.CreatePDF(html, dest=response, encoding='utf-8')
+        if pisa_status.err:
+            return HttpResponse('Error rendering PDF', status=400)
+        pdf = buffer.getvalue()
+        buffer.close()
+        response.write(pdf)
+        return response
+
     return render(request, 'past_donations.html',{'donation_zip': donation_zip})
 
 def donation_pdf_receipt(request):

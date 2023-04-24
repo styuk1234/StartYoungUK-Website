@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PayPal Donation Receipt</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+
+		}
+
+		.logo {
+			max-width: 200px;
+			display: block;
+			margin: 0 auto;
+			margin-bottom: 20px;
+		}
+
+		.table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+			font-size: 14px;
+		}
+
+		.table th, .table td {
+			padding: 5px;
+			border: 1px solid #ccc;
+			text-align: left;
+		}
+
+		.table th {
+			background-color: #eee;
+			font-weight: normal;
+		}
+
+		.charity-details {
+			margin-top: 20px;
+			border-top: 1px solid #ccc;
+			padding-top: 20px;
+			font-size: 12px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<img src="{{ settings.STATIC_URL }}staticfiles/images/logo-syuk.jpg" alt="Charity Logo" class="logo">
+		<h1>PayPal Donation Receipt</h1>
+		<p>Thank you for your donation to our charity. Your support helps us to continue our mission to make a difference in the lives of those in need.</p>
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="2">Donation Information</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr>
+					<td>Donation Amount:</td>
+					<td>{{donation.amount}}</td>
+				</tr>
+				<tr>
+					<td>Donation Date:</td>
+					<td>{{donation.date_donation}}</td>
+				</tr>
+				<tr>
+					<td>Donor Name:</td>
+					<td>{{donation.name}}</td>
+				</tr>
+				<tr>
+					<td>Donor Email:</td>
+					<td>{{donation.email}}</td>
+				</tr>
+
+			</tbody>
+		</table>
+		<p>If you have any questions about your donation or our charity, please don't hesitate to contact us at <b>Startyoung21@gmail.com</b>.</p>
+		<p>Thank you again for your support!</p>
+		<div class="charity-details">
+			<p>Start Young UK<br>
+			Address: Newham, UK<br>
+			Phone: 07946369885<br>
+			Email: Startyoung21@gmail.com<br>
+			Website: https://www.startyounguk.com/</p>
+			<p>Charity Number: 1196028</p>
+		</div>
+	</div>
+</body
