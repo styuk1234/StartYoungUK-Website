@@ -9,6 +9,10 @@ from django.core.validators import MinLengthValidator
 # Create your models here.
 
 class StartYoungUKUser(models.Model):
+
+    class Meta:
+        verbose_name_plural = "StartYoung UK Users"
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=50, null=False)
     email = models.EmailField(max_length=50, null=False, unique=True)
@@ -26,6 +30,10 @@ class StartYoungUKUser(models.Model):
         return f"{self.email}"
 
 class Child(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Children"
+
     child_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50, null=False)
     age = models.PositiveIntegerField(null=False)
@@ -41,6 +49,10 @@ class Child(models.Model):
 
 # TODO do we want to make this a child model of startyoung uk user?
 class Buddy(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Buddies"
+
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # name = models.CharField(max_length=50, null=False)

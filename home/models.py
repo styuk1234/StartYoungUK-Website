@@ -35,6 +35,9 @@ class Affiliation(models.Model):
 
 class Opportunity(models.Model):
 
+    class Meta:
+        verbose_name_plural = "Opportunities"
+
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50, null=False)
     description = models.TextField(max_length=400, null=False)
