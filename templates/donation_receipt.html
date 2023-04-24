@@ -52,7 +52,7 @@
 </head>
 <body>
 	<div class="container">
-		<img src="{% static 'images/startyounguk-logo.jpg' %}" alt="Charity Logo" class="logo">
+		<img src="./staticfiles/images/startyounguk-logo.jpg" alt="Charity Logo" class="logo">
 		<h1>PayPal Donation Receipt</h1>
 		<p>Thank you for your donation to our charity. Your support helps us to continue our mission to make a difference in the lives of those in need.</p>
 		<table class="table">
@@ -62,14 +62,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Donation ID:</td>
-					<td>{{donation.trxn_id}}</td>
-				</tr>
-				<tr>
-					<td>Donation Status:</td>
-					<td>{{donation.is_successful}}</td>
-				</tr>
+
 				<tr>
 					<td>Donation Amount:</td>
 					<td>{{donation.amount}}</td>
