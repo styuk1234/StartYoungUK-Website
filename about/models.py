@@ -1,6 +1,7 @@
 from django.db import models
 import os
 from django.core.validators import FileExtensionValidator
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 class TeamMember(models.Model):
@@ -22,3 +23,14 @@ class GalleryItem(models.Model):
 
     def __str__(self) -> str:
         return f"{self.item_id, self.item_title}"
+
+class CharityDetail(models.Model):
+    id = models.AutoField(primary_key=True)
+    email = models.EmailField(max_length=50, null=False, unique=True)
+    website = models.CharField(max_length=255, null=False)
+    address = models.TextField(max_length=100, null=False)
+    phone_number = PhoneNumberField(null=False, blank=False, unique=True)
+    charity_number = models.CharField(max_length=100)
+    
+    def __str__(self) -> str:
+        return f"{self.id, self.email, self.address, self.phone_number, self.charity_number}"

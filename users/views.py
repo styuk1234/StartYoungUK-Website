@@ -6,6 +6,7 @@ from django.contrib import messages
 from users.models import StartYoungUKUser, Buddy, Child
 from sponsor.models import Donation
 from home.models import Campaign
+from about.models import CharityDetail
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -328,6 +329,7 @@ def profile(request):
 def past_donations(request):
     user_id = request.user.id
     donations = Donation.objects.filter(user_id=user_id, is_successful=True)
+    charity = CharityDetail.objects.get(id=1)
     campaign_names = []
     for donation in donations:
         if donation.campaign_id != 0:
@@ -342,7 +344,7 @@ def past_donations(request):
         selected_donation = Donation.objects.get(trxn_id__in=selected_donation_id)
         donation_date = selected_donation.date_donation.strftime("%Y-%m-%d %H:%M:%S")
         template_path = 'donation_receipt.html'
-        context = {'donation': selected_donation}
+        context = {'donation': selected_donation, 'charity': charity}
 
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="receipt_{donation.name}_{donation_date}.pdf"'
