@@ -65,7 +65,7 @@
 
       <div class="row">
         {% if user.startyoungukuser.user_type == "I" %}
-        <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'mentor' %}">Mentor a Child</a></p></div>
+        <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'mentor' %}">Buddy Status</a></p></div>
         {% else %}
         <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'start_campaign' %}">Start a Campaign</a></p></div>
         {% endif %}
