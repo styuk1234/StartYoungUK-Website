@@ -11,11 +11,11 @@
                         {% if request.user.buddy.status == 'pending' %}
                         <h2>Your buddy application is in progress. We will get in touch with you shortly.</h2>
                         {% elif request.user.buddy.status == 'approved' %}
-                        <h2>You are already a buddy. Would you like to stop?</h2>
+                        <h2>You are a buddy. Would you like to stop?</h2>
                         {% elif request.user.buddy.status == 'rejected' %}
-                        <h2>Lol REJECTED</h2>
+                        <h2>Your previous application was unsuccessful. Would you like to apply again?</h2>
                         {% else %}
-                        <h2>Please enter below details so that we can better match you with child</h2>
+                        <h2>Would you like to become a buddy? Please apply below</h2>
                         
                     </div>
                 </div>

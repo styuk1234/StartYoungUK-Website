@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import StartYoungUKUser, Buddy, Child
+from .models import StartYoungUKUser, Buddy
 
 
 # Register your models here.
@@ -14,9 +14,9 @@ class StartYoungUKUserAdmin(admin.ModelAdmin):
     list_filter = ("is_verified", "user_type", )
     search_fields = ("display_name__startswith", "email__startswith", )
 
-@admin.register(Child)
-class ChildAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(Child)
+# class ChildAdmin(admin.ModelAdmin):
+#     pass
 
 @admin.register(Buddy)
 class BuddyAdmin(admin.ModelAdmin):

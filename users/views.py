@@ -3,7 +3,7 @@ from .forms import SDPForm, UserRegisterForm, UserLoginForm, UpdateUserForm, Bud
 from home.forms import CampaignForm
 from home.models import Campaign
 from django.contrib import messages
-from users.models import StartYoungUKUser, Buddy, Child
+from users.models import StartYoungUKUser, Buddy
 from sponsor.models import Donation
 from home.models import Campaign
 from about.models import CharityDetail
@@ -112,7 +112,7 @@ def captcha_login(request):
             
             if user is not None:
                 login(request, user)
-                return redirect("userhome")
+                return redirect("home")
 
         else:             
             for key, error in list(form.errors.items()):
@@ -263,28 +263,28 @@ def buddy(request):
             buddy.user=User.objects.get(username=request.user.username)
             buddy.save()
             # TODO: this message is hard notice. instead, if they are approved, or pending they should be taken to a different page to show their current status
-            messages.success(request,f'Buddy request has been sent and is pending approval. You will receive an email once your application is approved')
+            # messages.success(request,f'Buddy request has been sent and is pending approval. You will receive an email once your application is approved')
             
-    best_match_score=[0,0,0]
-    best_match_child=[-1,-1,-1]
-    for child in Child.objects.all():
-        scr=bin(int(child.hobbies,2) & int(request.user.buddy.hobbies,2)).count("1")
-        if scr>best_match_score[0]:
-            best_match_score[0]=scr
-            best_match_child[0]=child.child_id
-        elif scr> best_match_score[1]:
-            best_match_score[1]=scr
-            best_match_child[1]=child.child_id
-        elif scr> best_match_score[2]:
-            best_match_score[2]=scr
-            best_match_child[2]=child.child_id
-    recommended_child=[]
-    for x in best_match_child:
-        if(x != -1):
-            childx=Child.objects.get(child_id=x)
-            if(childx.mentor == 0):
-                recommended_child.append(childx)
-    return render(request, 'mentor.html', {'form':form, 'recommended_child':recommended_child})
+    # best_match_score=[0,0,0]
+    # best_match_child=[-1,-1,-1]
+    # for child in Child.objects.all():
+    #     scr=bin(int(child.hobbies,2) & int(request.user.buddy.hobbies,2)).count("1")
+    #     if scr>best_match_score[0]:
+    #         best_match_score[0]=scr
+    #         best_match_child[0]=child.child_id
+    #     elif scr> best_match_score[1]:
+    #         best_match_score[1]=scr
+    #         best_match_child[1]=child.child_id
+    #     elif scr> best_match_score[2]:
+    #         best_match_score[2]=scr
+    #         best_match_child[2]=child.child_id
+    # recommended_child=[]
+    # for x in best_match_child:
+    #     if(x != -1):
+    #         childx=Child.objects.get(child_id=x)
+    #         if(childx.mentor == 0):
+    #             recommended_child.append(childx)
+    return render(request, 'mentor.html', {'form':form})
 
 @login_required
 def profile(request):
