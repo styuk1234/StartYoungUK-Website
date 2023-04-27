@@ -245,21 +245,22 @@ def buddy(request):
         form = BuddyRegistrationForm(request.POST)
         if form.is_valid():
             print(form.cleaned_data)
-            bitmap=""
-            hobbies=['painting','football','reading','dancing','singing','cooking','cricket','arts_and_crafts','adventure','writing']
+            # bitmap=""
+            # hobbies=['painting','football','reading','dancing','singing','cooking','cricket','arts_and_crafts','adventure','writing']
             form_data = form.cleaned_data
-            for i in range(10):
-                if(form_data.get(hobbies[i])==True):
-                    bitmap+="1"
-                else:
-                    bitmap+="0"
+            # for i in range(10):
+            #     if(form_data.get(hobbies[i])==True):
+            #         bitmap+="1"
+            #     else:
+            #         bitmap+="0"
 
             try:
                 buddy = Buddy.objects.get(user=request.user)
             except Buddy.DoesNotExist:
                 buddy = Buddy()
-            buddy.hobbies=bitmap   
-            buddy.occupation=form_data.get('occupation')
+            # buddy.hobbies=bitmap   
+            # buddy.occupation=form_data.get('occupation')
+            buddy.description = form_data.get('description')
             buddy.user=User.objects.get(username=request.user.username)
             buddy.save()
             # TODO: this message is hard notice. instead, if they are approved, or pending they should be taken to a different page to show their current status
