@@ -184,7 +184,7 @@
 
         <div class="row">
             {% for entry in top_donations %}
-            {% if not entry.fields.is_anonymous %}
+            {% if not entry.fields.is_anonymous and entry.fields.is_successful %}
             <div class="col-md-6 col-lg-3 mb-5">
                 <div class="person-donate text-center">
                     <img src="{% static 'images/person_3.jpg' %}" alt="Image placeholder" class="img-fluid">

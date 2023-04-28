@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Campaign, Affiliation,Opportunity
+from .models import Campaign, Affiliation,Opportunity,EmailContent
 
 @admin.register(Campaign)
 class CampaignAdmin(admin.ModelAdmin):
@@ -19,3 +19,10 @@ class OpportunityAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "description", "form_url")
     list_filter = ("id", "title", )
     search_fields = ("title__startswith",)
+
+@admin.register(EmailContent)
+class EmailContentAdmin(admin.ModelAdmin):
+    list_display = ("id", "email_type")
+    list_filter =  ("id", "email_type")
+    # TODO: once the email types are added in the production database uncomment the line below so user can not adapt email type
+    # readonly_fields = ("email_type",)

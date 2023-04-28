@@ -11,8 +11,11 @@ from captcha.widgets import ReCaptchaV2Checkbox
 
 
 class UserRegisterForm(UserCreationForm):
+    user_type = forms.ChoiceField(choices=(('I', 'Individual : If you are signing up as a personal donor'), ('C', 'Corporate : If you are signing up as a corporate affiliate')),widget=forms.Select(attrs={'class': 'form-select', 'style': 'width: 100%; height:40px', 'id': 'user_type'}),required=True)
+
+    first_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'form-row first_name', 'style': 'display: none'}))
+    last_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'form-row last_name', 'style': 'display: none'}))
     display_name = forms.CharField(required=True)
-    user_type = forms.ChoiceField(choices=(('I', 'Individual : If you are signing up as a personal donor'), ('C', 'Corporate : If you are signing up as a corporate affiliate')),widget=forms.Select(attrs={'class': 'form-select', 'style': 'width: 100%; height:40px'}),required=True)
     email = forms.EmailField(required=True)
     #accept_tou = forms.BooleanField(required=True, label="I agree to the Terms of Use and Privacy.")
     phone_number = PhoneNumberField(
@@ -26,16 +29,16 @@ class UserRegisterForm(UserCreationForm):
         required=True,
     )
     crn_no = forms.CharField(
-        label="Company Registration Number (CRN)",
+        label="Company Registration Number (CRN). Please enter this if you are signing up as corporate.",
         required=False,
-        help_text="If you're signing up as a corporate, please enter your CRN",
         validators=[MinLengthValidator(limit_value=8)],
+        widget=forms.TextInput(attrs={'class': 'form-row crn_no', 'style': 'display: none'})
     )
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password1', 'password2', 'display_name', 'user_type', 'phone_number', 'address', 'crn_no', 'captcha']
+        fields = ['user_type','first_name','last_name','email', 'username', 'password1', 'password2', 'display_name', 'user_type', 'phone_number', 'address', 'crn_no', 'captcha']
 
     def clean_email(self):
         # Validate unique email
@@ -69,7 +72,6 @@ class UserRegisterForm(UserCreationForm):
             # StartYoungUKUser.objects.get(crn_no=crn_no) and crn_no != ""
             if user_type == 'C' and not crn_no:
                 # If user is corporate type but has not entered CRN, prompt validation error
-                print("in except 1")
                 raise ValidationError(
                     "Since you've chosen corporate user, please enter your CRN for validation."
                 )
@@ -77,7 +79,6 @@ class UserRegisterForm(UserCreationForm):
                 # Individual user might have put something by mistake in CRN field, so just get rid of it
                 # when entering it into the database
                 self.cleaned_data['crn_no'] = '00000000'
-                print("in except 2")
                 return "00000000"
 
         except StartYoungUKUser.DoesNotExist:
