@@ -13,6 +13,7 @@ class StartYoungUKUserAdmin(admin.ModelAdmin):
     list_display = ("email", "display_name", "user_type", "is_verified", "phone_number")
     list_filter = ("is_verified", "user_type", )
     search_fields = ("display_name__startswith", "email__startswith", )
+    readonly_fields = ["sdp_amount", "sdp_frequency"]
 
 @admin.register(Child)
 class ChildAdmin(admin.ModelAdmin):

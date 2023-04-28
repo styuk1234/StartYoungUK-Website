@@ -176,5 +176,4 @@ class UpdateUserForm(forms.ModelForm):
 
 class SDPForm(forms.Form):
     amount=forms.IntegerField(required=True)
-    frequency=forms.ChoiceField(required=True,choices=(('W', 'Weekly'), ('F', 'Fortnightly'), ('M', 'Monthly'), ('Q', 'Quaterly')))
-    toc=forms.BooleanField(required=True)
+    frequency=forms.ChoiceField(required=True,choices=(('W', 'Weekly'), ('F', 'Fortnightly'), ('M', 'Monthly')))
