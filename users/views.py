@@ -147,8 +147,6 @@ def captcha_login(request):
 def password_email_reset(request):
     if request.method == "POST":
         form = UserEmailPasswordResetForm(data=request.POST)
-        print(len(list(form.errors.items())))
-        print(form.errors.items())
 
     return render(
         request=request,

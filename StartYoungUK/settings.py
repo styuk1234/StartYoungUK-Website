@@ -108,9 +108,6 @@ EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
-EXPIRE_AFTER = "1h" # Verification Link will expire after one hour from link generation
-
 RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
@@ -182,8 +179,15 @@ STATIC_FILES_DIR = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'user-home' #Temporary redirect to homepage after login
+
+# 2 step mail verification settings
 LOGIN_URL = "login"
 SUBJECT = "Verify your email to access your StartYoungUK Profile"
+DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
+EXPIRE_AFTER = "1h" # Verification Link will expire after one hour from link generation
+VERIFICATION_FAILED_TEMPLATE = BASE_DIR / "templates/verification_failure.html" # Path to HTML for failed email verification
+REQUEST_NEW_EMAIL_TEMPLATE = BASE_DIR / "templates/resend_verification_email.html" # Path to HTML to render for request new email with link
+NEW_EMAIL_SENT_TEMPLATE = BASE_DIR / "templates/new_email_sent.html" # Path to HTML for new email sent
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
