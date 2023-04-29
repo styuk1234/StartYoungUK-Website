@@ -62,3 +62,4 @@ class EmailContent(models.Model):
     attachment4 = models.FileField(blank=True, upload_to='attachments/')
     attachment5 = models.FileField(blank=True, upload_to='attachments/')
     signature = models.TextField()
+    
