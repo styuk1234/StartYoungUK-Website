@@ -7,6 +7,8 @@ from django.core.mail import EmailMessage
 from fpdf import FPDF
 from .models import Donation
 from users.models import Buddy, StartYoungUKUser
+from home.signals import sendEmail
+
 
 
 @receiver(valid_ipn_received)
@@ -19,7 +21,7 @@ def paypal_payment_received(sender, **kwargs):
         user_id = int(ipn_obj.custom.split(' ')[3])
         duration = int(ipn_obj.custom.split(' ')[4])
         duration_unit = ipn_obj.custom.split(' ')[5]
-        
+
         try:
             user = StartYoungUKUser.objects.get(user=user_id)
         except Exception:
@@ -35,6 +37,14 @@ def paypal_payment_received(sender, **kwargs):
             else:
                 user.sdp_frequency = 'N'
             user.save()
+
+            if user.is_buddy:
+                sendEmail(user.email,'final')
+                
+
+
+
+        
             
     # check for a successful "regular" donation IPN
     elif ipn_obj.payment_status == ST_PP_COMPLETED:
