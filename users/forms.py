@@ -116,17 +116,18 @@ class UserUpadatePassword(AuthenticationForm):
 
 
 class BuddyRegistrationForm(forms.Form):
-    painting=forms.BooleanField(required=False)
-    football=forms.BooleanField(required=False)
-    reading=forms.BooleanField(required=False)
-    dancing=forms.BooleanField(required=False)
-    singing=forms.BooleanField(required=False)
-    cooking=forms.BooleanField(required=False)
-    cricket=forms.BooleanField(required=False)
-    arts_and_crafts=forms.BooleanField(required=False)
-    adventure=forms.BooleanField(required=False)
-    writing=forms.BooleanField(required=False)
-    occupation=forms.CharField(max_length=20)
+    # painting=forms.BooleanField(required=False)
+    # football=forms.BooleanField(required=False)
+    # reading=forms.BooleanField(required=False)
+    # dancing=forms.BooleanField(required=False)
+    # singing=forms.BooleanField(required=False)
+    # cooking=forms.BooleanField(required=False)
+    # cricket=forms.BooleanField(required=False)
+    # arts_and_crafts=forms.BooleanField(required=False)
+    # adventure=forms.BooleanField(required=False)
+    # writing=forms.BooleanField(required=False)
+    # occupation=forms.CharField(max_length=20)
+    description = forms.CharField(widget=forms.Textarea)
 
 class UpdateUserForm(forms.ModelForm):
     class Meta:

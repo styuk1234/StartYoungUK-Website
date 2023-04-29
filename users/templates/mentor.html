@@ -10,12 +10,18 @@
                     <div class="col-md-8 text-center">
                         {% if request.user.buddy.status == 'pending' %}
                         <h2>Your buddy application is in progress. We will get in touch with you shortly.</h2>
-                        {% elif request.user.buddy.status == 'approved' %}
-                        <h2>You are already a buddy. Would you like to stop?</h2>
-                        {% elif request.user.buddy.status == 'rejected' %}
-                        <h2>Lol REJECTED</h2>
+                        {% elif request.user.buddy.status == 'approved' and not request.user.buddy.sdp_active %}
+                        <h2>Please set up the <a href="{% url 'sdp' %}"> systematic donation plan </a> to complete your buddy process</h2>
+                        {% elif request.user.buddy.status == 'approved' and request.user.buddy.sdp_active %}
+                        <h2>You are a buddy. Would you like to<a href="{% url 'sdp' %}"> stop</a>?</h2>
                         {% else %}
-                        <h2>Please enter below details so that we can better match you with child</h2>
+                            {% if request.user.buddy.status == 'rejected' %}
+                            <h2>Your previous application was unsuccessful. Would you like to apply again?</h2>
+                            {% elif request.user.buddy.status == 'opted_out' %}
+                            <h2>You have opted out of being a buddy. Would you like to apply again?</h2>
+                            {% else %}
+                            <h2>Would you like to become a buddy? Please apply below</h2>
+                            {% endif %}
                         
                     </div>
                 </div>
@@ -38,7 +44,7 @@
                     </div>
                 </form>
                 <div>
-                    {% endif %}
+                {% endif %}
                     <!-- <h1>Recommended Child profiles</h1>
                     <div class="row">
                         {% for entry in recommended_child %}
