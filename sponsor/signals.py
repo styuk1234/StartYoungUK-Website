@@ -15,18 +15,29 @@ def paypal_payment_received(sender, **kwargs):
             
     # check for a successful subscription payment IPN
     if ipn_obj.txn_type == "subscr_payment":
-        buddy_id, user_id = int(ipn_obj.custom.split(' ')[1]), int(ipn_obj.custom.split(' ')[3])
+        
+        user_id = int(ipn_obj.custom.split(' ')[3])
+        duration = int(ipn_obj.custom.split(' ')[4])
+        duration_unit = ipn_obj.custom.split(' ')[5]
+        
         try:
-            buddy = Buddy.objects.get(id=buddy_id)
+            user = StartYoungUKUser.objects.get(user=user_id)
         except Exception:
             print('Paypal ipn_obj data not valid!', ipn_obj, 'sdp_payment')
         else:
-            buddy.sdp_active = True
-            buddy.save()
+            user.sdp_amount = ipn_obj.mc_gross
+            if duration == 1 and duration_unit == 'W': # Weekly
+                user.sdp_frequency = 'W'
+            elif duration == 14 and duration_unit == 'D': # Fortnightly
+                user.sdp_frequency = 'F'
+            elif duration == 1 and duration_unit == 'M': # Monthly
+                user.sdp_frequency = 'M'
+            else:
+                user.sdp_frequency = 'N'
+            user.save()
             
     # check for a successful "regular" donation IPN
     elif ipn_obj.payment_status == ST_PP_COMPLETED:
-        print('ST_PP_COMPLETED')
         try:
             donation = Donation.objects.get(pk=ipn_obj.invoice)
             # Check donation amount is as expected
@@ -52,8 +63,10 @@ def paypal_payment_received(sender, **kwargs):
         except Exception:
             print('Paypal ipn_obj data not valid!', ipn_obj, 'subscr_cancel')
         else:
-            buddy.sdp_active = False
+            buddy.status = 'opted out'
             user.is_buddy = False
+            user.sdp_amount = 0
+            user.sdp_frequency = 'N'
             buddy.save()
             user.save()
             
