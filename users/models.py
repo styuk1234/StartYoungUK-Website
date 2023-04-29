@@ -25,6 +25,8 @@ class StartYoungUKUser(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     is_coordinator = models.BooleanField(default=False)
     is_buddy = models.BooleanField(default=False)
+    sdp_amount = models.PositiveIntegerField(default=0)
+    sdp_frequency = models.CharField(max_length=10, choices=(('W', 'Weekly'), ('F', 'Fortnightly'), ('M', 'Monthly'), ('N', 'None')), default='N')
 
     def __str__(self):
         return f"{self.email}"
@@ -63,7 +65,6 @@ class Buddy(models.Model):
     status = models.CharField(max_length=256,choices=[('pending','pending'),('approved','approved'),('rejected','rejected'),('opted_out','opted out')],default='pending')
     approver = models.EmailField(max_length=256, null=True)
     letter_received = models.BooleanField(default=False)
-    sdp_active = models.BooleanField(default=False, null=False)
     sdp_start = models.DateTimeField(auto_now=True)
     
     def __str__(self):

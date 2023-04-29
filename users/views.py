@@ -172,17 +172,11 @@ def userhome(request):
 def sdp(request):
     form=SDPForm()
     
-    amount = 5 if request.user.startyoungukuser.is_buddy else form['amount'].value()
     paypal_dict = {
-        # "invoice": 4
-        "user": request.user.startyoungukuser.user,
         "cmd": "_xclick-subscriptions",
-        "a3": amount,                      # monthly price
-        "p3": 1,                           # duration of each unit (depends on unit)
-        "t3": "W",                         # duration unit ("W for Weekly")
-        "src": "1",                        # make payments recur
-        "sra": "1",                        # reattempt payment on payment error
-        "no_note": "1",                    # remove extra notes
+        "src": "1", # make payments recur
+        "sra": "1", # reattempt payment on payment error
+        "no_note": "1", # remove extra notes
         "item_name": "SYUK systematic donation",
         "business": config('PAYPAL_BUSINESS_ACCOUNT'),
         'currency_code': 'GBP',
@@ -190,14 +184,54 @@ def sdp(request):
         "return": request.build_absolute_uri(reverse('sdp-return')),
         "cancel_return": request.build_absolute_uri(reverse('sdp-cancel'))
     }
+    
+    user_id = request.user.startyoungukuser.user.id
+    
+    if request.user.startyoungukuser.sdp_frequency == 'W':
+        sdp_frequency = 'Weekly'
+    elif request.user.startyoungukuser.sdp_frequency == 'F':
+        sdp_frequency = 'Forthnightly'
+    elif request.user.startyoungukuser.sdp_frequency == 'M':
+        sdp_frequency = 'Monthly'
+    else:
+        sdp_frequency = 'N'
+    sdp_amount = request.user.startyoungukuser.sdp_amount
+    
+    if request.user.startyoungukuser.is_buddy:
+        # User is a Buddy: prepopulate SDP amount and frequency fields
+        buddy_id = Buddy.objects.get(user=request.user.startyoungukuser.user).id
+        paypal_dict["a3"] = 5 # amount
+        paypal_dict["p3"] = 1 # duration of each unit
+        paypal_dict["t3"] = 'W' # duration unit ("W for Weekly")
+        paypal_dict["custom"] = "buddy_id %s user_id %s %s %s" % (buddy_id, user_id, 1, 'W')
+        
+    else:
+        # User is not a Buddy: let them choose SDP amount and frequency fields
+        paypal_dict["a3"] = form['amount'].value() # amount
+        if form['frequency'].value() == 'W':
+            paypal_dict["p3"] = 1
+            paypal_dict["t3"] = 'W' # Weekly
+            paypal_dict["custom"] = "buddy_id %s user_id %s %s %s" % (0, user_id, 1, 'W')
+        elif form['frequency'].value() == 'F':
+            paypal_dict["p3"] = 14
+            paypal_dict["t3"] = 'D' # Fortnightly
+            paypal_dict["custom"] = "buddy_id %s user_id %s %s %s" % (0, user_id, 14, 'D')
+        elif form['frequency'].value() == 'M':
+            paypal_dict["p3"] = 1
+            paypal_dict["t3"] = 'M' # Monthly
+            paypal_dict["custom"] = "buddy_id %s user_id %s %s %s" % (0, user_id, 1, 'M')
+        else:
+            print('invalid SDP choice')
+            # raise Exception
+
     paypal_btn = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
 
     if request.method=='POST':
         form = SDPForm(request.POST)
         if form.is_valid():
-            messages.success(request,
-                             f'You have successfully subscribed to Systematic Donation Plan.')
-    return render(request, 'sdp.html', {'form':form, 'paypal_btn': paypal_btn, 'is_buddy': request.user.startyoungukuser.is_buddy})
+            print('form valid')
+            
+    return render(request, 'sdp.html', {'form':form, 'paypal_btn': paypal_btn, 'is_buddy': request.user.startyoungukuser.is_buddy, 'sdp_frequency': sdp_frequency, 'sdp_amount': sdp_amount})
 
 
 class PaypalReturnView(TemplateView):

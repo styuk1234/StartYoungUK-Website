@@ -17,7 +17,7 @@ django-otp==1.1.6
 django-paypal==2.0
 fpdf==1.7.2
 mssql-django==1.2
-phonenumbers==8.13.9
+phonenumbers==8.13.10
 Pillow==9.5.0
 pymemcache==4.0.0
 pyodbc==4.0.39

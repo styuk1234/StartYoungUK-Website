@@ -9,6 +9,7 @@
     p {color: #060606}
 </style>
 
+{% if sdp_frequency == 'N' %}
 <div style="padding:140px; background-image: url('{% static 'images/bg_1.jpg' %}');">
     <h1>Systematic Donation Plan (SDP)</h1>
     <h2>Return on investment would be continued returns in the form of smile on child's face.</h2>
@@ -45,6 +46,16 @@
     <p>Sort code: 60-03-19 <br> Account number: 79913334 <br> NatWest Bank</p>
 
 </div>
+{% else %}
+<div style="padding:140px; background-image: url('{% static 'images/bg_1.jpg' %}');">
+    <h1>Systematic Donation Plan (SDP)</h1>
+    <h2>You have an active plan:</h2>
+    <class="text-muted"><b>Frequency: Weekly</b></class><br>
+    <class="text-muted"><b>Amount: £5</b></class><br>
+    <p style="margin:50px 0 0 0;">In order to cancel your SDP, please use the link below to cancel your subscription from PayPal's side:</p><br>
+    <a href="https://www.paypal.com/myaccount/activities/">Cancel your Plan</a>
+</div>
+{% endif %}
         
 
 {% endblock %}
