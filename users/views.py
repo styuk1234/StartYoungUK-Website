@@ -296,6 +296,7 @@ def buddy(request):
             # buddy.occupation=form_data.get('occupation')
             buddy.description = form_data.get('description')
             buddy.user=User.objects.get(username=request.user.username)
+            buddy.status = 'pending'
             buddy.save()
             # TODO: this message is hard notice. instead, if they are approved, or pending they should be taken to a different page to show their current status
             # messages.success(request,f'Buddy request has been sent and is pending approval. You will receive an email once your application is approved')

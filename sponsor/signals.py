@@ -7,7 +7,8 @@ from django.core.mail import EmailMessage
 from fpdf import FPDF
 from .models import Donation
 from users.models import Buddy, StartYoungUKUser
-from home.signals import sendEmail
+from home.signals import sendEmail, sendEmailFixedContent
+from about.models import CharityDetail
 
 
 
@@ -38,7 +39,7 @@ def paypal_payment_received(sender, **kwargs):
                 user.sdp_frequency = 'N'
             user.save()
 
-            if user.is_buddy:
+            if user.is_buddy and user.sdp_frequency != 'N':
                 sendEmail(user.email,'final')
                 
 
@@ -73,14 +74,24 @@ def paypal_payment_received(sender, **kwargs):
         except Exception:
             print('Paypal ipn_obj data not valid!', ipn_obj, 'subscr_cancel')
         else:
-            buddy.status = 'opted out'
+            buddy.status = 'opted_out'
             user.is_buddy = False
             user.sdp_amount = 0
             user.sdp_frequency = 'N'
             buddy.save()
             user.save()
             
-            send_email(ipn_obj.payer_email, 'StartYoung UK Subscription Cancellation', "email_subscription_cancelled.html")
+            sendEmailFixedContent(user.email,'Thank you for being a buddy', 'email_templates/buddy_sdp_cancel.html')
+            charity_email = CharityDetail.objects.get(id=1).email
+            
+            #send notification email to syuk people
+            body = f'The user {user.user.first_name} {user.user.last_name} has opted out. Their email address is: {user.email}'
+            email_from = settings.EMAIL_HOST_USER
+            recipient = [charity_email,]
+            subject = f'A buddy has opted out: {user.user.first_name} {user.user.last_name}'
+            email = EmailMessage(subject, body, email_from, recipient)
+            email.send()
+
             print('SDP subscription cancelled', ipn_obj)
     
     else:
