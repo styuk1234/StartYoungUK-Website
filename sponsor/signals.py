@@ -2,49 +2,79 @@ from django.dispatch import receiver
 from paypal.standard.models import ST_PP_COMPLETED
 from paypal.standard.ipn.signals import valid_ipn_received
 from django.conf import settings
+from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from fpdf import FPDF
 from .models import Donation
-from users.models import Buddy
+from users.models import Buddy, StartYoungUKUser
 
 
 @receiver(valid_ipn_received)
 def paypal_payment_received(sender, **kwargs):
     ipn_obj = sender
-    
-    # Regular donations
-    if ipn_obj.payment_status == ST_PP_COMPLETED:
+            
+    # check for a successful subscription payment IPN
+    if ipn_obj.txn_type == "subscr_payment":
+        
+        user_id = int(ipn_obj.custom.split(' ')[3])
+        duration = int(ipn_obj.custom.split(' ')[4])
+        duration_unit = ipn_obj.custom.split(' ')[5]
+        
+        try:
+            user = StartYoungUKUser.objects.get(user=user_id)
+        except Exception:
+            print('Paypal ipn_obj data not valid!', ipn_obj, 'sdp_payment')
+        else:
+            user.sdp_amount = ipn_obj.mc_gross
+            if duration == 1 and duration_unit == 'W': # Weekly
+                user.sdp_frequency = 'W'
+            elif duration == 14 and duration_unit == 'D': # Fortnightly
+                user.sdp_frequency = 'F'
+            elif duration == 1 and duration_unit == 'M': # Monthly
+                user.sdp_frequency = 'M'
+            else:
+                user.sdp_frequency = 'N'
+            user.save()
+            
+    # check for a successful "regular" donation IPN
+    elif ipn_obj.payment_status == ST_PP_COMPLETED:
         try:
             donation = Donation.objects.get(pk=ipn_obj.invoice)
             # Check donation amount is as expected
             assert ipn_obj.mc_gross == donation.amount and ipn_obj.mc_currency == 'GBP'
         except Exception:
-            print('Paypal ipn_obj data not valid!')
+            print('Paypal ipn_obj data not valid!', ipn_obj, 'donation')
         else:
             donation.is_successful = True
             donation.save()
             sendthankyoumail(donation.email)
-            
-    # Check Systematic Donation Plan
-    if ipn_obj.txn_type == "subscr_payment":
-        try:
-            buddy = Buddy.objects.get(user=ipn_obj.user)
-        except Exception:
-            print('Paypal ipn_obj data not valid!')
-        else:
-            buddy.sdp_active = True
-            buddy.save()
 
     # check for failed subscription payment IPN
     elif ipn_obj.txn_type == "subscr_failed":
-        print('subscription failed')
+        send_email(ipn_obj.payer_email, 'StartYoung UK Subscription Payment Failure', "email_payment_failed.html")
+        print('SDP subscription payment failed', ipn_obj)
 
     # check for subscription cancellation IPN
     elif ipn_obj.txn_type == "subscr_cancel":
-        print('subscription cancelled')
+        buddy_id, user_id = int(ipn_obj.custom.split(' ')[1]), int(ipn_obj.custom.split(' ')[3])
+        try:
+            buddy = Buddy.objects.get(id=buddy_id)
+            user = StartYoungUKUser.objects.get(user=user_id)
+        except Exception:
+            print('Paypal ipn_obj data not valid!', ipn_obj, 'subscr_cancel')
+        else:
+            buddy.status = 'opted out'
+            user.is_buddy = False
+            user.sdp_amount = 0
+            user.sdp_frequency = 'N'
+            buddy.save()
+            user.save()
+            
+            send_email(ipn_obj.payer_email, 'StartYoung UK Subscription Cancellation', "email_subscription_cancelled.html")
+            print('SDP subscription cancelled', ipn_obj)
     
     else:
-        print('Paypal payment status not completed: %s' % ipn_obj.payment_status)
+        print('Paypal payment status: %s. Paypal transaction type: %s' % (ipn_obj.payment_status, ipn_obj.txn_type))
 
 
 
@@ -64,4 +94,12 @@ def sendthankyoumail(email):
     email = EmailMessage(
     subject, message, email_from, recipient_list)
     email.attach_file('Receipt.pdf')
+    email.send()
+    
+def send_email(email, subject, template_name):
+    body = render_to_string('email/' + template_name)
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [email, ]
+    email = EmailMessage(subject, body, email_from, recipient_list)
+    email.content_subtype = "html"
     email.send()

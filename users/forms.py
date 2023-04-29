@@ -72,7 +72,6 @@ class UserRegisterForm(UserCreationForm):
             # StartYoungUKUser.objects.get(crn_no=crn_no) and crn_no != ""
             if user_type == 'C' and not crn_no:
                 # If user is corporate type but has not entered CRN, prompt validation error
-                print("in except 1")
                 raise ValidationError(
                     "Since you've chosen corporate user, please enter your CRN for validation."
                 )
@@ -80,7 +79,6 @@ class UserRegisterForm(UserCreationForm):
                 # Individual user might have put something by mistake in CRN field, so just get rid of it
                 # when entering it into the database
                 self.cleaned_data['crn_no'] = '00000000'
-                print("in except 2")
                 return "00000000"
 
         except StartYoungUKUser.DoesNotExist:
@@ -178,5 +176,4 @@ class UpdateUserForm(forms.ModelForm):
 
 class SDPForm(forms.Form):
     amount=forms.IntegerField(required=True)
-    frequency=forms.ChoiceField(required=True,choices=(('W', 'Weekly'), ('F', 'Fortnightly'), ('M', 'Monthly'), ('Q', 'Quaterly')))
-    toc=forms.BooleanField(required=True)
+    frequency=forms.ChoiceField(required=True,choices=(('W', 'Weekly'), ('F', 'Fortnightly'), ('M', 'Monthly')))
