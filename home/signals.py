@@ -13,10 +13,8 @@ def sendEmail(email, email_type):
     receiver_email = [email, ]
     email_content = EmailContent.objects.get(email_type=email_type)
     subject = email_content.subject
-    # Get the path to the logo image file
-    logo_path = os.path.join(settings.STATIC_ROOT, 'images', 'startyounguk-logo.jpg')
 
-    context_data =  {'image_path': logo_path, 'header':email_content.header,'body':email_content.body,'signature':email_content.signature, 'type': email_content.email_type }
+    context_data =  { 'header':email_content.header,'body':email_content.body,'signature':email_content.signature, 'type': email_content.email_type }
 
     email_html_template = get_template(html_tpl_path).render(context_data)
 
@@ -61,10 +59,8 @@ def sendEmailFixedContent(email_list,subject,template_path):
     html_tpl_path = template_path
     receiver_email = [email_list, ]
     charity_details = CharityDetail.objects.get(id=1)
-    # Get the path to the logo image file
-    logo_path = os.path.join(settings.STATIC_ROOT, 'images', 'startyounguk-logo.jpg')
     
-    context_data =  {'image_path': logo_path, 'email': charity_details.email, 'address': charity_details.address, 'phone': charity_details.phone_number, 'charity_number': charity_details.charity_number }
+    context_data =  {'email': charity_details.email, 'address': charity_details.address, 'phone': charity_details.phone_number, 'charity_number': charity_details.charity_number }
 
     email_html_template = get_template(html_tpl_path).render(context_data)
 
