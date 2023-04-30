@@ -69,16 +69,19 @@ def paypal_payment_received(sender, **kwargs):
     elif ipn_obj.txn_type == "subscr_cancel":
         buddy_id, user_id = int(ipn_obj.custom.split(' ')[1]), int(ipn_obj.custom.split(' ')[3])
         try:
-            buddy = Buddy.objects.get(id=buddy_id)
+            if buddy_id != 0:
+                buddy = Buddy.objects.get(id=buddy_id)
             user = StartYoungUKUser.objects.get(user=user_id)
         except Exception:
             print('Paypal ipn_obj data not valid!', ipn_obj, 'subscr_cancel')
         else:
-            buddy.status = 'opted_out'
+            if buddy_id != 0:
+                buddy.status = 'opted_out'
+                buddy.save()
             user.is_buddy = False
             user.sdp_amount = 0
             user.sdp_frequency = 'N'
-            buddy.save()
+            
             user.save()
             
             sendEmailFixedContent(user.email,'Thank you for being a buddy', 'email_templates/buddy_sdp_cancel.html')
