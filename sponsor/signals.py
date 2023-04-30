@@ -75,25 +75,29 @@ def paypal_payment_received(sender, **kwargs):
         except Exception:
             print('Paypal ipn_obj data not valid!', ipn_obj, 'subscr_cancel')
         else:
-            if buddy_id != 0:
-                buddy.status = 'opted_out'
-                buddy.save()
             user.is_buddy = False
             user.sdp_amount = 0
             user.sdp_frequency = 'N'
-            
             user.save()
             
-            sendEmailFixedContent(user.email,'Thank you for being a buddy', 'email_templates/buddy_sdp_cancel.html')
-            charity_email = CharityDetail.objects.get(id=1).email
-            
-            #send notification email to syuk people
-            body = f'The user {user.user.first_name} {user.user.last_name} has opted out. Their email address is: {user.email}'
-            email_from = settings.EMAIL_HOST_USER
-            recipient = [charity_email,]
-            subject = f'A buddy has opted out: {user.user.first_name} {user.user.last_name}'
-            email = EmailMessage(subject, body, email_from, recipient)
-            email.send()
+            if buddy_id != 0:
+                buddy.status = 'opted_out'
+                buddy.save()            
+                sendEmailFixedContent(user.email,'Thank you for being a buddy', 'email_templates/buddy_sdp_cancel.html')
+
+                #send notification email to syuk people
+                charity_email = CharityDetail.objects.get(id=1).email
+                body = f'The user {user.user.first_name} {user.user.last_name} has opted out. Their email address is: {user.email}'
+                email_from = settings.EMAIL_HOST_USER
+                recipient = [charity_email,]
+                subject = f'A buddy has opted out: {user.user.first_name} {user.user.last_name}'
+                email = EmailMessage(subject, body, email_from, recipient)
+                email.send()
+                
+            else:
+                sendEmailFixedContent(user.email,'Your systematic donation plan has been cancelled', 'email_templates/sdp_cancel.html')
+
+
 
             print('SDP subscription cancelled', ipn_obj)
     
