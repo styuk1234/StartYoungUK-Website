@@ -43,7 +43,7 @@ def paypal_payment_received(sender, **kwargs):
             # Check donation amount is as expected
             assert ipn_obj.mc_gross == donation.amount and ipn_obj.mc_currency == 'GBP'
         except Exception:
-            print('Paypal ipn_obj data not valid!', ipn_obj, 'donation')
+            print('Regular Donation: Paypal ipn_obj data not valid!', ipn_obj)
         else:
             donation.is_successful = True
             donation.save()
