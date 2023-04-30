@@ -158,6 +158,7 @@ def campaign_donate(request, slug):
             # Update the donation object with current campaign's id
             donation = Donation.objects.get(trxn_id=data.trxn_id)
             donation.campaign_id = campaign_id
+            donation.user_id = request.user.id if request.user.is_authenticated else 0
             donation.save()
             
             # Update PayPal data with donation amount and invoce number

@@ -6,6 +6,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 from .forms import DonationForm
 from django.contrib import messages
 from .models import Donation
+import uuid
 
 def sponsor(request):
     if request.method == 'POST':
@@ -29,7 +30,9 @@ def sponsor(request):
         elif form.is_valid():
             donation = form.save(commit=False)
             donation.user_id = request.user.id if request.user.is_authenticated else 0
+            # donation.trxn_id = uuid.uuid4()
             form_data = DonationForm(instance=donation)
+            
             paypal_dict['amount'] = donation.amount
             paypal_dict['invoice'] = donation.trxn_id
             paypal_btn = PayPalPaymentsForm(initial=paypal_dict)
@@ -37,7 +40,6 @@ def sponsor(request):
             messages.success(request,"Please find the Paypal button below to complete the Donation!")
             donation.save()
             return render(request, 'sponsor.html', {'paypal_btn': paypal_btn,'form':form_data,'button_enable':button_enable})
-            # return redirect('sponsor-us')
         
         else:
             messages.error(request, 'There was an error with your donation. Please try again!')
