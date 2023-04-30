@@ -55,7 +55,7 @@ def logo_data():
     logo.add_header('Content-ID', '<logo>')
     return logo
 
-def sendEmailFixedContent(email_list,subject,template_path):
+def sendEmailFixedContent(email_list,subject,template_path, attachment = None):
     html_tpl_path = template_path
     receiver_email = [email_list, ]
     charity_details = CharityDetail.objects.get(id=1)
@@ -77,5 +77,7 @@ def sendEmailFixedContent(email_list,subject,template_path):
     email_msg.mixed_subtype = 'related'
     email_msg.attach_alternative(email_html_template, "text/html")
     email_msg.attach(logo_data())
+    if attachment != None:
+        email_msg.attach_file(attachment)
 
     email_msg.send(fail_silently=False)
