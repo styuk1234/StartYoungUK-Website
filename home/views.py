@@ -7,7 +7,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from .models import Campaign, Affiliation, EmailContent
-from users.models import Buddy, Child, StartYoungUKUser
+from users.models import Buddy, StartYoungUKUser
 from django.core.serializers import serialize
 from django.contrib.auth.models import User
 import json
@@ -42,9 +42,9 @@ def home(request):
     campaigns_zip = zip(campaigns, collection_by_campaign, percent_raised)
     cnt_usr = len(User.objects.all())
     cnt_buddy = len(Buddy.objects.all())
-    cnt_child = len(Child.objects.all())
+    # cnt_child = len(Child.objects.all())
 
-    return render(request, 'home.html', {'affiliations':affiliations,'top_donations':serial_donation, 'cnt_usr': cnt_usr, 'campaigns_zip': campaigns_zip, 'cnt_buddy': cnt_buddy, 'cnt_child': cnt_child})
+    return render(request, 'home.html', {'affiliations':affiliations,'top_donations':serial_donation, 'cnt_usr': cnt_usr, 'campaigns_zip': campaigns_zip, 'cnt_buddy': cnt_buddy})
 
 def buddy_system(request):
     return render(request, 'buddy.html')

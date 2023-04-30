@@ -70,7 +70,7 @@
 <script>
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   const button = document.querySelector('button[name="buddy-status"]');
-
+  button.disabled = true;
   checkboxes.forEach(function(checkbox) {
     button.disabled = true;
     checkbox.addEventListener('change', function() {

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TeamMember, GalleryItem
+from .models import TeamMember, GalleryItem, CharityDetail
 
 # Register your models here.
 @admin.register(TeamMember)
@@ -13,3 +13,7 @@ class GalleryItem(admin.ModelAdmin):
     list_display = ("item_id", "item_title", )
     list_filter = ("item_id", "item_title", )
     search_fields = ("item_title__startswith",)
+
+@admin.register(CharityDetail)
+class CharityDetail(admin.ModelAdmin):
+    list_display = ("id", "email", "address", "phone_number", "charity_number" )

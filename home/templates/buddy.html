@@ -30,9 +30,28 @@
 
             <p class="lead">BE A "BUDDY"</p>
               <p class="mb-5">We can all play a part. We are looking for” Start Young Buddies." Individuals that will sponsor a child for £5 per week. It is as easy as sacrificing the cost of one hot drink a week to support a child, which will assist with financial aid towards school uniform and basic needs. The child will be enrolled one evening a week into a local community club. The club will assist, with the development of the young person achieving their full physical intellectual, social and spiritual potential as individuals, as responsible citizens and as members of the local national and international communities. A small donation of £5 can make a huge difference.</p>
-          
+              
+            {% if request.user.buddy.status == 'pending' %}
+              <p class="mb-5" style="font-size: large;"><u>Your buddy application is in progress. We will get in touch with you shortly.</u></p>
+            {% elif request.user.buddy.status == 'approved' %}
+              {% if request.user.startyoungukuser.sdp_frequency == 'N'%}
+              <p class="mb-5">Please complete your buddy application by setting up the systematic donation plan</p>
+              <p class="mb-0" style="text-align: center;"><a href="{% url 'sdp' %}" class="btn btn-white px-3 py-2">Set Up Your Systematic Donation Plan</a></p>
+              {% else %}
+              <p class="mb-5">You are a buddy. Would you like to stop?</p>
+              <p class="mb-0" style="text-align: center;"><a href="{% url 'sdp' %}" class="btn btn-white px-3 py-2">Cancel Your Systematic Donation Plan</a></p>
+              {% endif %}
+            {% else %}
+              {% if request.user.buddy.status == 'rejected' %}
+              <p class="mb-5">Your previous application was unsuccessful. Would you like to apply again?</p>
+              {% elif request.user.buddy.status == 'opted_out' %}
+              <p class="mb-5">You have opted out of being a buddy. Would you like to apply again?</p>
+              {% endif %}
               <p class="mb-0" style="text-align: center;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Become a Buddy Today!</a></p>
-            <br>
+              <br>
+              <p style="font-size: 14px; ">By clicking the button, you agree to our terms and conditions.</p>
+            {% endif %}
+              <br>
             <br>
             </div>
         

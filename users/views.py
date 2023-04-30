@@ -3,9 +3,10 @@ from .forms import SDPForm, UserRegisterForm, UserLoginForm, UpdateUserForm, Bud
 from home.forms import CampaignForm
 from home.models import Campaign
 from django.contrib import messages
-from users.models import StartYoungUKUser, Buddy, Child
+from users.models import StartYoungUKUser, Buddy
 from sponsor.models import Donation
 from home.models import Campaign
+from about.models import CharityDetail
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -111,7 +112,7 @@ def captcha_login(request):
             
             if user is not None:
                 login(request, user)
-                return redirect("userhome")
+                return redirect("home")
 
         else:             
             for key, error in list(form.errors.items()):
@@ -289,46 +290,48 @@ def buddy(request):
         form = BuddyRegistrationForm(request.POST)
         if form.is_valid():
             print(form.cleaned_data)
-            bitmap=""
-            hobbies=['painting','football','reading','dancing','singing','cooking','cricket','arts_and_crafts','adventure','writing']
+            # bitmap=""
+            # hobbies=['painting','football','reading','dancing','singing','cooking','cricket','arts_and_crafts','adventure','writing']
             form_data = form.cleaned_data
-            for i in range(10):
-                if(form_data.get(hobbies[i])==True):
-                    bitmap+="1"
-                else:
-                    bitmap+="0"
+            # for i in range(10):
+            #     if(form_data.get(hobbies[i])==True):
+            #         bitmap+="1"
+            #     else:
+            #         bitmap+="0"
 
             try:
                 buddy = Buddy.objects.get(user=request.user)
             except Buddy.DoesNotExist:
                 buddy = Buddy()
-            buddy.hobbies=bitmap   
-            buddy.occupation=form_data.get('occupation')
+            # buddy.hobbies=bitmap   
+            # buddy.occupation=form_data.get('occupation')
+            buddy.description = form_data.get('description')
             buddy.user=User.objects.get(username=request.user.username)
+            buddy.status = 'pending'
             buddy.save()
             # TODO: this message is hard notice. instead, if they are approved, or pending they should be taken to a different page to show their current status
-            messages.success(request,f'Buddy request has been sent and is pending approval. You will receive an email once your application is approved')
+            # messages.success(request,f'Buddy request has been sent and is pending approval. You will receive an email once your application is approved')
             
-    best_match_score=[0,0,0]
-    best_match_child=[-1,-1,-1]
-    for child in Child.objects.all():
-        scr=bin(int(child.hobbies,2) & int(request.user.buddy.hobbies,2)).count("1")
-        if scr>best_match_score[0]:
-            best_match_score[0]=scr
-            best_match_child[0]=child.child_id
-        elif scr> best_match_score[1]:
-            best_match_score[1]=scr
-            best_match_child[1]=child.child_id
-        elif scr> best_match_score[2]:
-            best_match_score[2]=scr
-            best_match_child[2]=child.child_id
-    recommended_child=[]
-    for x in best_match_child:
-        if(x != -1):
-            childx=Child.objects.get(child_id=x)
-            if(childx.mentor == 0):
-                recommended_child.append(childx)
-    return render(request, 'mentor.html', {'form':form, 'recommended_child':recommended_child})
+    # best_match_score=[0,0,0]
+    # best_match_child=[-1,-1,-1]
+    # for child in Child.objects.all():
+    #     scr=bin(int(child.hobbies,2) & int(request.user.buddy.hobbies,2)).count("1")
+    #     if scr>best_match_score[0]:
+    #         best_match_score[0]=scr
+    #         best_match_child[0]=child.child_id
+    #     elif scr> best_match_score[1]:
+    #         best_match_score[1]=scr
+    #         best_match_child[1]=child.child_id
+    #     elif scr> best_match_score[2]:
+    #         best_match_score[2]=scr
+    #         best_match_child[2]=child.child_id
+    # recommended_child=[]
+    # for x in best_match_child:
+    #     if(x != -1):
+    #         childx=Child.objects.get(child_id=x)
+    #         if(childx.mentor == 0):
+    #             recommended_child.append(childx)
+    return render(request, 'mentor.html', {'form':form})
 
 @login_required
 def profile(request):
@@ -373,6 +376,7 @@ def profile(request):
 def past_donations(request):
     user_id = request.user.id
     donations = Donation.objects.filter(user_id=user_id, is_successful=True)
+    charity = CharityDetail.objects.get(id=1)
     campaign_names = []
     for donation in donations:
         if donation.campaign_id != 0:
@@ -387,7 +391,7 @@ def past_donations(request):
         selected_donation = Donation.objects.get(trxn_id__in=selected_donation_id)
         donation_date = selected_donation.date_donation.strftime("%Y-%m-%d %H:%M:%S")
         template_path = 'donation_receipt.html'
-        context = {'donation': selected_donation}
+        context = {'donation': selected_donation, 'charity': charity}
 
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="receipt_{donation.name}_{donation_date}.pdf"'

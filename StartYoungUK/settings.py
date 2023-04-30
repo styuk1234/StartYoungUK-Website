@@ -185,6 +185,7 @@ LOGIN_URL = "login"
 SUBJECT = "Verify your email to access your StartYoungUK Profile"
 DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
 EXPIRE_AFTER = "1h" # Verification Link will expire after one hour from link generation
+HTML_MESSAGE_TEMPLATE = BASE_DIR / "templates/email_templates/email_verification.html" # HTML Template for verification email
 VERIFICATION_FAILED_TEMPLATE = BASE_DIR / "templates/verification_failure.html" # Path to HTML for failed email verification
 REQUEST_NEW_EMAIL_TEMPLATE = BASE_DIR / "templates/resend_verification_email.html" # Path to HTML to render for request new email with link
 NEW_EMAIL_SENT_TEMPLATE = BASE_DIR / "templates/new_email_sent.html" # Path to HTML for new email sent

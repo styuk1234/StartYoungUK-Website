@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import StartYoungUKUser, Buddy, Child
+from .models import StartYoungUKUser, Buddy
 
 
 # Register your models here.
@@ -15,9 +15,9 @@ class StartYoungUKUserAdmin(admin.ModelAdmin):
     search_fields = ("display_name__startswith", "email__startswith", )
     readonly_fields = ["sdp_amount", "sdp_frequency"]
 
-@admin.register(Child)
-class ChildAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(Child)
+# class ChildAdmin(admin.ModelAdmin):
+#     pass
 
 @admin.register(Buddy)
 class BuddyAdmin(admin.ModelAdmin):

@@ -28,53 +28,25 @@
 {% endblock header %}
 
 {% block content %}
+
 <script>
-    document.getElementById('nav-userhome').classList.add('active');
-</script>
+    document.getElementById("nav-login").classList.add("active");
+  </script>
+  
 
-<div class="site-section fund-raisers" style="padding-top: 150px;background-image: url('/static/images/bg_1.jpg');">
-    <div class="container">
-      <div class="row mb-3 justify-content-center">
-        <div class="col-md-8 text-center">
-
-            <!-- <div class="card card-2"> -->
-                <div class="card-heading"></div>
+    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+        <div class="wrapper wrapper--w960">
+            <div class="card card-2">
                 <div class="card-body">
                     
-                    <h2 class="title">Hi {{user.username}}<br>
-                    You are signed up as 
-                    {% if user.startyoungukuser.user_type == "I" %}
-                    Individual
-                    {% else %}
-                    Corporate
-                    {% endif %}
-                    <br>
-                    What would you like to do today?</h2>
-                    
-                <!-- </div> -->
+                    <h2 class="title">Start Young UK : Verification failed</h2>
+                    <div> 
+                        We seem to have encountered some issues in verifying you. Please click on Verify again from your email, and if this issue persists, reach out to StartYoung UK on email address in footer.
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-        {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-
-      <div class="row">
-        {% if user.startyoungukuser.user_type == "I" %}
-        <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'mentor' %}">Buddy Status</a></p></div>
-        {% else %}
-        <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'start_campaign' %}">Start a Campaign</a></p></div>
-        {% endif %}
-        <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'sdp' %}">Systematic Donation Plan</a></p></div>
-        <div class="col-mg-4 col-lg-4"><p style="text-align: center;"><a class="btn btn-white px-3 py-2" href="{% url 'profile' %}">Update Profile</a></p></div>
-        
-      </div>
     </div>
-  </div>
 
     <!-- Jquery JS-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
