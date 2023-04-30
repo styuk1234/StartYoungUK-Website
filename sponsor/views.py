@@ -30,7 +30,7 @@ def sponsor(request):
         elif form.is_valid():
             donation = form.save(commit=False)
             donation.user_id = request.user.id if request.user.is_authenticated else 0
-            donation.trxn_id = uuid.uuid4()
+            # donation.trxn_id = uuid.uuid4()
             form_data = DonationForm(instance=donation)
             
             paypal_dict['amount'] = donation.amount
