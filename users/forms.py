@@ -127,7 +127,8 @@ class BuddyRegistrationForm(forms.Form):
     # adventure=forms.BooleanField(required=False)
     # writing=forms.BooleanField(required=False)
     # occupation=forms.CharField(max_length=20)
-    description = forms.CharField(widget=forms.Textarea)
+    description = forms.CharField(widget=forms.Textarea, max_length=3000)
+
 
 class UpdateUserForm(forms.ModelForm):
     class Meta:
