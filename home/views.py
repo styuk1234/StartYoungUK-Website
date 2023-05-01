@@ -75,7 +75,6 @@ def approve_buddies(request):
 
         for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
-                email_content = EmailContent.objects.get(email_type=buddy_status)
                 if buddy.status != buddy_status:
                     buddy.status = buddy_status
                     buddy.approver=current_user.email
@@ -87,8 +86,10 @@ def approve_buddies(request):
                     else:
                         buddy_user.is_buddy=False
                         buddy_user.save()
-
-                    sendEmail(buddy.user.email, email_content.email_type)
+                    if buddy.user.startyoungukuser.sdp_frequency != 'N' and buddy_status == 'approved':
+                        sendEmail(buddy.user.email,'final')
+                    else:
+                        sendEmail(buddy.user.email, buddy_status)
         return render(request, 'buddy_approvals.html',{'buddies':buddies, 'filter_status':filter_status})
     return render(request, 'buddy_approvals.html',{'buddies':buddies})
 
@@ -185,7 +186,7 @@ def campaign_donate(request, slug):
     if request.user.is_authenticated:
         donate=Donation()
         donate.user_id=request.user.startyoungukuser.user_id
-        donate.name=request.user.startyoungukuser.display_name
+        donate.name=request.user.first_name + " " + request.user.last_name
         donate.email=request.user.startyoungukuser.email
         donate.mobile_number=request.user.startyoungukuser.phone_number
         form = DonationForm(instance=donate)

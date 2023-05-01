@@ -3,6 +3,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 import uuid
 
 class Donation(models.Model):
+    class Meta:
+        ordering = ['-date_donation']
     # trxn_id = models.CharField(max_length=100, unique=True, default=uuid.uuid4, primary_key=True)
     trxn_id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, editable=False)
     campaign_id = models.IntegerField(null=False, default=0)
