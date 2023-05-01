@@ -75,7 +75,6 @@ def register(request):
             username = form.cleaned_data.get('username')
             syuk_user = StartYoungUKUser()
             syuk_user.user = User.objects.get(email=form.cleaned_data['email'])
-            syuk_user.display_name = form.cleaned_data.get('display_name')
             syuk_user.phone_number = form.cleaned_data.get('phone_number')
             syuk_user.email = form.cleaned_data.get('email')
             syuk_user.address = form.cleaned_data.get('address')
@@ -344,7 +343,6 @@ def profile(request):
             else:
                 syuk_user = StartYoungUKUser.objects.get(user=request.user)
                 # username = form.cleaned_data.get('username')
-                syuk_user.display_name = form.cleaned_data.get('display_name')
                 syuk_user.phone_number = form.cleaned_data.get('phone_number')
                 syuk_user.email = form.cleaned_data.get('email')
                 syuk_user.address = form.cleaned_data.get('address')

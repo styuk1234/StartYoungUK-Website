@@ -15,7 +15,6 @@ class UserRegisterForm(UserCreationForm):
 
     first_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'form-row first_name', 'style': 'display: none'}))
     last_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'form-row last_name', 'style': 'display: none'}))
-    display_name = forms.CharField(required=True)
     email = forms.EmailField(required=True)
     #accept_tou = forms.BooleanField(required=True, label="I agree to the Terms of Use and Privacy.")
     phone_number = PhoneNumberField(
@@ -38,7 +37,7 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['user_type','first_name','last_name','email', 'username', 'password1', 'password2', 'display_name', 'user_type', 'phone_number', 'address', 'crn_no', 'captcha']
+        fields = ['user_type','first_name','last_name','email', 'username', 'password1', 'password2', 'user_type', 'phone_number', 'address', 'crn_no', 'captcha']
 
     def clean_email(self):
         # Validate unique email
@@ -133,13 +132,11 @@ class BuddyRegistrationForm(forms.Form):
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = StartYoungUKUser
-        fields = ['display_name', 'email', 'phone_number', 'address','image']
+        fields = ['email', 'phone_number', 'address','image']
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(UpdateUserForm, self).__init__(*args, **kwargs)
-        self.fields['display_name'].widget.attrs.update({'readonly':'readonly'})
-        self.fields['display_name'].required=False
         self.fields['email'].widget.attrs.update({'readonly':'readonly'})
         self.fields['email'].required=False
         self.fields['image'].initial=self.user.image
