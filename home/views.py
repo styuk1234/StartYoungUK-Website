@@ -50,10 +50,10 @@ def home(request):
     campaigns_zip = zip(campaigns, collection_by_campaign, percent_raised)
     cnt_usr = len(User.objects.all())
     cnt_buddy = len(Buddy.objects.all())
+    cnt_campaigns = len(campaigns)
     donations_zip = zip(serial_donation, donor_images)
-    # cnt_child = len(Child.objects.all())
 
-    return render(request, 'home.html', {'affiliations':affiliations,'top_donations':donations_zip, 'cnt_usr': cnt_usr, 'campaigns_zip': campaigns_zip, 'cnt_buddy': cnt_buddy})
+    return render(request, 'home.html', {'affiliations':affiliations,'top_donations':donations_zip, 'cnt_usr': cnt_usr, 'campaigns_zip': campaigns_zip, 'cnt_buddy': cnt_buddy, 'cnt_campaigns': cnt_campaigns})
 
 def buddy_system(request):
     return render(request, 'buddy.html')
