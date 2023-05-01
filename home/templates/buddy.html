@@ -11,45 +11,46 @@
     <div class="container">
       <div class="row">
         
-        <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px;">
+        <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px; margin-right: 40px;">
           <br><h2 style="text-align:center;">The Buddy System</h2><br>
-          <p class="mb-5">The Start Young Buddy plays a key part in making a change in a child's life, they encourage, mentor, value, respect, shift mindset and support throughout the educational road map. Ensuring every child reached their full potential. You can be a sleeping (SYB) or an active (SYB). In line with safeguarding all (SYB) contact is through the school and charity.</p>
-          <p class="lead">WHAT IS  A START YOUNG BUDDY (SYB)</p>
+          <p class="mb-5">The Start Young Buddy (SYB) plays a key part in making a change in a child's life. They encourage, mentor, value, respect, shift mindset and support throughout the educational road map. They ensure every child reaches their full potential. You can be a sleeping SYB or an active SYB. In line with privacy guardrails, all SYB contact is through the school and charity.</p>
+          <p class="lead">WHO IS  A START YOUNG BUDDY (SYB)?</p>
 
           <p>Someone who:</p>
             <ul style="color:white ;">
-            <li>wants to sponsor a child for £5 per week</li>
+            <li>wants to sponsor a child for £5 (or more) per week</li>
             <li>wants to encourage and make a difference in a child's life</li>
             <li>wants to share knowledge and experience</li>
             <li>finds comfort in helping others</li>
             <li>thinks of another before they think of themselves</li>
             <li>would like to support the development of a child until school leaving age</li>
-            <li>will mentor, letter write, and assist in whatever way they can</li>
-            <li>will Allie within the workplace to see what we collectively can do, to give the next generation a foot up on the employment ladder. We will support in work experience, apprenticeships, with a hope of securing employment for their young adult</li>
+            <li>will mentor, write letter, and assist the child in whatever capacity they can</li>
+            <li>will ally within the workplace to see what we collectively can do, to give the next generation a foot up on the employment ladder.</li>
             </ul>
 
-            <p class="lead">BE A "BUDDY"</p>
-              <p class="mb-5">We can all play a part. We are looking for” Start Young Buddies." Individuals that will sponsor a child for £5 per week. It is as easy as sacrificing the cost of one hot drink a week to support a child, which will assist with financial aid towards school uniform and basic needs. The child will be enrolled one evening a week into a local community club. The club will assist, with the development of the young person achieving their full physical intellectual, social and spiritual potential as individuals, as responsible citizens and as members of the local national and international communities. A small donation of £5 can make a huge difference.</p>
+            <p>We at StartYoung UK will support in work experience, apprenticeships, with a hope of securing employment for the SYB!</p>
+
+            <p class="lead">BECOME A "BUDDY" TODAY!</p>
+              <p class="mb-5">We can all play a part. We are looking for” Start Young Buddies". Individuals who can sponsor a child for £5 (or more) per week. It is as easy as sacrificing the cost of one hot drink a week to support a child, which will assist with financial aid towards school uniform and basic needs. The child will be enrolled one evening a week into a local community club. The club will assist, with the development of the young person achieving their full physical intellectual, social and spiritual potential as individuals, as responsible citizens and as members of the local national and international communities. A small donation of £5 (or more) can make a huge difference.</p>
               
             {% if request.user.buddy.status == 'pending' %}
-              <p class="mb-5" style="font-size: large;"><u>Thanks for applying to be a mentor with us! Your buddy application is in progress. We will get in touch with you shortly.</u></p>
+              <p class="mb-5" style="font-size: large;"><u>Thanks for applying to be an SYB! Your buddy application has been received and we will get in touch with you shortly. Stay tuned!</u></p>
             {% elif request.user.buddy.status == 'approved' %}
               {% if request.user.startyoungukuser.sdp_frequency == 'N'%}
-              <p class="mb-5">Please complete your buddy application by setting up the systematic donation plan</p>
-              <p class="mb-0" style="text-align: center;"><a href="{% url 'sdp' %}" class="btn btn-white px-3 py-2">Set Up Your Systematic Donation Plan</a></p>
+              <p class="mb-5">Congratulations! You've been approved to become an SYB! You're one step away from becoming a buddy. Do so by setting up the recurring donation plan!</p>
+              <p class="mb-0" style="text-align: center;"><a href="{% url 'sdp' %}" class="btn btn-white px-3 py-2">Set Up Recurring Donation Plan</a></p>
               {% else %}
-              <p class="mb-5">You are a buddy. Would you like to stop?</p>
-              <p class="mb-0" style="text-align: center;"><a href="{% url 'sdp' %}" class="btn btn-white px-3 py-2">Cancel Your Systematic Donation Plan</a></p>
+              <p class="mb-5">You are an SYB! How cool is that? You can opt out anytime by clicking on the button below.</p>
+              <p class="mb-0" style="text-align: center;"><a href="{% url 'sdp' %}" class="btn btn-white px-3 py-2">Cancel Your Recurring Donation Plan</a></p>
               {% endif %}
             {% else %}
               {% if request.user.buddy.status == 'rejected' %}
-              <p class="mb-5">Your previous application was unsuccessful. Would you like to apply again?</p>
+              <p class="mb-5">Your previous SYB application was unsuccessful. Would you like to apply again?</p>
               {% elif request.user.buddy.status == 'opted_out' %}
-              <p class="mb-5">You have opted out of being a buddy. Would you like to apply again?</p>
+              <p class="mb-5">It seems you have opted out of being a buddy. Would you like to apply again?</p>
               {% endif %}
+              <p style="font-size: 15px; ">By clicking the button below, you agree to our terms above of becoming an SYB.</p>
               <p class="mb-0" style="text-align: center;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Become a Buddy Today!</a></p>
-              <br>
-              <p style="font-size: 14px; ">By clicking the button, you agree to our terms and conditions.</p>
             {% endif %}
               <br>
             <br>
