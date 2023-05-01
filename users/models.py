@@ -59,7 +59,7 @@ class Buddy(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # name = models.CharField(max_length=50, null=False)
     # hobbies = models.CharField(max_length=10,default="0000000000")
-    description = models.TextField(null=False)
+    description = models.TextField(null=False, default = "No description yet.")
     date_status_modified = models.DateTimeField(auto_now_add=True)
     # occupation = models.CharField(max_length=20, null=False)
     status = models.CharField(max_length=256,choices=[('pending','pending'),('approved','approved'),('rejected','rejected'),('opted_out','opted out')],default='pending')

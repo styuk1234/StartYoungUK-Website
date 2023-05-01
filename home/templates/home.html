@@ -183,16 +183,20 @@
         </div>
 
         <div class="row">
-            {% for entry in top_donations %}
-            {% if not entry.fields.is_anonymous and entry.fields.is_successful %}
+            {% for donation, donorimage in top_donations %}
+            {% if donation.fields.is_successful %}
             <div class="col-md-6 col-lg-3 mb-5">
                 <div class="person-donate text-center">
-                    <img src="{% static 'images/person_3.jpg' %}" alt="Image placeholder" class="img-fluid">
+                    {% if donation.fields.user_id != 0 %}
+                    <img src="{{ donorimage }}" alt="Image placeholder" class="img-fluid">
+                    {% else %}
+                    <img src="{% static "images/person_3.jpg" %}" alt="Image placeholder" class="img-fluid">
+                    {% endif %}
                     <div class="donate-info">
-                        <h2>{{entry.fields.name}}</h2>
+                        <h2>{{donation.fields.name}}</h2>
                         <!-- <span class="time d-block mb-3">Donated Just now</span> -->
                         <p>
-                            Donated <span class="text-success">${{entry.fields.amount}}</span>
+                            Donated <span class="text-success">${{donation.fields.amount}}</span>
                             <!-- <br>  -->
                             <!-- <em>for</em> <a href="#" class="link-underline fundraise-item">Water Is Life. Clean Water In Urban Area</a> -->
                         </p>

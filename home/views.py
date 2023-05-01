@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+import StartYoungUK
 from sponsor.models import Donation
 from sponsor.forms import DonationForm
 from django.urls import reverse
@@ -21,8 +22,15 @@ from .signals import sendEmail
 
 def home(request):
     affiliations = Affiliation.objects.all()
-    top_donation = Donation.objects.all().order_by('-amount')[:4]
+    top_donation = Donation.objects.filter(is_successful=True).order_by('-amount')[:4]
     serial_donation = json.loads(serialize('json', top_donation))
+    donor_images = []
+    for donation in top_donation:
+        try:
+            donor_images.append(StartYoungUKUser.objects.get(id=donation.user_id).image.url)
+        except StartYoungUKUser.DoesNotExist:
+            donor_images.append("Unauthenticated donation")
+
     campaigns = Campaign.objects.all().order_by('campaign_deadline')[:]
     collection_by_campaign = []
     percent_raised = []
@@ -42,9 +50,10 @@ def home(request):
     campaigns_zip = zip(campaigns, collection_by_campaign, percent_raised)
     cnt_usr = len(User.objects.all())
     cnt_buddy = len(Buddy.objects.all())
+    donations_zip = zip(serial_donation, donor_images)
     # cnt_child = len(Child.objects.all())
 
-    return render(request, 'home.html', {'affiliations':affiliations,'top_donations':serial_donation, 'cnt_usr': cnt_usr, 'campaigns_zip': campaigns_zip, 'cnt_buddy': cnt_buddy})
+    return render(request, 'home.html', {'affiliations':affiliations,'top_donations':donations_zip, 'cnt_usr': cnt_usr, 'campaigns_zip': campaigns_zip, 'cnt_buddy': cnt_buddy})
 
 def buddy_system(request):
     return render(request, 'buddy.html')
