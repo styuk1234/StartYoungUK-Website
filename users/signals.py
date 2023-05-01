@@ -11,7 +11,6 @@ def create_user_profile(sender, instance, created, **kwargs):
         syuk_user = StartYoungUKUser()
         if not StartYoungUKUser.objects.filter(email=instance.email).exists():
             syuk_user.user = User.objects.get(email=instance.email)
-            syuk_user.display_name = instance.username
             syuk_user.phone_number = "+447946369885"
             syuk_user.email = instance.email
             syuk_user.address = "Newham, UK"

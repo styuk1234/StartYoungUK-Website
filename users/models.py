@@ -14,7 +14,6 @@ class StartYoungUKUser(models.Model):
         verbose_name_plural = "StartYoung UK Users"
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    display_name = models.CharField(max_length=50, null=False)
     email = models.EmailField(max_length=50, null=False, unique=True)
     address = models.TextField(max_length=100, null=False)
     phone_number = PhoneNumberField(null=False, blank=False, unique=True)
