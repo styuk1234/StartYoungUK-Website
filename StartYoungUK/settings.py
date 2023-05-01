@@ -178,7 +178,7 @@ STATIC_FILES_DIR = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'user-home' #Temporary redirect to homepage after login
+#LOGIN_REDIRECT_URL = 'user-home' #Temporary redirect to homepage after login
 
 # 2 step mail verification settings
 LOGIN_URL = "login"

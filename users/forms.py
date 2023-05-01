@@ -11,7 +11,7 @@ from captcha.widgets import ReCaptchaV2Checkbox
 
 
 class UserRegisterForm(UserCreationForm):
-    user_type = forms.ChoiceField(choices=(('I', 'Individual : If you are signing up as a personal donor'), ('C', 'Corporate : If you are signing up as a corporate affiliate')),widget=forms.Select(attrs={'class': 'form-select', 'style': 'width: 100%; height:40px', 'id': 'user_type'}),required=True)
+    user_type = forms.ChoiceField(choices=(('I', 'Individual : If you are signing up in personal capacity'), ('C', 'Corporate : If you are signing up as a corporate affiliate')),widget=forms.Select(attrs={'class': 'form-select', 'style': 'width: 100%; height:40px', 'id': 'user_type'}),required=True)
 
     first_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'form-row first_name', 'style': 'display: none'}))
     last_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'form-row last_name', 'style': 'display: none'}))
