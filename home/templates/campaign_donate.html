@@ -72,36 +72,36 @@
         <h2>Donate towards {{ campaign_name }}</h2>
       </div>
     </div>
-      {% load crispy_forms_tags %}
-
-    <form method="POST" class="donate-form">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            {{ form|crispy }}
-        </fieldset>
-        <div class="form-group quick-donate-buttons">
-          {% if user.is_authenticated %}
-          <button onclick="fillAmount(20)" type="button">£20</button>
-          <button onclick="fillAmount(50)" type="button">£50</button>
-          <button onclick="fillAmount(100)" type="button">£100</button>
-          {% else %}
-          <button onclick="fillAmount(5)" type="button">£5</button>
-          <button onclick="fillAmount(10)" type="button">£10</button>
-          <button onclick="fillAmount(40)" type="button">£40</button>
-          {% endif %}
-        </div>
-
-        {% if button_enable %}
-        <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-container' hidden>Donate</button>
-        {% else %}
-        <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-container'>Donate</button>
-        {% endif %}
-      </form>
-      <div id="paysection"></div>
-      {% if button_enable %}
+    <div id="paysection"></div>
+    {% if button_enable %}
       <div id="paypal-container" class="row justify-content-center">
         <div class="col-md-6">{{ paypal_btn.render }}</div>
       </div>
+    {% else %}
+      {% load crispy_forms_tags %}
+      <form method="POST" class="donate-form">
+          {% csrf_token %}
+          <fieldset class="form-group">
+              {{ form|crispy }}
+          </fieldset>
+          <div class="form-group quick-donate-buttons">
+            {% if user.is_authenticated %}
+            <button onclick="fillAmount(20)" type="button">£20</button>
+            <button onclick="fillAmount(50)" type="button">£50</button>
+            <button onclick="fillAmount(100)" type="button">£100</button>
+            {% else %}
+            <button onclick="fillAmount(5)" type="button">£5</button>
+            <button onclick="fillAmount(10)" type="button">£10</button>
+            <button onclick="fillAmount(40)" type="button">£40</button>
+            {% endif %}
+          </div>
+
+          {% if button_enable %}
+          <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-container' hidden>Donate</button>
+          {% else %}
+          <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-container'>Donate</button>
+          {% endif %}
+        </form>
       {% endif %}
 </div>
 

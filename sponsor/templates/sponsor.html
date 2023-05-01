@@ -93,8 +93,14 @@
             <p class="lead">Help a child by making a donation. No amount is small.</p>
           </div>
         </div>
+
+        <div id="paysection"></div>
+        {% if button_enable %}
+          <div id="paypal-container" class="row justify-content-center">
+            <div class="col-md-6">{{ paypal_btn.render }}</div>
+          </div>
+        {% else %}
           {% load crispy_forms_tags %}
-    
           <form method="POST" class="donate-form">
               {% csrf_token %}
               <fieldset class="form-group">
@@ -117,12 +123,7 @@
             <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-container'>Donate</button>
             {% endif %}
           </form>
-          <div id="paysection"></div>
-          {% if button_enable %}
-          <div id="paypal-container" class="row justify-content-center">
-            <div class="col-md-6">{{ paypal_btn.render }}</div>
-          </div>
-          {% endif %}
+        {% endif %}
     </div>
   </div>
   <div class="site-section fund-raisers">
