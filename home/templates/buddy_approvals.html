@@ -14,7 +14,7 @@
     .buddy-approval-button-group button {
       font-size: 0.8rem;
       padding: 5px 10px;
-      max-width: fit-content;
+      max-width: 100px;
     }
 
     div.buddy-table-wrapper {
@@ -83,9 +83,9 @@
               </table>
             </div>
             <br> 
-            <div class="buddy-approval-button-group">
-              <button class="btn btn-white" type="submit" name="buddy-status" value="approved">Approve</button>
-              <button class="btn btn-white" type="submit" name="buddy-status" value="rejected">Reject</button>
+            <div class="buddy-approval-button-group" id="buddy-approval-buttons">
+              <button class="btn btn-white" type="submit" name="buddy-status" value="approved" disabled>Approve</button>
+              <button class="btn btn-white" type="submit" name="buddy-status" value="rejected" disabled>Reject</button>
             </div> 
             <br /> 
         </div>           
@@ -99,7 +99,30 @@
     for (var i = 0; i < checkboxes.length; i++) {
       checkboxes[i].checked = this.checked;
     }
+    checkIfAnyBoxChecked();
   });
+  
+  var checkboxes = document.getElementsByName("chosen-buddies");
+  for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener("click", checkIfAnyBoxChecked);
+  }
+  
+  function checkIfAnyBoxChecked() {
+    var checkboxes = document.getElementsByName("chosen-buddies");
+    var anyChecked = false;
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked) {
+        anyChecked = true;
+        break;
+      }
+    }
+    var buttons = document.getElementsByName("buddy-status");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = !anyChecked;
+    }
+  }
 </script>
+
+
 
 {% endblock %}
