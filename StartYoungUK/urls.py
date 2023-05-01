@@ -58,5 +58,5 @@ handler500 = 'StartYoungUK.views.error_500'
 #handler400 = 'StartYoungUK.views.error_400'
 
 #Enable OTP on login
-# Comment below line to enable username-password login, without the OTP
-#admin.site.__class__ = OTPAdminSite
+if config("ENABLE_AUTHENTICATOR", cast=bool):
+    admin.site.__class__ = OTPAdminSite
