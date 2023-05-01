@@ -9,7 +9,7 @@
                 <div class="row mb-3 justify-content-center">
                     <div class="col-md-8 text-center">
                         {% if request.user.buddy.status == 'pending' %}
-                        <h2>Thanks for applying to be a mentor with us! Your buddy application is in progress. We will get in touch with you shortly.</h2>
+                        <h2>Thanks for applying to be a buddy with us! Your buddy application is in progress. We will get in touch with you shortly.</h2>
                         {% elif request.user.buddy.status == 'approved'%}
                             {% if request.user.startyoungukuser.sdp_frequency == 'N'%}
                         <h2>Please set up the <a href="{% url 'sdp' %}"> systematic donation plan </a> to complete your buddy process</h2>
