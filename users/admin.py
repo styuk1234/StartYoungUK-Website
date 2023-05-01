@@ -13,7 +13,13 @@ class StartYoungUKUserAdmin(admin.ModelAdmin):
     list_display = ("email", "display_name", "user_type", "is_verified", "phone_number")
     list_filter = ("is_verified", "user_type", )
     search_fields = ("display_name__startswith", "email__startswith", )
-    readonly_fields = ["sdp_amount", "sdp_frequency"]
+    readonly_fields = ["sdp_amount", "sdp_frequency", "is_buddy","image","is_verified","user_type","crn_no","phone_number","address", "user","email"]
+
+    def has_delete_permission(self, request, obj = None) -> bool:
+        return False
+    
+    def has_add_permission(self, request, obj = None) -> bool:
+        return False
 
 # @admin.register(Child)
 # class ChildAdmin(admin.ModelAdmin):
