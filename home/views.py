@@ -186,7 +186,7 @@ def campaign_donate(request, slug):
     if request.user.is_authenticated:
         donate=Donation()
         donate.user_id=request.user.startyoungukuser.user_id
-        donate.name=request.user.startyoungukuser.display_name
+        donate.name=request.user.first_name + " " + request.user.last_name
         donate.email=request.user.startyoungukuser.email
         donate.mobile_number=request.user.startyoungukuser.phone_number
         form = DonationForm(instance=donate)
