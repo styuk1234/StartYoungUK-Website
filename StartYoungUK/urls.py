@@ -38,7 +38,7 @@ urlpatterns = [
     path('logout/', user_views.captcha_logout, name='logout'),
     path(str(config("ADMIN_URL")) + '/admin_tools_stats/', include('admin_tools_stats.urls')),
     path(str(config("ADMIN_URL")), admin.site.urls, name='admin'),
-    path('sponsor/', include('sponsor.urls')),
+    path('donate/', include('sponsor.urls')),
     path('buddy_approvals/', home_views.approve_buddies,name='buddy_approvals'),
     path('letter_tracker/', home_views.letter_tracker,name='letter_tracker'),
     # path('verification/', include('verify_email.urls')),
