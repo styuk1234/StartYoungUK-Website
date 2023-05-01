@@ -29,7 +29,7 @@ class UserRegisterForm(UserCreationForm):
         required=True,
     )
     crn_no = forms.CharField(
-        label="Company Registration Number (CRN). Please enter this if you are signing up as corporate.",
+        label="Company Registration Number (CRN)",
         required=False,
         validators=[MinLengthValidator(limit_value=8)],
         widget=forms.TextInput(attrs={'class': 'form-row crn_no', 'style': 'display: none'})
@@ -127,7 +127,10 @@ class BuddyRegistrationForm(forms.Form):
     # adventure=forms.BooleanField(required=False)
     # writing=forms.BooleanField(required=False)
     # occupation=forms.CharField(max_length=20)
-    description = forms.CharField(widget=forms.Textarea, max_length=3000)
+    description = forms.CharField(
+        label="Why do you want to become an SYB? (3000 characters limit)",
+        widget=forms.Textarea(attrs={'rows': 6}),
+        max_length=3000)
 
 
 class UpdateUserForm(forms.ModelForm):
