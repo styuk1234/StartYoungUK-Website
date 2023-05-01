@@ -45,8 +45,9 @@ def paypal_payment_received(sender, **kwargs):
 
             if user.is_buddy and user.sdp_frequency != 'N':
                 sendEmail(user.email,'final')
+            elif not user.is_buddy and user.sdp_frequency != 'N':
+                sendEmailFixedContent(user.email,'Thank you for being a buddy', 'email_templates/buddy_sdp_cancel.html')
                 
-
             
     # check for a successful "regular" donation IPN
     elif ipn_obj.payment_status == ST_PP_COMPLETED:

@@ -83,9 +83,9 @@
             </div>
             <br />
             <div class="buddy-approval-button-group">
-                <button class="btn btn-white" type="submit" name="send-email">Send an email reminder</button>
-                <button class="btn btn-white" type="submit" name="letter-received-true">Confirm have received letters</button>
-                <button class="btn btn-white" type="submit" name="letter-received-false">Reset letter received status</button>
+              <button class="btn btn-white" type="submit" name="send-email" disabled>Send an email reminder</button>
+              <button class="btn btn-white" type="submit" name="letter-received-true" disabled>Confirm have received letters</button>
+              <button class="btn btn-white" type="submit" name="letter-received-false" disabled>Reset letter received status</button>
             </div> 
             <br /> 
         </div>           
@@ -94,12 +94,41 @@
 </div>
 
 <script>
-    document.getElementById("select-all-buddies").addEventListener("click", function(){
-      var checkboxes = document.getElementsByName("chosen-buddies");
-      for (var i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].checked = this.checked;
+  document.getElementById("select-all-buddies").addEventListener("click", function(){
+    var checkboxes = document.getElementsByName("chosen-buddies");
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = this.checked;
+    }
+    checkIfAnyBoxChecked();
+  });
+  
+  var checkboxes = document.getElementsByName("chosen-buddies");
+  for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener("click", checkIfAnyBoxChecked);
+  }
+  
+  function checkIfAnyBoxChecked() {
+    var checkboxes = document.getElementsByName("chosen-buddies");
+    var anyChecked = false;
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked) {
+        anyChecked = true;
+        break;
       }
-    });
+    }
+    var buttons = document.getElementsByName("send-email");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = !anyChecked;
+    }
+    buttons = document.getElementsByName("letter-received-true");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = !anyChecked;
+    }
+    buttons = document.getElementsByName("letter-received-false");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = !anyChecked;
+    }
+  }
 </script>
 
 {% endblock %}

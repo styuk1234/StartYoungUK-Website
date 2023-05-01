@@ -32,7 +32,11 @@
         
         <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px;">
           <br><h2 style="text-align:center;">Past Donations</h2><br>
-
+          <div class="messages">
+            <div class="alert alert-warning">
+              Only donations made while logged in will be displayed here. Receipts for donations made while not logged in should have been sent to your email at the time of donation. If you did not receive your receipt, please contact us.
+            </div>
+          </div>
             <form method="POST">
             {% csrf_token %}
             <div class="buddy-table-wrapper">
