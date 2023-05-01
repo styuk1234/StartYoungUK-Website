@@ -112,7 +112,8 @@ def captcha_login(request):
             
             if user is not None:
                 login(request, user)
-                return redirect("home")
+                next = request.GET.get('next', '/')
+                return redirect(next)
 
         else:             
             for key, error in list(form.errors.items()):
