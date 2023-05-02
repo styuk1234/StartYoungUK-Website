@@ -4,16 +4,15 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0008_campaign_is_active'),
+        ("home", "0008_campaign_is_active"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='campaign',
-            name='slug',
-            field=models.SlugField(default='new', unique=True),
+            model_name="campaign",
+            name="slug",
+            field=models.SlugField(default="new", unique=True),
             preserve_default=False,
         ),
     ]

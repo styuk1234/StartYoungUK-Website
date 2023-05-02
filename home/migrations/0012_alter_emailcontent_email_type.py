@@ -4,15 +4,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0011_alter_emailcontent_email_type'),
+        ("home", "0011_alter_emailcontent_email_type"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='emailcontent',
-            name='email_type',
-            field=models.CharField(choices=[('approved', 'Buddy Approval Email'), ('rejected', 'Buddy Rejection Email'), ('Letter', 'Buddy Letter Reminder')], max_length=50),
+            model_name="emailcontent",
+            name="email_type",
+            field=models.CharField(
+                choices=[
+                    ("approved", "Buddy Approval Email"),
+                    ("rejected", "Buddy Rejection Email"),
+                    ("Letter", "Buddy Letter Reminder"),
+                ],
+                max_length=50,
+            ),
         ),
     ]

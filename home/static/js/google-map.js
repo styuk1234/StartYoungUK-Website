@@ -8,7 +8,7 @@ window.onload = function init() {
     // var myLatlng = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
     // // 39.399872
     // // -8.224454
-    
+
     // var mapOptions = {
     //     // How zoomed in you want the map to start at (always required)
     //     zoom: 7,
@@ -34,7 +34,7 @@ window.onload = function init() {
     //     ]
     // };
 
-    
+
 
     // // Get the HTML DOM element that will contain your map 
     // // We are using a div with id="map" seen below in the <body>
@@ -42,7 +42,7 @@ window.onload = function init() {
 
     // // Create the Google Map using out element and options defined above
     // var map = new google.maps.Map(mapElement, mapOptions);
-    
+
     // var addresses = ['Newham'];
 
     // for (var x = 0; x < addresses.length; x++) {
@@ -68,6 +68,6 @@ window.onload = function init() {
     L.marker([51.525, 0.035]).addTo(map)
         .bindPopup('Newham, UK')
         .openPopup();
-    
+
 }
 // google.maps.event.addDomListener(window, 'load', init);

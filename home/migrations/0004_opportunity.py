@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0003_alter_campaign_campaign_image'),
+        ("home", "0003_alter_campaign_campaign_image"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Opportunity',
+            name="Opportunity",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=50)),
-                ('description', models.TextField(max_length=400)),
-                ('form_url', models.URLField(max_length=100)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("title", models.CharField(max_length=50)),
+                ("description", models.TextField(max_length=400)),
+                ("form_url", models.URLField(max_length=100)),
             ],
         ),
     ]
