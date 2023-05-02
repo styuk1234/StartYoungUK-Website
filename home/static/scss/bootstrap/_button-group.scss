@@ -7,7 +7,7 @@
   display: inline-flex;
   vertical-align: middle; // match .btn alignment given font-size hack above
 
-  > .btn {
+  >.btn {
     position: relative;
     flex: 0 1 auto;
 
@@ -16,6 +16,7 @@
     @include hover {
       z-index: 1;
     }
+
     &:focus,
     &:active,
     &.active {
@@ -24,10 +25,10 @@
   }
 
   // Prevent double borders when buttons are next to each other
-  .btn + .btn,
-  .btn + .btn-group,
-  .btn-group + .btn,
-  .btn-group + .btn-group {
+  .btn+.btn,
+  .btn+.btn-group,
+  .btn-group+.btn,
+  .btn-group+.btn-group {
     margin-left: -$btn-border-width;
   }
 }
@@ -44,18 +45,18 @@
 }
 
 .btn-group {
-  > .btn:first-child {
+  >.btn:first-child {
     margin-left: 0;
   }
 
   // Reset rounded corners
-  > .btn:not(:last-child):not(.dropdown-toggle),
-  > .btn-group:not(:last-child) > .btn {
+  >.btn:not(:last-child):not(.dropdown-toggle),
+  >.btn-group:not(:last-child)>.btn {
     @include border-right-radius(0);
   }
 
-  > .btn:not(:first-child),
-  > .btn-group:not(:first-child) > .btn {
+  >.btn:not(:first-child),
+  >.btn-group:not(:first-child)>.btn {
     @include border-left-radius(0);
   }
 }
@@ -64,8 +65,13 @@
 //
 // Remix the default button sizing classes into new ones for easier manipulation.
 
-.btn-group-sm > .btn { @extend .btn-sm; }
-.btn-group-lg > .btn { @extend .btn-lg; }
+.btn-group-sm>.btn {
+  @extend .btn-sm;
+}
+
+.btn-group-lg>.btn {
+  @extend .btn-lg;
+}
 
 
 //
@@ -87,12 +93,12 @@
   }
 }
 
-.btn-sm + .dropdown-toggle-split {
+.btn-sm+.dropdown-toggle-split {
   padding-right: $btn-padding-x-sm * .75;
   padding-left: $btn-padding-x-sm * .75;
 }
 
-.btn-lg + .dropdown-toggle-split {
+.btn-lg+.dropdown-toggle-split {
   padding-right: $btn-padding-x-lg * .75;
   padding-left: $btn-padding-x-lg * .75;
 }
@@ -124,22 +130,22 @@
     width: 100%;
   }
 
-  > .btn + .btn,
-  > .btn + .btn-group,
-  > .btn-group + .btn,
-  > .btn-group + .btn-group {
+  >.btn+.btn,
+  >.btn+.btn-group,
+  >.btn-group+.btn,
+  >.btn-group+.btn-group {
     margin-top: -$btn-border-width;
     margin-left: 0;
   }
 
   // Reset rounded corners
-  > .btn:not(:last-child):not(.dropdown-toggle),
-  > .btn-group:not(:last-child) > .btn {
+  >.btn:not(:last-child):not(.dropdown-toggle),
+  >.btn-group:not(:last-child)>.btn {
     @include border-bottom-radius(0);
   }
 
-  > .btn:not(:first-child),
-  > .btn-group:not(:first-child) > .btn {
+  >.btn:not(:first-child),
+  >.btn-group:not(:first-child)>.btn {
     @include border-top-radius(0);
   }
 }
@@ -158,8 +164,9 @@
 // https://github.com/twbs/bootstrap/pull/14559 for more information.
 
 .btn-group-toggle {
-  > .btn,
-  > .btn-group > .btn {
+
+  >.btn,
+  >.btn-group>.btn {
     margin-bottom: 0; // Override default `<label>` value
 
     input[type="radio"],

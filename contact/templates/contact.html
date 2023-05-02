@@ -17,6 +17,12 @@
 .card-top {
   max-height: 35%;
 }
+
+.login-btn {
+  position: relative;
+  left: 10%;
+  width: 80%;
+}
 </style>
 
 <div class="block-31" style="position: relative;">
@@ -39,7 +45,7 @@
         <h2 class="heading" style="text-align: center;">Explore our Career Opportunities</h2>
         <div class="nonloop-block-11 owl-carousel">
         {% for opportunity in opportunities %}
-          {% if not opportunity.position_filled and today < opportunity.end_date %}
+          {% if not opportunity.position_filled and today <= opportunity.end_date %}
             <div class="card fundraise-item">
                 <div class="card-body campaign-card">
                     <div class="card-top">
@@ -55,7 +61,7 @@
                         <span class="donation-time mb-3 d-block">Position Type: Volunteer</span>
                         {% endif %}
                         <div class="form-group">
-                            <button class="donate-btn login-btn btn btn-primary" type="button"><a href="{{ opportunity.form_url }}" target="_blank" rel="noopener noreferrer">Apply</a></button>
+                          <a href="{{ opportunity.form_url }}" class="donate-btn login-btn btn btn-primary" rel="noopener noreferrer" target="_blank">Apply</a>
                         </div>
                     </div>
                 </div>

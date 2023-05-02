@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0002_startyoungukuser_is_buddy'),
+        ("users", "0002_startyoungukuser_is_buddy"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='buddy',
-            name='sdp_active',
+            model_name="buddy",
+            name="sdp_active",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='buddy',
-            name='sdp_start',
+            model_name="buddy",
+            name="sdp_start",
             field=models.DateTimeField(auto_now=True),
         ),
     ]

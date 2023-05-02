@@ -4,22 +4,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Campaign',
+            name="Campaign",
             fields=[
-                ('campaign_id', models.AutoField(primary_key=True, serialize=False)),
-                ('campaign_title', models.CharField(max_length=50)),
-                ('campaign_description', models.TextField(max_length=200)),
-                ('collection_target', models.IntegerField()),
-                ('campaign_deadline', models.DateField()),
-                ('campaign_image', models.ImageField(default='default.jpg', upload_to='campaign_pics')),
+                ("campaign_id", models.AutoField(primary_key=True, serialize=False)),
+                ("campaign_title", models.CharField(max_length=50)),
+                ("campaign_description", models.TextField(max_length=200)),
+                ("collection_target", models.IntegerField()),
+                ("campaign_deadline", models.DateField()),
+                (
+                    "campaign_image",
+                    models.ImageField(default="default.jpg", upload_to="campaign_pics"),
+                ),
             ],
         ),
     ]

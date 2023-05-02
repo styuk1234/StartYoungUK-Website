@@ -4,20 +4,28 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0005_alter_buddy_status'),
+        ("users", "0005_alter_buddy_status"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='startyoungukuser',
-            name='sdp_amount',
+            model_name="startyoungukuser",
+            name="sdp_amount",
             field=models.PositiveIntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='startyoungukuser',
-            name='sdp_frequency',
-            field=models.CharField(choices=[('W', 'Weekly'), ('F', 'Fortnightly'), ('M', 'Monthly'), ('N', 'None')], default='N', max_length=10),
+            model_name="startyoungukuser",
+            name="sdp_frequency",
+            field=models.CharField(
+                choices=[
+                    ("W", "Weekly"),
+                    ("F", "Fortnightly"),
+                    ("M", "Monthly"),
+                    ("N", "None"),
+                ],
+                default="N",
+                max_length=10,
+            ),
         ),
     ]

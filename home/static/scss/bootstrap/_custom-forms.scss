@@ -24,25 +24,25 @@
   z-index: -1; // Put the input behind the label so it doesn't overlay text
   opacity: 0;
 
-  &:checked ~ .custom-control-label::before {
+  &:checked~.custom-control-label::before {
     color: $custom-control-indicator-checked-color;
     @include gradient-bg($custom-control-indicator-checked-bg);
     @include box-shadow($custom-control-indicator-checked-box-shadow);
   }
 
-  &:focus ~ .custom-control-label::before {
+  &:focus~.custom-control-label::before {
     // the mixin is not used here to make sure there is feedback
     box-shadow: $custom-control-indicator-focus-box-shadow;
   }
 
-  &:active ~ .custom-control-label::before {
+  &:active~.custom-control-label::before {
     color: $custom-control-indicator-active-color;
     background-color: $custom-control-indicator-active-bg;
     @include box-shadow($custom-control-indicator-active-box-shadow);
   }
 
   &:disabled {
-    ~ .custom-control-label {
+    ~.custom-control-label {
       color: $custom-control-label-disabled-color;
 
       &::before {
@@ -99,30 +99,33 @@
     @include border-radius($custom-checkbox-indicator-border-radius);
   }
 
-  .custom-control-input:checked ~ .custom-control-label {
+  .custom-control-input:checked~.custom-control-label {
     &::before {
       @include gradient-bg($custom-control-indicator-checked-bg);
     }
+
     &::after {
       background-image: $custom-checkbox-indicator-icon-checked;
     }
   }
 
-  .custom-control-input:indeterminate ~ .custom-control-label {
+  .custom-control-input:indeterminate~.custom-control-label {
     &::before {
       @include gradient-bg($custom-checkbox-indicator-indeterminate-bg);
       @include box-shadow($custom-checkbox-indicator-indeterminate-box-shadow);
     }
+
     &::after {
       background-image: $custom-checkbox-indicator-icon-indeterminate;
     }
   }
 
   .custom-control-input:disabled {
-    &:checked ~ .custom-control-label::before {
+    &:checked~.custom-control-label::before {
       background-color: $custom-control-indicator-checked-disabled-bg;
     }
-    &:indeterminate ~ .custom-control-label::before {
+
+    &:indeterminate~.custom-control-label::before {
       background-color: $custom-control-indicator-checked-disabled-bg;
     }
   }
@@ -137,17 +140,18 @@
     border-radius: $custom-radio-indicator-border-radius;
   }
 
-  .custom-control-input:checked ~ .custom-control-label {
+  .custom-control-input:checked~.custom-control-label {
     &::before {
       @include gradient-bg($custom-control-indicator-checked-bg);
     }
+
     &::after {
       background-image: $custom-radio-indicator-icon-checked;
     }
   }
 
   .custom-control-input:disabled {
-    &:checked ~ .custom-control-label::before {
+    &:checked~.custom-control-label::before {
       background-color: $custom-control-indicator-checked-disabled-bg;
     }
   }
@@ -164,18 +168,23 @@
   display: inline-block;
   width: 100%;
   height: $custom-select-height;
-  padding: $custom-select-padding-y ($custom-select-padding-x + $custom-select-indicator-padding) $custom-select-padding-y $custom-select-padding-x;
+  padding: $custom-select-padding-y (
+    $custom-select-padding-x + $custom-select-indicator-padding) $custom-select-padding-y $custom-select-padding-x;
   line-height: $custom-select-line-height;
   color: $custom-select-color;
   vertical-align: middle;
   background: $custom-select-bg $custom-select-indicator no-repeat right $custom-select-padding-x center;
   background-size: $custom-select-bg-size;
   border: $custom-select-border-width solid $custom-select-border-color;
+
   @if $enable-rounded {
     border-radius: $custom-select-border-radius;
-  } @else {
+  }
+
+  @else {
     border-radius: 0;
   }
+
   appearance: none;
 
   &:focus {
@@ -247,7 +256,7 @@
   margin: 0;
   opacity: 0;
 
-  &:focus ~ .custom-file-label {
+  &:focus~.custom-file-label {
     border-color: $custom-file-focus-border-color;
     box-shadow: $custom-file-focus-box-shadow;
 
@@ -256,8 +265,9 @@
     }
   }
 
-  @each $lang, $value in $custom-file-text {
-    &:lang(#{$lang}) ~ .custom-file-label::after {
+  @each $lang,
+  $value in $custom-file-text {
+    &:lang(#{$lang})~.custom-file-label::after {
       content: $value;
     }
   }
@@ -275,25 +285,26 @@
   color: $custom-file-color;
   background-color: $custom-file-bg;
   border: $custom-file-border-width solid $custom-file-border-color;
-  @include border-radius($custom-file-border-radius);
-  @include box-shadow($custom-file-box-shadow);
+  @include border-radius($custom-file-border-radius
+);
+@include box-shadow($custom-file-box-shadow);
 
-  &::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 3;
-    display: block;
-    height: calc(#{$custom-file-height} - #{$custom-file-border-width} * 2);
-    padding: $custom-file-padding-y $custom-file-padding-x;
-    line-height: $custom-file-line-height;
-    color: $custom-file-button-color;
-    content: "Browse";
-    @include gradient-bg($custom-file-button-bg);
-    border-left: $custom-file-border-width solid $custom-file-border-color;
-    @include border-radius(0 $custom-file-border-radius $custom-file-border-radius 0);
-  }
+&::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: block;
+  height: calc(#{$custom-file-height} - #{$custom-file-border-width} * 2);
+  padding: $custom-file-padding-y $custom-file-padding-x;
+  line-height: $custom-file-line-height;
+  color: $custom-file-button-color;
+  content: "Browse";
+  @include gradient-bg($custom-file-button-bg);
+  border-left: $custom-file-border-width solid $custom-file-border-color;
+  @include border-radius(0 $custom-file-border-radius $custom-file-border-radius 0);
+}
 }
 
 // Range

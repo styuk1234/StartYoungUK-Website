@@ -25,8 +25,8 @@
 
   // Because flex properties aren't inherited, we need to redeclare these first
   // few properities so that content nested within behave properly.
-  > .container,
-  > .container-fluid {
+  >.container,
+  >.container-fluid {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -144,8 +144,9 @@
 
     &#{$infix} {
       @include media-breakpoint-down($breakpoint) {
-        > .container,
-        > .container-fluid {
+
+        >.container,
+        >.container-fluid {
           padding-right: 0;
           padding-left: 0;
         }
@@ -169,13 +170,13 @@
         }
 
         // For nesting containers, have to redeclare for alignment purposes
-        > .container,
-        > .container-fluid {
+        >.container,
+        >.container-fluid {
           flex-wrap: nowrap;
         }
 
         .navbar-collapse {
-          display: flex !important;  // stylelint-disable-line declaration-no-important
+          display: flex !important; // stylelint-disable-line declaration-no-important
 
           // Changes flex-bases to auto because of an IE10 bug
           flex-basis: auto;
@@ -217,8 +218,8 @@
       }
     }
 
-    .show > .nav-link,
-    .active > .nav-link,
+    .show>.nav-link,
+    .active>.nav-link,
     .nav-link.show,
     .nav-link.active {
       color: $navbar-light-active-color;
@@ -236,6 +237,7 @@
 
   .navbar-text {
     color: $navbar-light-color;
+
     a {
       color: $navbar-light-active-color;
 
@@ -269,8 +271,8 @@
       }
     }
 
-    .show > .nav-link,
-    .active > .nav-link,
+    .show>.nav-link,
+    .active>.nav-link,
     .nav-link.show,
     .nav-link.active {
       color: $navbar-dark-active-color;
@@ -288,6 +290,7 @@
 
   .navbar-text {
     color: $navbar-dark-color;
+
     a {
       color: $navbar-dark-active-color;
 
