@@ -5,16 +5,17 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('sponsor', '0005_donation_is_successful'),
+        ("sponsor", "0005_donation_is_successful"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='donation',
-            name='date_donation',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            model_name="donation",
+            name="date_donation",
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
         ),
     ]

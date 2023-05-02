@@ -4,22 +4,21 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0003_buddy_sdp_active_buddy_sdp_start'),
+        ("users", "0003_buddy_sdp_active_buddy_sdp_start"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='buddy',
-            options={'verbose_name_plural': 'Buddies'},
+            name="buddy",
+            options={"verbose_name_plural": "Buddies"},
         ),
         migrations.AlterModelOptions(
-            name='child',
-            options={'verbose_name_plural': 'Children'},
+            name="child",
+            options={"verbose_name_plural": "Children"},
         ),
         migrations.AlterModelOptions(
-            name='startyoungukuser',
-            options={'verbose_name_plural': 'StartYoung UK Users'},
+            name="startyoungukuser",
+            options={"verbose_name_plural": "StartYoung UK Users"},
         ),
     ]

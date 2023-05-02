@@ -6,23 +6,31 @@ import phonenumber_field.modelfields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Donation',
+            name="Donation",
             fields=[
-                ('trxn_id', models.AutoField(primary_key=True, serialize=False)),
-                ('campaign_id', models.IntegerField(default=0)),
-                ('user_id', models.IntegerField(default=0)),
-                ('name', models.CharField(max_length=50)),
-                ('email_id', models.EmailField(max_length=50)),
-                ('mobile_no', phonenumber_field.modelfields.PhoneNumberField(max_length=128, region=None)),
-                ('amount', models.PositiveIntegerField(validators=[django.core.validators.MaxValueValidator(50)])),
+                ("trxn_id", models.AutoField(primary_key=True, serialize=False)),
+                ("campaign_id", models.IntegerField(default=0)),
+                ("user_id", models.IntegerField(default=0)),
+                ("name", models.CharField(max_length=50)),
+                ("email_id", models.EmailField(max_length=50)),
+                (
+                    "mobile_no",
+                    phonenumber_field.modelfields.PhoneNumberField(
+                        max_length=128, region=None
+                    ),
+                ),
+                (
+                    "amount",
+                    models.PositiveIntegerField(
+                        validators=[django.core.validators.MaxValueValidator(50)]
+                    ),
+                ),
             ],
         ),
     ]

@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('sponsor', '0003_rename_email_id_donation_email_and_more'),
+        ("sponsor", "0003_rename_email_id_donation_email_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='donation',
-            name='amount',
+            model_name="donation",
+            name="amount",
             field=models.PositiveIntegerField(),
         ),
     ]

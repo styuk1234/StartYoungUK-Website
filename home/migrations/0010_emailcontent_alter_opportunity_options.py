@@ -4,30 +4,39 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0009_campaign_slug'),
+        ("home", "0009_campaign_slug"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='EmailContent',
+            name="EmailContent",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('email_type', models.CharField(choices=[('approved', 'Buddy Approval Email'), ('rejected', 'Buddy Rejection Email'), ('Letter', 'Buddy Letter Reminder')], max_length=50)),
-                ('subject', models.CharField(max_length=100)),
-                ('header', models.CharField(max_length=255)),
-                ('body', models.TextField()),
-                ('attachment', models.FileField(blank=True, upload_to='attachments/')),
-                ('attachment2', models.FileField(blank=True, upload_to='attachments/')),
-                ('attachment3', models.FileField(blank=True, upload_to='attachments/')),
-                ('attachment4', models.FileField(blank=True, upload_to='attachments/')),
-                ('attachment5', models.FileField(blank=True, upload_to='attachments/')),
-                ('signature', models.TextField()),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "email_type",
+                    models.CharField(
+                        choices=[
+                            ("approved", "Buddy Approval Email"),
+                            ("rejected", "Buddy Rejection Email"),
+                            ("Letter", "Buddy Letter Reminder"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("subject", models.CharField(max_length=100)),
+                ("header", models.CharField(max_length=255)),
+                ("body", models.TextField()),
+                ("attachment", models.FileField(blank=True, upload_to="attachments/")),
+                ("attachment2", models.FileField(blank=True, upload_to="attachments/")),
+                ("attachment3", models.FileField(blank=True, upload_to="attachments/")),
+                ("attachment4", models.FileField(blank=True, upload_to="attachments/")),
+                ("attachment5", models.FileField(blank=True, upload_to="attachments/")),
+                ("signature", models.TextField()),
             ],
         ),
         migrations.AlterModelOptions(
-            name='opportunity',
-            options={'verbose_name_plural': 'Opportunities'},
+            name="opportunity",
+            options={"verbose_name_plural": "Opportunities"},
         ),
     ]

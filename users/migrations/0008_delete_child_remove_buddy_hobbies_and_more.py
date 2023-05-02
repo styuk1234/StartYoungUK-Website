@@ -5,32 +5,40 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0007_remove_buddy_sdp_active'),
+        ("users", "0007_remove_buddy_sdp_active"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='Child',
+            name="Child",
         ),
         migrations.RemoveField(
-            model_name='buddy',
-            name='hobbies',
+            model_name="buddy",
+            name="hobbies",
         ),
         migrations.RemoveField(
-            model_name='buddy',
-            name='occupation',
+            model_name="buddy",
+            name="occupation",
         ),
         migrations.AddField(
-            model_name='buddy',
-            name='description',
+            model_name="buddy",
+            name="description",
             field=models.TextField(default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='buddy',
-            name='status',
-            field=models.CharField(choices=[('pending', 'pending'), ('approved', 'approved'), ('rejected', 'rejected'), ('opted_out', 'opted out')], default='pending', max_length=256),
+            model_name="buddy",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("pending", "pending"),
+                    ("approved", "approved"),
+                    ("rejected", "rejected"),
+                    ("opted_out", "opted out"),
+                ],
+                default="pending",
+                max_length=256,
+            ),
         ),
     ]

@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("home", "0003_affiliation_delete_coporate_sponsors"),
         ("home", "0005_opportunity_duration_opportunity_end_date_and_more"),

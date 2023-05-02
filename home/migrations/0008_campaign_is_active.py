@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0007_remove_opportunity_salary_opportunity_job_paid'),
+        ("home", "0007_remove_opportunity_salary_opportunity_job_paid"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='campaign',
-            name='is_active',
+            model_name="campaign",
+            name="is_active",
             field=models.BooleanField(default=True),
         ),
     ]
