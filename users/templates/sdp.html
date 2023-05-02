@@ -19,9 +19,15 @@
 
     {% if messages %}
     {% for message in messages %}
+    {% if message.tags == "error" %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% else %}
     <div class="alert alert-{{ message.tags }}">
         {{ message }}
     </div>
+    {% endif %}
     {% endfor %}
     {% endif %}
 
@@ -35,15 +41,9 @@
                     <h3>Return on investment would be continued returns in the form of smile on a child's
                         face!</h3>
                     {% if button_enable %}
-                    {% if is_buddy %}
-                    <class="text-muted"><b>By signing up for our Systematic Donation Plan, you agree to have a recurring
-                            weekly payment
-                            of £5.</b></class>
-                        {% else %}
                         <class="text-muted"><b>Please fill out the form below to select the frequency and amount of your
                                 payments.</b>
-                            </class>
-                            {% endif %}
+                        </class>
                             <class="text-muted"><b>By clicking on "Start SDP", you are agreeing to our Terms &
                                     Conditions.</b></class>
                                 <div id="paypal-container" class="row justify-content-center">
@@ -92,22 +92,6 @@
                 subscription from PayPal's side:</p><br>
             <a href="https://www.paypal.com/myaccount/autopay/">Cancel your Plan</a>
 </div>
-{% endif %}
-
-{% if is_buddy %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        // pointer-events:none;
-        // background:grey;
-        var choiceField = $('#id_frequency');
-        choiceField.css({
-            'pointer-events': 'none',
-            'background': 'grey'
-        })
-        // choiceField.prop('disabled', true);
-    });
-</script>
 {% endif %}
 
 {% endblock %}

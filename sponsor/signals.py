@@ -2,7 +2,6 @@ from django.dispatch import receiver
 from paypal.standard.models import ST_PP_COMPLETED
 from paypal.standard.ipn.signals import valid_ipn_received
 from django.conf import settings
-from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from fpdf import FPDF
 from .models import Donation

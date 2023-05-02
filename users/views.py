@@ -225,48 +225,60 @@ def sdp(request):
         sdp_frequency = "Monthly"
     else:
         sdp_frequency = "N"
+        
     sdp_amount = request.user.startyoungukuser.sdp_amount
     user_id = request.user.startyoungukuser.user.id
+    buddy_id = Buddy.objects.get(user=request.user.startyoungukuser.user).id if request.user.startyoungukuser.is_buddy else 0
 
     if request.method == "POST":
         form = SDPForm(request.POST)
+        
+        if int(form["amount"].value()) < 5 and form["frequency"].value() == "W":
+            # if less than £5/week, show error
+            messages.error(request, "The minimum allowed weekly donation amount is £5")
+            
+        elif int(form["amount"].value()) < 10 and form["frequency"].value() == "F":
+            # if less than £10/fortnight, show error
+            messages.error(request, "The minimum allowed fortnightly donation amount is £10")
+            
+        elif int(form["amount"].value()) < 20 and form["frequency"].value() == "M":
+            # if less than £20/month, show error
+            messages.error(request, "The minimum allowed monthly donation amount is £20")
 
-        if form.is_valid():
-            if not request.user.startyoungukuser.is_buddy:
-                # User is not a Buddy: pass form data to Paypal object
-                paypal_dict["a3"] = form["amount"].value()  # amount
-
-                if form["frequency"].value() == "W":
-                    paypal_dict["p3"] = 1
-                    paypal_dict["t3"] = "W"  # Weekly
-                    paypal_dict["custom"] = "buddy_id %s user_id %s %s %s" % (
-                        0,
-                        user_id,
-                        1,
-                        "W",
-                    )
-                elif form["frequency"].value() == "F":
-                    paypal_dict["p3"] = 14
-                    paypal_dict["t3"] = "D"  # Fortnightly
-                    paypal_dict["custom"] = "buddy_id %s user_id %s %s %s" % (
-                        0,
-                        user_id,
-                        14,
-                        "D",
-                    )
-                elif form["frequency"].value() == "M":
-                    paypal_dict["p3"] = 1
-                    paypal_dict["t3"] = "M"  # Monthly
-                    paypal_dict["custom"] = "buddy_id %s user_id %s %s %s" % (
-                        0,
-                        user_id,
-                        1,
-                        "M",
-                    )
-                else:
-                    print("invalid SDP choice")
-
-            button_enable = True
+        elif form.is_valid():
+            paypal_dict["a3"] = form["amount"].value() # amount
+            
+            # Set frequency
+            if form["frequency"].value() == "W":
+                paypal_dict["p3"] = 1
+                paypal_dict["t3"] = "W"  # Weekly
+                paypal_dict["custom"] = "buddy_id %s user_id %s %s %s" % (
+                    buddy_id,
+                    user_id,
+                    1,
+                    "W",
+                )
+            elif form["frequency"].value() == "F":
+                paypal_dict["p3"] = 14
+                paypal_dict["t3"] = "D"  # Fortnightly
+                paypal_dict["custom"] = "buddy_id %s user_id %s %s %s" % (
+                    buddy_id,
+                    user_id,
+                    14,
+                    "D",
+                )
+            elif form["frequency"].value() == "M":
+                paypal_dict["p3"] = 1
+                paypal_dict["t3"] = "M"  # Monthly
+                paypal_dict["custom"] = "buddy_id %s user_id %s %s %s" % (
+                    buddy_id,
+                    user_id,
+                    1,
+                    "M",
+                )
+            else:
+                messages.error(request, "The data passed to the form is not valid!")
+                
             paypal_btn = PayPalPaymentsForm(
                 initial=paypal_dict, button_type="subscribe"
             )
@@ -279,42 +291,22 @@ def sdp(request):
                 {
                     "form": form,
                     "paypal_btn": paypal_btn,
-                    "is_buddy": request.user.startyoungukuser.is_buddy,
                     "sdp_frequency": sdp_frequency,
                     "sdp_amount": sdp_amount,
-                    "button_enable": button_enable,
+                    "button_enable": True,
                 },
             )
         else:
             messages.error(request, "The data passed to the form is not valid!")
 
     else:
-        if request.user.startyoungukuser.is_buddy:
-            # User is a Buddy: prepopulate SDP amount and frequency fields
-            form = SDPForm(initial={"amount": 5, "frequency": "W"})
-            form.fields["amount"].widget.attrs["readonly"] = True
-
-            buddy_id = Buddy.objects.get(user=request.user.startyoungukuser.user).id
-            paypal_dict["a3"] = 5  # amount
-            paypal_dict["p3"] = 1  # duration of each unit
-            paypal_dict["t3"] = "W"  # duration unit ("W for Weekly")
-            paypal_dict["custom"] = "buddy_id %s user_id %s %s %s" % (
-                buddy_id,
-                user_id,
-                1,
-                "W",
-            )
-
-        else:
-            # User is not a Buddy: let them choose SDP amount and frequency
-            form = SDPForm()
+        form = SDPForm()
 
     return render(
         request,
         "sdp.html",
         {
             "form": form,
-            "is_buddy": request.user.startyoungukuser.is_buddy,
             "sdp_frequency": sdp_frequency,
             "sdp_amount": sdp_amount,
         },
