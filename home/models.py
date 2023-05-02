@@ -1,31 +1,34 @@
 from django.db import models
 from django.urls import reverse
 
-class Campaign(models.Model):
 
+class Campaign(models.Model):
     campaign_id = models.AutoField(primary_key=True)
     campaign_title = models.CharField(max_length=50, null=False)
     campaign_description = models.TextField(max_length=200, null=False)
     collection_target = models.IntegerField(null=False)
     campaign_deadline = models.DateField(null=False)
-    campaign_image = models.ImageField(default='campaign_pics/default_campaign.jpg', upload_to='campaign_pics')
+    campaign_image = models.ImageField(
+        default="campaign_pics/default_campaign.jpg", upload_to="campaign_pics"
+    )
     is_active = models.BooleanField(null=False, default=True)
     slug = models.SlugField(null=False, unique=True)
 
     def __str__(self):
         return f"{self.campaign_id, self.campaign_title}"
-    
+
     def get_absolute_url(self):
         return reverse("campaign-donate", kwargs={"slug": self.slug})
 
 
 class Affiliation(models.Model):
-
     affiliation_id = models.AutoField(primary_key=True)
     affiliation_name = models.CharField(max_length=50, null=False)
     affiliation_description = models.TextField(max_length=200, null=False)
     # TODO: update upload_to to get corporate sponsor pics
-    affiliation_image = models.ImageField(default='default.jpg', upload_to='affiliation_pics')
+    affiliation_image = models.ImageField(
+        default="default.jpg", upload_to="affiliation_pics"
+    )
     affiliation_join_date = models.DateField(null=False)
     affiliation_display = models.BooleanField(null=False)
 
@@ -34,7 +37,6 @@ class Affiliation(models.Model):
 
 
 class Opportunity(models.Model):
-
     class Meta:
         verbose_name_plural = "Opportunities"
 
@@ -50,16 +52,24 @@ class Opportunity(models.Model):
     def __str__(self):
         return f"{self.id, self.title}"
 
+
 class EmailContent(models.Model):
     id = models.AutoField(primary_key=True)
-    email_type = models.CharField(choices=[('approved', 'Final Step: Setting up SDP'), ('rejected', 'Buddy Rejection Email'), ('Letter', 'Buddy Letter Reminder'), ('final', 'Welcome to SYUK')], max_length=50)
+    email_type = models.CharField(
+        choices=[
+            ("approved", "Final Step: Setting up SDP"),
+            ("rejected", "Buddy Rejection Email"),
+            ("Letter", "Buddy Letter Reminder"),
+            ("final", "Welcome to SYUK"),
+        ],
+        max_length=50,
+    )
     subject = models.CharField(max_length=100, null=False)
     header = models.CharField(max_length=255, null=False)
     body = models.TextField()
-    attachment = models.FileField(blank=True, upload_to='attachments/')
-    attachment2 = models.FileField(blank=True, upload_to='attachments/')
-    attachment3 = models.FileField(blank=True, upload_to='attachments/')
-    attachment4 = models.FileField(blank=True, upload_to='attachments/')
-    attachment5 = models.FileField(blank=True, upload_to='attachments/')
+    attachment = models.FileField(blank=True, upload_to="attachments/")
+    attachment2 = models.FileField(blank=True, upload_to="attachments/")
+    attachment3 = models.FileField(blank=True, upload_to="attachments/")
+    attachment4 = models.FileField(blank=True, upload_to="attachments/")
+    attachment5 = models.FileField(blank=True, upload_to="attachments/")
     signature = models.TextField()
-    

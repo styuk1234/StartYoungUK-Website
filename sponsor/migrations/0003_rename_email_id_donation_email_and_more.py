@@ -4,20 +4,19 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('sponsor', '0002_donation_is_anonymous'),
+        ("sponsor", "0002_donation_is_anonymous"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='donation',
-            old_name='email_id',
-            new_name='email',
+            model_name="donation",
+            old_name="email_id",
+            new_name="email",
         ),
         migrations.RenameField(
-            model_name='donation',
-            old_name='mobile_no',
-            new_name='mobile_number',
+            model_name="donation",
+            old_name="mobile_no",
+            new_name="mobile_number",
         ),
     ]

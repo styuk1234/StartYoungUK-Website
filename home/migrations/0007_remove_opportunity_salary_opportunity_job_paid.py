@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0006_merge_20230225_1629'),
+        ("home", "0006_merge_20230225_1629"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='opportunity',
-            name='salary',
+            model_name="opportunity",
+            name="salary",
         ),
         migrations.AddField(
-            model_name='opportunity',
-            name='job_paid',
+            model_name="opportunity",
+            name="job_paid",
             field=models.BooleanField(default=False),
         ),
     ]

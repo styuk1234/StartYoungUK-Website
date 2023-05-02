@@ -13,7 +13,7 @@ code {
   word-break: break-word;
 
   // Streamline the style when inside anchors to avoid broken underline and more
-  a > & {
+  a>& {
     color: inherit;
   }
 }

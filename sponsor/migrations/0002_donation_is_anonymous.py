@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('sponsor', '0001_initial'),
+        ("sponsor", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='donation',
-            name='is_anonymous',
+            model_name="donation",
+            name="is_anonymous",
             field=models.BooleanField(default=False),
         ),
     ]
