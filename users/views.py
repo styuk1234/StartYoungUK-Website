@@ -241,9 +241,9 @@ def sdp(request):
             # if less than £10/fortnight, show error
             messages.error(request, "The minimum allowed fortnightly donation amount is £10")
             
-        elif int(form["amount"].value()) < 20 and form["frequency"].value() == "M":
-            # if less than £20/month, show error
-            messages.error(request, "The minimum allowed monthly donation amount is £20")
+        elif int(form["amount"].value()) < 22 and form["frequency"].value() == "M":
+            # if less than £22/month (to account for extra days), show error
+            messages.error(request, "The minimum allowed monthly donation amount is £22")
 
         elif form.is_valid():
             paypal_dict["a3"] = form["amount"].value() # amount

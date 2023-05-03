@@ -36,7 +36,6 @@ def sponsor(request):
         elif form.is_valid():
             donation = form.save(commit=False)
             donation.user_id = request.user.id if request.user.is_authenticated else 0
-            # donation.trxn_id = uuid.uuid4()
             form_data = DonationForm(instance=donation)
 
             paypal_dict["amount"] = donation.amount
@@ -44,7 +43,7 @@ def sponsor(request):
             paypal_btn = PayPalPaymentsForm(initial=paypal_dict)
             button_enable = True
             messages.success(
-                request, "Please find the Paypal button below to complete the Donation!"
+                request, "Please find the PayPal button below to complete the Donation!"
             )
             donation.save()
             return render(
