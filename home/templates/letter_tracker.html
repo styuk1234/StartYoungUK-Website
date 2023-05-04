@@ -30,65 +30,50 @@
     
   <div class="container">
     <div class="row">
-        
-        <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px;">
-          <br><h2 style="text-align:center;">Track Buddy Letter Status</h2><br>
-          <form method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-              <label for="status-filter" style="color: white;">Filter by Letter Status:</label>
-              <select class="form-control" id="status-filter" name="filter-status">
-                <option value="all">All</option>
-                <option value="not received">Not Received</option>
-                <option value="received">Received</option>
-              </select>
-            </div>
-            <div class="buddy-approval-button-group">
-              <button type="submit" class="btn btn-primary" style="width: 100px;">Filter</button>
-            </div>
-          </form>
+      <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px;">
+        <br><h2 style="text-align:center;">Track Buddy Letter Status</h2><br>
+        <p style="text-align:center;">Filter by letter received status</p>
+        <div class="buddy-approval-button-group">
+          <button id="filter-true" class="btn btn-white" type="button">Show Letter Received</button>
+          <button id="filter-false" class="btn btn-white" type="button">Show Letter Not Received</button>
+          <button id="filter-all" class="btn btn-white" type="button">Show all</button>
+        </div>
+        <br>
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="buddy-table-wrapper" id="buddy-table-wrapper">
+            <table class="table table-striped table-hover .table-responsive .buddy_table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="select-all-buddies"></th>
+                  <th>Name</th>
+                  <th>Letter Received?</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for buddy in buddies %}
+                <tr>
+                  <td><input type="checkbox" name="chosen-buddies" value="{{ buddy.id }}"></td>
+                  <td>{{ buddy.user.first_name }} {{ buddy.user.last_name }}</td>
+                  {% if buddy.letter_received %}
+                  <td>Yes</td>
+                  {% else %}
+                  <td>No</td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
           <br />
-          {% if filter_status == None or filter_status == "all" %}
-            <p class="lead" style="text-transform: uppercase;">buddy list - all</p>
-          {% else %}
-            <p class="lead" style="text-transform: uppercase;">buddy list - letter {{filter_status}}</p>
-          {% endif %}
-            <form action="" method="POST">
-            {% csrf_token %}
-            <div class="buddy-table-wrapper">
-              <table class="table table-striped table-hover .table-responsive .buddy_table">
-                <thead>
-                  <tr>
-                    <th><input type="checkbox" id="select-all-buddies"></th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Letter Received?</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for buddy in buddies %}
-                  <tr>
-                    <td><input type="checkbox" name="chosen-buddies" value="{{ buddy.id }}"></td>
-                    <td>{{ buddy.user.first_name }}</td>
-                    <td>{{ buddy.user.last_name }}</td>
-                    {% if buddy.letter_received %} 
-                    <td>Yes</td>
-                    {% else %} 
-                    <td>No</td>
-                    {% endif %}
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-            <br />
-            <div class="buddy-approval-button-group">
-              <button class="btn btn-white" type="submit" name="send-email" disabled>Send an email reminder</button>
-              <button class="btn btn-white" type="submit" name="letter-received-true" disabled>Confirm have received letters</button>
-              <button class="btn btn-white" type="submit" name="letter-received-false" disabled>Reset letter received status</button>
-            </div> 
-            <br /> 
-        </div>           
+          <div class="buddy-approval-button-group">
+            <button class="btn btn-white" type="submit" name="send-email" disabled>Send an email reminder</button>
+            <button class="btn btn-white" type="submit" name="letter-received-true" disabled>Confirm have received letters</button>
+            <button class="btn btn-white" type="submit" name="letter-received-false" disabled>Reset letter received status</button>
+          </div> 
+          <br /> 
+        </form>
+      </div>           
     </div>
   </div>
 </div>
@@ -129,6 +114,52 @@
       buttons[i].disabled = !anyChecked;
     }
   }
+
 </script>
+<script>
+  // Get the filter buttons
+  var filterTrueBtn = document.getElementById("filter-true");
+  var filterFalseBtn = document.getElementById("filter-false");
+  var filterAllBtn = document.getElementById("filter-all")
+  // Get the table body
+  var tableBody = document.getElementsByTagName("tbody")[0];
+
+  // Add click event listeners to the filter buttons
+  filterTrueBtn.addEventListener("click", function() {
+    filterRows('Yes');
+  });
+  filterFalseBtn.addEventListener("click", function() {
+    filterRows('No');
+  });
+  filterAllBtn.addEventListener("click", function() {
+        // Loop through each row in the table body
+        for (var i = 0; i < tableBody.rows.length; i++) {
+      // Show the row
+      tableBody.rows[i].style.display = "";
+    }
+  })
+
+  // Function to filter the table rows based on letter_received values
+  function filterRows(value) {
+    // Loop through each row in the table body
+    for (var i = 0; i < tableBody.rows.length; i++) {
+      // Get the letter_received cell for this row
+      var letterReceivedCell = tableBody.rows[i].cells[2];
+
+      // Check if the letter_received value matches the filter value
+      if (letterReceivedCell.innerText.trim() == value) {
+        // Show the row
+        tableBody.rows[i].style.display = "";
+      } else {
+        // Hide the row
+        tableBody.rows[i].style.display = "none";
+      }
+    }
+  }
+
+  
+</script>
+
+
 
 {% endblock %}
