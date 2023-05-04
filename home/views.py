@@ -128,7 +128,8 @@ def approve_buddies(request):
 @login_required
 @user_passes_test(lambda u: u.startyoungukuser.is_coordinator)
 def letter_tracker(request):
-    buddies = Buddy.objects.filter(status="approved").order_by("letter_received")
+    buddies = Buddy.objects.filter(status="approved").select_related('user__startyoungukuser').filter(user__startyoungukuser__sdp_amount__gt=0).order_by("letter_received")
+
 
     if request.method == "POST":
         # filtering based on letter status
