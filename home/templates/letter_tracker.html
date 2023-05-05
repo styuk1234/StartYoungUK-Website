@@ -32,13 +32,14 @@
     <div class="row">
       <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px;">
         <br><h2 style="text-align:center;">Track Buddy Letter Status</h2><br>
-        <p style="text-align:center;">Filter by letter received status</p>
-        <div class="buddy-approval-button-group">
-          <button id="filter-true" class="btn btn-white" type="button">Show Letter Received</button>
-          <button id="filter-false" class="btn btn-white" type="button">Show Letter Not Received</button>
-          <button id="filter-all" class="btn btn-white" type="button">Show all</button>
-        </div>
+        <p>Filter by letter received status</p>
+        <select id="filter-dropdown">
+          <option value="all">Show All</option>
+          <option value="Yes">Show Letter Received</option>
+          <option value="No">Show Letter Not Received</option>
+        </select>
         <br>
+        <br> 
         <form action="" method="POST">
           {% csrf_token %}
           <div class="buddy-table-wrapper" id="buddy-table-wrapper">
@@ -116,28 +117,17 @@
   }
 
 </script>
+
 <script>
-  // Get the filter buttons
-  var filterTrueBtn = document.getElementById("filter-true");
-  var filterFalseBtn = document.getElementById("filter-false");
-  var filterAllBtn = document.getElementById("filter-all")
+  // Get the filter dropdown
+  var filterDropdown = document.getElementById("filter-dropdown");
   // Get the table body
   var tableBody = document.getElementsByTagName("tbody")[0];
 
-  // Add click event listeners to the filter buttons
-  filterTrueBtn.addEventListener("click", function() {
-    filterRows('Yes');
+  // Add change event listener to the filter dropdown
+  filterDropdown.addEventListener("change", function() {
+    filterRows(filterDropdown.value);
   });
-  filterFalseBtn.addEventListener("click", function() {
-    filterRows('No');
-  });
-  filterAllBtn.addEventListener("click", function() {
-        // Loop through each row in the table body
-        for (var i = 0; i < tableBody.rows.length; i++) {
-      // Show the row
-      tableBody.rows[i].style.display = "";
-    }
-  })
 
   // Function to filter the table rows based on letter_received values
   function filterRows(value) {
@@ -146,8 +136,8 @@
       // Get the letter_received cell for this row
       var letterReceivedCell = tableBody.rows[i].cells[2];
 
-      // Check if the letter_received value matches the filter value
-      if (letterReceivedCell.innerText.trim() == value) {
+      // Check if the letter_received value matches the filter value or if "Show All" is selected
+      if (value == "all" || letterReceivedCell.innerText.trim() == value) {
         // Show the row
         tableBody.rows[i].style.display = "";
       } else {
@@ -156,8 +146,6 @@
       }
     }
   }
-
-  
 </script>
 
 
