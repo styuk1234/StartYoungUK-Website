@@ -63,20 +63,36 @@
 			<tbody>
 
 				<tr>
-					<td>Donation Amount:</td>
+					<td>Donation Amount</td>
 					<td>{{donation.amount}}</td>
 				</tr>
 				<tr>
-					<td>Donation Date:</td>
+					<td>Is this a gift aid?</td>
+					{% if donation.is_gift_aid %}
+					<td>Yes</td>
+					{% else %}
+					<td>No</td>
+					{% endif %}
+				</tr>
+				<tr>
+					<td>Donation Timestamp</td>
 					<td>{{donation.date_donation}}</td>
 				</tr>
 				<tr>
-					<td>Donor Name:</td>
+					<td>Donor Name</td>
 					<td>{{donation.name}}</td>
 				</tr>
 				<tr>
-					<td>Donor Email:</td>
+					<td>Donor Email</td>
 					<td>{{donation.email}}</td>
+				</tr>
+				<tr>
+					<td>Donor Mobile Number</td>
+					<td>{{donation.mobile_number}}</td>
+				</tr>
+				<tr>
+					<td>Donor Address</td>
+					<td>{{donation.address}}</td>
 				</tr>
 
 			</tbody>
