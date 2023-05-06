@@ -68,6 +68,7 @@ def sponsor(request):
         donate.user_id = request.user.startyoungukuser.user_id
         donate.name = request.user.first_name + " " + request.user.last_name
         donate.email = request.user.startyoungukuser.email
+        donate.address = request.user.startyoungukuser.address
         donate.mobile_number = request.user.startyoungukuser.phone_number
         form = DonationForm(instance=donate)
     else:
