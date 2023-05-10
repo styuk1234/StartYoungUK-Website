@@ -76,11 +76,13 @@ def paypal_payment_received(sender, **kwargs):
             pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
             if not pdf.err:
                 pdf_data = result.getvalue()
+                file_name = f"receipt_{donation.name}_{donation_date}.pdf"
                 sendEmailFixedContent(
                     donation.email,
                     "Thank You for Your Donation",
                     "email_templates/donation_success.html",
                     pdf_data,
+                    file_name
                 )
             else:
                 print(pdf.err)
