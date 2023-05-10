@@ -80,24 +80,31 @@
 </div>
 
 <script>
-  document.getElementById("select-all-buddies").addEventListener("click", function(){
-    var checkboxes = document.getElementsByName("chosen-buddies");
+  var selectAllBuddies = document.getElementById("select-all-buddies");
+  var checkboxes = document.getElementsByName("chosen-buddies");
+  var visibleCheckboxes = checkboxes;
+
+  selectAllBuddies.addEventListener("click", function(){
     for (var i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].checked = this.checked;
+      if (isVisible(checkboxes[i])) {
+        checkboxes[i].checked = this.checked;
+      }
     }
     checkIfAnyBoxChecked();
   });
-  
-  var checkboxes = document.getElementsByName("chosen-buddies");
+
   for (var i = 0; i < checkboxes.length; i++) {
-    checkboxes[i].addEventListener("click", checkIfAnyBoxChecked);
+    checkboxes[i].addEventListener("click", function() {
+      selectAllBuddies.checked = areAllBoxesChecked();
+      checkIfAnyBoxChecked();
+    });
   }
-  
+
   function checkIfAnyBoxChecked() {
-    var checkboxes = document.getElementsByName("chosen-buddies");
+    var checkboxes = visibleCheckboxes;
     var anyChecked = false;
     for (var i = 0; i < checkboxes.length; i++) {
-      if (checkboxes[i].checked) {
+      if (isVisible(checkboxes[i]) && checkboxes[i].checked) {
         anyChecked = true;
         break;
       }
@@ -116,38 +123,47 @@
     }
   }
 
-</script>
+  function areAllBoxesChecked() {
+    for (var i = 0; i < visibleCheckboxes.length; i++) {
+      if (isVisible(visibleCheckboxes[i]) && !visibleCheckboxes[i].checked) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-<script>
-  // Get the filter dropdown
+  function isVisible(element) {
+    return element.offsetParent !== null;
+  }
+
   var filterDropdown = document.getElementById("filter-dropdown");
-  // Get the table body
   var tableBody = document.getElementsByTagName("tbody")[0];
 
-  // Add change event listener to the filter dropdown
   filterDropdown.addEventListener("change", function() {
     filterRows(filterDropdown.value);
+    selectAllBuddies.checked = false;
+    checkboxes = document.getElementsByName("chosen-buddies");
+    visibleCheckboxes = [];
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (isVisible(checkboxes[i])) {
+        visibleCheckboxes.push(checkboxes[i]);
+      } else {
+        checkboxes[i].checked = false;
+      }
+    }
+    checkIfAnyBoxChecked();
   });
 
-  // Function to filter the table rows based on letter_received values
   function filterRows(value) {
-    // Loop through each row in the table body
     for (var i = 0; i < tableBody.rows.length; i++) {
-      // Get the letter_received cell for this row
       var letterReceivedCell = tableBody.rows[i].cells[2];
-
-      // Check if the letter_received value matches the filter value or if "Show All" is selected
       if (value == "all" || letterReceivedCell.innerText.trim() == value) {
-        // Show the row
         tableBody.rows[i].style.display = "";
       } else {
-        // Hide the row
         tableBody.rows[i].style.display = "none";
       }
     }
   }
 </script>
-
-
 
 {% endblock %}
