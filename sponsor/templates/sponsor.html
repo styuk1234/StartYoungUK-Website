@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
+
 {% load static %}
 {% block content %}
 <style>
+  input[type="checkbox"] {
+    float: left;
+    margin-right: 10px;
+}
   .quick-donate-buttons {
     display: flex;
     justify-content: space-between;
@@ -63,7 +68,9 @@
   <div class="site-section fund-raisers" id="paysection">
     <div class="container">
 
-      {% if messages %}
+        <div class="row mb-3 justify-content-center">
+          <div class="col-md-8 text-center">
+            {% if messages %}
         <div class="messages">
             {% for message in messages %}
               {% if message.tags == "error" %}
@@ -78,19 +85,16 @@
             {% endfor %}
         </div>
       {% endif %}
-
-      {% if not user.is_authenticated %}
-        <div class="messages">
-          <div class="alert alert-danger">
-            Unathenticated users have a maximum donation limit of £40. If you wish to donate more, please <a id="login-link" href="{% url 'login' %}?next=/donate/">sign in</a>.
-          </div>
-        </div>
-      {% endif %}
-
-        <div class="row mb-3 justify-content-center">
-          <div class="col-md-8 text-center">
             <h2>Donate</h2>
             <p class="lead">Help a child by making a donation. No amount is small.</p>
+
+            {% if not user.is_authenticated and not button_enable %}
+              <div class="messages">
+                <div class="alert alert-danger">
+                  Unathenticated users have a maximum donation limit of £40. If you wish to donate more, please <a id="login-link" href="{% url 'login' %}?next=/donate/">sign in</a>.
+              </div>
+        </div>
+      {% endif %}
           </div>
         </div>
 

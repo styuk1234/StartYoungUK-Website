@@ -84,7 +84,6 @@ def verify_user_and_activate(request, useremail, usertoken):
 def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
-        print(form.is_valid())
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get("username")
