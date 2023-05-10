@@ -103,7 +103,8 @@ def sendEmailFixedContent(email_list, subject, template_path, attachment=None):
     email_msg.mixed_subtype = "related"
     email_msg.attach_alternative(email_html_template, "text/html")
     email_msg.attach(logo_data())
-    if attachment != None:
-        email_msg.attach_file(attachment)
+    if attachment is not None:
+        email_msg.attach("Receipt.pdf", attachment, "application/pdf")
+
 
     email_msg.send(fail_silently=False)
