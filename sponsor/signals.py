@@ -65,7 +65,9 @@ def paypal_payment_received(sender, **kwargs):
             # for pdf receipt
             charity = CharityDetail.objects.get(id=1)
             selected_donation = Donation.objects.get(trxn_id=donation.trxn_id)
-            donation_date = selected_donation.date_donation.strftime("%Y-%m-%d %H:%M:%S")
+            donation_date = selected_donation.date_donation.strftime(
+                "%Y-%m-%d %H:%M:%S"
+            )
 
             context = {"donation": selected_donation, "charity": charity}
 
@@ -82,7 +84,7 @@ def paypal_payment_received(sender, **kwargs):
                     "Thank You for Your Donation",
                     "email_templates/donation_success.html",
                     pdf_data,
-                    file_name
+                    file_name,
                 )
             else:
                 print(pdf.err)

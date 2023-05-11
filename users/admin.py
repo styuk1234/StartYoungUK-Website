@@ -11,7 +11,7 @@ class StartYoungUKUserAdmin(admin.ModelAdmin):
     admin.site.site_title = "StartYoung UK Admin Site"
     admin.site.index_title = "StartYoung UK Management"
 
-    list_display = ("email","name", "user_type", "is_verified", "phone_number")
+    list_display = ("email", "name", "user_type", "is_verified", "phone_number")
     list_filter = (
         "is_verified",
         "user_type",

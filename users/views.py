@@ -224,29 +224,37 @@ def sdp(request):
         sdp_frequency = "Monthly"
     else:
         sdp_frequency = "N"
-        
+
     sdp_amount = request.user.startyoungukuser.sdp_amount
     user_id = request.user.startyoungukuser.user.id
-    buddy_id = Buddy.objects.get(user=request.user.startyoungukuser.user).id if request.user.startyoungukuser.is_buddy else 0
+    buddy_id = (
+        Buddy.objects.get(user=request.user.startyoungukuser.user).id
+        if request.user.startyoungukuser.is_buddy
+        else 0
+    )
 
     if request.method == "POST":
         form = SDPForm(request.POST)
-        
+
         if int(form["amount"].value()) < 5 and form["frequency"].value() == "W":
             # if less than £5/week, show error
             messages.error(request, "The minimum allowed weekly donation amount is £5")
-            
+
         elif int(form["amount"].value()) < 10 and form["frequency"].value() == "F":
             # if less than £10/fortnight, show error
-            messages.error(request, "The minimum allowed fortnightly donation amount is £10")
-            
+            messages.error(
+                request, "The minimum allowed fortnightly donation amount is £10"
+            )
+
         elif int(form["amount"].value()) < 22 and form["frequency"].value() == "M":
             # if less than £22/month (to account for extra days), show error
-            messages.error(request, "The minimum allowed monthly donation amount is £22")
+            messages.error(
+                request, "The minimum allowed monthly donation amount is £22"
+            )
 
         elif form.is_valid():
-            paypal_dict["a3"] = form["amount"].value() # amount
-            
+            paypal_dict["a3"] = form["amount"].value()  # amount
+
             # Set frequency
             if form["frequency"].value() == "W":
                 paypal_dict["p3"] = 1
@@ -277,7 +285,7 @@ def sdp(request):
                 )
             else:
                 messages.error(request, "The data passed to the form is not valid!")
-                
+
             paypal_btn = PayPalPaymentsForm(
                 initial=paypal_dict, button_type="subscribe"
             )

@@ -5,19 +5,24 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('sponsor', '0008_alter_donation_trxn_id'),
+        ("sponsor", "0008_alter_donation_trxn_id"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='donation',
-            options={'ordering': ['-date_donation']},
+            name="donation",
+            options={"ordering": ["-date_donation"]},
         ),
         migrations.AlterField(
-            model_name='donation',
-            name='trxn_id',
-            field=models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True),
+            model_name="donation",
+            name="trxn_id",
+            field=models.UUIDField(
+                default=uuid.uuid4,
+                editable=False,
+                primary_key=True,
+                serialize=False,
+                unique=True,
+            ),
         ),
     ]
