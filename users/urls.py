@@ -16,7 +16,7 @@ urlpatterns = [
     path("paypal", include(paypal_urls)),
     path("sdp-return", views.PaypalReturnView.as_view(), name="sdp-return"),
     path("sdp-cancel", views.PaypalCancelView.as_view(), name="sdp-cancel"),
-    path(
-        "donation_pdf_receipt", views.donation_pdf_receipt, name="donation_pdf_receipt"
-    ),
+    # path(
+    #     "donation_pdf_receipt", views.donation_pdf_receipt, name="donation_pdf_receipt"
+    # ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

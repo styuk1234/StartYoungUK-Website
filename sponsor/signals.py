@@ -65,6 +65,8 @@ def paypal_payment_received(sender, **kwargs):
             # for pdf receipt
             charity = CharityDetail.objects.get(id=1)
             selected_donation = Donation.objects.get(trxn_id=donation.trxn_id)
+            donation_date = selected_donation.date_donation.strftime("%Y-%m-%d %H:%M:%S")
+
             context = {"donation": selected_donation, "charity": charity}
 
             template_path = "donation_receipt.html"
@@ -73,13 +75,14 @@ def paypal_payment_received(sender, **kwargs):
             result = BytesIO()
             pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
             if not pdf.err:
-                with open("Receipt.pdf", "wb") as f:
-                    f.write(result.getvalue())
+                pdf_data = result.getvalue()
+                file_name = f"receipt_{donation.name}_{donation_date}.pdf"
                 sendEmailFixedContent(
                     donation.email,
                     "Thank You for Your Donation",
                     "email_templates/donation_success.html",
-                    "Receipt.pdf",
+                    pdf_data,
+                    file_name
                 )
             else:
                 print(pdf.err)
