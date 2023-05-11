@@ -24,7 +24,7 @@ pyodbc==4.0.39
 python-decouple==3.8
 pytz==2023.3
 qrcode==7.4.2
-reportlab<=3.6.13
+reportlab<=4.0.0
 sqlparse==0.4.4
 tzdata==2023.3
 whitenoise==6.4.0
