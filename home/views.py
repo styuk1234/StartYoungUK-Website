@@ -128,29 +128,22 @@ def approve_buddies(request):
 @login_required
 @user_passes_test(lambda u: u.startyoungukuser.is_coordinator)
 def letter_tracker(request):
-    buddies = Buddy.objects.filter(status="approved").order_by("letter_received")
+    buddies = (
+        Buddy.objects.filter(status="approved")
+        .select_related("user__startyoungukuser")
+        .exclude(user__startyoungukuser__sdp_frequency__exact="N")
+        .order_by("letter_received")
+    )
 
     if request.method == "POST":
-        # filtering based on letter status
-        filter_status = request.POST.get("filter-status")
-        if filter_status is None or filter_status == "all":
-            buddies = Buddy.objects.filter(status="approved").order_by(
-                "letter_received"
-            )
-        elif filter_status == "received":
-            buddies = Buddy.objects.filter(status="approved", letter_received=True)
-        elif filter_status == "not received":
-            buddies = Buddy.objects.filter(status="approved", letter_received=False)
         # three bottom buttons functions
         checked_buddies = request.POST.getlist("chosen-buddies")
         if "send-email" in request.POST:
-            email_content = EmailContent.objects.get(email_type="Letter")
-
             for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
                 # only send letter to buddy with false letter received
                 if buddy.letter_received == False:
-                    sendEmail(buddy.user.email, email_content.email_type)
+                    sendEmail(buddy.user.email, "Letter")
             return redirect("letter_tracker")
         # update letter received to true
         elif "letter-received-true" in request.POST:
@@ -170,7 +163,7 @@ def letter_tracker(request):
         return render(
             request,
             "letter_tracker.html",
-            {"buddies": buddies, "filter_status": filter_status},
+            {"buddies": buddies},
         )
 
     return render(request, "letter_tracker.html", {"buddies": buddies})

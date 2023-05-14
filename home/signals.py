@@ -74,7 +74,9 @@ def logo_data():
     return logo
 
 
-def sendEmailFixedContent(email_list, subject, template_path, attachment=None):
+def sendEmailFixedContent(
+    email_list, subject, template_path, attachment=None, filename=None
+):
     html_tpl_path = template_path
     receiver_email = [
         email_list,
@@ -103,7 +105,7 @@ def sendEmailFixedContent(email_list, subject, template_path, attachment=None):
     email_msg.mixed_subtype = "related"
     email_msg.attach_alternative(email_html_template, "text/html")
     email_msg.attach(logo_data())
-    if attachment != None:
-        email_msg.attach_file(attachment)
+    if attachment is not None:
+        email_msg.attach(filename, attachment, "application/pdf")
 
     email_msg.send(fail_silently=False)

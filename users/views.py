@@ -84,7 +84,6 @@ def verify_user_and_activate(request, useremail, usertoken):
 def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
-        print(form.is_valid())
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get("username")
@@ -225,29 +224,37 @@ def sdp(request):
         sdp_frequency = "Monthly"
     else:
         sdp_frequency = "N"
-        
+
     sdp_amount = request.user.startyoungukuser.sdp_amount
     user_id = request.user.startyoungukuser.user.id
-    buddy_id = Buddy.objects.get(user=request.user.startyoungukuser.user).id if request.user.startyoungukuser.is_buddy else 0
+    buddy_id = (
+        Buddy.objects.get(user=request.user.startyoungukuser.user).id
+        if request.user.startyoungukuser.is_buddy
+        else 0
+    )
 
     if request.method == "POST":
         form = SDPForm(request.POST)
-        
+
         if int(form["amount"].value()) < 5 and form["frequency"].value() == "W":
             # if less than £5/week, show error
             messages.error(request, "The minimum allowed weekly donation amount is £5")
-            
+
         elif int(form["amount"].value()) < 10 and form["frequency"].value() == "F":
             # if less than £10/fortnight, show error
-            messages.error(request, "The minimum allowed fortnightly donation amount is £10")
-            
+            messages.error(
+                request, "The minimum allowed fortnightly donation amount is £10"
+            )
+
         elif int(form["amount"].value()) < 22 and form["frequency"].value() == "M":
             # if less than £22/month (to account for extra days), show error
-            messages.error(request, "The minimum allowed monthly donation amount is £22")
+            messages.error(
+                request, "The minimum allowed monthly donation amount is £22"
+            )
 
         elif form.is_valid():
-            paypal_dict["a3"] = form["amount"].value() # amount
-            
+            paypal_dict["a3"] = form["amount"].value()  # amount
+
             # Set frequency
             if form["frequency"].value() == "W":
                 paypal_dict["p3"] = 1
@@ -278,7 +285,7 @@ def sdp(request):
                 )
             else:
                 messages.error(request, "The data passed to the form is not valid!")
-                
+
             paypal_btn = PayPalPaymentsForm(
                 initial=paypal_dict, button_type="subscribe"
             )
@@ -505,38 +512,38 @@ def past_donations(request):
     return render(request, "past_donations.html", {"donation_zip": donation_zip})
 
 
-def donation_pdf_receipt(request):
-    buf = io.BytesIO()
-    c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
-    textob = c.beginText()
-    textob.setTextOrigin(inch, inch)
-    textob.setFont("Helvetica", 14)
+# def donation_pdf_receipt(request):
+#     buf = io.BytesIO()
+#     c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
+#     textob = c.beginText()
+#     textob.setTextOrigin(inch, inch)
+#     textob.setFont("Helvetica", 14)
 
-    # get checked donations
-    checked_donations = request.POST.getlist("chosen-donation")
-    user_id = request.user.id
-    user_name = str(request.user.first_name) + " " + str(request.user.last_name)
-    donations = Donation.objects.filter(user_id=user_id, trxn_id__in=checked_donations)
+#     # get checked donations
+#     checked_donations = request.POST.getlist("chosen-donation")
+#     user_id = request.user.id
+#     user_name = str(request.user.first_name) + " " + str(request.user.last_name)
+#     donations = Donation.objects.filter(user_id=user_id, trxn_id__in=checked_donations)
 
-    lines = ["Donor name: " + user_name]
-    donation_date = None
-    for donation in donations:
-        lines.append(" ")
-        if donation.campaign_id != 0:
-            campaign = Campaign.objects.get(pk=donation.campaign_id)
-            lines.append("Campaign Name: " + campaign.campaign_title)
-        else:
-            lines.append("Campaign Name: Standard Donation")
-        lines.append("Amount: £" + str(donation.amount))
-        donation_date = donation.date_donation.strftime("%Y-%m-%d %H:%M:%S")
-        lines.append("Date: " + donation_date)
+#     lines = ["Donor name: " + user_name]
+#     donation_date = None
+#     for donation in donations:
+#         lines.append(" ")
+#         if donation.campaign_id != 0:
+#             campaign = Campaign.objects.get(pk=donation.campaign_id)
+#             lines.append("Campaign Name: " + campaign.campaign_title)
+#         else:
+#             lines.append("Campaign Name: Standard Donation")
+#         lines.append("Amount: £" + str(donation.amount))
+#         donation_date = donation.date_donation.strftime("%Y-%m-%d %H:%M:%S")
+#         lines.append("Date: " + donation_date)
 
-    for line in lines:
-        textob.textLine(line)
+#     for line in lines:
+#         textob.textLine(line)
 
-    c.drawText(textob)
-    c.showPage()
-    c.save()
-    buf.seek(0)
-    filename = f"donation_{user_name}_{donation_date}.pdf"
-    return FileResponse(buf, as_attachment=True, filename=filename)
+#     c.drawText(textob)
+#     c.showPage()
+#     c.save()
+#     buf.seek(0)
+#     filename = f"donation_{user_name}_{donation_date}.pdf"
+#     return FileResponse(buf, as_attachment=True, filename=filename)

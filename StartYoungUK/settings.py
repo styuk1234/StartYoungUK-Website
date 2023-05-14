@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "crispy_forms",
     "crispy_bootstrap5",
-    #'bootstrap_modal_forms',
+    # "bootstrap_modal_forms",
     "phonenumber_field",
     "verify_email.apps.VerifyEmailConfig",
     "captcha",
