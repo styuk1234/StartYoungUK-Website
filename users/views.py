@@ -377,9 +377,9 @@ def buddy(request):
                 buddy = Buddy()
             # buddy.hobbies=selected_hobbies[:-1]
             # buddy.occupation=form_data.get('occupation')
-            occupation='occupation: ' + form_data.get('occupation') +'\n'
-            selected_hobbies = 'hobbies: ' + selected_hobbies[:-1] + '\n'
-            buddy.description = occupation + selected_hobbies + form_data.get("description")
+            occupation='Occupation: ' + form_data.get('occupation') +'\n'
+            selected_hobbies = 'Hobbies: ' + selected_hobbies[:-1] + '\n'
+            buddy.description = occupation + selected_hobbies + 'Motivation: '+ form_data.get("description")
             buddy.user = User.objects.get(username=request.user.username)
             buddy.status = "pending"
             buddy.save()
