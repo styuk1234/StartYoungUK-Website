@@ -32,21 +32,14 @@
         
         <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px;">
           <br><h2 style="text-align:center;">Update Buddy Status</h2><br>
-            <form method="POST">
-              {% csrf_token %}
-              <div class="form-group">
-                <label for="status-filter" style="color: white;">Filter by Status:</label>
-                <select class="form-control" id="status-filter" name="filter-status">
-                  <option value="all">All</option>
-                  <option value="pending">Pending</option>
-                  <option value="approved">Approved</option>
-                  <option value="rejected">Rejected</option>
-                </select>
-              </div>
-              <div class="buddy-approval-button-group">
-                <button type="submit" class="btn btn-primary">Filter</button>
-              </div>
-            </form>
+          <p>Filter by status</p>
+          <select id="filter-dropdown">
+            <option value="all">Show All</option>
+            <option value="pending">Show Pending</option>
+            <option value="approved">Show Approved</option>
+            <option value="rejected">Show Rejected</option> 
+          </select>
+          <br>
             <br />
             {% if filter_status == None %}
               <p class="lead" style="text-transform: uppercase;">all buddy list</p>
@@ -94,24 +87,31 @@
 </div>
 
 <script>
-  document.getElementById("select-all-buddies").addEventListener("click", function(){
-    var checkboxes = document.getElementsByName("chosen-buddies");
+  var selectAllBuddies = document.getElementById("select-all-buddies");
+  var checkboxes = document.getElementsByName("chosen-buddies");
+  var visibleCheckboxes = checkboxes;
+
+  selectAllBuddies.addEventListener("click", function(){
     for (var i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].checked = this.checked;
+      if (isVisible(checkboxes[i])) {
+        checkboxes[i].checked = this.checked;
+      }
     }
     checkIfAnyBoxChecked();
   });
-  
-  var checkboxes = document.getElementsByName("chosen-buddies");
+
   for (var i = 0; i < checkboxes.length; i++) {
-    checkboxes[i].addEventListener("click", checkIfAnyBoxChecked);
+    checkboxes[i].addEventListener("click", function() {
+      selectAllBuddies.checked = areAllBoxesChecked();
+      checkIfAnyBoxChecked();
+    });
   }
-  
+
   function checkIfAnyBoxChecked() {
-    var checkboxes = document.getElementsByName("chosen-buddies");
+    var checkboxes = visibleCheckboxes;
     var anyChecked = false;
     for (var i = 0; i < checkboxes.length; i++) {
-      if (checkboxes[i].checked) {
+      if (isVisible(checkboxes[i]) && checkboxes[i].checked) {
         anyChecked = true;
         break;
       }
@@ -121,8 +121,47 @@
       buttons[i].disabled = !anyChecked;
     }
   }
+
+  function areAllBoxesChecked() {
+    for (var i = 0; i < visibleCheckboxes.length; i++) {
+      if (isVisible(visibleCheckboxes[i]) && !visibleCheckboxes[i].checked) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function isVisible(element) {
+    return element.offsetParent !== null;
+  }
+
+  var filterDropdown = document.getElementById("filter-dropdown");
+  var tableBody = document.getElementsByTagName("tbody")[0];
+
+  filterDropdown.addEventListener("change", function() {
+    filterRows(filterDropdown.value);
+    selectAllBuddies.checked = false;
+    checkboxes = document.getElementsByName("chosen-buddies");
+    visibleCheckboxes = [];
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (isVisible(checkboxes[i])) {
+        visibleCheckboxes.push(checkboxes[i]);
+      } else {
+        checkboxes[i].checked = false;
+      }
+    }
+    checkIfAnyBoxChecked();
+  });
+
+  function filterRows(value) {
+    for (var i = 0; i < tableBody.rows.length; i++) {
+      var letterReceivedCell = tableBody.rows[i].cells[4];
+      if (value == "all" || letterReceivedCell.innerText.trim() == value) {
+        tableBody.rows[i].style.display = "";
+      } else {
+        tableBody.rows[i].style.display = "none";
+      }
+    }
+  }
 </script>
-
-
-
 {% endblock %}

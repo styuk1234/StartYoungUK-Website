@@ -86,16 +86,9 @@ def approve_buddies(request):
     buddies = Buddy.objects.all().order_by("date_status_modified")
     current_user = request.user
     if request.method == "POST":
-        filter_status = request.POST.get("filter-status")
-        if filter_status is None or filter_status == "all":
-            buddies = Buddy.objects.all().order_by("date_status_modified")
-        else:
-            buddies = Buddy.objects.filter(status=filter_status).order_by(
-                "date_status_modified"
-            )
         buddy_status = request.POST.get("buddy-status")
         checked_buddies = request.POST.getlist("chosen-buddies")
-        filter_status = request.POST.get("filter-status")
+
 
         for buddy_id in checked_buddies:
             buddy = Buddy.objects.get(id=buddy_id)
@@ -120,7 +113,7 @@ def approve_buddies(request):
         return render(
             request,
             "buddy_approvals.html",
-            {"buddies": buddies, "filter_status": filter_status},
+            {"buddies": buddies,},
         )
     return render(request, "buddy_approvals.html", {"buddies": buddies})
 
