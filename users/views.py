@@ -369,22 +369,24 @@ def buddy(request):
         form = BuddyRegistrationForm(request.POST)
         if form.is_valid():
             print(form.cleaned_data)
-            # bitmap=""
-            # hobbies=['painting','football','reading','dancing','singing','cooking','cricket','arts_and_crafts','adventure','writing']
+            selected_hobbies = ""
+            hobbies=['painting','football','reading','dancing','singing','cooking','cricket','arts_and_crafts','adventure','writing']
             form_data = form.cleaned_data
-            # for i in range(10):
-            #     if(form_data.get(hobbies[i])==True):
-            #         bitmap+="1"
-            #     else:
-            #         bitmap+="0"
+            for i in range(10):
+                if(form_data.get(hobbies[i])==True):
+                    selected_hobbies += hobbies[i] + ", "
+                # else:
+                #     bitmap+="0"
 
             try:
                 buddy = Buddy.objects.get(user=request.user)
             except Buddy.DoesNotExist:
                 buddy = Buddy()
-            # buddy.hobbies=bitmap
+            # buddy.hobbies=selected_hobbies[:-1]
             # buddy.occupation=form_data.get('occupation')
-            buddy.description = form_data.get("description")
+            occupation='Occupation: ' + form_data.get('occupation') +'\n'
+            selected_hobbies = 'Hobbies: ' + selected_hobbies[:-1] + '\n'
+            buddy.description = occupation + selected_hobbies + 'Motivation: '+ form_data.get("description")
             buddy.user = User.objects.get(username=request.user.username)
             buddy.status = "pending"
             buddy.save()
