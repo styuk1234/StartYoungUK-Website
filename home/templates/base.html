@@ -71,7 +71,7 @@
 
 /* Button used to open the chat form - fixed at the bottom of the page */
 .open-button {
-    background-image: url('/static/images/chatbot_new.png');
+    background-image: url("{% static 'images/chatbot_new.png' %}");
     background-color: transparent;
     /* color: white; */
     padding: 16px 20px;
@@ -166,8 +166,8 @@
   <body>
     
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'home-page' %}"><img src="{% static 'images/logo-syuk.jpg' %}"></a>
+      <div class="container justify-content-center">
+        <a class="navbar-brand text-center m-0 p-0" href="{% url 'home-page' %}"><img src="{% static 'images/logo-syuk.jpg' %}"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="oi oi-menu"></span> Menu
         </button>
@@ -183,15 +183,20 @@
             <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Join Us</a></li>
             {% if user.is_authenticated %}
             <div class="dropdown">
-            <li id="nav-userhome" class="nav-item"><a style="padding-top:28px;" href="{% url 'userhome' %}" class="nav-link">{{user.username}}</a></li>
+            <li id="nav-userhome" class="nav-item"><a style="padding-top:28px;" href="#" class="nav-link">{{user.username}}</a></li>
             <div class="dropdown-content">
               {% if user.startyoungukuser.user_type == "I" %}
-              <a href="{% url 'mentor' %}">Mentor a Child</a>
+              {% if request.user.startyoungukuser.is_coordinator %}
+              <a href="{% url 'buddy_approvals' %}">Buddy Approvals</a>
+              <a href="{% url 'letter_tracker' %}">Buddy Letter Tracker</a>
+              {% endif %}
+              <!-- <a href="{% url 'mentor' %}">Buddy Status</a> -->
               {% else %}
               <a href="{% url 'start_campaign' %}">Start a Campaign</a>
               {% endif %}
               <a href="{% url 'sdp' %}">Systematic Donation Plan</a>
               <a href="{% url 'profile' %}">Update Profile</a>
+              <a href="{% url 'past_donations'%}">Past Donations</a>
               <a href="{% url 'logout' %}">Logout</a></li>
             </div>
           </div>
@@ -221,7 +226,7 @@
   <footer class="footer">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-4 mx-auto text-center">
+        <div class="col-md-4 mx-auto text-center mt-3">
           <h2 style="color: white;"> Start Young UK</h2>
           <br>
           <h6 style="color: white; text-decoration: underline;"> Charity #1196028</h6>     
@@ -233,7 +238,9 @@
             <br>
             <a href="#"><span class="icon icon-phone"></span>&nbsp;
               <span class="text">07946369885</span></a>
- 
+            <br>
+            <a href="mailto:startyoung21@gmail.com" target="blank_"><span class="icon icon-mail_outline"></span>&nbsp;
+              <span class="text">startyoung21@gmail.com</span></a> 
         </div>
 
 

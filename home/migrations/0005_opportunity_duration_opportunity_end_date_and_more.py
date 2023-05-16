@@ -5,32 +5,31 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0004_opportunity'),
+        ("home", "0004_opportunity"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='opportunity',
-            name='duration',
-            field=models.TextField(default='5 months', max_length=50),
+            model_name="opportunity",
+            name="duration",
+            field=models.TextField(default="5 months", max_length=50),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='opportunity',
-            name='end_date',
+            model_name="opportunity",
+            name="end_date",
             field=models.DateField(default=django.utils.timezone.now),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='opportunity',
-            name='position_filled',
+            model_name="opportunity",
+            name="position_filled",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='opportunity',
-            name='salary',
+            model_name="opportunity",
+            name="salary",
             field=models.IntegerField(default=10000),
             preserve_default=False,
         ),

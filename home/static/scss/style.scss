@@ -3,12 +3,15 @@
 @import 'bootstrap/variables';
 
 @mixin ul_reset() {
-	&,li {
+
+	&,
+	li {
 		padding: 0;
 		margin: 0;
 		list-style: none;
 	}
 }
+
 body {
 	font-family: $font-family-sans-serif;
 	background: $white;
@@ -17,22 +20,35 @@ body {
 	font-weight: 300;
 	color: lighten(#222, 20%);
 }
+
 a {
 	transition: .3s all ease;
 	color: $primary;
+
 	&:hover {
 		text-decoration: none;
 		color: $primary;
 	}
+
 	&.link-underline {
 		text-decoration: underline;
+
 		&:hover {
 			text-decoration: none;
 		}
 	}
 }
-h1, h2, h3, h4, h5,
-.h1, .h2, .h3, .h4, .h5 {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5 {
 	// line-height: 1.5;
 	color: $black;
 	font-weight: 300;
@@ -41,35 +57,39 @@ h1, h2, h3, h4, h5,
 
 
 .text-primary {
-	color: $primary!important;
+	color: $primary !important;
 }
 
 .ftco-navbar-light {
-	background: transparent!important;
+	background: transparent !important;
 	position: absolute;
 	left: 0;
 	right: 0;
 	z-index: 3;
 	top: 10px;
+
 	@include media-breakpoint-down(md) {
-		background: $black!important;
+		background: $black !important;
 		top: 0;
 		position: relative;
 	}
-	
+
 	.navbar-nav {
-		> .nav-item {
-			> .nav-link {
+		>.nav-item {
+			>.nav-link {
 				font-size: 14px;
 				padding-top: 30px;
 				padding-bottom: 30px;
 				padding-left: 20px;
 				padding-right: 20px;
 				color: darken($white, 6%);
+
 				&:hover {
 					color: $white;
 				}
-				opacity: 1!important;
+
+				opacity: 1 !important;
+
 				@include media-breakpoint-down(md) {
 					padding-top: 10px;
 					padding-bottom: 10px;
@@ -78,15 +98,17 @@ h1, h2, h3, h4, h5,
 				}
 			}
 
-			
+
 			&.ftco-seperator {
 				position: relative;
 				margin-left: 20px;
 				padding-left: 20px;
+
 				@include media-breakpoint-down(md) {
 					padding-left: 0;
 					margin-left: 0;
 				}
+
 				&:before {
 					position: absolute;
 					content: "";
@@ -95,15 +117,18 @@ h1, h2, h3, h4, h5,
 					left: 0;
 					width: 2px;
 					background: rgba($white, .05);
+
 					@include media-breakpoint-down(md) {
 						display: none;
 					}
 				}
 			}
+
 			&.cta {
-				> a {
+				>a {
 					padding-left: 0;
 					color: $white;
+
 					span {
 						border: 2px solid $white;
 						display: inline-block;
@@ -111,16 +136,19 @@ h1, h2, h3, h4, h5,
 						border-radius: 4px;
 					}
 				}
+
 				&.cta-colored {
 					span {
 						border-color: $primary;
 					}
 				}
 			}
+
 			&.active {
-				> a {
+				>a {
 					color: $white;
 					position: relative;
+
 					&:before {
 						content: "";
 						height: 2px;
@@ -129,6 +157,7 @@ h1, h2, h3, h4, h5,
 						right: 20px;
 						position: absolute;
 						bottom: 20px;
+
 						@include media-breakpoint-down(md) {
 							display: none;
 						}
@@ -137,28 +166,31 @@ h1, h2, h3, h4, h5,
 			}
 		}
 	}
+
 	.navbar-toggler {
 		border: none;
-		color: rgba(255,255,255,.5)!important;
+		color: rgba(255, 255, 255, .5) !important;
 		cursor: pointer;
 		padding-right: 0;
 		text-transform: uppercase;
 		font-size: 16px;
 		letter-spacing: .1em;
 	}
-	
-	&.scrolled  {
+
+	&.scrolled {
 		position: fixed;
 		right: 0;
 		left: 0;
 		top: 0;
 		margin-top: -130px;
-		background: $white!important;
-		box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+		background: $white !important;
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+
 		.nav-item {
 			&.active {
-				> a {
-					color: $primary!important;
+				>a {
+					color: $primary !important;
+
 					&:before {
 						display: none;
 					}
@@ -170,23 +202,23 @@ h1, h2, h3, h4, h5,
 			@include media-breakpoint-down(md) {
 				background: none;
 				border-radius: 0px;
-				padding-left: 0rem!important;
-				padding-right: 0rem!important;
+				padding-left: 0rem !important;
+				padding-right: 0rem !important;
 			}
 		}
 
 		.navbar-nav {
 			@include media-breakpoint-down(sm) {
 				background: none;
-				padding-left: 0!important;
-				padding-right: 0!important;
+				padding-left: 0 !important;
+				padding-right: 0 !important;
 			}
 		}
 
 		.navbar-toggler {
 			border: none;
-			color: rgba(0,0,0,.5)!important;
-			border-color: rgba(0,0,0,.5)!important;
+			color: rgba(0, 0, 0, .5) !important;
+			border-color: rgba(0, 0, 0, .5) !important;
 			cursor: pointer;
 			padding-right: 0;
 			text-transform: uppercase;
@@ -194,20 +226,24 @@ h1, h2, h3, h4, h5,
 			letter-spacing: .1em;
 
 		}
+
 		.nav-link {
-			padding-top: .9rem!important;
-			padding-bottom: .9rem!important;
-			color: $black!important;
+			padding-top: .9rem !important;
+			padding-bottom: .9rem !important;
+			color: $black !important;
+
 			&.active {
-				color: $primary!important;
+				color: $primary !important;
 			}
 		}
+
 		&.awake {
 			margin-top: 0px;
 			transition: .3s all ease-out;
 		}
+
 		&.sleep {
-			transition: .3s all ease-out;	
+			transition: .3s all ease-out;
 		}
 
 		.navbar-brand {
@@ -226,70 +262,83 @@ h1, h2, h3, h4, h5,
 
 
 .bg-image {
-  background-size: cover;
-  background-repeat: no-repeat;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
-.ftco-cover {
-  // background: lighten( $black, 10%);
-  @extend .bg-image;
-  
 
-  background-position: center center;
- 	
+.ftco-cover {
+	// background: lighten( $black, 10%);
+	@extend .bg-image;
+
+
+	background-position: center center;
+
 	.ftco-heading {
 		font-size: 50px;
 		line-height: 1.2;
 		color: $white;
+
 		@include media-breakpoint-down(md) {
 			font-size: 37px;
 			line-height: 1.3;
 		}
 	}
+
 	.ftco-subheading {
 		max-width: 450px;
 		line-height: 1.5;
 	}
-	.ftco-subheading, p {
+
+	.ftco-subheading,
+	p {
 		line-height: 1.7;
-		color: rgba(255,255,255,.7);
+		color: rgba(255, 255, 255, .7);
 		font-weight: 300;
 		font-family: $font-family-sans-serif;
 	}
-  .btn {
+
+	.btn {
 		@include media-breakpoint-down(md) {
-			width: 100%!important;
+			width: 100% !important;
 		}
 	}
+
 	a {
 		position: relative;
 		color: $white;
 	}
+
 	&.overlay {
 		position: relative;
+
 		&:before {
 			content: "";
-			background: rgba($black,.6);
+			background: rgba($black, .6);
 			position: absolute;
-			top: 0; 
+			top: 0;
 			left: 0;
 			bottom: 0;
 			right: 0;
 		}
 	}
+
 	.ftco-vh-100 {
-		min-height: 700px!important;
+		min-height: 700px !important;
 	}
 }
 
 .ftco-uppercase {
 	font-size: 30px;
 }
+
 .menu-item {
 	margin-bottom: 30px;
+
 	img {
 		width: 100px;
 		border-radius: 50%;
 	}
+
 	.menu-price {
 
 		font-size: 24px;
@@ -304,17 +353,19 @@ h1, h2, h3, h4, h5,
 
 
 .bg-light {
-	background: #f1efed!important;
-	background: #fafafa!important;
+	background: #f1efed !important;
+	background: #fafafa !important;
 }
 
 .ftco-custom-gutters {
 	margin-left: -10px;
 	margin-right: -10px;
+
 	[class*=col-] {
 		padding-left: 5px;
 		padding-right: 5px;
 		margin-bottom: 5px;
+
 		.ftco-thumbnail {
 			display: block;
 			margin-bottom: 5px;
@@ -323,7 +374,10 @@ h1, h2, h3, h4, h5,
 }
 
 .btn {
-	&:hover, &:active, &:focus {
+
+	&:hover,
+	&:active,
+	&:focus {
 		box-shadow: none;
 	}
 }
@@ -332,14 +386,16 @@ h1, h2, h3, h4, h5,
 	span {
 		transition: .3s all ease;
 	}
-	> .play-icon-wrap {
+
+	>.play-icon-wrap {
 		display: inline-block;
 		width: 50px;
 		height: 50px;
 		border: 1px solid $white;
 		position: relative;
 		border-radius: 50%;
-		> span {
+
+		>span {
 			font-size: 30px;
 			position: absolute;
 			top: 50%;
@@ -348,10 +404,12 @@ h1, h2, h3, h4, h5,
 			transform: translate(-50%, -50%);
 		}
 	}
+
 	&:hover {
-		> .play-icon-wrap {
+		>.play-icon-wrap {
 			transform: scale(1.2);
 		}
+
 		span {
 			color: $white;
 		}
@@ -362,26 +420,29 @@ h1, h2, h3, h4, h5,
 	.block-41-subheading {
 		margin-bottom: 10px;
 		color: #ccc;
-		> div {
+
+		>div {
 			display: inline-block;
 			text-transform: uppercase;
+
 			&.block-41-line {
 				height: 2px;
 				width: 50px;
 				background: $primary;
 			}
-			&.block-41-number {
-				
-			}
+
+			&.block-41-number {}
 		}
 	}
+
 	.block-41-heading {
 		line-height: 1.2;
 	}
+
 	.block-41-text {
-		
+
 		@include media-breakpoint-up(md) {
-			font-size: 20px;	
+			font-size: 20px;
 		}
 	}
 }
@@ -390,9 +451,11 @@ h1, h2, h3, h4, h5,
 	background: $primary;
 	padding: 50px;
 	color: $black;
+
 	.block-48-text-1 {
 		font-size: 30px;
 	}
+
 	.block-48-counter {
 		font-size: 70px;
 		line-height: 1;
@@ -404,27 +467,30 @@ h1, h2, h3, h4, h5,
 		padding-top: 50px;
 		padding-bottom: 50px;
 		display: flex;
-		.owl-item {
 
-		}
+		.owl-item {}
 	}
+
 	.owl-nav {
 		position: relative;
 		position: absolute;
 		bottom: -50px;
 		left: 50%;
 		transform: translateX(-50%);
-		.owl-prev, .owl-next {
+
+		.owl-prev,
+		.owl-next {
 			position: relative;
 			display: inline-block;
 			padding: 20px;
 			font-size: 30px;
+
 			&.disabled {
 				opacity: .2;
 			}
 		}
 	}
-} 
+}
 
 .btn {
 	cursor: pointer;
@@ -435,71 +501,85 @@ h1, h2, h3, h4, h5,
 	letter-spacing: .2em;
 	text-transform: uppercase;
 	color: darken(#ccc, 20%);
-	box-shadow: 0 5px 20px -5px rgba(0,0,0,.5);
+	box-shadow: 0 5px 20px -5px rgba(0, 0, 0, .5);
 
 	&.btn-hover-white {
 		&:hover {
 			background: transparent;
 			// border-color: $white!important;
-			color: $white!important;
+			color: $white !important;
 		}
 	}
+
 	&.btn-success {
 		border: 2px solid $success;
 		color: $white;
 	}
+
 	&.btn-white {
 		background: $white;
 		// border: 2px solid $success;
 		color: $black;
+
 		&:hover {
 			background: $black;
 			color: $white;
 		}
 	}
+
 	&.btn-primary {
 		background: $primary;
 		border: 2px solid $primary;
 		color: $white;
+
 		&:hover {
 			border: 2px solid $primary;
 			background: transparent;
-			color :$primary;
+			color: $primary;
 		}
-		&:active, &:focus {
-			color: $white!important;
+
+		&:active,
+		&:focus {
+			color: $white !important;
 		}
-		
+
 		&.btn-outline-primary {
 			border: 2px solid $primary;
 			background: transparent;
-			color :$primary;
+			color: $primary;
+
 			&:hover {
 				border: 2px solid transparent;
 				background: $primary;
-				color :$black;
+				color: $black;
 			}
 		}
 	}
+
 	&.btn-outline-white {
 		border-color: rgba($white, .8);
 		background: none;
 		border-radius: 0px;
 		border-width: 2px;
 		color: $black;
-		&:hover, &:focus, &:active {
+
+		&:hover,
+		&:focus,
+		&:active {
 			background: $white;
 			border-color: $white;
 			color: $black;
 		}
 	}
 
-	&:hover, &:active, &:focus {
+	&:hover,
+	&:active,
+	&:focus {
 		outline: none;
 		box-shadow: none;
-		background: $black!important;
-		color: $white!important;
-		border-color: $black!important;
+		background: $black !important;
+		color: $white !important;
+		border-color: $black !important;
 	}
 }
 
@@ -507,82 +587,97 @@ h1, h2, h3, h4, h5,
 
 .form-control {
 
-	background: $white!important;
-	color: $black!important;
+	background: $white !important;
+	color: $black !important;
 	// font-size: 18px;
 	border-radius: 0px;
-	box-shadow: none!important;
-	&:focus, &:active {
+	box-shadow: none !important;
+
+	&:focus,
+	&:active {
 		border-color: $black;
 	}
 }
+
 textarea.form-control {
-	height: inherit!important;
+	height: inherit !important;
 }
+
 .ftco-vh-100 {
-  height: 100vh;
-  @include media-breakpoint-down(lg) {
-  	height: inherit;
-  	padding-top: 5em;
-  	padding-bottom: 5em;
-  }
+	height: 100vh;
+
+	@include media-breakpoint-down(lg) {
+		height: inherit;
+		padding-top: 5em;
+		padding-bottom: 5em;
+	}
 }
+
 .ftco-vh-75 {
-  height: 75vh;
-  min-height: 700px;
-  @include media-breakpoint-down(lg) {
-  	min-height: 700px;
-  	height: inherit;
-  	padding-top: 5em;
-  	padding-bottom: 5em;
-  }
+	height: 75vh;
+	min-height: 700px;
+
+	@include media-breakpoint-down(lg) {
+		min-height: 700px;
+		height: inherit;
+		padding-top: 5em;
+		padding-bottom: 5em;
+	}
 }
 
 
 .ftco-tab-nav {
 	padding: 0;
 	margin: 0;
-	display: inline-block!important;
+	display: inline-block !important;
+
 	@include media-breakpoint-down(sm) {
-		display: block!important;
+		display: block !important;
 		margin-bottom: 10px;
-		width: 100%!important;
+		width: 100% !important;
 	}
+
 	li {
 		padding: 0;
 		margin: 0 5px;
-		display: inline-block!important;
+		display: inline-block !important;
+
 		@include media-breakpoint-down(sm) {
-			display: block!important;
+			display: block !important;
 			margin-bottom: 10px;
-			width: 100%!important;
+			width: 100% !important;
 		}
+
 		a {
 			text-transform: uppercase;
 			font-size: 14px;
 			letter-spacing: .2em;
 			color: #ccc;
 			border: 2px solid #ccc;
-			border-radius: 0!important;
+			border-radius: 0 !important;
+
 			&.active {
-				background: none!important;
-				color: darken(#ccc, 100%)!important;
+				background: none !important;
+				color: darken(#ccc, 100%) !important;
 				border: 2px solid $black;
 			}
 		}
-		
+
 	}
 }
 
 .post-entry {
 	margin-bottom: 40px;
+
 	.img-wrap {
 		position: relative;
 		display: block;
 		overflow: hidden;
+
 		img {
 			transition: .3s all ease;
 		}
+
 		.date {
 			position: absolute;
 			bottom: 0;
@@ -593,10 +688,12 @@ textarea.form-control {
 			font-size: 14px;
 			transition: .3s all ease;
 		}
+
 		&:hover {
 			img {
 				transform: scale(1.2);
 			}
+
 			.date {
 				font-size: 16px;
 				color: $white;
@@ -604,22 +701,27 @@ textarea.form-control {
 			}
 		}
 	}
-	
+
 	h3 {
 		font-size: 20px;
 		line-height: 1.5;
+
 		a {
 			color: $black;
+
 			&:hover {
 				color: $primary;
 			}
 		}
 	}
+
 	p {
 		color: lighten($black, 60%);
 	}
 }
-.featured-donate, .featured-section {
+
+.featured-donate,
+.featured-section {
 	padding: 4em 0;
 	background-size: cover;
 	background-position: center center;
@@ -627,9 +729,10 @@ textarea.form-control {
 
 	img {
 		// border: 10px solid $white;
-		box-shadow: 0 4px 30px -5px rgba(0,0,0,1);
+		box-shadow: 0 4px 30px -5px rgba(0, 0, 0, 1);
 		border-radius: 7px;
 	}
+
 	h2 {
 		color: $white;
 	}
@@ -656,8 +759,10 @@ textarea.form-control {
 		color: $white;
 	}
 
-	&.overlay-color, &.overlay-color-2 {
+	&.overlay-color,
+	&.overlay-color-2 {
 		position: relative;
+
 		&:before {
 			position: absolute;
 			content: "";
@@ -669,6 +774,7 @@ textarea.form-control {
 			opacity: .9;
 		}
 	}
+
 	&.overlay-color-2 {
 		&:before {
 			background: $primary;
@@ -681,32 +787,42 @@ textarea.form-control {
 		font-size: 25px;
 		margin-bottom: 20px;
 	}
+
 	label {
 		color: $white;
 	}
+
 	.form-control {
 		border: 2px solid $white;
-		background: none!important;
+		background: none !important;
 		margin-bottom: 10px;
-		color: $white!important;
-		&::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-		  color: $white;
-		  font-style: italic;
+		color: $white !important;
+
+		&::-webkit-input-placeholder {
+			/* Chrome/Opera/Safari */
+			color: $white;
+			font-style: italic;
 		}
-		&::-moz-placeholder { /* Firefox 19+ */
-		  color: $white;
-		  font-style: italic;
+
+		&::-moz-placeholder {
+			/* Firefox 19+ */
+			color: $white;
+			font-style: italic;
 		}
-		&:-ms-input-placeholder { /* IE 10+ */
-		  color: $white;
-		  font-style: italic;
+
+		&:-ms-input-placeholder {
+			/* IE 10+ */
+			color: $white;
+			font-style: italic;
 		}
-		&:-moz-placeholder { /* Firefox 18- */
-		  color: $white;
-		  font-style: italic;
+
+		&:-moz-placeholder {
+			/* Firefox 18- */
+			color: $white;
+			font-style: italic;
 		}
 	}
-	
+
 }
 
 .custom-progress {
@@ -721,33 +837,38 @@ textarea.form-control {
 	em {
 		font-family: serif;
 	}
+
 	img {
 		border-radius: 7px;
 		width: 180px;
 		margin-bottom: 20px;
 	}
+
 	h2 {
 		font-size: 20px;
 		margin: 0;
 		padding: 0;
 	}
-	
+
 	p {
 		line-height: 1.5;
 	}
+
 	.time {
 		color: lighten($black, 70%);
 		font-size: 13px;
 	}
 
 	.donate-amount {
-		> div {
+		>div {
 			width: 50%;
 			padding: 10px;
 		}
+
 		.label {
 			background: lighten(#ccc, 15%);
 		}
+
 		.amount {
 			background: $success;
 			color: $white;
@@ -757,27 +878,32 @@ textarea.form-control {
 
 
 .fundraise-item {
-	box-shadow: 0 0 40px -10px rgba(0,0,0,.1);
+	box-shadow: 0 0 40px -10px rgba(0, 0, 0, .1);
 	border: none;
 	height: 100%;
+
 	.custom-progress-success {
 		background-color: lighten(#ccc, 15%);
 		height: .2rem;
 		border-radius: 4px;
 		margin-bottom: 20px;
 	}
+
 	a {
 		color: $black;
+
 		&:hover {
 			color: $primary;
 		}
 	}
+
 	.donation-time {
 		color: #ccc;
 		display: block;
 		font-style: italic;
 		font-size: 15px;
 	}
+
 	.card-title {
 		font-size: 24px;
 	}
@@ -790,14 +916,15 @@ textarea.form-control {
 }
 
 .bg-primary {
-	background: $primary!important;
+	background: $primary !important;
 }
 
 .site-section {
 	padding: 4em 0;
 }
+
 .border-top {
-	border-top: 1px solid lighten($black, 95%)!important;
+	border-top: 1px solid lighten($black, 95%) !important;
 }
 
 .ftco-bg-dark {
@@ -814,35 +941,40 @@ textarea.form-control {
 		text-transform: uppercase;
 		margin-bottom: 40px;
 		letter-spacing: .1em;
-		color: $white!important;
+		color: $white !important;
 		font-family: $font-family-sans-serif;
 	}
+
 	.block-21 {
 		.heading {
 			a {
-				color: $white!important;
+				color: $white !important;
+
 				&:hover {
-					color: $primary!important;
+					color: $primary !important;
 				}
 			}
 		}
+
 		.meta {
 			a {
-				color: lighten($black, 50%)!important;
+				color: lighten($black, 50%) !important;
+
 				&:hover {
-					color: $white!important;
+					color: $white !important;
 				}
 			}
 		}
 	}
-	
+
 	a {
 		color: $primary;
+
 		&:hover {
-			color: $primary!important;
+			color: $primary !important;
 		}
 	}
-	
+
 }
 
 
@@ -852,6 +984,7 @@ textarea.form-control {
 		list-style: none;
 		margin: 0 10px 10px 0;
 		display: inline-block;
+
 		a {
 			height: 60px;
 			width: 60px;
@@ -860,6 +993,7 @@ textarea.form-control {
 			background: rgba($white, .05);
 			border-radius: 50%;
 			position: relative;
+
 			span {
 				position: absolute;
 				font-size: 26px;
@@ -867,18 +1001,23 @@ textarea.form-control {
 				left: 50%;
 				transform: translate(-50%, -50%);
 			}
+
 			&:hover {
 				color: $primary;
 			}
 		}
 	}
 }
+
 .footer-small-nav {
-	> li {
+	>li {
 		display: inline-block;
+
 		a {
 			margin: 0 10px 10px 0;
-			&:hover, &:focus {
+
+			&:hover,
+			&:focus {
 				color: $primary;
 			}
 		}
@@ -890,14 +1029,17 @@ textarea.form-control {
 #map {
 	height: 400px;
 	width: 100%;
+
 	@include media-breakpoint-down(md) {
 		height: 300px;
 	}
 }
+
 .container-fluid {
 	padding-left: 0;
 	padding-right: 0;
 }
+
 .ftco-section-2 {
 	.section-2-blocks-wrapper {
 		.button {
@@ -912,15 +1054,17 @@ textarea.form-control {
 			z-index: 100;
 			top: 50%;
 			transform: translateY(-50%);
+
 			@include media-breakpoint-down(md) {
 				top: auto;
-				bottom: 0!important;
+				bottom: 0 !important;
 				margin-right: auto;
 				right: auto;
 				left: 50%;
 				margin-bottom: -50px;
 				transform: translateX(-50%);
 			}
+
 			span {
 				position: absolute;
 				font-size: 30px;
@@ -930,21 +1074,26 @@ textarea.form-control {
 				transform: translate(-30%, -48%);
 			}
 		}
+
 		.text {
 			position: relative;
 			z-index: -1;
 			// background: $white;
 			padding: 15px;
+
 			@include media-breakpoint-up(md) {
-				padding: 10% 7%;	
+				padding: 10% 7%;
 			}
+
 			h3 {
 				margin-bottom: 50px;
 			}
 		}
+
 		.img {
 			background-position: center center;
 			background-size: cover;
+
 			@include media-breakpoint-down(md) {
 				height: 400px;
 				margin-bottom: 70px;
@@ -952,42 +1101,51 @@ textarea.form-control {
 		}
 	}
 }
+
 .section-2-blocks-wrapper-2 {
 	.text {
 		position: relative;
 		// padding: 10% 40px;
 		padding: 30px 15px;
+
 		@include media-breakpoint-up(md) {
-			padding: 40px;	
+			padding: 40px;
 		}
+
 		h3 {
 			margin-bottom: 30px;
 		}
 	}
-	.img, .image {
+
+	.img,
+	.image {
 		background-position: center center;
 		background-size: cover;
 	}
+
 	.quote {
 		background: #97DE95;
 		background: $primary;
 		color: $black;
 		width: 100%;
 		font-size: 24px;
-		padding: 80px!important;
+		padding: 80px !important;
+
 		.author {
 			display: block;
 			font-size: 16px;
 		}
 	}
+
 	.image {
-		
+
 		height: 500px;
 		margin-top: 0;
 		margin-left: 0;
+
 		@include media-breakpoint-up(md) {
 			margin-top: -70px;
-			margin-left: -70px;	
+			margin-left: -70px;
 		}
 	}
 }
@@ -1003,29 +1161,35 @@ textarea.form-control {
 
 	-ms-transform: perspective(1000px);
 	-moz-transform: perspective(1000px);
-	-moz-transform-style: preserve-3d; 
-	-ms-transform-style: preserve-3d; 
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
 
 
-	&:hover .back, &.hover .back {
+	&:hover .back,
+	&.hover .back {
 		-webkit-transform: rotateY(0deg);
-    -moz-transform: rotateY(0deg);
-    -o-transform: rotateY(0deg);
-    -ms-transform: rotateY(0deg);
-    transform: rotateY(0deg);
+		-moz-transform: rotateY(0deg);
+		-o-transform: rotateY(0deg);
+		-ms-transform: rotateY(0deg);
+		transform: rotateY(0deg);
 	}
-	&:hover .front, &.hover .front {
-		-webkit-transform: rotateY(180deg);
-    -moz-transform: rotateY(180deg);
-    -o-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-	}
-	
 
-	&, .front, .back {
+	&:hover .front,
+	&.hover .front {
+		-webkit-transform: rotateY(180deg);
+		-moz-transform: rotateY(180deg);
+		-o-transform: rotateY(180deg);
+		transform: rotateY(180deg);
+	}
+
+
+	&,
+	.front,
+	.back {
 		width: 100%;
 		height: 427px;
 	}
+
 	.flipper {
 		-webkit-transition: 0.6s;
 		-webkit-transform-style: preserve-3d;
@@ -1042,7 +1206,8 @@ textarea.form-control {
 		position: relative;
 	}
 
-	.front, .back {
+	.front,
+	.back {
 		-webkit-backface-visibility: hidden;
 		-moz-backface-visibility: hidden;
 		-ms-backface-visibility: hidden;
@@ -1051,25 +1216,25 @@ textarea.form-control {
 		border-radius: 4px;
 
 
-	    -webkit-transition: 0.6s;
-	    -webkit-transform-style: preserve-3d;
-	    -webkit-transform: rotateY(0deg);
+		-webkit-transition: 0.6s;
+		-webkit-transform-style: preserve-3d;
+		-webkit-transform: rotateY(0deg);
 
-	    -moz-transition: 0.6s;
-	    -moz-transform-style: preserve-3d;
-	    -moz-transform: rotateY(0deg);
+		-moz-transition: 0.6s;
+		-moz-transform-style: preserve-3d;
+		-moz-transform: rotateY(0deg);
 
-	    -o-transition: 0.6s;
-	    -o-transform-style: preserve-3d;
-	    -o-transform: rotateY(0deg);
+		-o-transition: 0.6s;
+		-o-transform-style: preserve-3d;
+		-o-transform: rotateY(0deg);
 
-	    -ms-transition: 0.6s;
-	    -ms-transform-style: preserve-3d;
-	    -ms-transform: rotateY(0deg);
+		-ms-transition: 0.6s;
+		-ms-transform-style: preserve-3d;
+		-ms-transform: rotateY(0deg);
 
-	    transition: 0.6s;
-	    transform-style: preserve-3d;
-	    transform: rotateY(0deg);
+		transition: 0.6s;
+		transform-style: preserve-3d;
+		transform: rotateY(0deg);
 
 		position: absolute;
 		top: 0;
@@ -1085,33 +1250,39 @@ textarea.form-control {
 		background-size: cover;
 		background-position: center center;
 		background-repeat: no-repeat;
+
 		&:before {
 			content: '';
-	    position: absolute;
-	    top: 0;
-	    right: 0;
-	    bottom: 0;
-	    left: 0;
-	    background: -moz-linear-gradient(top, transparent 0%, transparent 18%, rgba(0,0,0,0.8) 99%, rgba(0,0,0,0.8) 100%);
-	    background: -webkit-linear-gradient(top, transparent 0%, transparent 18%, rgba(0,0,0,0.8) 99%, rgba(0,0,0,0.8) 100%);
-	    background: linear-gradient(to bottom, transparent 0%, transparent 18%, rgba(0,0,0,0.8) 99%, rgba(0,0,0,0.8) 100%);
-	    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#cc000000',GradientType=0 );
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background: -moz-linear-gradient(top, transparent 0%, transparent 18%, rgba(0, 0, 0, 0.8) 99%, rgba(0, 0, 0, 0.8) 100%);
+			background: -webkit-linear-gradient(top, transparent 0%, transparent 18%, rgba(0, 0, 0, 0.8) 99%, rgba(0, 0, 0, 0.8) 100%);
+			background: linear-gradient(to bottom, transparent 0%, transparent 18%, rgba(0, 0, 0, 0.8) 99%, rgba(0, 0, 0, 0.8) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#cc000000', GradientType=0);
 		}
+
 		.box {
 			position: absolute;
 			bottom: 0;
 			left: 20px;
 			right: 20px;
 			bottom: 20px;
-			h2, p {
+
+			h2,
+			p {
 				color: $white;
 				margin: 0;
 				padding: 0;
 				line-height: 1.5;
 			}
+
 			h2 {
 				font-size: 20px;
 			}
+
 			p {
 				font-size: 12px;
 			}
@@ -1122,15 +1293,15 @@ textarea.form-control {
 		// background: lightblue;
 		// padding-top: 40px;
 		background: $white;
-		box-shadow: 0 0 70px -10px rgba(0,0,0,.4);
+		box-shadow: 0 0 70px -10px rgba(0, 0, 0, .4);
 		-webkit-transform: rotateY(-180deg);
-	    -moz-transform: rotateY(-180deg);
-	    -o-transform: rotateY(-180deg);
-	    -ms-transform: rotateY(-180deg);
-	    transform: rotateY(-180deg);
+		-moz-transform: rotateY(-180deg);
+		-o-transform: rotateY(-180deg);
+		-ms-transform: rotateY(-180deg);
+		transform: rotateY(-180deg);
 	}
 
-	
+
 	.back p {
 		position: absolute;
 		top: 40px;
@@ -1140,19 +1311,23 @@ textarea.form-control {
 		padding: 0 20px;
 		font-size: 18px;
 	}
+
 	.author {
 		bottom: 0;
 		position: absolute;
 		bottom: 20px;
 		left: 20px;
 		right: 20px;
+
 		.image {
 			width: 40px;
+
 			img {
 				border-radius: 50%;
 				max-width: 100%;
 			}
 		}
+
 		.position {
 			display: block;
 			// color: #ccc;
@@ -1163,21 +1338,22 @@ textarea.form-control {
 	@include media-breakpoint-down(md) {
 		.back {
 			-webkit-transform: rotateY(0deg);
-	    -moz-transform: rotateY(0deg);
-	    -o-transform: rotateY(0deg);
-	    -ms-transform: rotateY(0deg);
-	    transform: rotateY(0deg);
+			-moz-transform: rotateY(0deg);
+			-o-transform: rotateY(0deg);
+			-ms-transform: rotateY(0deg);
+			transform: rotateY(0deg);
 		}
+
 		.front {
 			-webkit-transform: rotateY(180deg);
-	    -moz-transform: rotateY(180deg);
-	    -o-transform: rotateY(180deg);
-	    transform: rotateY(180deg);
+			-moz-transform: rotateY(180deg);
+			-o-transform: rotateY(180deg);
+			transform: rotateY(180deg);
 		}
 	}
 
 }
-		
+
 // magnific pop up
 
 .image-popup {
@@ -1185,26 +1361,28 @@ textarea.form-control {
 	cursor: -moz-zoom-in;
 	cursor: zoom-in;
 }
+
 .mfp-with-zoom .mfp-container,
 .mfp-with-zoom.mfp-bg {
-  opacity: 0;
-  -webkit-backface-visibility: hidden;
-  -webkit-transition: all 0.3s ease-out; 
-  -moz-transition: all 0.3s ease-out; 
-  -o-transition: all 0.3s ease-out; 
-  transition: all 0.3s ease-out;
+	opacity: 0;
+	-webkit-backface-visibility: hidden;
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
 }
 
 .mfp-with-zoom.mfp-ready .mfp-container {
-    opacity: 1;
-}
-.mfp-with-zoom.mfp-ready.mfp-bg {
-    opacity: 0.8;
+	opacity: 1;
 }
 
-.mfp-with-zoom.mfp-removing .mfp-container, 
+.mfp-with-zoom.mfp-ready.mfp-bg {
+	opacity: 0.8;
+}
+
+.mfp-with-zoom.mfp-removing .mfp-container,
 .mfp-with-zoom.mfp-removing.mfp-bg {
-  opacity: 0;
+	opacity: 0;
 }
 
 .ftco-counter {
@@ -1214,6 +1392,7 @@ textarea.form-control {
 		font-weight: bold;
 		color: $primary;
 	}
+
 	.ftco-label {
 		font-size: 12px;
 		text-transform: uppercase;
@@ -1225,20 +1404,24 @@ textarea.form-control {
 // blocks 
 .block-22 {
 	padding: 3em 0;
+
 	.heading {
 		font-size: 30px;
 		font-weight: 300;
 	}
+
 	.subscribe {
 		.form-group {
 			position: relative;
 		}
+
 		.email {
 			height: 50px;
 			border-radius: 30px;
 			padding-left: 20px;
 			padding-right: 180px;
 		}
+
 		.submit {
 			position: absolute;
 			top: 6px;
@@ -1247,36 +1430,46 @@ textarea.form-control {
 			right: 6px;
 			border-radius: 30px;
 			color: $white;
+
 			&:hover {
 				color: $black;
 			}
 		}
 	}
 }
+
 .block-21 {
 	figure {
 		flex: 0 0 80px;
+
 		img {
 			border: 4px solid $white;
 			border-radius: 4px;
 		}
 	}
+
 	.text {
 		.heading {
 			font-size: 18px;
 			font-weight: 300;
+
 			a {
 				color: $black;
-				&:hover, &:active, &:focus {
+
+				&:hover,
+				&:active,
+				&:focus {
 					color: $primary;
 				}
 			}
 		}
+
 		.meta {
-			> div {
+			>div {
 				display: inline-block;
 				font-size: 12px;
 				margin-right: 10px;
+
 				a {
 					color: lighten($black, 80%);
 				}
@@ -1284,6 +1477,7 @@ textarea.form-control {
 		}
 	}
 }
+
 .block-5 {
 	overflow: hidden;
 	background-size: cover;
@@ -1293,18 +1487,20 @@ textarea.form-control {
 	position: relative;
 	display: block;
 	margin-bottom: 30px;
+
 	&:before {
 		content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: -moz-linear-gradient(top, transparent 0%, transparent 18%, rgba(0,0,0,0.8) 99%, rgba(0,0,0,0.8) 100%);
-    background: -webkit-linear-gradient(top, transparent 0%, transparent 18%, rgba(0,0,0,0.8) 99%, rgba(0,0,0,0.8) 100%);
-    background: linear-gradient(to bottom, transparent 0%, transparent 18%, rgba(0,0,0,0.8) 99%, rgba(0,0,0,0.8) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#cc000000',GradientType=0 );
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background: -moz-linear-gradient(top, transparent 0%, transparent 18%, rgba(0, 0, 0, 0.8) 99%, rgba(0, 0, 0, 0.8) 100%);
+		background: -webkit-linear-gradient(top, transparent 0%, transparent 18%, rgba(0, 0, 0, 0.8) 99%, rgba(0, 0, 0, 0.8) 100%);
+		background: linear-gradient(to bottom, transparent 0%, transparent 18%, rgba(0, 0, 0, 0.8) 99%, rgba(0, 0, 0, 0.8) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#cc000000', GradientType=0);
 	}
+
 	.text {
 		position: absolute;
 		bottom: 0;
@@ -1318,7 +1514,7 @@ textarea.form-control {
 			left: 0;
 			right: 0;
 			z-index: 1;
-			background: $white;	
+			background: $white;
 			visibility: hidden;
 			opacity: 0;
 			height: 0;
@@ -1326,10 +1522,15 @@ textarea.form-control {
 			content: "";
 			transition: .3s all ease;
 		}
-		.heading, .subheading, .post-meta, .excerpt {
+
+		.heading,
+		.subheading,
+		.post-meta,
+		.excerpt {
 			z-index: 2;
 			position: relative;
 		}
+
 		.subheading {
 			color: $white;
 			text-transform: uppercase;
@@ -1338,6 +1539,7 @@ textarea.form-control {
 			margin-bottom: 5px;
 			opacity: .6;
 		}
+
 		.heading {
 			color: $white;
 			margin: 0 0 10px 0;
@@ -1346,11 +1548,13 @@ textarea.form-control {
 			font-size: 20px;
 			line-height: 1.2;
 		}
+
 		.post-meta {
 			line-height: 1.4;
 			color: $white;
 			font-size: 12px;
 			text-transform: uppercase;
+
 			span {
 				display: inline-block;
 				margin-right: 10px;
@@ -1358,37 +1562,46 @@ textarea.form-control {
 				opacity: .6;
 			}
 		}
+
 		.excerpt {
 			line-height: 1.4;
 			color: $white;
 		}
 	}
-	&:hover, &:focus {
+
+	&:hover,
+	&:focus {
 		.text {
 
 			&:before {
 				visibility: visible;
 				opacity: 1;
 				height: 100%;
-				background:$white;
+				background: $white;
 			}
-			.heading, .subheading, .post-meta {
+
+			.heading,
+			.subheading,
+			.post-meta {
 				color: $black;
 			}
-			
+
 		}
 	}
 }
 
 .block-6 {
+
 	// margin-bottom: 30px;
 	.icon {
 		margin-right: 30px;
 		color: $primary;
+
 		span {
 			&:before {
 				font-size: 50px;
 			}
+
 			&.bg-after {
 				&:after {
 					position: absolute;
@@ -1404,50 +1617,62 @@ textarea.form-control {
 			}
 		}
 	}
+
 	.media-body {
 		.heading {
 			font-size: 18px;
 		}
+
 		p {
 			color: lighten(#222, 50%);
+
 			&:last-child {
 				margin-bottom: 0;
 			}
 		}
 	}
-} 
+}
 
 .block-13 {
 	.owl-stage-outer {
 		padding-bottom: 7em;
 	}
+
 	.owl-nav {
 		position: relative;
 		position: absolute;
 		bottom: 0px;
 		left: 50%;
 		transform: translateX(-50%);
-		.owl-prev, .owl-next {
+
+		.owl-prev,
+		.owl-next {
 			position: relative;
 			display: inline-block;
 			padding: 20px;
 			font-size: 30px;
+
 			&.disabled {
 				opacity: .2;
 			}
 		}
 	}
-} 
+}
+
 .block-10 {
 	margin-bottom: 30px;
+
 	.person-info {
 		height: 75px;
+
 		span {
 			display: block;
 		}
+
 		.name {
 			font-size: 20px;
 		}
+
 		.position {
 			font-size: 14px;
 		}
@@ -1459,54 +1684,68 @@ textarea.form-control {
 		margin-top: -250px;
 	}
 }
+
 .block-7 {
 	margin-bottom: 30px;
 	padding: 30px;
-	box-shadow: 0 10px 30px -5px rgba(0,0,0,.11);
+	box-shadow: 0 10px 30px -5px rgba(0, 0, 0, .11);
 	background: $white;
+
 	@include media-breakpoint-up(md) {
 		padding: 40px;
 	}
+
 	.heading {
 		font-size: 50px;
 		line-height: 1;
 		margin: 0;
 		padding: 0;
 	}
+
 	.heading-2 {
 		font-size: 16px;
 		font-weight: normal;
 		text-transform: uppercase;
 	}
+
 	.price {
 		margin: 0;
 		padding: 0;
 		display: block;
+
 		sup {
 			font-size: 20px;
-			top: -2em; 
+			top: -2em;
 		}
+
 		.number {
 			font-size: 80px;
 		}
 	}
+
 	.excerpt {
 		margin-bottom: 20px;
 		color: darken(#ccc, 10%);
 	}
+
 	.label2 {
 		text-transform: uppercase;
 	}
+
 	.pricing-text {
 		margin-bottom: 0;
-		&, li {
+
+		&,
+		li {
 			padding: 0;
 			margin: 0;
 		}
+
 		li {
 			list-style: none;
 			margin-bottom: 10px;
 			color: darken(#ccc, 10%);
+
 			strong {
 				color: $black;
 			}
@@ -1521,10 +1760,12 @@ textarea.form-control {
 			font-size: 16px;
 			font-weight: 400;
 			padding: 10px 0;
-			> a {
+
+			>a {
 				padding-left: 35px;
 				position: relative;
 				color: $black;
+
 				&:before {
 
 					width: 20px;
@@ -1536,6 +1777,7 @@ textarea.form-control {
 					top: .1em;
 					left: 0;
 				}
+
 				&[aria-expanded="true"] {
 					&:before {
 						font-family: 'icomoon';
@@ -1547,19 +1789,21 @@ textarea.form-control {
 						border: 1px solid $primary;
 					}
 				}
+
 				&[aria-expanded="false"] {
 					&:before {
 						content: "\e313";
-						color: #ccc;	
+						color: #ccc;
 						font-family: 'icomoon';
 						position: absolute;
-				
+
 						transition: .3s all ease;
 					}
 				}
-				
+
 			}
 		}
+
 		.body-text {
 			font-size: 16px;
 			padding: 5px 0;
@@ -1574,41 +1818,53 @@ textarea.form-control {
 		.owl-stage {
 			padding-bottom: 2em;
 		}
+
 		.owl-item {
-			box-shadow: 0 7px 20px -5px rgba(0,0,0,.2);	
+			box-shadow: 0 7px 20px -5px rgba(0, 0, 0, .2);
 		}
+
 		.owl-nav {
 			z-index: 2;
 			position: absolute;
 			width: 100%;
 			bottom: -2px;
-			.owl-prev, .owl-next {
+
+			.owl-prev,
+			.owl-next {
 				opacity: .2;
 				transition: .3s all ease;
+
 				&:hover {
 					opacity: 1;
 				}
+
 				&.disabled {
 					display: none;
 				}
+
 				position: absolute;
+
 				span {
 					font-size: 30px;
 				}
 			}
+
 			.owl-prev {
 				left: 50px;
 
 			}
+
 			.owl-next {
 				right: 50px;
 			}
 		}
+
 		.owl-dots {
 			bottom: -40px;
 			position: absolute;
 			width: 100%;
 			text-align: center;
+
 			.owl-dot {
 				display: inline-block;
 				width: 8px;
@@ -1618,8 +1874,9 @@ textarea.form-control {
 				margin-right: 10px;
 				margin-bottom: 10px;
 				transition: .3s all ease;
+
 				&.active {
-					
+
 					background: $primary;
 				}
 			}
@@ -1629,12 +1886,14 @@ textarea.form-control {
 
 .contact-section {
 	margin-top: -250px;
+
 	.container {
 		z-index: 2;
 		position: relative;
 
-		background: $white!important;
+		background: $white !important;
 		padding: 30px;
+
 		@include media-breakpoint-up(md) {
 			padding: 70px;
 		}
@@ -1646,25 +1905,32 @@ textarea.form-control {
 	width: 100%;
 	text-align: center;
 	display: inline-block;
+
 	li {
 		display: inline-block;
 	}
-	.prev, .next {
+
+	.prev,
+	.next {
 		a {
-			font-size: 20px!important;
-			line-height: 38px!important;
+			font-size: 20px !important;
+			line-height: 38px !important;
 		}
 	}
-	li, .prev, .next {
+
+	li,
+	.prev,
+	.next {
 		a {
 			width: 40px;
 			height: 40px;
 			line-height: 40px;
 			padding: 0;
 			margin: 0;
-			border-radius: 50%!important;
+			border-radius: 50% !important;
 			font-size: 16px;
 		}
+
 		&.active {
 			a {
 				display: block;
@@ -1673,19 +1939,23 @@ textarea.form-control {
 				line-height: 40px;
 				padding: 0;
 				margin: 0;
-				border-radius: 50%!important;
+				border-radius: 50% !important;
 				font-size: 16px;
 				background: $primary;
 				color: $white;
-				&:hover, &:focus {
+
+				&:hover,
+				&:focus {
 					color: $white;
 				}
-			}	
+			}
 		}
 	}
+
 	.prev {
 		float: left;
 	}
+
 	.next {
 		float: right;
 	}
@@ -1698,7 +1968,8 @@ textarea.form-control {
 	font-weight: bold;
 	color: $white;
 	letter-spacing: .1em;
-	> div {
+
+	>div {
 		display: inline-block;
 
 		.seperator {
@@ -1719,7 +1990,8 @@ textarea.form-control {
 		border-radius: 4px;
 		color: $black;
 		border: 1px solid #ccc;
-		font-size :11px;
+		font-size: 11px;
+
 		&:hover {
 			border: 1px solid #000;
 		}
@@ -1733,12 +2005,14 @@ textarea.form-control {
 .comment-list {
 	padding: 0;
 	margin: 0;
+
 	.children {
 		padding: 50px 0 0 40px;
 		margin: 0;
 		float: left;
 		width: 100%;
 	}
+
 	li {
 		padding: 0;
 		margin: 0 0 30px 0;
@@ -1746,26 +2020,32 @@ textarea.form-control {
 		width: 100%;
 		clear: both;
 		list-style: none;
+
 		.vcard {
 			width: 80px;
 			float: left;
+
 			img {
 				width: 50px;
 				border-radius: 50%;
 			}
 		}
+
 		.comment-body {
 			float: right;
 			width: calc(100% - 80px);
+
 			h3 {
 				font-size: 20px;
 			}
+
 			.meta {
 				text-transform: uppercase;
 				font-size: 13px;
 				letter-spacing: .1em;
 				color: #ccc;
 			}
+
 			.reply {
 				padding: 5px 10px;
 				background: lighten($black, 90%);
@@ -1775,6 +2055,7 @@ textarea.form-control {
 				letter-spacing: .1em;
 				font-weight: 400;
 				border-radius: 4px;
+
 				&:hover {
 					color: $white;
 					background: lighten($black, 0%);
@@ -1790,10 +2071,12 @@ textarea.form-control {
 
 	.form-group {
 		position: relative;
+
 		input {
 			padding-right: 50px;
 		}
 	}
+
 	.icon {
 		position: absolute;
 		top: 50%;
@@ -1808,33 +2091,39 @@ textarea.form-control {
 	padding: 25px;
 	font-size: 15px;
 	width: 100%;
-	
+
 	float: left;
-	
+
 	background: $white;
+
 	*:last-child {
 		margin-bottom: 0;
 	}
+
 	h3 {
 		font-size: 18px;
 		margin-bottom: 15px;
 	}
 }
 
-.categories, .sidelink {
+.categories,
+.sidelink {
 	li {
 		position: relative;
 		margin-bottom: 10px;
 		padding-bottom: 10px;
 		border-bottom: 1px dotted gray('300');
 		list-style: none;
+
 		&:last-child {
 			margin-bottom: 0;
 			border-bottom: none;
 			padding-bottom: 0;
 		}
+
 		a {
 			display: block;
+
 			span {
 				position: absolute;
 				right: 0;
@@ -1842,6 +2131,7 @@ textarea.form-control {
 				color: #ccc;
 			}
 		}
+
 		&.active {
 			a {
 				color: $black;
@@ -1861,6 +2151,7 @@ textarea.form-control {
 		position: relative;
 		display: inline-block;
 		font-weight: 300;
+
 		&:after {
 			width: 80px;
 			height: 2px;
@@ -1872,6 +2163,7 @@ textarea.form-control {
 			content: "";
 		}
 	}
+
 	.heading {
 		font-size: 50px;
 		line-height: 1.2;
@@ -1886,20 +2178,23 @@ textarea.form-control {
 	position: relative;
 	background: $white;
 	padding: 30px;
-	box-shadow: 0 10px 30px -10px rgba(0,0,0,.1);
+	box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .1);
+
 	.field-icon-wrap {
 		position: relative;
+
 		.form-control {
-			height: 52px!important;
+			height: 52px !important;
 			position: relative;
 			padding-right: 40px;
-			box-shadow: none!important;
+			box-shadow: none !important;
 			color: lighten($black, 65%);
 		}
+
 		.icon {
 			position: absolute;
 			top: 50%;
-			
+
 			transform: translateY(-50%);
 			right: 15px;
 			z-index: 2;
@@ -1910,6 +2205,7 @@ textarea.form-control {
 			width: 100%;
 		}
 	}
+
 	.btn {
 		height: 52px;
 		color: $white;
@@ -1922,21 +2218,26 @@ textarea.form-control {
 		position: absolute;
 		right: 50px;
 		bottom: 130px;
-		.owl-prev, .owl-next {
+
+		.owl-prev,
+		.owl-next {
 			color: $white;
 			font-size: 20px;
 			opacity: 1;
 			transition: .3s all ease;
+
 			&:hover {
 				opacity: 1;
 			}
 		}
 	}
+
 	.owl-dots {
 		position: absolute;
 		bottom: 100px;
 		// left: 50%;
 		right: 50px;
+
 		// transform: translateX(-50%);
 		.owl-dot {
 			float: left;
@@ -1944,6 +2245,7 @@ textarea.form-control {
 			height: 2px;
 			background: $white;
 			opacity: .3;
+
 			&.active {
 				opacity: 1;
 				background: $white;
@@ -1951,20 +2253,24 @@ textarea.form-control {
 		}
 	}
 }
+
 .block-30 {
 	background-size: cover;
 	background-color: #ccc;
 	padding: 0;
 	position: relative;
+
 	@include media-breakpoint-down(md) {
-		background-position: center center!important;
+		background-position: center center !important;
 	}
+
 	.author {
 		margin-top: 30px;
 		font-family: $font-family-sans-serif;
 		font-size: 16px;
 		display: block;
 	}
+
 	&:before {
 		background: $black;
 		position: absolute;
@@ -1976,15 +2282,19 @@ textarea.form-control {
 		opacity: .4;
 		z-index: 0;
 	}
+
 	&.no-overlay {
 		&:before {
 			display: none;
 		}
 	}
-	&, .row {
+
+	&,
+	.row {
 		min-height: 700px;
 		height: 100vh;
 	}
+
 	.subheading-sm {
 		margin-bottom: 30px;
 		color: $white;
@@ -1994,6 +2304,7 @@ textarea.form-control {
 		position: relative;
 		display: inline-block;
 		font-weight: 300;
+
 		&:after {
 			width: 80px;
 			height: 2px;
@@ -2005,19 +2316,23 @@ textarea.form-control {
 			content: "";
 		}
 	}
+
 	.heading {
 		color: $white;
 		font-size: 40px;
 		line-height: 1.1;
 		margin-bottom: 50px;
 		font-family: $font-family-sans-serif-secondary;
+
 		@include media-breakpoint-up(md) {
-			font-size: 80px;	
+			font-size: 80px;
 		}
+
 		@include media-breakpoint-up(lg) {
-			font-size: 80px;	
+			font-size: 80px;
 		}
 	}
+
 	.btn {
 		background: $white;
 		border-radius: 0;
@@ -2026,46 +2341,59 @@ textarea.form-control {
 		letter-spacing: .2em;
 		text-transform: uppercase;
 		color: darken(#ccc, 20%);
-		box-shadow: 0 20px 40px -15px rgba(0,0,0,.2);
+		box-shadow: 0 20px 40px -15px rgba(0, 0, 0, .2);
+
 		&:hover {
 			border-color: $white;
 			color: $white;
 		}
 	}
+
 	&.block-30-sm {
-		&, .row {
+
+		&,
+		.row {
 			min-height: 700px;
 			height: 70vh;
 		}
+
 		.heading {
 			font-size: 70px;
 			margin-bottom: 20px;
 		}
 	}
+
 	.lead {
 		color: $white;
 	}
 }
+
 .block-23 {
 	ul {
 		@include ul_reset();
+
 		li {
-			&, > a {
+
+			&,
+			>a {
 				display: table;
 				line-height: 1.5;
 				margin-bottom: 15px;
 			}
-			.icon, .text {
+
+			.icon,
+			.text {
 				display: table-cell;
 				vertical-align: top;
 			}
+
 			.icon {
 				width: 40px;
 				font-size: 18px;
 				padding-top: 2px;
 				color: $primary;
 			}
-			
+
 		}
 	}
 }
@@ -2077,9 +2405,11 @@ textarea.form-control {
 	overflow: hidden;
 
 	margin-bottom: 30px;
+
 	img {
 		transition: .3s ease all;
 	}
+
 	&:before {
 		position: absolute;
 		top: 0;
@@ -2093,25 +2423,29 @@ textarea.form-control {
 		content: "";
 		transition: .3s all ease;
 	}
+
 	.icon {
-			position: absolute;
-			z-index: 2;
-			color: $white;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, 100%);
-			opacity: 0;
-			visibility: hidden;
-			transition: .2s all ease;
+		position: absolute;
+		z-index: 2;
+		color: $white;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, 100%);
+		opacity: 0;
+		visibility: hidden;
+		transition: .2s all ease;
 	}
+
 	&:hover {
 		img {
 			transform: scale(1.2);
 		}
+
 		&:before {
 			opacity: .8;
 			visibility: visible;
 		}
+
 		.icon {
 			opacity: 1;
 			visibility: visible;
@@ -2119,23 +2453,26 @@ textarea.form-control {
 		}
 	}
 }
+
 .block-47 {
 	.block-47-image {
 		flex: 0 0 70px;
 		display: block;
+
 		img {
 			border: 5px solid $white;
 			border-radius: 50%;
-			box-shadow: 0 8px 10px -2px rgba(0,0,0,.3);	
+			box-shadow: 0 8px 10px -2px rgba(0, 0, 0, .3);
 		}
 	}
+
 	.block-47-quote {
 		margin-left: 40px;
 		padding: 30px;
 		background: $white;
 		border-radius: 7px;
 		position: relative;
-		box-shadow: 0 2px 30px -2px rgba(0,0,0,.1);
+		box-shadow: 0 2px 30px -2px rgba(0, 0, 0, .1);
 
 		&:before {
 			content: "";
@@ -2154,10 +2491,12 @@ textarea.form-control {
 			color: lighten($black, 40%);
 		}
 	}
+
 	&.block-47-reverse {
 		.block-47-quote {
 			margin-left: auto;
 			margin-right: 40px;
+
 			&:before {
 				left: 100%;
 				border-width: 0 20px 20px 0;
@@ -2171,8 +2510,10 @@ textarea.form-control {
 .block-35 {
 	.nav {
 		margin-bottom: 70px;
+
 		li {
 			width: 33.33333%;
+
 			a {
 				cursor: pointer;
 				padding: 40px;
@@ -2182,9 +2523,11 @@ textarea.form-control {
 				text-transform: uppercase;
 				border-bottom: 2px solid lighten($black, 90%);
 				color: lighten($black, 80%);
+
 				&:hover {
 					color: $black;
 				}
+
 				&.active {
 					color: $primary;
 					border-bottom: 2px solid $primary;
@@ -2193,19 +2536,23 @@ textarea.form-control {
 		}
 	}
 }
+
 .block-33 {
 	background: $white;
 	padding: 20px;
-	box-shadow: 0 10px 20px -10px rgba(0,0,0,.2);
+	box-shadow: 0 10px 20px -10px rgba(0, 0, 0, .2);
+
 	.vcard {
 		.image {
 			flex: 0 0 60px;
 			margin-right: 20px;
+
 			img {
 				max-width: 100%;
 				border-radius: 50%;
 			}
 		}
+
 		.name-text {
 			.heading {
 				line-height: 1.5;
@@ -2214,6 +2561,7 @@ textarea.form-control {
 				font-size: 18px;
 				font-weight: 300;
 			}
+
 			.meta {
 				color: lighten($black, 65%);
 				display: block;
@@ -2221,12 +2569,14 @@ textarea.form-control {
 			}
 		}
 	}
+
 	.text {
 		blockquote {
 			padding: 0;
 			margin-bottom: 0;
-			border: none!important;
+			border: none !important;
 			font-size: 16px;
+
 			p {
 				&:last-child {
 					margin-bottom: 0;
@@ -2235,38 +2585,51 @@ textarea.form-control {
 		}
 	}
 }
-.block-34, .block-3 {
+
+.block-34,
+.block-3 {
 	background: $white;
-	box-shadow: 0 10px 20px -10px rgba(0,0,0,.2);
+	box-shadow: 0 10px 20px -10px rgba(0, 0, 0, .2);
+
 	.image {
 		img {
 			max-width: 100%;
 		}
 	}
+
 	.text {
 		padding: 30px;
+
 		.heading {
 			font-size: 24px;
 			font-weight: 300;
 		}
+
 		.price {
 			font-size: 40px;
-			sup, sub {
+
+			sup,
+			sub {
 				font-size: 16px;
 			}
+
 			sup {
 				top: -1em;
 			}
+
 			sub {
 				bottom: 0em;
 			}
 		}
+
 		.specs {
 			@include ul_reset();
+
 			li {
 				color: lighten($black, 50%);
 				line-height: 1.5;
 				margin-bottom: 10px;
+
 				strong {
 					color: $black;
 				}
@@ -2276,14 +2639,18 @@ textarea.form-control {
 }
 
 .block-3 {
-	.text, .image {
+
+	.text,
+	.image {
 		width: 100%;
 		padding: 10% 7%;
+
 		@include media-breakpoint-up(md) {
 			width: 50%;
-			padding: 10% 7%;	
+			padding: 10% 7%;
 		}
 	}
+
 	.text {
 		.subheading {
 			font-size: 13px;
@@ -2291,20 +2658,24 @@ textarea.form-control {
 			letter-spacing: .1em;
 			color: darken(#E7EFF3, 20%);
 		}
+
 		.heading {
 			font-size: 30px;
 			margin-bottom: 30px;
 		}
+
 		p {
 			&:last-child {
 				margin-bottom: 0;
 			}
 		}
 	}
+
 	.image {
 		background-size: cover;
 		background-position: center center;
 		background-repeat: no-repeat;
+
 		@include media-breakpoint-down(sm) {
 			height: 300px;
 		}
@@ -2316,25 +2687,32 @@ textarea.form-control {
 		.text {
 			padding: 4%;
 		}
+
 		.heading {
 			margin-bottom: 0;
+
 			a {
 				color: $black;
+
 				&:hover {
 					color: $primary;
 				}
 			}
 		}
+
 		.meta {
 			font-size: 16px;
 			color: lighten($black, 60%);
+
 			.sep {
 				display: inline-block;
 				padding-left: 5px;
 				padding-right: 5px;
 			}
+
 			a {
 				color: lighten($black, 60%);
+
 				&:hover {
 					color: lighten($black, 30%);
 				}
@@ -2352,12 +2730,14 @@ textarea.form-control {
 			margin: 0;
 			font-weight: 300;
 		}
+
 		.block-38-subheading {
 			color: lighten($black, 70%);
 			margin: 0 0 20px 0;
 			text-transform: uppercase;
 			font-size: 15px;
 		}
+
 		img {
 			width: 150px;
 			border-radius: 7px;
@@ -2369,38 +2749,42 @@ textarea.form-control {
 
 .img-shadow {
 	border: 5px solid $white;
-	box-shadow: 0 5px 20px -5px rgba(0,0,0,.4);
+	box-shadow: 0 5px 20px -5px rgba(0, 0, 0, .4);
 }
+
 .bcrumbs {
 	color: rgba($white, .4);
+
 	a {
 		color: $white;
 	}
+
 	.sep {
 		color: rgba($white, .5);
 	}
 }
+
 #ftco-loader {
 	position: fixed;
-	width:  96px;
+	width: 96px;
 	height: 96px;
-	left:  50%;
+	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	background-color: rgba(255,255,255,0.9);
-	box-shadow: 0px 24px 64px rgba(0,0,0,0.24);
-	border-radius:16px;
-	opacity: 0; 
+	background-color: rgba(255, 255, 255, 0.9);
+	box-shadow: 0px 24px 64px rgba(0, 0, 0, 0.24);
+	border-radius: 16px;
+	opacity: 0;
 	visibility: hidden;
 	transition: opacity .2s ease-out, visibility 0s linear .2s;
-	z-index:1000;
+	z-index: 1000;
 }
 
 #ftco-loader.fullscreen {
-	padding:  0;
-	left:  0;
-	top:  0;
-	width:  100%;
+	padding: 0;
+	left: 0;
+	top: 0;
+	width: 100%;
 	height: 100%;
 	transform: none;
 	background-color: #fff;
@@ -2415,38 +2799,40 @@ textarea.form-control {
 }
 
 #ftco-loader .circular {
-  animation: loader-rotate 2s linear infinite;
-  position: absolute;
-  left:  calc(50% - 24px);
-  top:  calc(50% - 24px);
-  display: block;
-  transform: rotate(0deg);
+	animation: loader-rotate 2s linear infinite;
+	position: absolute;
+	left: calc(50% - 24px);
+	top: calc(50% - 24px);
+	display: block;
+	transform: rotate(0deg);
 }
 
 #ftco-loader .path {
-  stroke-dasharray: 1, 200;
-  stroke-dashoffset: 0;
-  animation: loader-dash 1.5s ease-in-out infinite;
-  stroke-linecap: round;
+	stroke-dasharray: 1, 200;
+	stroke-dashoffset: 0;
+	animation: loader-dash 1.5s ease-in-out infinite;
+	stroke-linecap: round;
 }
 
 @keyframes loader-rotate {
-  100% {
-    transform: rotate(360deg);
-  }
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 @keyframes loader-dash {
-  0% {
-    stroke-dasharray: 1, 200;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    stroke-dasharray: 89, 200;
-    stroke-dashoffset: -35px;
-  }
-  100% {
-    stroke-dasharray: 89, 200;
-    stroke-dashoffset: -136px;
-  }
+	0% {
+		stroke-dasharray: 1, 200;
+		stroke-dashoffset: 0;
+	}
+
+	50% {
+		stroke-dasharray: 89, 200;
+		stroke-dashoffset: -35px;
+	}
+
+	100% {
+		stroke-dasharray: 89, 200;
+		stroke-dashoffset: -136px;
+	}
 }

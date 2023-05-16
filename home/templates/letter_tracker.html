@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<style>
+
+    .buddy-approval-button-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .buddy-approval-button-group button {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+      max-width: fit-content;
+    }
+    
+    div.buddy-table-wrapper {
+      overflow:hidden;
+      overflow-y: scroll;
+      height: 400px; 
+      color: rgb(248, 249, 249);
+    }
+</style>
+
+<div class="featured-section overlay-color-2" style="background-image: url('{% static 'images/bg_2.jpg' %}');">
+    
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px;">
+        <br><h2 style="text-align:center;">Track Buddy Letter Status</h2><br>
+        <p>Filter by letter received status</p>
+        <select id="filter-dropdown">
+          <option value="all">Show All</option>
+          <option value="Yes">Show Letter Received</option>
+          <option value="No">Show Letter Not Received</option>
+        </select>
+        <br>
+        <br> 
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="buddy-table-wrapper" id="buddy-table-wrapper">
+            <table class="table table-striped table-hover .table-responsive .buddy_table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="select-all-buddies"></th>
+                  <th>Name</th>
+                  <th>Letter Received?</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for buddy in buddies %}
+                <tr>
+                  <td><input type="checkbox" name="chosen-buddies" value="{{ buddy.id }}"></td>
+                  <td>{{ buddy.user.first_name }} {{ buddy.user.last_name }}</td>
+                  {% if buddy.letter_received %}
+                  <td>Yes</td>
+                  {% else %}
+                  <td>No</td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <br />
+          <div class="buddy-approval-button-group">
+            <button class="btn btn-white" type="submit" name="send-email" disabled>Send an email reminder</button>
+            <button class="btn btn-white" type="submit" name="letter-received-true" disabled>Confirm have received letters</button>
+            <button class="btn btn-white" type="submit" name="letter-received-false" disabled>Reset letter received status</button>
+          </div> 
+          <br /> 
+        </form>
+      </div>           
+    </div>
+  </div>
+</div>
+
+<script>
+  var selectAllBuddies = document.getElementById("select-all-buddies");
+  var checkboxes = document.getElementsByName("chosen-buddies");
+  var visibleCheckboxes = checkboxes;
+
+  selectAllBuddies.addEventListener("click", function(){
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (isVisible(checkboxes[i])) {
+        checkboxes[i].checked = this.checked;
+      }
+    }
+    checkIfAnyBoxChecked();
+  });
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener("click", function() {
+      selectAllBuddies.checked = areAllBoxesChecked();
+      checkIfAnyBoxChecked();
+    });
+  }
+
+  function checkIfAnyBoxChecked() {
+    var checkboxes = visibleCheckboxes;
+    var anyChecked = false;
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (isVisible(checkboxes[i]) && checkboxes[i].checked) {
+        anyChecked = true;
+        break;
+      }
+    }
+    var buttons = document.getElementsByName("send-email");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = !anyChecked;
+    }
+    buttons = document.getElementsByName("letter-received-true");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = !anyChecked;
+    }
+    buttons = document.getElementsByName("letter-received-false");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = !anyChecked;
+    }
+  }
+
+  function areAllBoxesChecked() {
+    for (var i = 0; i < visibleCheckboxes.length; i++) {
+      if (isVisible(visibleCheckboxes[i]) && !visibleCheckboxes[i].checked) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function isVisible(element) {
+    return element.offsetParent !== null;
+  }
+
+  var filterDropdown = document.getElementById("filter-dropdown");
+  var tableBody = document.getElementsByTagName("tbody")[0];
+
+  filterDropdown.addEventListener("change", function() {
+    filterRows(filterDropdown.value);
+    selectAllBuddies.checked = false;
+    checkboxes = document.getElementsByName("chosen-buddies");
+    visibleCheckboxes = [];
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (isVisible(checkboxes[i])) {
+        visibleCheckboxes.push(checkboxes[i]);
+      } else {
+        checkboxes[i].checked = false;
+      }
+    }
+    checkIfAnyBoxChecked();
+  });
+
+  function filterRows(value) {
+    for (var i = 0; i < tableBody.rows.length; i++) {
+      var letterReceivedCell = tableBody.rows[i].cells[2];
+      if (value == "all" || letterReceivedCell.innerText.trim() == value) {
+        tableBody.rows[i].style.display = "";
+      } else {
+        tableBody.rows[i].style.display = "none";
+      }
+    }
+  }
+</script>
+
+{% endblock %}

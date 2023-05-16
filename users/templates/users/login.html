@@ -36,29 +36,33 @@
 
     <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
         <div class="wrapper wrapper--w960">
-                {% if messages %}
+            {% if messages %}
                 {% for message in messages %}
                 {% if message.tags == "error" %}
                 <div class="alert alert-danger">
-                    {{ message }}
+                    {{ message }} 
                 </div>
                 {% else %}
                 <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
+                    {{ message }} 
                 </div>
                 {%  endif %}
                 {% endfor %}
             {% endif %}
             <div class="card card-2">
-                <div class="card-heading"></div>
                 <div class="card-body">
                     
-                    <h2 class="title">Start Young UK : Login Page</h2>
+                    <h2 class="title">Start Young UK : Login </h2>
                     {% load crispy_forms_tags %}
                     <form method="POST" class="post-form">
                         {% csrf_token %}
                         <fieldset class="form-group">
-                            {{ form|crispy }}
+                            {{ form.username|as_crispy_field }}
+                            {{ form.password|as_crispy_field }}                       
+                            <div class="form-group">
+                                <class="text-muted"><b><a class="ml-2" href="{% url 'password_reset' %}">Forgot Password?</a></b></class>
+                            </div>
+                            {{ form.captcha }}
                         </fieldset>
                         <div class="form-group">
                             <button class="login-btn btn btn-primary" type="submit">Login</button>
@@ -66,7 +70,9 @@
                             
                     </form>
                     <div class="border-top pt-3">
-                        <small class="text-muted">Don't have an account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a></small>
+                        <class="text-muted"><b>Don't have an account? <a class="ml-2" href="{% url 'register' %}">Sign Up</a></b></class>
+                        <br>
+                        <class="text-muted"><b>Lost Verification Email? <a class="ml-2" href="{% url 'request-new-link-from-email' %}">Request New Verification Email</a></b></class>
                     </div>
                 </div>
             </div>

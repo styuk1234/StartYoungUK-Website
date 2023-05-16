@@ -9,7 +9,7 @@
 <div class="block-31" style="position: relative;">
     <div class="owl-carousel loop-block-31 homepage-nav">
 
-        <div class="block-30 block-30-sm item" style="background-image: url('/static/images/homepage.jpg');" data-stellar-background-ratio="0.5">
+        <div class="block-30 block-30-sm item" style="background-image: url('{% static 'images/homepage.jpg' %}')" data-stellar-background-ratio="0.5">
             <div class="container">
                 <div class="row align-items-center justify-content-center text-center">
                     <div class="col-md-7">
@@ -25,7 +25,7 @@
 
 <div class="site-section section-counter">
     <div class="container">
-        <div class="row">
+        <div class="row text-justify">
             <div class="col-md-6 pr-5">
                 <div class="block-48">
                     <span class="block-48-text-1">Helped Over</span>
@@ -50,10 +50,10 @@
 
             <div class="col-md-4">
                 <div class="media block-6">
-                    <div class="icon"><span class="ion-ios-contacts"></span></div>
+                    <div class="icon"><span class="ion-ios-calendar"></span></div>
                     <div class="media-body">
-                        <h3 class="heading">Children Onboarded</h3>
-                        <p>{{cnt_child}}</p>
+                        <h3 class="heading">Campaigns so far</h3>
+                        <p>{{cnt_campaigns}}</p>
                         <!-- <p><a href="#" class="link-underline">Learn More</a></p> -->
                     </div>
                 </div>
@@ -61,7 +61,7 @@
 
             <div class="col-md-4">
                 <div class="media block-6">
-                    <div class="icon"><span class="ion-ios-contacts"></span></div>
+                    <div class="icon"><span class="ion-ios-card"></span></div>
                     <div class="media-body">
                         <h3 class="heading">Number of Sponsors</h3>
                         <p>{{cnt_usr}}</p>
@@ -72,7 +72,7 @@
 
             <div class="col-md-4">
                 <div class="media block-6">
-                    <div class="icon"><span class="ion-ios-contacts"></span></div>
+                    <div class="icon"><span class="ion-ios-heart"></span></div>
                     <div class="media-body">
                         <h3 class="heading">Buddies onboarded</h3>
                         <p>{{cnt_buddy}}</p>
@@ -83,7 +83,7 @@
 
         </div>
     </div>
-</div> <!-- .site-section -->
+</div>
 
 
 
@@ -93,7 +93,7 @@
     <div class="container">
         <div class="row mb-3 justify-content-center">
             <div class="col-md-8 text-center">
-                <h2>Latest Campaigns</h2>
+                <h2>Ongoing Campaigns</h2>
                 <!-- <p class="lead">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                 <!--<p><a href="#" class="link-underline">View All Campaigns</a></p>-->
             </div>
@@ -101,14 +101,12 @@
     </div>
 
     <div class="container-fluid">
-
-        <!-- <div class="row"> -->
-
         <div class="col-md-12 block-11">
             <div class="nonloop-block-11 owl-carousel">
             {% for campaign, collected_so_far, percent_raised in campaigns_zip %}
+                {% if campaign.is_active %}
                 <div class="card fundraise-item">
-                    <a href="#"><img class="card-img-top" src="{{ campaign.campaign_image.url  }}" alt="Image placeholder" height=250 ></a>
+                    <img class="card-img-top" src="{{ campaign.campaign_image.url  }}" alt="Image placeholder" height=250 >
                     <div class="card-body campaign-card">
                         <div>
                             <h3 class="card-title"><a href="#">{{ campaign.campaign_title }}</a></h3>
@@ -117,7 +115,9 @@
                         <div>
                             <span class="donation-time mb-3 d-block">Campaign Deadline: {{ campaign.campaign_deadline }}</span>
                             <div class="form-group">
-                                <button class="donate-btn login-btn btn btn-primary" type="submit">Donate</button>
+                                <a href="{{campaign.get_absolute_url}}">
+                                    <button class="donate-btn login-btn btn btn-primary" type="button">Donate</button>
+                                </a>
                             </div>
                             <div class="progress custom-progress-success">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: {{ percent_raised }}%" aria-valuenow="{{ percent_raised }}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -126,11 +126,10 @@
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-
+                {% endif %}
+            {% endfor %}
             </div>
         </div>
-        <!-- </div> -->
     </div>
 </div>
 </section>
@@ -141,10 +140,10 @@
 
             <div class="col-md-4">
                 <div class="media block-6">
-                    <div class="icon"><span class="ion-ios-bulb"></span></div>
+                    <div class="icon"><span class="ion-ios-gift"></span></div>
                     <div class="media-body">
                         <a href="#" class="heading campaign-banner-link">Christmas Gifting</a>
-                        <p>Be a real santa by gifting the children.</p>
+                        <p>Be a real Santa this Christmas by gifting the children.</p>
                     </div>
                 </div>
             </div>
@@ -171,7 +170,7 @@
 
         </div>
     </div>
-</div> <!-- .site-section -->
+</div>
 
 <div class="site-section fund-raisers">
     <div class="container">
@@ -184,16 +183,20 @@
         </div>
 
         <div class="row">
-            {% for entry in top_donations %}
-            {% if not entry.fields.is_anonymous %}
+            {% for donation, donorimage in top_donations %}
+            {% if donation.fields.is_successful %}
             <div class="col-md-6 col-lg-3 mb-5">
                 <div class="person-donate text-center">
-                    <img src="{% static 'images/person_3.jpg' %}" alt="Image placeholder" class="img-fluid">
+                    {% if donation.fields.user_id != 0 %}
+                    <img src="{{ donorimage }}" alt="Image placeholder" class="img-fluid">
+                    {% else %}
+                    <img src="{% static "images/person_3.jpg" %}" alt="Image placeholder" class="img-fluid">
+                    {% endif %}
                     <div class="donate-info">
-                        <h2>{{entry.fields.name}}</h2>
+                        <h2>{{donation.fields.name}}</h2>
                         <!-- <span class="time d-block mb-3">Donated Just now</span> -->
                         <p>
-                            Donated <span class="text-success">${{entry.fields.amount}}</span>
+                            Donated <span class="text-success">${{donation.fields.amount}}</span>
                             <!-- <br>  -->
                             <!-- <em>for</em> <a href="#" class="link-underline fundraise-item">Water Is Life. Clean Water In Urban Area</a> -->
                         </p>
@@ -242,9 +245,5 @@
     
 </div>
 </section>
-
-<script>
-    document.getElementByClass("owl-stage")
-</script>
 
 {% endblock %}

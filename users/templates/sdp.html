@@ -1,30 +1,116 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+    #paypal-container {
+        position: relative;
+        left: -25%;
+        margin: 5% 0;
+    }
 
-<div style="padding:140px; background-image: url('/static/images/bg_1.jpg');">
-    <h1>Systematic Donation Plan (SDP)</h1>
-    <h2>Return on investment would be continued returns in the form of smile on child's face.</h2>
+    p {
+        color: #060606
+    }
+</style>
 
-{% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
+<div style="padding:140px; background-image: url('{% static 'images/bg_1.jpg' %}');">
+
+    {% if sdp_frequency == 'N' %}
+    <!-- if user has no SDP setup -->
+
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == "error" %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% else %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+        <div class="wrapper wrapper--w960">
+            <div class="card card-2">
+                <div class="card-body">
+
+                    <h2>Systematic Donation Plan (SDP)</h2>
+                    <h3>Return on investment would be continued returns in the form of smile on a child's
+                        face!</h3>
+                    {% if button_enable %}
+                    <class="text-muted"><b>Please fill out the form below to select the frequency and amount of your
+                            payments.</b>
+                        </class>
+                        <class="text-muted"><b>By clicking on "Start SDP", you are agreeing to our Terms &
+                                Conditions.</b></class>
+                            <div id="paypal-container" class="row justify-content-center">
+                                <div class="col-md-6">{{ paypal_btn.render }}</div>
+                            </div>
+                            {% else %}
+                            {% load crispy_forms_tags %}
+                            <form method="POST" class="post-form" id="sdp-form">
+                                {% csrf_token %}
+                                <fieldset class="form-group">
+                                    {{ form|crispy }}
+                                </fieldset>
+                                {% if button_enable %}
+                                <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal"
+                                    data-target='#paypal-container' hidden>Start SDP</button>
+                                {% else %}
+                                <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal"
+                                    data-target='#paypal-container'>Start SDP</button>
+                                {% endif %}
+                            </form>
+                            {% endif %}
+                            <br>
+                            <p>If you do not wish to use PayPal, you can set up a standing order from your bank
+                                account for the amount of £5 per week (minimum)
+                                to support your child sponsor.</p>
+                            <p>Once set up please email <a
+                                    href="mailto:startyoung21@gmail.com">startyoung21@gmail.com</a> to
+                                confirm which
+                                month your
+                                direct debit will begin.</p>
+                            <p>Sort code: 60-03-19 <br> Account number: 79913334 <br> NatWest Bank</p>
                 </div>
-                {% endfor %}
-            {% endif %}
+            </div>
+        </div>
+    </div>
 
-{% load crispy_forms_tags %}
-<form method="POST" class="post-form">
-    {% csrf_token %}
-    <fieldset class="form-group">
-        {{ form|crispy }}
-    </fieldset>
-    <div class="form-group">
-        <p style="text-align:center;"><button style="width:300px;" class="signup-btn btn btn-primary" type="submit">Start SDP</button></p>
-    </div>                           
-</form>
 </div>
-        
+{% else %}
+
+<div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+    <div class="wrapper wrapper--w960">
+        <div class="card card-2">
+            <div class="card-body">
+                <h2>Systematic Donation Plan (SDP)</h2>
+                <h3>You have an active donation plan:</h3>
+                <class="text-muted"><b>Frequency: {{ sdp_frequency }}</b></class><br>
+                    <class="text-muted"><b>Amount: £{{ sdp_amount }}</b></class><br>
+                        <p style="margin:50px 0 0 0;">In order to cancel your SDP, please use the link below to cancel
+                            your subscription from PayPal's side:</p>
+                        <br>
+                        <p class="mb-0" style="text-align: center;"><a href="https://www.paypal.com/myaccount/autopay/"
+                                class="donate-btn login-btn btn btn-primary" rel="noopener noreferrer"
+                                target="_blank">Stop my SDP</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+<!-- if user has an active SDP -->
+
+{% endif %}
 
 {% endblock %}

@@ -25,31 +25,39 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'home.apps.HomeConfig',
-    'contact.apps.ContactConfig',
-    'about.apps.AboutConfig',
-    'sponsor.apps.SponsorConfig',
-    'users.apps.UsersConfig',
-    'crispy_forms',
-    'crispy_bootstrap5',
-    #'bootstrap_modal_forms',
-    'phonenumber_field',
-    'verify_email.apps.VerifyEmailConfig',
-    'captcha',
+    "whitenoise.runserver_nostatic",
+    "django.contrib.contenttypes",
+    "django_admin_env_notice",
+    "admin_tools_stats",
+    "django_nvd3",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "home.apps.HomeConfig",
+    "contact.apps.ContactConfig",
+    "about.apps.AboutConfig",
+    "sponsor.apps.SponsorConfig",
+    "users.apps.UsersConfig",
+    "crispy_forms",
+    "crispy_bootstrap5",
+    # "bootstrap_modal_forms",
+    "phonenumber_field",
+    "verify_email.apps.VerifyEmailConfig",
+    "captcha",
+    "paypal.standard",
+    "paypal.standard.ipn",
+    "django_otp",
+    "django_otp.plugins.otp_totp",
     # 'corsheaders',
     # 'rest_framework',
 ]
@@ -57,60 +65,60 @@ INSTALLED_APPS = [
 # CORS_ORIGIN_ALLOW_ALL=True
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_otp.middleware.OTPMiddleware",
     # 'corsheader.middleware.CorsMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-ROOT_URLCONF = 'StartYoungUK.urls'
+ROOT_URLCONF = "StartYoungUK.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": ["templates", os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django_admin_env_notice.context_processors.from_settings",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
-WSGI_APPLICATION = 'StartYoungUK.wsgi.application'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+WSGI_APPLICATION = "StartYoungUK.wsgi.application"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = config("EMAIL_HOST")
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
+EMAIL_PORT = config("EMAIL_PORT", cast=int)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 
-DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
-EXPIRE_AFTER = "1h" # Verification Link will expire after one hour from link generation
-
-RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+RECAPTCHA_PUBLIC_KEY = config("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = config("RECAPTCHA_PRIVATE_KEY")
+SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME' : BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
         #'ENGINE': 'sql_server.pyodbc',
         # 'ENGINE' : 'mssql',
         # 'NAME' : config('DB_NAME'),
@@ -119,7 +127,7 @@ DATABASES = {
         # 'HOST': config('DB_HOST'),
         # 'OPTIONS': {
         #     'driver': 'ODBC Driver 18 for SQL Server',
-            # 'isolation_level': 'READ_UNCOMMITTED',
+        # 'isolation_level': 'READ_UNCOMMITTED',
         # }
     }
 }
@@ -130,16 +138,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -147,9 +155,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'Asia/Kolkata'
+TIME_ZONE = "Europe/London"
 
 USE_I18N = True
 
@@ -159,23 +167,68 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = "/static/"
+STATIC_FILES_DIR = (BASE_DIR / "static",)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-STATIC_FILES_DIR = (
-    os.path.join(BASE_DIR, 'static'),    
-)
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# LOGIN_REDIRECT_URL = 'user-home' #Temporary redirect to homepage after login
 
-LOGIN_REDIRECT_URL = 'user-home' #Temporary redirect to homepage after login
+# 2 step mail verification settings
 LOGIN_URL = "login"
-SUBJECT = "Verify your email to access your StartYoungUK Dashboard"
+SUBJECT = "Verify your email to access your StartYoungUK Profile"
+DEFAULT_FROM_EMAIL = "noreply<no_reply@domain.com>"
+EXPIRE_AFTER = "1h"  # Verification Link will expire after one hour from link generation
+HTML_MESSAGE_TEMPLATE = (
+    BASE_DIR / "templates/email_templates/email_verification.html"
+)  # HTML Template for verification email
+VERIFICATION_FAILED_TEMPLATE = (
+    BASE_DIR / "templates/verification_failure.html"
+)  # Path to HTML for failed email verification
+REQUEST_NEW_EMAIL_TEMPLATE = (
+    BASE_DIR / "templates/resend_verification_email.html"
+)  # Path to HTML to render for request new email with link
+NEW_EMAIL_SENT_TEMPLATE = (
+    BASE_DIR / "templates/new_email_sent.html"
+)  # Path to HTML for new email sent
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-CSRF_TRUSTED_ORIGINS = [config('HOSTING_URL')]
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/media/"
+CSRF_TRUSTED_ORIGINS = [
+    config("HOSTING_URL"),
+    "https://*.ngrok.io",
+    "https://*.ngrok-free.app",
+]
+
+PAYPAL_TEST = config("PAYPAL_TEST", default=False, cast=bool)
+PAYPAL_BUY_BUTTON_IMAGE = Path(STATIC_URL, "images", "paypal.png")
+PAYPAL_SUBSCRIPTION_BUTTON_IMAGE = Path(STATIC_URL, "images", "paypal.png")
+
+ENVIRONMENT_NAME = "Production Server" if not DEBUG else "Development Server"
+ENVIRONMENT_COLOR = "#FF2222" if not DEBUG else "#006400"
+ENVIRONMENT_FLOAT = True
+
+# 2FA Name to display on Authenticator App
+OTP_TOTP_ISSUER = "StartYoung UK Admin"
+
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_HSTS_SECONDS = 31536000
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# CSRF_COOKIE_SECURE = True
+
+# Cache settings for dashboard
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+        "LOCATION": "127.0.0.1:11211",
+    }
+}

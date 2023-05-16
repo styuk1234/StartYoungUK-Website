@@ -32,7 +32,7 @@
   document.getElementById("nav-register").classList.add("active");
 </script>
 
-<div class="block-31" style="position: relative;">
+<!-- <div class="block-31" style="position: relative;">
     <div class="owl-carousel loop-block-31 ">
       <div class="block-30 block-30-sm item" style="background-image: url('/static/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
@@ -45,23 +45,35 @@
       </div>
       
     </div>
-  </div>
+  </div> -->
 
 
     <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
-        <div class="wrapper wrapper">
+        <div class="wrapper wrapper--w960">
+          {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == "error" %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+            {% else %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {%  endif %}
+            {% endfor %}
+          {% endif %}
             <div class="card card-2">
-                <div class="card-heading"></div>
                 <div class="card-body">
                     
-                    <h2 class="title">Start Young UK : Registration Page</h2>
+                    <h2 class="title">Start Young UK : Registration</h2>
                     {% load crispy_forms_tags %}
                     <form method="POST" class="post-form">
                         {% csrf_token %}
                         <fieldset class="form-group">
                             {{ form|crispy }}
                             <div class="border-top pt-3">
-                              <small class="text-muted">By signing up, you're agreeing to our<a class="ml-2" href="https://startyounguk.com/tou">Terms of Use and Privacy.</a></small>
+                              <small class="text-muted"><b>Know more about why we are collecting your data and how we are using it by going through our<a class="ml-2" href="https://startyounguk.com/tou">Terms of Use and Privacy</a>.</b></small>
                           </div>
                         </fieldset>
                         <div class="form-group">
@@ -69,11 +81,43 @@
                         </div>                           
                     </form>
                     <div class="border-top pt-3">
-                        <small class="text-muted">Already have an account? <a class="ml-2" href="{% url 'login' %}">Sign In</a></small>
+                        <class="text-muted"><b>Already have an account?<a class="ml-2" href="{% url 'login' %}">Sign In</a></b></class>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Hide all fields and labels initially
+    $('.first_name').show();
+    $('.last_name').show();
+    $('.crn_no').hide();
+    $('label[for="id_first_name"]').show();
+    $('label[for="id_last_name"]').show();
+    $('label[for="id_crn_no"]').hide();
+
+    // Show fields and labels based on user type selection
+    $('#user_type').change(function() {
+        var selectedOption = $(this).children("option:selected").val();
+        if (selectedOption == 'I') {
+            $('.first_name').show();
+            $('label[for="id_first_name"]').show();
+            $('.last_name').show();
+            $('label[for="id_last_name"]').show();
+            $('.crn_no').hide();
+            $('label[for="id_crn_no"]').hide();
+        } else if (selectedOption == 'C') {
+            $('.first_name').hide();
+            $('label[for="id_first_name"]').hide();
+            $('.last_name').hide();
+            $('label[for="id_last_name"]').hide();
+            $('.crn_no').show();
+            $('label[for="id_crn_no"]').show();
+        }
+    });
+});
+</script>
 {% endblock content %}
