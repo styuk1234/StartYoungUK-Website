@@ -370,26 +370,23 @@ def buddy(request):
         if form.is_valid():
             print(form.cleaned_data)
             selected_hobbies = ""
-            hobbies=['painting','football','reading','dancing','singing','cooking','cricket','arts_and_crafts','adventure','writing']
+            hobbies = ['painting', 'football', 'reading', 'dancing', 'singing', 'cooking', 'cricket', 'arts_and_crafts', 'adventure', 'writing']
             form_data = form.cleaned_data
-            for i in range(10):
-                if(form_data.get(hobbies[i])==True):
-                    selected_hobbies += hobbies[i] + ", "
-                # else:
-                #     bitmap+="0"
+            for hobby in form_data['hobbies']:
+                selected_hobbies += dict(form.fields['hobbies'].choices)[hobby] + ", "
 
             try:
                 buddy = Buddy.objects.get(user=request.user)
             except Buddy.DoesNotExist:
                 buddy = Buddy()
-            # buddy.hobbies=selected_hobbies[:-1]
-            # buddy.occupation=form_data.get('occupation')
-            occupation='Occupation: ' + form_data.get('occupation') +'\n'
-            selected_hobbies = 'Hobbies: ' + selected_hobbies[:-1] + '\n'
-            buddy.description = occupation + selected_hobbies + 'Motivation: '+ form_data.get("description")
+
+            occupation = 'Occupation: ' + form_data.get('occupation') + '\n'
+            selected_hobbies = 'Hobbies: ' + selected_hobbies[:-2] + '\n'  # Remove the trailing comma and space
+            buddy.description = occupation + selected_hobbies + 'Motivation: ' + form_data.get("description")
             buddy.user = User.objects.get(username=request.user.username)
             buddy.status = "pending"
             buddy.save()
+
             # TODO: this message is hard notice. instead, if they are approved, or pending they should be taken to a different page to show their current status
             # messages.success(request,f'Buddy request has been sent and is pending approval. You will receive an email once your application is approved')
 

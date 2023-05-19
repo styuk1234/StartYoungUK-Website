@@ -169,16 +169,18 @@ class UserUpadatePassword(AuthenticationForm):
 
 
 class BuddyRegistrationForm(forms.Form):
-    painting=forms.BooleanField(required=False)
-    football=forms.BooleanField(required=False)
-    reading=forms.BooleanField(required=False)
-    dancing=forms.BooleanField(required=False)
-    singing=forms.BooleanField(required=False)
-    cooking=forms.BooleanField(required=False)
-    cricket=forms.BooleanField(required=False)
-    arts_and_crafts=forms.BooleanField(required=False)
-    adventure=forms.BooleanField(required=False)
-    writing=forms.BooleanField(required=False)
+    # painting=forms.BooleanField(required=False)
+    # football=forms.BooleanField(required=False)
+    # reading=forms.BooleanField(required=False)
+    # dancing=forms.BooleanField(required=False)
+    # singing=forms.BooleanField(required=False)
+    # cooking=forms.BooleanField(required=False)
+    # cricket=forms.BooleanField(required=False)
+    # arts_and_crafts=forms.BooleanField(required=False)
+    # adventure=forms.BooleanField(required=False)
+    # writing=forms.BooleanField(required=False)
+    HOBBIES_LIST = [('painting', 'Painting'), ('football', 'Football'),('reading', 'Reading'),('dancing', 'Dancing'),('singing', 'Singing'),('cooking', 'Cooking'),('cricket', 'Cricket'),('arts_and_crafts', 'Arts and crafts'),('adventure', 'Adventure'),('writing', 'Writing'),]
+    hobbies = forms.MultipleChoiceField( required=True, widget=forms.CheckboxSelectMultiple, choices=HOBBIES_LIST, )
     occupation=forms.CharField(max_length=255)
     description = forms.CharField(
         label="Why do you want to become an SYB? (3000 characters limit)",
