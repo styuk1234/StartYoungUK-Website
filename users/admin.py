@@ -1,9 +1,20 @@
 from django.contrib import admin
 from .models import StartYoungUKUser, Buddy
+from verify_email.models import LinkCounter
+import verify_email.admin
 
 
 # Register your models here.
 
+admin.site.unregister(LinkCounter)
+
+@admin.register(LinkCounter)
+class LinkCounterAdmin(admin.ModelAdmin):
+    def has_delete_permission(self, request, obj=None) -> bool:
+        return False
+
+    def has_add_permission(self, request, obj=None) -> bool:
+        return False
 
 @admin.register(StartYoungUKUser)
 class StartYoungUKUserAdmin(admin.ModelAdmin):
