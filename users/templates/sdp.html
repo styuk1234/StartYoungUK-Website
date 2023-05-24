@@ -38,14 +38,14 @@
             <div class="card card-2">
                 <div class="card-body">
 
-                    <h2>Recurring Donation Plan (SDP)</h2>
+                    <h2>Recurring Donation Plan</h2>
                     <h3>Return on investment would be continued returns in the form of smile on a child's
                         face!</h3>
                     {% if button_enable %}
                     <class="text-muted"><b>Please fill out the form below to select the frequency and amount of your
                             payments.</b>
                         </class>
-                        <class="text-muted"><b>By clicking on "Start SDP", you are agreeing to our Terms &
+                        <class="text-muted"><b>By clicking on "Start plan", you are agreeing to our Terms &
                                 Conditions.</b></class>
                             <div id="paypal-container" class="row justify-content-center">
                                 <div class="col-md-6">{{ paypal_btn.render }}</div>
@@ -59,10 +59,10 @@
                                 </fieldset>
                                 {% if button_enable %}
                                 <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal"
-                                    data-target='#paypal-container' hidden>Start SDP</button>
+                                    data-target='#paypal-container' hidden>Start plan</button>
                                 {% else %}
                                 <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal"
-                                    data-target='#paypal-container'>Start SDP</button>
+                                    data-target='#paypal-container'>Start plan</button>
                                 {% endif %}
                             </form>
                             {% endif %}
@@ -88,16 +88,16 @@
     <div class="wrapper wrapper--w960">
         <div class="card card-2">
             <div class="card-body">
-                <h2>Recurring Donation Plan (SDP)</h2>
+                <h2>Recurring Donation Plan</h2>
                 <h3>You have an active donation plan:</h3>
                 <class="text-muted"><b>Frequency: {{ sdp_frequency }}</b></class><br>
                     <class="text-muted"><b>Amount: £{{ sdp_amount }}</b></class><br>
-                        <p style="margin:50px 0 0 0;">In order to cancel your SDP, please use the link below to cancel
+                        <p style="margin:50px 0 0 0;">In order to cancel your plan, please use the link below to cancel
                             your subscription from PayPal's side:</p>
                         <br>
                         <p class="mb-0" style="text-align: center;"><a href="https://www.paypal.com/myaccount/autopay/"
                                 class="donate-btn login-btn btn btn-primary" rel="noopener noreferrer"
-                                target="_blank">Stop my SDP</a></p>
+                                target="_blank">Stop my plan</a></p>
             </div>
         </div>
     </div>
