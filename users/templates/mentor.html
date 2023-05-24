@@ -43,9 +43,34 @@
                 {% load crispy_forms_tags %}
                 <form method="POST" class="post-form">
                     {% csrf_token %}
-                    <fieldset class="form-group">
-                        {{ form|crispy }}
-                    </fieldset>
+                    <!-- Custom layout for the checkbox field -->
+                    <div class="form-group">
+                        <label for="{{ form.hobbies.id_for_label }}">Please select your hobbies:</label>
+                        <div class="row">
+                            {% for choice in form.hobbies %}
+                                <div class="col-md-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            {{ form.checkbox_field.label_tag }}
+                                            {{ choice }}
+                                        </label>
+                                    </div>
+                                </div>
+                                {% if forloop.counter|divisibleby:4 %}
+                                    </div><div class="row">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Other form fields -->
+                    <div class="form-group">
+                        <label for="{{ form.occupation.id_for_label }}">Occupation:</label>
+                        {{form.occupation}}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.description.id_for_label }}">Why do you want to become an SYB? (3000 characters limit):</label>
+                        {{form.description}}
+                    </div>
                     <br>
                     <div class="form-group">
                         <button class="signup-btn btn btn-primary" type="submit">Save</button>
