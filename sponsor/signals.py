@@ -46,7 +46,7 @@ def paypal_payment_received(sender, **kwargs):
             elif not user.is_buddy and user.sdp_frequency != "N":
                 sendEmailFixedContent(
                     user.email,
-                    "Your systematic donation plan has been set up",
+                    "Your recurring donation plan has been set up",
                     "email_templates/sdp_success.html",
                 )
 
@@ -139,7 +139,7 @@ def paypal_payment_received(sender, **kwargs):
             else:
                 sendEmailFixedContent(
                     user.email,
-                    "Your systematic donation plan has been cancelled",
+                    "Your recurring donation plan has been cancelled",
                     "email_templates/sdp_cancel.html",
                 )
 

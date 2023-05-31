@@ -208,7 +208,7 @@ def sdp(request):
         "src": "1",  # make payments recur
         "sra": "1",  # reattempt payment on payment error
         "no_note": "1",  # remove extra notes
-        "item_name": "SYUK systematic donation",
+        "item_name": "SYUK recurring donation",
         "business": config("PAYPAL_BUSINESS_ACCOUNT"),
         "currency_code": "GBP",
         "notify_url": request.build_absolute_uri(reverse("paypal-ipn")),
