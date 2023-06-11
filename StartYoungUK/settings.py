@@ -117,18 +117,12 @@ SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        #'ENGINE': 'sql_server.pyodbc',
-        # 'ENGINE' : 'mssql',
-        # 'NAME' : config('DB_NAME'),
-        # 'USER': config('DB_USER'),
-        # 'PASSWORD' : config('DB_PASSWORD'),
-        # 'HOST': config('DB_HOST'),
-        # 'OPTIONS': {
-        #     'driver': 'ODBC Driver 18 for SQL Server',
-        # 'isolation_level': 'READ_UNCOMMITTED',
-        # }
+        "ENGINE": "django.db.backends.postgresql",
+        'NAME' : config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD' : config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        }
     }
 }
 
