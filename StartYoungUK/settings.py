@@ -22,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ("DEBUG", default=False, cast=bool)
+DEBUG = os.getenv("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -102,14 +102,14 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 WSGI_APPLICATION = "StartYoungUK.wsgi.application"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.environ("EMAIL_HOST")
-EMAIL_USE_TLS = os.environ("EMAIL_USE_TLS", default=True, cast=bool)
-EMAIL_PORT = os.environ("EMAIL_PORT", cast=int)
-EMAIL_HOST_USER = os.environ("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ("EMAIL_HOST_PASSWORD")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", default=True, cast=bool)
+EMAIL_PORT = os.getenv("EMAIL_PORT", cast=int)
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
-RECAPTCHA_PUBLIC_KEY = os.environ("RECAPTCHA_PUBLIC_KEY")
-RECAPTCHA_PRIVATE_KEY = os.environ("RECAPTCHA_PRIVATE_KEY")
+RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY")
 SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 
 # Database
@@ -118,10 +118,10 @@ SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ("DB_NAME"),
-        "USER": os.environ("DB_USER"),
-        "PASSWORD": os.environ("DB_PASSWORD"),
-        "HOST": os.environ("DB_HOST"),
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
     }
 }
 
@@ -193,12 +193,12 @@ NEW_EMAIL_SENT_TEMPLATE = (
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 CSRF_TRUSTED_ORIGINS = [
-    os.environ("HOSTING_URL"),
+    os.getenv("HOSTING_URL"),
     "https://*.ngrok.io",
     "https://*.ngrok-free.app",
 ]
 
-PAYPAL_TEST = os.environ("PAYPAL_TEST", default=False, cast=bool)
+PAYPAL_TEST = os.getenv("PAYPAL_TEST", default=False, cast=bool)
 PAYPAL_BUY_BUTTON_IMAGE = Path(STATIC_URL, "images", "paypal.png")
 PAYPAL_SUBSCRIPTION_BUTTON_IMAGE = Path(STATIC_URL, "images", "paypal.png")
 
