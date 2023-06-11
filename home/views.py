@@ -3,7 +3,7 @@ import StartYoungUK
 from sponsor.models import Donation
 from sponsor.forms import DonationForm
 from django.urls import reverse
-from decouple import config
+from dotenv import load_dotenv
 from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .signals import sendEmail
 import os
 
-
+load_dotenv()
 # from django.views.generic import ListView
 # from django.forms.widgets import CheckboxSelectMultiple
 # from django.http import QueryDict

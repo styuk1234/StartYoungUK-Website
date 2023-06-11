@@ -1,3 +1,4 @@
+from json import load
 from django.shortcuts import render, redirect
 from .forms import (
     SDPForm,
@@ -23,7 +24,7 @@ from verify_email.confirm import verify_user
 from django.core.signing import SignatureExpired, BadSignature
 from base64 import urlsafe_b64decode
 import os
-from decouple import config
+from dotenv import load_dotenv
 from paypal.standard.forms import PayPalPaymentsForm
 from django.urls import reverse
 from django.views.generic import TemplateView
@@ -45,6 +46,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 import os
 
+load_dotenv()
 
 # Create your views here.
 @user_not_authenticated

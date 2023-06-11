@@ -22,9 +22,10 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from django_otp.admin import OTPAdminSite
-from decouple import config
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
 
 urlpatterns = [
     path("", include("home.urls")),
@@ -96,5 +97,5 @@ handler500 = "StartYoungUK.views.error_500"
 # handler400 = 'StartYoungUK.views.error_400'
 
 # Enable OTP on login
-if eval(os.getenv("ENABLE_AUTHENTICATOR")):
+if os.getenv("ENABLE_AUTHENTICATOR") == "True":
     admin.site.__class__ = OTPAdminSite

@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-from decouple import config
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = eval(os.getenv("DEBUG"))
+DEBUG = True if os.getenv("DEBUG") == "True" else False
 
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']
                  ] if 'WEBSITE_HOSTNAME' in os.environ else []
@@ -106,7 +108,7 @@ WSGI_APPLICATION = "StartYoungUK.wsgi.application"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_USE_TLS = eval(os.getenv("EMAIL_USE_TLS"))
+EMAIL_USE_TLS = True if os.getenv("EMAIL_USE_TLS") else False
 EMAIL_PORT = int(os.getenv("EMAIL_PORT"))
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
@@ -202,7 +204,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
 
-PAYPAL_TEST = eval(os.getenv("PAYPAL_TEST"))
+PAYPAL_TEST = True if os.getenv("PAYPAL_TEST") else False
 PAYPAL_BUY_BUTTON_IMAGE = Path(STATIC_URL, "images", "paypal.png")
 PAYPAL_SUBSCRIPTION_BUTTON_IMAGE = Path(STATIC_URL, "images", "paypal.png")
 
