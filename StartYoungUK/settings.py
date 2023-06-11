@@ -27,7 +27,10 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = eval(os.getenv("DEBUG"))
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']
+                 ] if 'WEBSITE_HOSTNAME' in os.environ else []
+CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']
+                        ] if 'WEBSITE_HOSTNAME' in os.environ else []
 
 
 # Application definition
@@ -116,7 +119,8 @@ SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 conn_str = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
-conn_str_params = {pair.split('=')[0]: pair.split('=')[1] for pair in conn_str.split(' ')}
+conn_str_params = {pair.split('=')[0]: pair.split(
+    '=')[1] for pair in conn_str.split(' ')}
 
 
 DATABASES = {
@@ -196,11 +200,7 @@ NEW_EMAIL_SENT_TEMPLATE = (
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
-CSRF_TRUSTED_ORIGINS = [
-    os.getenv("HOSTING_URL"),
-    "https://*.ngrok.io",
-    "https://*.ngrok-free.app",
-]
+
 
 PAYPAL_TEST = eval(os.getenv("PAYPAL_TEST"))
 PAYPAL_BUY_BUTTON_IMAGE = Path(STATIC_URL, "images", "paypal.png")
@@ -213,15 +213,15 @@ ENVIRONMENT_FLOAT = True
 # 2FA Name to display on Authenticator App
 OTP_TOTP_ISSUER = "StartYoung UK Admin"
 
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_HSTS_SECONDS = 31536000
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+CSRF_COOKIE_SECURE = True
 
 # Cache settings for dashboard
 CACHES = {
