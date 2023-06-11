@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<script>
+  document.getElementById("nav-about").classList.add("active");
+</script>
+
+<div class="block-31" style="position: relative;">
+    <div class="owl-carousel loop-block-31 homepage-nav">
+      <div class="block-30 block-30-sm item" style="background-image: url('{% static 'images/bg_2.jpg' %}');" data-stellar-background-ratio="0.5">
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-7 text-center">
+              <h2 class="heading">About Us</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div class="site-section mb-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-12 mb-5"><h1>Who Are We?</h1></div>
+        <div class="col-md-6">
+            <p>It is a sad reality that many areas in the UK are poverty stricken, with many children and young adults going without the basic needs. A group of individuals came together to help and support local schools in East London with a Christmas Gifting Initiative in 2020.</p>
+            <p>The schools requested clothes and food rather than toys as certain children were coming to school with socks on their hands instead of gloves, and some with no under garments. This was a huge eye opener for us.</p>
+            <p>We were able to give over 400 parcels, which included , care packages and food hampers , underwear, socks, hats, gloves & scarves.</p>
+            <p>Families were struggling financially and with the impact of COVID-19, this made their daily living struggles even worse. Our main aim was to ensure those families who were disadvantaged and living in poverty were prioritised. It was apparent that this was an even bigger problem than we had initially anticipated and although the gifts were a help, these families needed long term assistance.</p>
+          </div>
+          <div class="col-md-6">
+            <p>Out of this appeal <b>Start Young UK</b> was born.</p>
+            <p>As a registered charity our promise is to act as a resource for young people from the age of 5 up to the age of 18 living in underprivileged and/or disadvantaged areas of Newham, London and the surrounding area by providing advice and assistance and other activities as a means of:</p>
+            <ul>
+              <li>advancing in life and helping young people. By developing their skills, capacities and capabilities to enable them to participate in society as independent, mature and responsible individuals</li>
+              <li>advancing education</li>
+              <li>relieving unemployment</li>
+              <li>providing recreational and leisure time activity in the interests of social welfare for people living in the area of benefit who have need by reason of their youth, age, infirmity or disability, poverty or social and economic circumstances with a view to improving the conditions of life of such persons</li>
+            </ul>
+          </div>
+      </div>
+      
+      <div class="row mt-5">
+        <div class="col-md-12 mb-5 text-center mt-5">
+          <h2>Our Team</h2>
+        </div>
+        {% for member in members %}
+        <div class="col-md-6 col-lg-3">
+          <div class="block-38 text-center">
+            <div class="block-38-img">
+              
+              <div class="block-38-header">
+                <img src="{{ member.member_image.url }}" alt="Image placeholder" width="500" height="200">
+                <h3 class="block-38-heading"> {{ member.member_name }} </h3>
+                <p class="block-38-subheading">{{ member.member_title }} </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+        
+      </div>
+
+    </div>
+  </div>
+<!-- TODO put the css where it belongs or so help me -->
+  <style>
+    figure {
+        border: thin #c0c0c0 solid;
+        display: flex;
+        flex-flow: column;
+        margin: auto;
+    }
+
+    img {
+        max-width: 1500px;
+        max-height: 690px;
+        object-fit: cover;
+    }
+
+    video {
+      max-width: 1500px;
+      height: 690px;
+      object-fit: cover;
+    }
+
+    figcaption {
+        background-color: #222;
+        color: #fff;
+        font: italic smaller sans-serif;
+        padding: 3px;
+        text-align: center;
+    }
+
+  </style>
+
+  <div class="site-section">
+    <!-- <div class="col-md-12 mb-5 text-center mt-5"> -->
+      <h2 class="text-center">Gallery</h2>
+    <!-- </div> -->
+    <div class="container">
+      <div class="block-11 mb-5" style="position: relative;">
+          <div class="owl-carousel loop-block-31">
+            {% for item, item_type in items %}
+              {% if item_type == 'image' %}
+                
+                  <figure>
+                    <img src="{{ item.item_file.url }}" alt="{{ item.item_title }}">
+                    <figcaption>{{ item.item_title }}</figcaption>
+                  </figure>
+
+               
+              {% elif item_type == 'video' %}
+                
+                  <figure>
+                    <video controls autoplay muted alt="{{ item.item_title }}">
+                        <source src="{{ item.item_file.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>{{ item.item_title }}</figcaption>
+                  </figure>
+               
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}

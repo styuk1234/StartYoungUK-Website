@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<style>
+  input[type="checkbox"] {
+    float: left;
+    margin-right: 10px;
+    width: auto;
+}
+  .quick-donate-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .quick-donate-buttons > button {
+    width: 25%;
+    background-color: #e09f3a;
+  }
+  #login-link {
+    color: #721c24;
+    text-decoration: underline;
+  }
+  .donate-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 60%;
+    position: relative;
+    left: 20%;
+  }
+  #donate-in-kind-form {
+      height: 500px;
+    }
+  @media screen and (min-width:900px) {
+    #donate-flex {
+      display: flex;
+      flex-direction: row;
+    }
+    .fund-raisers {
+    flex-basis: 50%;
+    }
+    /* #donate-in-kind-description {
+      margin-bottom: 25%;
+    } */
+    #donate-in-kind-form {
+      height: 650px;
+    }
+  }
+</style>
+
+<script>
+  document.getElementById("nav-donate").classList.add("active");
+</script>
+
+  <div class="block-31" style="position: relative;">
+    <div class="owl-carousel loop-block-31 homepage-nav">
+      <div class="block-30 block-30-sm item" style="background-image: url('{% static 'images/donate-header.jpg' %}');" data-stellar-background-ratio="0.5">
+        <div class="container">
+          <div class="row align-items-center justify-content-center text-center">
+            <div class="col-md-7">
+              <h2 class="heading">Better To Give Than To Receive</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div id="donate-flex">
+  <div class="site-section fund-raisers" id="paysection">
+    <div class="container">
+
+        <div class="row mb-3 justify-content-center">
+          <div class="col-md-8 text-center">
+            {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+              {% if message.tags == "error" %}
+              <div class="alert alert-danger">
+                  {{ message }}
+              </div>
+              {% else %}
+              <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+              </div>
+              {% endif %}
+            {% endfor %}
+        </div>
+      {% endif %}
+            <h2>Donate</h2>
+            <p class="lead">Help a child by making a donation. No amount is small.</p>
+
+            {% if not user.is_authenticated and not button_enable %}
+              <div class="messages">
+                <div class="alert alert-danger">
+                  Unathenticated users have a maximum donation limit of £40. If you wish to donate more, please <a id="login-link" href="{% url 'login' %}?next=/donate/">sign in</a>.
+              </div>
+        </div>
+      {% endif %}
+          </div>
+        </div>
+
+        <div id="paysection"></div>
+        {% if button_enable %}
+          <div id="paypal-container" class="row justify-content-center">
+            <div class="col-md-6">{{ paypal_btn.render }}</div>
+          </div>
+        {% else %}
+          {% load crispy_forms_tags %}
+          <form method="POST" class="donate-form">
+              {% csrf_token %}
+              <fieldset class="form-group">
+                  {{ form|crispy }}
+              </fieldset>
+              <div class="form-group quick-donate-buttons">
+                {% if user.is_authenticated %}
+                <button onclick="fillAmount(20)" type="button">£20</button>
+                <button onclick="fillAmount(50)" type="button">£50</button>
+                <button onclick="fillAmount(100)" type="button">£100</button>
+                {% else %}
+                <button onclick="fillAmount(5)" type="button">£5</button>
+                <button onclick="fillAmount(10)" type="button">£10</button>
+                <button onclick="fillAmount(40)" type="button">£40</button>
+                {% endif %}
+              </div>
+            {% if button_enable %}
+              <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-container' hidden>Donate</button>
+            {% else %}
+            <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-container'>Donate</button>
+            {% endif %}
+          </form>
+        {% endif %}
+    </div>
+  </div>
+  <div class="site-section fund-raisers">
+    <div class="container">
+      <div class="row mb-3 justify-content-center">
+        <div class="col-md-8 text-center">
+          <h2>Donate in Kind</h2>
+          <p class="lead" id="donate-in-kind-description">Donation is not all about money. You can donate in whatever way you can (eg. books, clothes, your time with kids, food).</p>
+        </div>
+      </div>
+      <form class="donate-form" name="google-sheet-donate" id="donate-in-kind-form">
+        <input type="text" name="Name" placeholder="Name">
+        <input type="email" name="Email" placeholder="Email">
+        <textarea name="Comment" placeholder="Input your comments here"></textarea>
+        <button class="signup-btn btn btn-primary" type="submit">Submit</button>
+        <div id="snackbar"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+  <!-- Populate 'amount' field when a quick button is clicked -->
+  <script type="text/javascript">
+    function fillAmount(amount) {
+      document.getElementById("id_amount").value = amount
+    }
+  </script>
+  <script>
+    function showToast(message, color) {
+      // Get the snackbar DIV
+      var x = document.getElementById("snackbar");
+      x.innerHTML = message;
+      x.style.backgroundColor = color;
+
+      // Add the "show" class to DIV
+      x.className = "show";
+
+      // After 3 seconds, remove the show class from DIV
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+  </script>
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbz96p0pB3I5Kf77R_JZcf5MY2bZxda_X4ns8QjZ4qRLcenIpFK2KKEAYcBN4uWVFyf3bg/exec"
+    const form = document.forms['google-sheet-donate']
+    
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => showToast("Message sent successfully!", "green"))
+      .catch(error => showToast("There was an error sending your message, please try again!", "red"))
+    })
+  </script>
+
+{% endblock %}

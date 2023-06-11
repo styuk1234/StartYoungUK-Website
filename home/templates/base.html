@@ -1,0 +1,424 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% if title %}
+    <title>StartYoungUK - {{title}} </title>
+    {% else %}
+    <title>StartYoungUK &mdash; Empowering Young People to Achieve</title>
+    {% endif %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Overpass:300,400,500|Dosis:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css'%}">
+    <link rel="icon" href="{% static 'images/startyounguk-logo.jpg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fancybox.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form-style.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="">
+    <style>
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+/* body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;} */
+
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+    background-image: url("{% static 'images/chatbot_new.png' %}");
+    background-color: transparent;
+    /* color: white; */
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 1;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    height: 100px;
+    width: 100px;
+    z-index: 1;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 200px;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+.campaign-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 500px;
+}
+
+.campaign-banner-link {
+  color: #000;
+  font-weight: 300;
+  font-family: "Dosis", sans-serif;
+}
+
+#map{
+  height: 500px;
+  z-index: 0;
+}
+    </style>
+  </head>
+  {% block header %}
+  {% endblock %}
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+      <div class="container justify-content-center">
+        <a class="navbar-brand text-center m-0 p-0" href="{% url 'home-page' %}"><img src="{% static 'images/logo-syuk.jpg' %}"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
+  
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+
+            <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
+            <!--<li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}#campaigns" class="nav-link">Campaigns</a></li> -->
+            <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About</a></li>
+            <li id="nav-donate" class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Donate</a></li>
+            <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">Be A Buddy</a></li>  
+            <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Join Us</a></li>
+            {% if user.is_authenticated %}
+            <div class="dropdown">
+            <li id="nav-userhome" class="nav-item"><a style="padding-top:28px;" href="#" class="nav-link">{{user.username}}</a></li>
+            <div class="dropdown-content">
+              {% if user.startyoungukuser.user_type == "I" %}
+              {% if request.user.startyoungukuser.is_coordinator %}
+              <a href="{% url 'buddy_approvals' %}">Buddy Approvals</a>
+              <a href="{% url 'letter_tracker' %}">Buddy Letter Tracker</a>
+              {% endif %}
+              <!-- <a href="{% url 'mentor' %}">Buddy Status</a> -->
+              {% else %}
+              <a href="{% url 'start_campaign' %}">Start a Campaign</a>
+              {% endif %}
+              <a href="{% url 'sdp' %}">Recurring Donation Plan</a>
+              <a href="{% url 'profile' %}">Update Profile</a>
+              <a href="{% url 'past_donations'%}">Past Donations</a>
+              <a href="{% url 'logout' %}">Logout</a></li>
+            </div>
+          </div>
+            <!-- <li id="nav-logout" class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li> -->
+            {% else %}
+            <li id="nav-login" class="nav-item"><a href="{% url 'login' %}" class="nav-link">Sign In</a></li>
+            <!-- <li id="nav-register" class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li> -->
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+  {% block content %}
+
+  {% if messages%}
+		{% for message in messages%}
+			<div class="alert alert-{{ message.tags }}">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endif %}
+
+  {% endblock %}
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 mx-auto text-center mt-3">
+          <h2 style="color: white;"> Start Young UK</h2>
+          <br>
+          <h6 style="color: white; text-decoration: underline;"> Charity #1196028</h6>     
+        </div>
+
+        <div class="col-md-4 mx-auto text-center mt-4" style="font-size: 20px;">
+          <a href="#"><span class="icon icon-map-marker"></span>&nbsp;
+            <span class="text">Newham, UK</span></a>
+            <br>
+            <a href="#"><span class="icon icon-phone"></span>&nbsp;
+              <span class="text">07946369885</span></a>
+            <br>
+            <a href="mailto:startyoung21@gmail.com" target="blank_"><span class="icon icon-mail_outline"></span>&nbsp;
+              <span class="text">startyoung21@gmail.com</span></a> 
+        </div>
+
+
+        <div class="col-md-4 mx-auto text-center">
+          <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar">
+          
+            <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto">
+                <li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">Home</a></li>
+                <!--<li id="nav-home" class="nav-item"><a href="{% url 'home-page' %}#campaigns" class="nav-link">Campaigns</a></li> -->
+                <li id="nav-about" class="nav-item"><a href="{% url 'about-us' %}" class="nav-link">About Us</a></li>
+                <li id="nav-donate" class="nav-item"><a href="{% url 'sponsor-us' %}" class="nav-link">Donate</a></li>
+                <li id="nav-buddy" class="nav-item"><a href="{% url 'buddy-system' %}" class="nav-link">Be A Buddy</a></li>  
+                <li id="nav-contact" class="nav-item"><a href="{% url 'contact-us' %}" class="nav-link">Join Us</a></li>
+              </ul>
+            </div>
+          </nav>
+
+          <ul class="text-center">
+            <!-- <li style=" display:inline">
+              <a href="#" data-toggle="tooltip" data-placement="bottom" title="Newham, UK"><span style="font-size: 28px;" class="icon icon-map-marker"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </li>
+            <li style="display:inline;">
+              <a href="#" data-toggle="tooltip" data-placement="bottom" title="07946369885"><span style="font-size: 28px;" class="icon icon-phone"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            </li> -->
+            <li style="display:inline;">
+              <a href="mailto:startyoung21@gmail.com" target="blank_">
+                <span style="font-size: 28px;" class="icon icon-envelope"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </li>
+            <li style="display:inline;">
+              <a href="https://www.instagram.com/startyounguk/", target="blank_">
+                <span style="font-size: 28px;" class="icon icon-instagram"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </li>
+            <li style="display:inline;">
+              <a href="https://twitter.com/Start_Young_UK", target="blank_">
+                <span style="font-size: 28px;" class="icon icon-twitter"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </li>
+            <li style="display:inline;">
+              <a href="https://www.facebook.com/Start-Young-UK-103039972197990/", target="blank_">
+                <span style="font-size: 28px;" class="icon icon-facebook"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </li>
+          </ul>
+
+
+        </div>         
+      </div>
+      <!-- <div class="row"> -->
+        <!-- <div class="col-md-4 col-lg-4 text-center">
+          <h6 style="color: white; text-decoration: underline;"> Charity #1196028</h6> 
+        </div> -->
+          <!-- <br>
+        <div class="col-md-6 col-lg-6 col-sm-12 ml-auto text-center">
+              <ul class="ml-auto">
+                <li style=" display:inline">
+                  <a href="#" data-toggle="tooltip" data-placement="bottom" title="Newham, UK"><span style="font-size: 28px;" class="icon icon-map-marker"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </li>
+                <li style="display:inline;">
+                  <a href="#" data-toggle="tooltip" data-placement="bottom" title="07946369885"><span style="font-size: 28px;" class="icon icon-phone"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </li>
+                <li style="display:inline;">
+                  <a href="mailto:startyoung21@gmail.com" target="blank_">
+                    <span style="font-size: 28px;" class="icon icon-envelope"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </li>
+                <li style="display:inline;">
+                  <a href="https://www.instagram.com/startyounguk/", target="blank_">
+                    <span style="font-size: 28px;" class="icon icon-instagram"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </li>
+                <li style="display:inline;">
+                  <a href="https://twitter.com/Start_Young_UK", target="blank_">
+                    <span style="font-size: 28px;" class="icon icon-twitter"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </li>
+                <li style="display:inline;">
+                  <a href="https://www.facebook.com/Start-Young-UK-103039972197990/", target="blank_">
+                    <span style="font-size: 28px;" class="icon icon-facebook"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </li>
+              </ul>
+          
+        </div>
+      </div> -->
+
+
+            <!-- <div class="row">
+        <div class="col-md-3 col-lg-3">
+          <div class="block-23">
+            <h3 class="heading-section">Connect With Us</h3>
+              <ul>
+                <li>
+                  <a href="#"><span class="icon icon-map-marker"></span>
+                  <span class="text">Newham, UK</span></a>
+                </li>
+                <li>
+                  <a href="#"><span class="icon icon-phone"></span>
+                    <span class="text">07946369885</span></a>
+                </li>
+                <li>
+                  <a href="mailto:startyoung21@gmail.com" target="blank_">
+                    <span class="icon icon-envelope"></span>
+                    <span class="text">startyoung21@gmail.com</span></a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/startyounguk/", target="blank_">
+                    <span class="icon icon-instagram"></span>
+                    <span class="text">startyounguk</span></a>
+                </li>
+                <li>
+                  <a href="https://twitter.com/Start_Young_UK", target="blank_">
+                    <span class="icon icon-twitter"></span>
+                    <span class="text">Start_Young_UK</span></a>
+                </li>
+                <li>
+                  <a href="https://www.facebook.com/Start-Young-UK-103039972197990/", target="blank_">
+                    <span class="icon icon-facebook"></span>
+                    <span class="text">Start Young UK</span></a>
+                </li>
+              </ul>
+            </div>
+        </div>
+      </div> -->
+      <div class="row pt-5">
+        <div class="col-md-12 text-center">
+          <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> | Made with <i class="ion-ios-heart text-danger" aria-hidden="true"></i> by Team YoungCoders</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <button class="open-button" onclick="openForm()"></button>
+
+  <div class="chat-popup" id="myChat">
+    <form class="form-container">
+      <!-- <h1>Chat</h1> -->
+      <iframe src="https://web.powerva.microsoft.com/environments/Default-364cf7f1-1376-4387-9baf-d7a322fc4a98/bots/new_bot_fb8ed8dd7acd48968baea220109ea72c/webchat" frameborder="0" style="width: 300px; height: 400px;"></iframe>
+  
+      <!-- <label for="msg"><b>Message</b></label>
+      <textarea placeholder="Type message.." name="msg" required></textarea>
+  
+      <button type="submit" class="btn">Send</button> -->
+      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+  </div>
+  
+  <script>
+  function openForm() {
+    document.getElementById("myChat").style.display = "block";
+  }
+  
+  function closeForm() {
+    document.getElementById("myChat").style.display = "none";
+  }
+  </script>
+  
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+
+  <script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+  
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+  <script src="{% static 'js/google-map.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+    
+  </body>
+</html>

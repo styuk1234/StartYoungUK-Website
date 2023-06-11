@@ -1,0 +1,115 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .quick-donate-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .quick-donate-buttons > button {
+    width: 25%;
+    background-color: #e09f3a;
+  }
+  #login-link {
+    color: #721c24;
+    text-decoration: underline;
+  }
+  .donate-for-campaign {
+    padding: 40px 0;
+  }
+  .donate-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 60%;
+    position: relative;
+    left: 20%;
+  }
+</style>
+
+<div class="block-31" style="position: relative;">
+  <div class="owl-carousel loop-block-31 homepage-nav">
+    <div class="block-30 block-30-sm item" style="background-image: url('{% static 'images/donate-header.jpg' %}');" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row align-items-center justify-content-center text-center">
+          <div class="col-md-7">
+            <h2 class="heading">Better To Give Than To Receive</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container donate-for-campaign" id="paysection">
+  {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+          {% if message.tags == "error" %}
+          <div class="alert alert-danger">
+              {{ message }}
+          </div>
+          {% else %}
+          <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+          </div>
+          {% endif %}
+        {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if not user.is_authenticated %}
+    <div class="messages">
+      <div class="alert alert-danger">
+        Unathenticated users have a maximum donation limit of £40. If you wish to donate more, please <a id="login-link" href="/login">sign in</a>.
+      </div>
+    </div>
+  {% endif %}
+
+    <div class="row mb-3 justify-content-center">
+      <div class="col-md-8 text-center">
+        <h2>Donate towards {{ campaign_name }}</h2>
+      </div>
+    </div>
+    <div id="paysection"></div>
+    {% if button_enable %}
+      <div id="paypal-container" class="row justify-content-center">
+        <div class="col-md-6">{{ paypal_btn.render }}</div>
+      </div>
+    {% else %}
+      {% load crispy_forms_tags %}
+      <form method="POST" class="donate-form">
+          {% csrf_token %}
+          <fieldset class="form-group">
+              {{ form|crispy }}
+          </fieldset>
+          <div class="form-group quick-donate-buttons">
+            {% if user.is_authenticated %}
+            <button onclick="fillAmount(20)" type="button">£20</button>
+            <button onclick="fillAmount(50)" type="button">£50</button>
+            <button onclick="fillAmount(100)" type="button">£100</button>
+            {% else %}
+            <button onclick="fillAmount(5)" type="button">£5</button>
+            <button onclick="fillAmount(10)" type="button">£10</button>
+            <button onclick="fillAmount(40)" type="button">£40</button>
+            {% endif %}
+          </div>
+
+          {% if button_enable %}
+          <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-container' hidden>Donate</button>
+          {% else %}
+          <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-container'>Donate</button>
+          {% endif %}
+        </form>
+      {% endif %}
+</div>
+
+<!-- Populate 'amount' field when a quick button is clicked -->
+<script type="text/javascript">
+  function fillAmount(amount) {
+    document.getElementById("id_amount").value = amount
+  }
+</script>
+
+{% endblock %}

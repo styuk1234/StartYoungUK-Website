@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<script>
+  document.getElementById("nav-buddy").classList.add("active");
+</script>
+
+<div class="featured-section overlay-color-2" style="background-image: url('{% static 'images/bg_2.jpg' %}');">
+    
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px; margin-right: 40px;">
+          <br><h2 style="text-align:center;">The Buddy System</h2><br>
+          <p class="mb-5">The Start Young Buddy (SYB) plays a key part in making a change in a child's life. They encourage, mentor, value, respect, shift mindset and support throughout the educational road map. They ensure every child reaches their full potential. You can be a sleeping SYB or an active SYB. In line with privacy guardrails, all SYB contact is through the school and charity.</p>
+          <p class="lead">WHO IS  A START YOUNG BUDDY (SYB)?</p>
+
+          <p>Someone who:</p>
+            <ul style="color:white ;">
+            <li>wants to sponsor a child for £5 (or more) per week</li>
+            <li>wants to encourage and make a difference in a child's life</li>
+            <li>wants to share knowledge and experience</li>
+            <li>finds comfort in helping others</li>
+            <li>thinks of another before they think of themselves</li>
+            <li>would like to support the development of a child until school leaving age</li>
+            <li>will mentor, write letter, and assist the child in whatever capacity they can</li>
+            <li>will ally within the workplace to see what we collectively can do, to give the next generation a foot up on the employment ladder.</li>
+            </ul>
+
+            <p>We at StartYoung UK will support in work experience, apprenticeships, with a hope of securing employment for the SYB!</p>
+
+            <p class="lead">BECOME A "BUDDY" TODAY!</p>
+              <p class="mb-5">We can all play a part. We are looking for” Start Young Buddies". Individuals who can sponsor a child for £5 (or more) per week. It is as easy as sacrificing the cost of one hot drink a week to support a child, which will assist with financial aid towards school uniform and basic needs. The child will be enrolled one evening a week into a local community club. The club will assist, with the development of the young person achieving their full physical intellectual, social and spiritual potential as individuals, as responsible citizens and as members of the local national and international communities. A small donation of £5 (or more) can make a huge difference.</p>
+              
+            {% if request.user.buddy.status == 'pending' %}
+              <p class="mb-5" style="font-size: large;"><b>Thanks for applying to be an SYB! Your buddy application has been received and we will get in touch with you shortly. Stay tuned!</b><p>
+            {% elif request.user.buddy.status == 'approved' %}
+              {% if request.user.startyoungukuser.sdp_frequency == 'N'%}
+              <p class="mb-5"><b>Congratulations! You've been approved to become an SYB! You're one step away from becoming a buddy. Do so by setting up the recurring donation plan!</b></p>
+              <p class="mb-0" style="text-align: center;"><a href="{% url 'sdp' %}" class="btn btn-white px-3 py-2">Set Up Recurring Donation Plan</a></p>
+              {% else %}
+              <p class="mb-5"><b>You are an SYB! How cool is that? You can opt out anytime by clicking on the button below.</b></p>
+              <p class="mb-0" style="text-align: center;"><a href="{% url 'sdp' %}" class="btn btn-white px-3 py-2">Cancel Your Recurring Donation Plan</a></p>
+              {% endif %}
+            {% else %}
+              {% if request.user.buddy.status == 'rejected' %}
+              <p class="mb-5"><b>Your previous SYB application was unsuccessful. Would you like to apply again?</b></p>
+              {% elif request.user.buddy.status == 'opted_out' %}
+              <p class="mb-5"><b>It seems you have opted out of being a buddy. Would you like to apply again?</b></p>
+              {% endif %}
+              <p style="font-size: 15px; "><b><u>By clicking the button below, you agree to our terms above of becoming an SYB.</u></b></p>
+            {% endif %}
+    
+             {% if request.user.buddy.status == 'pending' %}
+             <p class="mb-0" style="text-align: center;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Check Status</a></p>
+             {% elif request.user.buddy.status == 'rejected' or request.user.buddy.status == 'opted_out' %}
+             <p class="mb-0" style="text-align: center;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Re-apply for SYB</a></p>
+             {% elif request.user.buddy.status == 'approved' %}
+             {% else %}
+             <p class="mb-0" style="text-align: center;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Become a Buddy Today!</a></p>
+            {% endif %}
+              <br>
+            <br>
+            </div>
+        
+      </div>
+    </div>
+
+  </div>
+
+
+{% endblock %}
