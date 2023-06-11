@@ -7,6 +7,7 @@ from .forms import DonationForm
 from django.contrib import messages
 from .models import Donation
 import uuid
+import os
 
 
 def sponsor(request):
@@ -15,7 +16,7 @@ def sponsor(request):
 
         # Paypal Button instance
         paypal_dict = {
-            "business": config("PAYPAL_BUSINESS_ACCOUNT"),
+            "business": os.environ("PAYPAL_BUSINESS_ACCOUNT"),
             "currency_code": "GBP",
             "notify_url": request.build_absolute_uri(reverse("paypal-ipn")),
             "return": request.build_absolute_uri(reverse("paypal-return")),

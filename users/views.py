@@ -43,6 +43,7 @@ from django.http import HttpResponse
 from io import BytesIO
 from django.template.loader import get_template
 from xhtml2pdf import pisa
+import os
 
 
 # Create your views here.
@@ -209,7 +210,7 @@ def sdp(request):
         "sra": "1",  # reattempt payment on payment error
         "no_note": "1",  # remove extra notes
         "item_name": "SYUK recurring donation",
-        "business": config("PAYPAL_BUSINESS_ACCOUNT"),
+        "business": os.environ("PAYPAL_BUSINESS_ACCOUNT"),
         "currency_code": "GBP",
         "notify_url": request.build_absolute_uri(reverse("paypal-ipn")),
         "return": request.build_absolute_uri(reverse("sdp-return")),
@@ -370,19 +371,37 @@ def buddy(request):
         if form.is_valid():
             print(form.cleaned_data)
             selected_hobbies = ""
-            hobbies = ['painting', 'football', 'reading', 'dancing', 'singing', 'cooking', 'cricket', 'arts_and_crafts', 'adventure', 'writing']
+            hobbies = [
+                "painting",
+                "football",
+                "reading",
+                "dancing",
+                "singing",
+                "cooking",
+                "cricket",
+                "arts_and_crafts",
+                "adventure",
+                "writing",
+            ]
             form_data = form.cleaned_data
-            for hobby in form_data['hobbies']:
-                selected_hobbies += dict(form.fields['hobbies'].choices)[hobby] + ", "
+            for hobby in form_data["hobbies"]:
+                selected_hobbies += dict(form.fields["hobbies"].choices)[hobby] + ", "
 
             try:
                 buddy = Buddy.objects.get(user=request.user)
             except Buddy.DoesNotExist:
                 buddy = Buddy()
 
-            occupation = 'Occupation: ' + form_data.get('occupation') + '\n'
-            selected_hobbies = 'Hobbies: ' + selected_hobbies[:-2] + '\n'  # Remove the trailing comma and space
-            buddy.description = occupation + selected_hobbies + 'Motivation: ' + form_data.get("description")
+            occupation = "Occupation: " + form_data.get("occupation") + "\n"
+            selected_hobbies = (
+                "Hobbies: " + selected_hobbies[:-2] + "\n"
+            )  # Remove the trailing comma and space
+            buddy.description = (
+                occupation
+                + selected_hobbies
+                + "Motivation: "
+                + form_data.get("description")
+            )
             buddy.user = User.objects.get(username=request.user.username)
             buddy.status = "pending"
             buddy.save()

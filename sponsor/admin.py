@@ -8,11 +8,12 @@ from paypal.standard.ipn.admin import PayPalIPNAdmin
 
 admin.site.unregister(PayPalIPN)
 
+
 @admin.register(PayPalIPN)
 class PayPalIPNAdmin(PayPalIPNAdmin):
     def has_add_permission(self, request: HttpRequest) -> bool:
         return False
-    
+
     def has_change_permission(self, request, obj=None) -> bool:
         return False
 

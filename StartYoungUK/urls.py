@@ -23,6 +23,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django_otp.admin import OTPAdminSite
 from decouple import config
+import os
 
 
 urlpatterns = [
@@ -37,10 +38,10 @@ urlpatterns = [
     path("login/", user_views.captcha_login, name="login"),
     path("logout/", user_views.captcha_logout, name="logout"),
     path(
-        str(config("ADMIN_URL")) + "/admin_tools_stats/",
+        str(os.environ("ADMIN_URL")) + "/admin_tools_stats/",
         include("admin_tools_stats.urls"),
     ),
-    path(str(config("ADMIN_URL")), admin.site.urls, name="admin"),
+    path(str(os.environ("ADMIN_URL")), admin.site.urls, name="admin"),
     path("donate/", include("sponsor.urls")),
     path("buddy_approvals/", home_views.approve_buddies, name="buddy_approvals"),
     path("letter_tracker/", home_views.letter_tracker, name="letter_tracker"),
@@ -95,5 +96,5 @@ handler500 = "StartYoungUK.views.error_500"
 # handler400 = 'StartYoungUK.views.error_400'
 
 # Enable OTP on login
-if config("ENABLE_AUTHENTICATOR", cast=bool):
+if os.environ("ENABLE_AUTHENTICATOR", cast=bool):
     admin.site.__class__ = OTPAdminSite
