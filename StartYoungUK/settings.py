@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", default=False, cast=bool)
+DEBUG = eval(os.getenv("DEBUG"))
 
 ALLOWED_HOSTS = ["*"]
 
@@ -103,8 +103,8 @@ WSGI_APPLICATION = "StartYoungUK.wsgi.application"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", default=True, cast=bool)
-EMAIL_PORT = os.getenv("EMAIL_PORT", cast=int)
+EMAIL_USE_TLS = eval(os.getenv("EMAIL_USE_TLS"))
+EMAIL_PORT = int(os.getenv("EMAIL_PORT"))
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
@@ -198,7 +198,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.ngrok-free.app",
 ]
 
-PAYPAL_TEST = os.getenv("PAYPAL_TEST", default=False, cast=bool)
+PAYPAL_TEST = eval(os.getenv("PAYPAL_TEST"))
 PAYPAL_BUY_BUTTON_IMAGE = Path(STATIC_URL, "images", "paypal.png")
 PAYPAL_SUBSCRIPTION_BUTTON_IMAGE = Path(STATIC_URL, "images", "paypal.png")
 
