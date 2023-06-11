@@ -122,10 +122,10 @@ conn_str_params = {pair.split('=')[0]: pair.split('=')[1] for pair in conn_str.s
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": conn_str_params("dbname"),
-        "USER": conn_str_params("user"),
-        "PASSWORD": conn_str_params("password"),
-        "HOST": conn_str_params("host"),
+        "NAME": conn_str_params["dbname"],
+        "USER": conn_str_params["user"],
+        "PASSWORD": conn_str_params["password"],
+        "HOST": conn_str_params["host"],
     }
 }
 
