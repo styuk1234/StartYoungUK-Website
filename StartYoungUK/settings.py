@@ -124,7 +124,6 @@ DATABASES = {
         'HOST': config('DB_HOST'),
         }
     }
-}
 
 
 # Password validation
