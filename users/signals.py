@@ -11,10 +11,9 @@ def create_user_profile(sender, instance, created, **kwargs):
         if not StartYoungUKUser.objects.filter(email=instance.email).exists():
             syuk_user.user = User.objects.get(email=instance.email)
             syuk_user.phone_number = "+449746369885"
-            syuk_user.display_name = "SYUK Admin"
             syuk_user.email = instance.email
             syuk_user.address = "Newham, UK"
             syuk_user.user_type = "I"
-            # syuk_user.crn_no = instance.crn_no
+            syuk_user.is_coordinator = True
             syuk_user.is_verified = True
             syuk_user.save()
