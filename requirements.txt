@@ -27,5 +27,5 @@ qrcode==7.4.2
 reportlab<=4.0.4
 sqlparse==0.4.4
 tzdata==2023.3
-whitenoise==6.4.0
+whitenoise==6.5.0
 xhtml2pdf
