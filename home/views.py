@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 import json
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .signals import sendEmail
+from django.views.generic import TemplateView
 
 
 # from django.views.generic import ListView
@@ -239,3 +240,6 @@ def campaign_donate(request, slug):
     return render(
         request, "campaign_donate.html", {"form": form, "campaign_name": campaign_name}
     )
+
+class TermsAndConditions(TemplateView):
+    template_name = "t&c.html"
