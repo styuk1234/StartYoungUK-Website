@@ -122,6 +122,12 @@
                 <button onclick="fillAmount(40)" type="button">£40</button>
                 {% endif %}
               </div>
+              <div class="border-top pt-3">
+                <small class="text-muted">
+                  <b>By clicking on "Donate" below, you agree to our<a class="ml-2" href="{% url 'tnc' %}">Terms and Conditions</a></b>
+                  <br>
+                  <b>Know how we are using the data collected by reading through our<a class="ml-2" href="{% url 'tnc' %}">Privacy Policy</a></b></small>
+            </div>
             {% if button_enable %}
               <button class="signup-btn btn btn-primary" type="submit" data-toggle="modal" data-target='#paypal-container' hidden>Donate</button>
             {% else %}
@@ -143,6 +149,12 @@
         <input type="text" name="Name" placeholder="Name">
         <input type="email" name="Email" placeholder="Email">
         <textarea name="Comment" placeholder="Input your comments here"></textarea>
+        <div class="border-top pt-3">
+          <small class="text-muted">
+            <b>By clicking on "Submit" below, you agree to our<a class="ml-2" href="{% url 'tnc' %}">Terms and Conditions</a></b>
+            <br>
+            <b>Know how we are using the data collected by reading through our<a class="ml-2" href="{% url 'tnc' %}">Privacy Policy</a></b></small>
+      </div>
         <button class="signup-btn btn btn-primary" type="submit">Submit</button>
         <div id="snackbar"></div>
       </form>

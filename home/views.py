@@ -242,4 +242,4 @@ def campaign_donate(request, slug):
     )
 
 class TermsAndConditions(TemplateView):
-    template_name = "t&c.html"
+    template_name = "tnc.html"

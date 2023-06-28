@@ -73,7 +73,10 @@
                         <fieldset class="form-group">
                             {{ form|crispy }}
                             <div class="border-top pt-3">
-                              <small class="text-muted"><b>Know more about why we are collecting your data and how we are using it by going through our<a class="ml-2" href="https://startyounguk.com/tou">Terms of Use and Privacy</a>.</b></small>
+                              <small class="text-muted">
+                                <b>By clicking on "Register" below, you agree to our<a class="ml-2" href="{% url 'tnc' %}">Terms and Conditions</a></b>
+                                <br>
+                                <b>Know how we are using the data collected by reading through our<a class="ml-2" href="{% url 'tnc' %}">Privacy Policy</a></b></small>
                           </div>
                         </fieldset>
                         <div class="form-group">
