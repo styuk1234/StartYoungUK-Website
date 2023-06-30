@@ -8,7 +8,6 @@ import verify_email.admin
 
 admin.site.unregister(LinkCounter)
 
-
 @admin.register(LinkCounter)
 class LinkCounterAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None) -> bool:
@@ -16,7 +15,6 @@ class LinkCounterAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request, obj=None) -> bool:
         return False
-
 
 @admin.register(StartYoungUKUser)
 class StartYoungUKUserAdmin(admin.ModelAdmin):

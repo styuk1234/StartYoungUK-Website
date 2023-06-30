@@ -14,6 +14,6 @@ def create_user_profile(sender, instance, created, **kwargs):
             syuk_user.email = instance.email
             syuk_user.address = "Newham, UK"
             syuk_user.user_type = "I"
-            syuk_user.is_coordinator = True
+            # syuk_user.crn_no = instance.crn_no
             syuk_user.is_verified = True
             syuk_user.save()

@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-import StartYoungUK
 from sponsor.models import Donation
 from sponsor.forms import DonationForm
 from django.urls import reverse
@@ -15,8 +14,9 @@ import json
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .signals import sendEmail
 import os
+from django.views.generic import TemplateView
 
-load_dotenv()
+
 # from django.views.generic import ListView
 # from django.forms.widgets import CheckboxSelectMultiple
 # from django.http import QueryDict
@@ -90,6 +90,7 @@ def approve_buddies(request):
         buddy_status = request.POST.get("buddy-status")
         checked_buddies = request.POST.getlist("chosen-buddies")
 
+
         for buddy_id in checked_buddies:
             buddy = Buddy.objects.get(id=buddy_id)
             if buddy.status != buddy_status:
@@ -113,9 +114,7 @@ def approve_buddies(request):
         return render(
             request,
             "buddy_approvals.html",
-            {
-                "buddies": buddies,
-            },
+            {"buddies": buddies,},
         )
     return render(request, "buddy_approvals.html", {"buddies": buddies})
 
@@ -241,3 +240,12 @@ def campaign_donate(request, slug):
     return render(
         request, "campaign_donate.html", {"form": form, "campaign_name": campaign_name}
     )
+
+class TermsAndConditions(TemplateView):
+    template_name = "tnc.html"
+    
+class PrivacyPolicy(TemplateView):
+    template_name = "privacy_policy.html"
+    
+class CopyrightPolicy(TemplateView):
+    template_name = "copyright_policy.html"

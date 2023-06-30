@@ -63,6 +63,7 @@ class StartYoungUKUser(models.Model):
 #         return f"{self.child_id}"
 
 
+# TODO do we want to make this a child model of startyoung uk user?
 class Buddy(models.Model):
     class Meta:
         verbose_name_plural = "Buddies"

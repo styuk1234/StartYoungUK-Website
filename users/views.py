@@ -1,4 +1,3 @@
-from json import load
 from django.shortcuts import render, redirect
 from .forms import (
     SDPForm,
@@ -44,9 +43,7 @@ from django.http import HttpResponse
 from io import BytesIO
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-import os
 
-load_dotenv()
 
 # Create your views here.
 @user_not_authenticated
@@ -373,37 +370,19 @@ def buddy(request):
         if form.is_valid():
             print(form.cleaned_data)
             selected_hobbies = ""
-            hobbies = [
-                "painting",
-                "football",
-                "reading",
-                "dancing",
-                "singing",
-                "cooking",
-                "cricket",
-                "arts_and_crafts",
-                "adventure",
-                "writing",
-            ]
+            hobbies = ['painting', 'football', 'reading', 'dancing', 'singing', 'cooking', 'cricket', 'arts_and_crafts', 'adventure', 'writing']
             form_data = form.cleaned_data
-            for hobby in form_data["hobbies"]:
-                selected_hobbies += dict(form.fields["hobbies"].choices)[hobby] + ", "
+            for hobby in form_data['hobbies']:
+                selected_hobbies += dict(form.fields['hobbies'].choices)[hobby] + ", "
 
             try:
                 buddy = Buddy.objects.get(user=request.user)
             except Buddy.DoesNotExist:
                 buddy = Buddy()
 
-            occupation = "Occupation: " + form_data.get("occupation") + "\n"
-            selected_hobbies = (
-                "Hobbies: " + selected_hobbies[:-2] + "\n"
-            )  # Remove the trailing comma and space
-            buddy.description = (
-                occupation
-                + selected_hobbies
-                + "Motivation: "
-                + form_data.get("description")
-            )
+            occupation = 'Occupation: ' + form_data.get('occupation') + '\n'
+            selected_hobbies = 'Hobbies: ' + selected_hobbies[:-2] + '\n'  # Remove the trailing comma and space
+            buddy.description = occupation + selected_hobbies + 'Motivation: ' + form_data.get("description")
             buddy.user = User.objects.get(username=request.user.username)
             buddy.status = "pending"
             buddy.save()
@@ -528,40 +507,3 @@ def past_donations(request):
         return response
 
     return render(request, "past_donations.html", {"donation_zip": donation_zip})
-
-
-# def donation_pdf_receipt(request):
-#     buf = io.BytesIO()
-#     c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
-#     textob = c.beginText()
-#     textob.setTextOrigin(inch, inch)
-#     textob.setFont("Helvetica", 14)
-
-#     # get checked donations
-#     checked_donations = request.POST.getlist("chosen-donation")
-#     user_id = request.user.id
-#     user_name = str(request.user.first_name) + " " + str(request.user.last_name)
-#     donations = Donation.objects.filter(user_id=user_id, trxn_id__in=checked_donations)
-
-#     lines = ["Donor name: " + user_name]
-#     donation_date = None
-#     for donation in donations:
-#         lines.append(" ")
-#         if donation.campaign_id != 0:
-#             campaign = Campaign.objects.get(pk=donation.campaign_id)
-#             lines.append("Campaign Name: " + campaign.campaign_title)
-#         else:
-#             lines.append("Campaign Name: Standard Donation")
-#         lines.append("Amount: £" + str(donation.amount))
-#         donation_date = donation.date_donation.strftime("%Y-%m-%d %H:%M:%S")
-#         lines.append("Date: " + donation_date)
-
-#     for line in lines:
-#         textob.textLine(line)
-
-#     c.drawText(textob)
-#     c.showPage()
-#     c.save()
-#     buf.seek(0)
-#     filename = f"donation_{user_name}_{donation_date}.pdf"
-#     return FileResponse(buf, as_attachment=True, filename=filename)

@@ -1,15 +1,12 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import TemplateView
+from dotenv import load_dotenv
 from paypal.standard.forms import PayPalPaymentsForm
 from .forms import DonationForm
 from django.contrib import messages
 from .models import Donation
-import uuid
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 
 def sponsor(request):
