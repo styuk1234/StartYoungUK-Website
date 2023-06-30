@@ -243,3 +243,9 @@ def campaign_donate(request, slug):
 
 class TermsAndConditions(TemplateView):
     template_name = "tnc.html"
+    
+class PrivacyPolicy(TemplateView):
+    template_name = "privacy_policy.html"
+    
+class CopyrightPolicy(TemplateView):
+    template_name = "copyright_policy.html"
