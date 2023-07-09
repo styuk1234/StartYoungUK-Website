@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'startyoung-uk'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CA96A957719E42E297B4F65335DD3ADD }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1F959F5DA9C145E88CBE8D5655E0B73D }}
