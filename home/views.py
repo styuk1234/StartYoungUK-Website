@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-import StartYoungUK
 from sponsor.models import Donation
 from sponsor.forms import DonationForm
 from django.urls import reverse
-from decouple import config
+from dotenv import load_dotenv
 from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
@@ -14,6 +13,7 @@ from django.contrib.auth.models import User
 import json
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .signals import sendEmail
+import os
 from django.views.generic import TemplateView
 
 
@@ -176,7 +176,7 @@ def campaign_donate(request, slug):
 
         # Paypal Button instance
         paypal_dict = {
-            "business": config("PAYPAL_BUSINESS_ACCOUNT"),
+            "business": os.getenv("PAYPAL_BUSINESS_ACCOUNT"),
             "currency_code": "GBP",
             "notify_url": request.build_absolute_uri(reverse("paypal-ipn")),
             "return": request.build_absolute_uri(reverse("paypal-return")),

@@ -1,6 +1,3 @@
-from pyexpat import model
-from sqlite3 import Timestamp
-from statistics import mode
 from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField

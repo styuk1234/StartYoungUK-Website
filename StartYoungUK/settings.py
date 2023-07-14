@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-from decouple import config
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=False, cast=bool)
+DEBUG = True if os.getenv("DEBUG") == "True" else False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']
+                 ] if 'WEBSITE_HOSTNAME' in os.environ else []
+CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']
+                        ] if 'WEBSITE_HOSTNAME' in os.environ else []
 
 
 # Application definition
@@ -102,33 +107,36 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 WSGI_APPLICATION = "StartYoungUK.wsgi.application"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = config("EMAIL_HOST")
-EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
-EMAIL_PORT = config("EMAIL_PORT", cast=int)
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_USE_TLS = True if os.getenv("EMAIL_USE_TLS") else False
+EMAIL_PORT = int(os.getenv("EMAIL_PORT"))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
-RECAPTCHA_PUBLIC_KEY = config("RECAPTCHA_PUBLIC_KEY")
-RECAPTCHA_PRIVATE_KEY = config("RECAPTCHA_PRIVATE_KEY")
+RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY")
 SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+conn_str = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
+conn_str_params = {pair.split('=')[0]: pair.split(
+   '=')[1] for pair in conn_str.split(' ')}
+
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        #'ENGINE': 'sql_server.pyodbc',
-        # 'ENGINE' : 'mssql',
-        # 'NAME' : config('DB_NAME'),
-        # 'USER': config('DB_USER'),
-        # 'PASSWORD' : config('DB_PASSWORD'),
-        # 'HOST': config('DB_HOST'),
-        # 'OPTIONS': {
-        #     'driver': 'ODBC Driver 18 for SQL Server',
-        # 'isolation_level': 'READ_UNCOMMITTED',
-        # }
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": conn_str_params["dbname"],
+        "USER": conn_str_params["user"],
+        "PASSWORD": conn_str_params["password"],
+        "HOST": conn_str_params["host"],
+    #   "ENGINE": "django.db.backends.mysql",
+    #   "NAME": os.getenv("AZURE_MYSQL_NAME"),
+    #   "USER": os.getenv("AZURE_MYSQL_USER"),
+    #   "PASSWORD": os.getenv("AZURE_MYSQL_PASSWORD"),
+    #   "HOST": os.getenv("AZURE_MYSQL_HOST"),
     }
 }
 
@@ -170,6 +178,7 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "/static/"
 STATIC_FILES_DIR = (BASE_DIR / "static",)
+STATIC_FILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -198,13 +207,9 @@ NEW_EMAIL_SENT_TEMPLATE = (
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
-CSRF_TRUSTED_ORIGINS = [
-    config("HOSTING_URL"),
-    "https://*.ngrok.io",
-    "https://*.ngrok-free.app",
-]
 
-PAYPAL_TEST = config("PAYPAL_TEST", default=False, cast=bool)
+
+PAYPAL_TEST = True if os.getenv("PAYPAL_TEST") else False
 PAYPAL_BUY_BUTTON_IMAGE = Path(STATIC_URL, "images", "paypal.png")
 PAYPAL_SUBSCRIPTION_BUTTON_IMAGE = Path(STATIC_URL, "images", "paypal.png")
 
@@ -215,15 +220,15 @@ ENVIRONMENT_FLOAT = True
 # 2FA Name to display on Authenticator App
 OTP_TOTP_ISSUER = "StartYoung UK Admin"
 
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_HSTS_SECONDS = 31536000
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+CSRF_COOKIE_SECURE = True
 
 # Cache settings for dashboard
 CACHES = {

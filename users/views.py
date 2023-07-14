@@ -23,7 +23,7 @@ from verify_email.confirm import verify_user
 from django.core.signing import SignatureExpired, BadSignature
 from base64 import urlsafe_b64decode
 import os
-from decouple import config
+from dotenv import load_dotenv
 from paypal.standard.forms import PayPalPaymentsForm
 from django.urls import reverse
 from django.views.generic import TemplateView
@@ -209,7 +209,7 @@ def sdp(request):
         "sra": "1",  # reattempt payment on payment error
         "no_note": "1",  # remove extra notes
         "item_name": "SYUK recurring donation",
-        "business": config("PAYPAL_BUSINESS_ACCOUNT"),
+        "business": os.getenv("PAYPAL_BUSINESS_ACCOUNT"),
         "currency_code": "GBP",
         "notify_url": request.build_absolute_uri(reverse("paypal-ipn")),
         "return": request.build_absolute_uri(reverse("sdp-return")),
@@ -507,40 +507,3 @@ def past_donations(request):
         return response
 
     return render(request, "past_donations.html", {"donation_zip": donation_zip})
-
-
-# def donation_pdf_receipt(request):
-#     buf = io.BytesIO()
-#     c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
-#     textob = c.beginText()
-#     textob.setTextOrigin(inch, inch)
-#     textob.setFont("Helvetica", 14)
-
-#     # get checked donations
-#     checked_donations = request.POST.getlist("chosen-donation")
-#     user_id = request.user.id
-#     user_name = str(request.user.first_name) + " " + str(request.user.last_name)
-#     donations = Donation.objects.filter(user_id=user_id, trxn_id__in=checked_donations)
-
-#     lines = ["Donor name: " + user_name]
-#     donation_date = None
-#     for donation in donations:
-#         lines.append(" ")
-#         if donation.campaign_id != 0:
-#             campaign = Campaign.objects.get(pk=donation.campaign_id)
-#             lines.append("Campaign Name: " + campaign.campaign_title)
-#         else:
-#             lines.append("Campaign Name: Standard Donation")
-#         lines.append("Amount: £" + str(donation.amount))
-#         donation_date = donation.date_donation.strftime("%Y-%m-%d %H:%M:%S")
-#         lines.append("Date: " + donation_date)
-
-#     for line in lines:
-#         textob.textLine(line)
-
-#     c.drawText(textob)
-#     c.showPage()
-#     c.save()
-#     buf.seek(0)
-#     filename = f"donation_{user_name}_{donation_date}.pdf"
-#     return FileResponse(buf, as_attachment=True, filename=filename)
