@@ -1,12 +1,8 @@
 from storages.backends.azure_storage import AzureStorage
 import os
 
-conn_str = os.environ['AZURE_CONNECTION_STRING']
-conn_str_params = {pair.split('=')[0]: pair.split(
-   '=')[1] for pair in conn_str.split(' ')}
-
 class PublicAzureStorage(AzureStorage):
-    account_name = conn_str_params['AccountName']
-    account_key = conn_str_params['AccountKey']
+    account_name =  os.environ['AZURE_STORAGE_NAME']
+    account_key =  os.environ['AZURE_STORAGE_KEY']
     azure_container = 'media'
     expiration_secs = None
