@@ -97,5 +97,5 @@ handler500 = "StartYoungUK.views.error_500"
 # handler400 = 'StartYoungUK.views.error_400'
 
 # Enable OTP on login
-if os.getenv("ENABLE_AUTHENTICATOR") == "True":
+if os.getenv("ENABLE_AUTHENTICATOR", "0").lower() in ["true", "t", "1"]:
     admin.site.__class__ = OTPAdminSite
