@@ -44,5 +44,10 @@ class OpportunityAdmin(admin.ModelAdmin):
 class EmailContentAdmin(admin.ModelAdmin):
     list_display = ("id", "email_type")
     list_filter = ("id", "email_type")
-    # TODO: once the email types are added in the production database uncomment the line below so user can not adapt email type
-    # readonly_fields = ("email_type",)
+    readonly_fields = ("email_type",)
+    
+    def has_delete_permission(self, request, obj=None) -> bool:
+        return False
+
+    def has_add_permission(self, request, obj=None) -> bool:
+        return False
