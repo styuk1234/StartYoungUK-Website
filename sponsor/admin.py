@@ -3,6 +3,7 @@ from django.http.request import HttpRequest
 from .models import Donation
 from paypal.standard.ipn.models import PayPalIPN
 from paypal.standard.ipn.admin import PayPalIPNAdmin
+from import_export.admin import ExportActionMixin
 
 # Register your models here.
 
@@ -18,7 +19,7 @@ class PayPalIPNAdmin(PayPalIPNAdmin):
 
 
 @admin.register(Donation)
-class DonationAdmin(admin.ModelAdmin):
+class DonationAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = (
         "is_successful",
         "name",
