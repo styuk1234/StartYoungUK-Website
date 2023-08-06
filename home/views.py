@@ -15,6 +15,8 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .signals import sendEmail
 import os
 from django.views.generic import TemplateView
+import csv
+from django.http import HttpResponse
 
 
 # from django.views.generic import ListView
@@ -90,32 +92,44 @@ def approve_buddies(request):
         buddy_status = request.POST.get("buddy-status")
         checked_buddies = request.POST.getlist("chosen-buddies")
 
+        if buddy_status == "export":
+            response = HttpResponse(
+                content_type="text/csv",
+                headers={"Content-Disposition": 'attachment; filename="buddies.csv"'},
+            )
+            writer = csv.writer(response)
+            writer.writerow(["Name", "Description",	"Request Date","Status",	"Approver"])
+            for buddy_id in checked_buddies:
+                buddy = Buddy.objects.get(id=buddy_id)
+                writer.writerow([buddy.user.first_name + " " + buddy.user.last_name, buddy.description, buddy.date_status_modified, buddy.status,buddy.approver])
+            return response
+        else:
+            for buddy_id in checked_buddies:
+                buddy = Buddy.objects.get(id=buddy_id)
 
-        for buddy_id in checked_buddies:
-            buddy = Buddy.objects.get(id=buddy_id)
-            if buddy.status != buddy_status:
-                buddy.status = buddy_status
-                buddy.approver = current_user.email
-                buddy.save()
-                buddy_user = StartYoungUKUser.objects.get(user=buddy.user)
-                if buddy.status == "approved":
-                    buddy_user.is_buddy = True
-                    buddy_user.save()
-                else:
-                    buddy_user.is_buddy = False
-                    buddy_user.save()
-                if (
-                    buddy.user.startyoungukuser.sdp_frequency != "N"
-                    and buddy_status == "approved"
-                ):
-                    sendEmail(buddy.user.email, "final")
-                else:
-                    sendEmail(buddy.user.email, buddy_status)
-        return render(
-            request,
-            "buddy_approvals.html",
-            {"buddies": buddies,},
-        )
+                if buddy.status != buddy_status:
+                    buddy.status = buddy_status
+                    buddy.approver = current_user.email
+                    buddy.save()
+                    buddy_user = StartYoungUKUser.objects.get(user=buddy.user)
+                    if buddy.status == "approved":
+                        buddy_user.is_buddy = True
+                        buddy_user.save()
+                    else:
+                        buddy_user.is_buddy = False
+                        buddy_user.save()
+                    if (
+                        buddy.user.startyoungukuser.sdp_frequency != "N"
+                        and buddy_status == "approved"
+                    ):
+                        sendEmail(buddy.user.email, "final")
+                    else:
+                        sendEmail(buddy.user.email, buddy_status)
+            return render(
+                request,
+                "buddy_approvals.html",
+                {"buddies": buddies,},
+            )
     return render(request, "buddy_approvals.html", {"buddies": buddies})
 
 
