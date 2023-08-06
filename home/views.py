@@ -142,7 +142,6 @@ def letter_tracker(request):
         .exclude(user__startyoungukuser__sdp_frequency__exact="N")
         .order_by("letter_received")
     )
-
     if request.method == "POST":
         # three bottom buttons functions
         checked_buddies = request.POST.getlist("chosen-buddies")
@@ -167,6 +166,23 @@ def letter_tracker(request):
                 buddy.letter_received = False
                 buddy.save()
             return redirect("letter_tracker")
+
+        elif "export" in request.POST:
+            response = HttpResponse(
+                content_type="text/csv",
+                headers={"Content-Disposition": 'attachment; filename="letter_tracker.csv"'},
+            )
+            writer = csv.writer(response)
+            writer.writerow(["Name", "Letter Received?", "Buddy's Email"])
+            for buddy_id in checked_buddies:
+                buddy = Buddy.objects.get(id=buddy_id)
+                letter_received = ""
+                if buddy.letter_received:
+                    letter_received = "Yes"
+                else:
+                    letter_received = "No"
+                writer.writerow([buddy.user.first_name + " " + buddy.user.last_name, letter_received, buddy.user.email])
+            return response
 
         return render(
             request,
