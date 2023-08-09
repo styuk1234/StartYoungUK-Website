@@ -13,7 +13,7 @@ admin.site.unregister(LinkCounter)
 @admin.register(LinkCounter)
 class LinkCounterAdmin(ExportActionMixin, admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None) -> bool:
-        return False
+        return True
 
     def has_add_permission(self, request, obj=None) -> bool:
         return False
@@ -49,7 +49,7 @@ class StartYoungUKUserAdmin(ExportActionMixin, admin.ModelAdmin):
     ]
 
     def has_delete_permission(self, request, obj=None) -> bool:
-        return False
+        return True
 
     def has_add_permission(self, request, obj=None) -> bool:
         return False
