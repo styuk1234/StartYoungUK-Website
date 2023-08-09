@@ -29,8 +29,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "0").lower() in ["true", "t", "1"]
 
-ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME'], "www.startyounguk.com",
-                 ] if 'WEBSITE_HOSTNAME' in os.environ else ["www.startyounguk.com"]
+ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME'], "www.startyounguk.com", "startyounguk.com",
+                 ] if 'WEBSITE_HOSTNAME' in os.environ else ["www.startyounguk.com", "startyounguk.com"]
 CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME'], "https://startyounguk.com", "https://www.startyounguk.com",
                         ] if 'WEBSITE_HOSTNAME' in os.environ else []
 
