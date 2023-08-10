@@ -3,11 +3,7 @@
 <html lang="en">
   <head>
 	<meta name="google-site-verification" content="aa65qVrMqs5P9rVpAIp06JJEWDN7r9sl9gkCekwg8w0" />
-    {% if title %}
-    <title>Start Young UK - {{title}} </title>
-    {% else %}
-    <title>Start Young UK &mdash; Empowering Young People to Achieve</title>
-    {% endif %}
+    <title>Start Young UK &mdash; {% block title %}{% endblock %} </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
