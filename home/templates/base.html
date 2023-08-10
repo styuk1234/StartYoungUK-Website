@@ -83,7 +83,7 @@
     z-index: 1;
 } {% endcomment %}
 
-/* The popup chat - hidden by default */
+{% comment %} /* The popup chat - hidden by default */
 .chat-popup {
   display: none;
   position: fixed;
@@ -91,7 +91,7 @@
   right: 15px;
   border: 3px solid #f1f1f1;
   z-index: 9;
-}
+} {% endcomment %}
 
 /* Add styles to the form container */
 .form-container {
@@ -321,7 +321,7 @@
     </form>
   </div> {% endcomment %}
   
-  <script>
+  {% comment %} <script>
   function openForm() {
     document.getElementById("myChat").style.display = "block";
   }
@@ -329,7 +329,7 @@
   function closeForm() {
     document.getElementById("myChat").style.display = "none";
   }
-  </script>
+  </script> {% endcomment %}
   
 
   <!-- loader -->
