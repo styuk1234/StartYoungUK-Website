@@ -8,7 +8,7 @@ from django.core.validators import MinLengthValidator
 
 class StartYoungUKUser(models.Model):
     class Meta:
-        verbose_name_plural = "StartYoung UK Users"
+        verbose_name_plural = "Start Young UK Users"
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(max_length=50, null=False, unique=True)

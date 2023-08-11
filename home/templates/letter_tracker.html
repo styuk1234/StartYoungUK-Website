@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}Buddy Letter Tracker{% endblock %}
 {% load static %}
 {% block content %}
 
@@ -49,6 +50,7 @@
                   <th><input type="checkbox" id="select-all-buddies"></th>
                   <th>Name</th>
                   <th>Letter Received?</th>
+                  <th>Buddy's Email</th>
                 </tr>
               </thead>
               <tbody>
@@ -61,6 +63,7 @@
                   {% else %}
                   <td>No</td>
                   {% endif %}
+                  <td>{{ buddy.user.email }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -71,6 +74,7 @@
             <button class="btn btn-white" type="submit" name="send-email" disabled>Send an email reminder</button>
             <button class="btn btn-white" type="submit" name="letter-received-true" disabled>Confirm have received letters</button>
             <button class="btn btn-white" type="submit" name="letter-received-false" disabled>Reset letter received status</button>
+            <button class="btn btn-white" type="submit" name="export" disabled>Export to csv</button>
           </div> 
           <br /> 
         </form>
@@ -118,6 +122,10 @@
       buttons[i].disabled = !anyChecked;
     }
     buttons = document.getElementsByName("letter-received-false");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = !anyChecked;
+    }
+    buttons = document.getElementsByName("export");
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].disabled = !anyChecked;
     }

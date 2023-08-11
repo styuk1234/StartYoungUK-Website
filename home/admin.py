@@ -1,9 +1,9 @@
 from django.contrib import admin
 from .models import Campaign, Affiliation, Opportunity, EmailContent
-
+from import_export.admin import ExportActionMixin
 
 @admin.register(Campaign)
-class CampaignAdmin(admin.ModelAdmin):
+class CampaignAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = (
         "campaign_id",
         "is_active",
@@ -21,7 +21,7 @@ class CampaignAdmin(admin.ModelAdmin):
 
 
 @admin.register(Affiliation)
-class AffiliationAdmin(admin.ModelAdmin):
+class AffiliationAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = ("affiliation_id", "affiliation_name", "affiliation_join_date")
     list_filter = (
         "affiliation_id",
@@ -31,7 +31,7 @@ class AffiliationAdmin(admin.ModelAdmin):
 
 
 @admin.register(Opportunity)
-class OpportunityAdmin(admin.ModelAdmin):
+class OpportunityAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = ("id", "title", "description", "form_url")
     list_filter = (
         "id",
@@ -44,5 +44,10 @@ class OpportunityAdmin(admin.ModelAdmin):
 class EmailContentAdmin(admin.ModelAdmin):
     list_display = ("id", "email_type")
     list_filter = ("id", "email_type")
-    # TODO: once the email types are added in the production database uncomment the line below so user can not adapt email type
-    # readonly_fields = ("email_type",)
+    readonly_fields = ("email_type",)
+    
+    def has_delete_permission(self, request, obj=None) -> bool:
+        return False
+
+    def has_add_permission(self, request, obj=None) -> bool:
+        return False

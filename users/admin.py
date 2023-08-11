@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import StartYoungUKUser, Buddy
 from verify_email.models import LinkCounter
 import verify_email.admin
+from import_export.admin import ExportActionMixin
+
 
 
 # Register your models here.
@@ -9,18 +11,18 @@ import verify_email.admin
 admin.site.unregister(LinkCounter)
 
 @admin.register(LinkCounter)
-class LinkCounterAdmin(admin.ModelAdmin):
+class LinkCounterAdmin(ExportActionMixin, admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None) -> bool:
-        return False
+        return True
 
     def has_add_permission(self, request, obj=None) -> bool:
         return False
 
 @admin.register(StartYoungUKUser)
-class StartYoungUKUserAdmin(admin.ModelAdmin):
-    admin.site.site_header = "StartYoung UK Administration"
-    admin.site.site_title = "StartYoung UK Admin Site"
-    admin.site.index_title = "StartYoung UK Management"
+class StartYoungUKUserAdmin(ExportActionMixin, admin.ModelAdmin):
+    admin.site.site_header = "Start Young UK Administration"
+    admin.site.site_title = "Start Young UK Admin Site"
+    admin.site.index_title = "Start Young UK Management"
 
     list_display = ("email", "name", "user_type", "is_verified", "phone_number")
     list_filter = (
@@ -47,7 +49,7 @@ class StartYoungUKUserAdmin(admin.ModelAdmin):
     ]
 
     def has_delete_permission(self, request, obj=None) -> bool:
-        return False
+        return True
 
     def has_add_permission(self, request, obj=None) -> bool:
         return False
@@ -62,7 +64,7 @@ class StartYoungUKUserAdmin(admin.ModelAdmin):
 
 
 @admin.register(Buddy)
-class BuddyAdmin(admin.ModelAdmin):
+class BuddyAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = ("id", "user", "status")
     list_filter = ("status",)
     # search_fields = ("display_name__startswith", "email__startswith", )

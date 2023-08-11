@@ -91,13 +91,13 @@ def paypal_payment_received(sender, **kwargs):
 
     # check for failed subscription payment IPN
     elif ipn_obj.txn_type == "subscr_failed":
-        # send_email(ipn_obj.payer_email, 'StartYoung UK Subscription Payment Failure', "email_payment_failed.html")
+        # send_email(ipn_obj.payer_email, 'Start Young UK Subscription Payment Failure', "email_payment_failed.html")
         sendEmailFixedContent(
             ipn_obj.payer_email,
-            "StartYoung UK Subscription Payment Failure",
+            "Start Young UK Subscription Payment Failure",
             "email_templates/sdp_failed.html",
         )
-        print("SDP subscription payment failed", ipn_obj)
+        print("RDP subscription payment failed", ipn_obj)
 
     # check for subscription cancellation IPN
     elif ipn_obj.txn_type == "subscr_cancel":
@@ -143,7 +143,7 @@ def paypal_payment_received(sender, **kwargs):
                     "email_templates/sdp_cancel.html",
                 )
 
-            print("SDP subscription cancelled", ipn_obj)
+            print("RDP subscription cancelled", ipn_obj)
 
     else:
         print(

@@ -57,7 +57,7 @@ class EmailContent(models.Model):
     id = models.AutoField(primary_key=True)
     email_type = models.CharField(
         choices=[
-            ("approved", "Final Step: Setting up SDP"),
+            ("approved", "Final Step: Setting up recurring donation plan"),
             ("rejected", "Buddy Rejection Email"),
             ("Letter", "Buddy Letter Reminder"),
             ("final", "Welcome to SYUK"),
