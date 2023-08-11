@@ -19,6 +19,7 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ENVIRONMENT = os.getenv("ENVIRONMENT", "PROD")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -30,9 +31,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "0").lower() in ["true", "t", "1"]
 
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME'], "www.startyounguk.com", "startyounguk.com",
-                 ] if 'WEBSITE_HOSTNAME' in os.environ else ["www.startyounguk.com", "startyounguk.com"]
+                 ] if 'WEBSITE_HOSTNAME' in os.environ else ["127.0.0.1","www.startyounguk.com", "startyounguk.com"]
 CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME'], "https://startyounguk.com", "https://www.startyounguk.com",
-                        ] if 'WEBSITE_HOSTNAME' in os.environ else []
+                        ] if 'WEBSITE_HOSTNAME' in os.environ else ["https://127.0.0.1"]
 
 
 # Application definition
@@ -120,23 +121,26 @@ SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-conn_str = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
-conn_str_params = {pair.split('=')[0]: pair.split(
-   '=')[1] for pair in conn_str.split(' ')}
+if ENVIRONMENT == "PROD":
+    conn_str = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
+    conn_str_params = {pair.split('=')[0]: pair.split(
+    '=')[1] for pair in conn_str.split(' ')}
 
 
-DATABASES = {
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": conn_str_params["dbname"],
+            "USER": conn_str_params["user"],
+            "PASSWORD": conn_str_params["password"],
+            "HOST": conn_str_params["host"],
+        }
+    }
+else:
+    DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": conn_str_params["dbname"],
-        "USER": conn_str_params["user"],
-        "PASSWORD": conn_str_params["password"],
-        "HOST": conn_str_params["host"],
-    #   "ENGINE": "django.db.backends.mysql",
-    #   "NAME": os.getenv("AZURE_MYSQL_NAME"),
-    #   "USER": os.getenv("AZURE_MYSQL_USER"),
-    #   "PASSWORD": os.getenv("AZURE_MYSQL_PASSWORD"),
-    #   "HOST": os.getenv("AZURE_MYSQL_HOST"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -180,7 +184,8 @@ STATIC_URL = "/static/"
 STATIC_FILES_DIR = (BASE_DIR / "static",)
 STATIC_FILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-DEFAULT_FILE_STORAGE = 'azure_storage.custom_azure.PublicAzureStorage'
+if ENVIRONMENT == "PROD":
+    DEFAULT_FILE_STORAGE = 'azure_storage.custom_azure.PublicAzureStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -191,7 +196,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # 2 step mail verification settings
 LOGIN_URL = "login"
-SUBJECT = "Verify your email to access your StartYoungUK Profile"
+SUBJECT = "Verify your email to access your Start Young UK Profile"
 DEFAULT_FROM_EMAIL = "noreply<no_reply@domain.com>"
 EXPIRE_AFTER = "1h"  # Verification Link will expire after one hour from link generation
 HTML_MESSAGE_TEMPLATE = (
@@ -236,9 +241,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 CSRF_COOKIE_SECURE = True
 
 # Cache settings for dashboard
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
-        "LOCATION": "127.0.0.1:11211",
-    }
-}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+#         "LOCATION": "127.0.0.1:11211",
+#     }
+# }
