@@ -17,6 +17,7 @@ import os
 from django.views.generic import TemplateView
 import csv
 from django.http import HttpResponse
+from datetime import datetime
 
 
 # from django.views.generic import ListView
@@ -37,7 +38,7 @@ def home(request):
         except StartYoungUKUser.DoesNotExist:
             donor_images.append("Unauthenticated donation")
 
-    campaigns = Campaign.objects.all().order_by("campaign_deadline")[:]
+    campaigns = Campaign.objects.filter(campaign_deadline__gt=datetime.today()).order_by("campaign_deadline")[:]
     collection_by_campaign = []
     percent_raised = []
     for campaign in campaigns:
