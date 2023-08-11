@@ -20,9 +20,9 @@ class LinkCounterAdmin(ExportActionMixin, admin.ModelAdmin):
 
 @admin.register(StartYoungUKUser)
 class StartYoungUKUserAdmin(ExportActionMixin, admin.ModelAdmin):
-    admin.site.site_header = "StartYoung UK Administration"
-    admin.site.site_title = "StartYoung UK Admin Site"
-    admin.site.index_title = "StartYoung UK Management"
+    admin.site.site_header = "Start Young UK Administration"
+    admin.site.site_title = "Start Young UK Admin Site"
+    admin.site.index_title = "Start Young UK Management"
 
     list_display = ("email", "name", "user_type", "is_verified", "phone_number")
     list_filter = (

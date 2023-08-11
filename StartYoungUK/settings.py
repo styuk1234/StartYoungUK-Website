@@ -220,7 +220,7 @@ ENVIRONMENT_COLOR = "#FF2222" if not DEBUG else "#006400"
 ENVIRONMENT_FLOAT = True
 
 # 2FA Name to display on Authenticator App
-OTP_TOTP_ISSUER = "StartYoung UK Admin"
+OTP_TOTP_ISSUER = "Start Young UK Admin"
 
 SECURE_SSL_REDIRECT = os.getenv("SECURE_SSL_REDIRECT", "0").lower() in ["true", "t", "1"]
 if SECURE_SSL_REDIRECT:
