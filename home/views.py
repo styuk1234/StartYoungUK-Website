@@ -38,7 +38,7 @@ def home(request):
         except StartYoungUKUser.DoesNotExist:
             donor_images.append("Unauthenticated donation")
 
-    campaigns = Campaign.objects.filter(campaign_deadline__gt=datetime.today()).order_by("campaign_deadline")[:]
+    campaigns = Campaign.objects.filter(campaign_deadline__gte=datetime.today()).order_by("campaign_deadline")[:]
     collection_by_campaign = []
     percent_raised = []
     for campaign in campaigns:
