@@ -20,6 +20,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 ENVIRONMENT = os.getenv("ENVIRONMENT", "PROD")
+NGROK_DOMAIN = os.getenv("NGROK_DOMAIN", "*.ngrok-free.app")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -31,9 +32,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "0").lower() in ["true", "t", "1"]
 
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME'], "www.startyounguk.com", "startyounguk.com",
-                 ] if 'WEBSITE_HOSTNAME' in os.environ else ["127.0.0.1","www.startyounguk.com", "startyounguk.com"]
+                 ] if 'WEBSITE_HOSTNAME' in os.environ else ["127.0.0.1", NGROK_DOMAIN]
 CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME'], "https://startyounguk.com", "https://www.startyounguk.com",
-                        ] if 'WEBSITE_HOSTNAME' in os.environ else ["https://127.0.0.1"]
+                        ] if 'WEBSITE_HOSTNAME' in os.environ else ["https://127.0.0.1", "https://" + NGROK_DOMAIN]
 
 
 # Application definition
