@@ -197,10 +197,11 @@ if ENVIRONMENT == "PROD":
 
     STORAGES["default"] = {"BACKEND": "storages.backends.azure_storage.AzureStorage"}
 
-    AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
-    AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+    AZURE_ACCOUNT_NAME = os.getenv("AZURE_ACCOUNT_NAME")
+    AZURE_ACCOUNT_KEY = os.getenv("AZURE_ACCOUNT_KEY")
     AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
     AZURE_CONTAINER = "media"
+    AZURE_URL_EXPIRATION_SECS = os.getenv("AZURE_URL_EXPIRATION_SECS")
     MEDIA_URL = f"{AZURE_CUSTOM_DOMAIN}/{AZURE_CONTAINER}/"
     MEDIA_ROOT = BASE_DIR / "mediafiles"
 
