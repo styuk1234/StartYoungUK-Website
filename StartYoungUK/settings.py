@@ -183,11 +183,20 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "/static/"
 STATIC_FILES_DIR = (BASE_DIR / "static",)
-STATIC_FILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+}
+
+# Below line is deprecated in Django>=4.2
+# STATIC_FILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Media files (files uploaded by users have to be persisted)
 if ENVIRONMENT == "PROD":
+    # Below line is deprecated in Django>=4.2
     #DEFAULT_FILE_STORAGE = 'azure_storage.custom_azure.PublicAzureStorage'
+    
+    STORAGES["default"] = {"BACKEND": "storages.backends.azure_storage.AzureStorage"}
+
     AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
     AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
     AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
