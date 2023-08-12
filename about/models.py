@@ -10,7 +10,7 @@ class TeamMember(models.Model):
     member_name = models.CharField(max_length=100, null=False)
     member_title = models.CharField(max_length=50, null=False)
     member_image = models.ImageField(
-        default="default_member.jpg", upload_to="team_member_pics"
+        default="team_member_pics/default_member.jpg", upload_to="team_member_pics"
     )
 
     def __str__(self) -> str:

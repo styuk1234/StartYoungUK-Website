@@ -22,7 +22,7 @@ class StartYoungUKUser(models.Model):
         max_length=10, choices=[("I", "Individual"), ("C", "Corporate")], null=False
     )
     is_verified = models.BooleanField(default=False)
-    image = models.ImageField(default="default.jpg", upload_to="profile_pics")
+    image = models.ImageField(default="profile_pics/default_dp.jpg", upload_to="profile_pics")
     is_coordinator = models.BooleanField(default=False)
     is_buddy = models.BooleanField(default=False)
     sdp_amount = models.PositiveIntegerField(default=0)

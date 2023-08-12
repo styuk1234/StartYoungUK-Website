@@ -27,7 +27,7 @@ class Affiliation(models.Model):
     affiliation_description = models.TextField(max_length=200, null=False)
     # TODO: update upload_to to get corporate sponsor pics
     affiliation_image = models.ImageField(
-        default="default.jpg", upload_to="affiliation_pics"
+        default="affiliation_pics/default_affiliation.jpg", upload_to="affiliation_pics"
     )
     affiliation_join_date = models.DateField(null=False)
     affiliation_display = models.BooleanField(null=False)
