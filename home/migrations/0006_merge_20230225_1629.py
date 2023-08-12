@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("home", "0003_affiliation_delete_coporate_sponsors"),
+        ("home", "0003_delete_coporate_sponsors"),
         ("home", "0003_alter_campaign_campaign_image"),
     ]
 
