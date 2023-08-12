@@ -16,12 +16,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Donation",
             fields=[
-                ("trxn_id", models.CharField(
-                default=uuid.UUID("2e576392-4633-42ef-9afb-19817fabd898"),
-                max_length=100,
-                primary_key=True,
-                serialize=False,
-                unique=True,
+                ("trxn_id", models.UUIDField(
+                    default=uuid.uuid4,
+                    editable=False,
+                    primary_key=True,
+                    serialize=False,
+                    unique=True,
                 )),
                 ("campaign_id", models.IntegerField(null=False, default=0)),
                 ("user_id", models.IntegerField(null=False, default=0)),
@@ -37,5 +37,9 @@ class Migration(migrations.Migration):
                 ("date_donation", models.DateTimeField(auto_now_add=True)),
                 ("is_gift_aid", models.BooleanField(null=False, default=False)),
             ],
+        ),
+         migrations.AlterModelOptions(
+            name="donation",
+            options={"ordering": ["-date_donation"]},
         ),
     ]

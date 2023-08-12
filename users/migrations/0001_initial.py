@@ -18,7 +18,6 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="StartYoungUKUser",
             fields= [
-                ("display_name", models.CharField(max_length=50)),
                 ("email", models.EmailField(max_length=50, null=False, unique=True)),
                 ("address", models.TextField(max_length=100)),
                 (
@@ -73,8 +72,8 @@ class Migration(migrations.Migration):
             name="Buddy",
             fields=[
                 ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("description", models.TextField(default="No description yet.")),
                 ("date_status_modified", models.DateTimeField(auto_now_add=True)),
-                ("occupation", models.CharField(max_length=20)),
                 (
                     "status",
                     models.CharField(
