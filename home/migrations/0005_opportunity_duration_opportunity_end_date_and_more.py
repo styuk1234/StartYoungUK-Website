@@ -6,7 +6,7 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("home", "0004_opportunity"),
+        ("home", "0003_alter_campaign_campaign_image"),
     ]
 
     operations = [

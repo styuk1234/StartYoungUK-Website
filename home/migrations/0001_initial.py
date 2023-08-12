@@ -23,4 +23,13 @@ class Migration(migrations.Migration):
                 ),
             ],
         ),
+        migrations.CreateModel(
+            name="Opportunity",
+            fields=[
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("title", models.CharField(max_length=50)),
+                ("description", models.TextField(max_length=400)),
+                ("form_url", models.URLField(max_length=100)),
+            ],
+        ),
     ]
