@@ -194,13 +194,14 @@ STORAGES = {
 if ENVIRONMENT == "PROD":
     # Below line is deprecated in Django>=4.2
     #DEFAULT_FILE_STORAGE = 'azure_storage.custom_azure.PublicAzureStorage'
-    
+
     STORAGES["default"] = {"BACKEND": "storages.backends.azure_storage.AzureStorage"}
 
     AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
     AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
     AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
-    MEDIA_URL = f"{AZURE_CUSTOM_DOMAIN}/media/"
+    AZURE_CONTAINER = "media"
+    MEDIA_URL = f"{AZURE_CUSTOM_DOMAIN}/{AZURE_CONTAINER}/"
     MEDIA_ROOT = BASE_DIR / "mediafiles"
 
 MEDIA_ROOT = BASE_DIR / "media"
