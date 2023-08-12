@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("users", "0012_alter_startyoungukuser_options"),
+        ("users", "001_initial"),
     ]
 
     operations = [

@@ -16,39 +16,10 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Child",
-            fields=[
-                ("date", models.DateTimeField(auto_created=True)),
-                ("child_id", models.AutoField(primary_key=True, serialize=False)),
-                ("name", models.CharField(max_length=50)),
-                ("age", models.PositiveIntegerField()),
-                (
-                    "gender",
-                    models.CharField(
-                        choices=[("M", "Male"), ("F", "Female"), ("O", "Others")],
-                        max_length=10,
-                    ),
-                ),
-                ("class_std", models.CharField(max_length=10)),
-                ("school", models.CharField(max_length=50)),
-                ("hobbies", models.CharField(default="0000000000", max_length=10)),
-                ("mentor", models.PositiveIntegerField(null=True)),
-            ],
-        ),
-        migrations.CreateModel(
             name="StartYoungUKUser",
-            fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
+            fields= [
                 ("display_name", models.CharField(max_length=50)),
-                ("email", models.EmailField(max_length=50, unique=True)),
+                ("email", models.EmailField(max_length=50, null=False, unique=True)),
                 ("address", models.TextField(max_length=100)),
                 (
                     "phone_number",
@@ -85,13 +56,23 @@ class Migration(migrations.Migration):
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),
+                ("is_buddy", models.BooleanField(default=False)),
+                ("sdp_amount", models.PositiveIntegerField(default=0)),
+                ("sdp_frequency", models.CharField(
+                    max_length=10,
+                    choices=(
+                        ("W", "Weekly"),
+                        ("F", "Fortnightly"),
+                        ("M", "Monthly"),
+                        ("N", "None"),
+                    ),
+                    default="N")),
             ],
         ),
         migrations.CreateModel(
             name="Buddy",
             fields=[
                 ("id", models.AutoField(primary_key=True, serialize=False)),
-                ("hobbies", models.CharField(default="0000000000", max_length=10)),
                 ("date_status_modified", models.DateTimeField(auto_now_add=True)),
                 ("occupation", models.CharField(max_length=20)),
                 (
@@ -101,6 +82,7 @@ class Migration(migrations.Migration):
                             ("pending", "pending"),
                             ("approved", "approved"),
                             ("rejected", "rejected"),
+                            ("opted_out", "opted out"),
                         ],
                         default="pending",
                         max_length=256,
@@ -108,6 +90,7 @@ class Migration(migrations.Migration):
                 ),
                 ("approver", models.EmailField(max_length=256, null=True)),
                 ("letter_received", models.BooleanField(default=False)),
+                ("sdp_start",models.DateTimeField(auto_now=True)),
                 (
                     "user",
                     models.OneToOneField(
@@ -117,4 +100,13 @@ class Migration(migrations.Migration):
                 ),
             ],
         ),
+        migrations.AlterModelOptions(
+            name="buddy",
+            options={"verbose_name_plural": "Buddies"},
+        ),
+        migrations.AlterModelOptions(
+            name="startyoungukuser",
+            options={"verbose_name_plural": "Start Young UK Users"},
+        ),
+
     ]
