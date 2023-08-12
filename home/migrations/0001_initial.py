@@ -36,4 +36,20 @@ class Migration(migrations.Migration):
                 ("position_filled", models.BooleanField(null=False)),
             ],
         ),
+        migrations.CreateModel(
+            name="Affiliation",
+            fields=[
+                ("affiliation_id", models.AutoField(primary_key=True, serialize=False)),
+                ("affiliation_name", models.CharField(max_length=50)),
+                ("affiliation_description", models.TextField(max_length=200)),
+                (
+                    "affiliation_image",
+                    models.ImageField(
+                        default="default.jpg", upload_to="affiliation_pics"
+                    ),
+                ),
+                ("affiliation_join_date", models.DateField()),
+                ("affiliation_display", models.BooleanField()),
+            ],
+        ),
     ]
