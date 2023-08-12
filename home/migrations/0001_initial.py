@@ -21,6 +21,8 @@ class Migration(migrations.Migration):
                     "campaign_image",
                     models.ImageField(default="default.jpg", upload_to="campaign_pics"),
                 ),
+                ("is_active", models.BooleanField(null=False, default=True)),
+                ("slug", models.SlugField(null=False, unique=True)),
             ],
         ),
         migrations.CreateModel(
@@ -52,4 +54,37 @@ class Migration(migrations.Migration):
                 ("affiliation_display", models.BooleanField()),
             ],
         ),
+        migrations.CreateModel(
+            name="EmailContent",
+            fields=[
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "email_type",
+                    models.CharField(
+                        choices=[
+                            ("approved", "Final Step: Setting up recurring donation plan"),
+                            ("rejected", "Buddy Rejection Email"),
+                            ("Letter", "Buddy Letter Reminder"),
+                            ("final", "Welcome to SYUK"),
+                        ],
+                        max_length=50,
+                    ),
+                ),
+                ("subject", models.CharField(max_length=100)),
+                ("header", models.CharField(max_length=255)),
+                ("body", models.TextField()),
+                ("attachment", models.FileField(blank=True, upload_to="attachments/")),
+                ("attachment2", models.FileField(blank=True, upload_to="attachments/")),
+                ("attachment3", models.FileField(blank=True, upload_to="attachments/")),
+                ("attachment4", models.FileField(blank=True, upload_to="attachments/")),
+                ("attachment5", models.FileField(blank=True, upload_to="attachments/")),
+                ("signature", models.TextField()),
+            ],
+        ),
+        migrations.AlterModelOptions(
+            name="opportunity",
+            options={"verbose_name_plural": "Opportunities"},
+        ),
+
+
     ]
