@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("home", "0014_alter_emailcontent_email_type"),
+        ("home", "0006_merge_20230225_1629"),
     ]
 
     operations = [
