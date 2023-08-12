@@ -185,8 +185,19 @@ STATIC_URL = "/static/"
 STATIC_FILES_DIR = (BASE_DIR / "static",)
 STATIC_FILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+# Media files (files uploaded by users have to be persisted)
 if ENVIRONMENT == "PROD":
-    DEFAULT_FILE_STORAGE = 'azure_storage.custom_azure.PublicAzureStorage'
+    #DEFAULT_FILE_STORAGE = 'azure_storage.custom_azure.PublicAzureStorage'
+    AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
+    AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+    AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
+    MEDIA_URL = f"{AZURE_CUSTOM_DOMAIN}/media/"
+    MEDIA_ROOT = BASE_DIR / "mediafiles"
+
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/media/"
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -212,9 +223,6 @@ REQUEST_NEW_EMAIL_TEMPLATE = (
 NEW_EMAIL_SENT_TEMPLATE = (
     BASE_DIR / "templates/new_email_sent.html"
 )  # Path to HTML for new email sent
-
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "/media/"
 
 
 PAYPAL_TEST = os.getenv("PAYPAL_TEST", "0").lower() in ["true", "t", "1"]
