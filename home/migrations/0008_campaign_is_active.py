@@ -5,7 +5,7 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("home", "0007_remove_opportunity_salary_opportunity_job_paid"),
+        ("home", "0006_merge_20230225_1629"),
     ]
 
     operations = [

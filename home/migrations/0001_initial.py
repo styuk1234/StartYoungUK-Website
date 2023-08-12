@@ -29,7 +29,11 @@ class Migration(migrations.Migration):
                 ("id", models.AutoField(primary_key=True, serialize=False)),
                 ("title", models.CharField(max_length=50)),
                 ("description", models.TextField(max_length=400)),
+                ("end_date", models.DateField(null=False)),
+                ("job_paid",  models.BooleanField(null=False, default=False)),
+                ("duration", models.TextField(default="5 months", max_length=50)),
                 ("form_url", models.URLField(max_length=100)),
+                ("position_filled", models.BooleanField(null=False)),
             ],
         ),
     ]
