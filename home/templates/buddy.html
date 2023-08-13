@@ -3,16 +3,27 @@
 {% load static %}
 {% block content %}
 
+<style>
+  .btn {
+    max-width: 400px; /* Set a maximum width for the button */
+    margin: 5px auto; /* Center the button horizontally with some margin */
+    white-space: normal; /* Allow text to wrap within the button */
+    text-align: center; /* Center the text horizontally within the button */
+    padding: 10px; /* Add padding to the button for spacing */
+    box-sizing: border-box; /* Include padding in button's total width */
+  }
+</style>
+
 <script>
   document.getElementById("nav-buddy").classList.add("active");
 </script>
 
 <div class="featured-section overlay-color-2" style="background-image: url('{% static 'images/sdp-buddy-bg.jpg' %}');">
     
-    <div class="container" style="padding:10%;">
+    <div class="container" style="padding:0%;">
       <div class="row">
         
-        <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px; margin-right: 40px;">
+        <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 5%; margin-right: 5%; margin-left: 5%;">
           <br><h2 style="text-align:center;">The Buddy System</h2><br>
           <p class="mb-5">The Start Young Buddy (SYB) plays a key part in making a change in a child's life. They encourage, mentor, value, respect, shift mindset and support throughout the educational road map. They ensure every child reaches their full potential. You can be a sleeping SYB or an active SYB. In line with privacy guardrails, all SYB contact is through the school and charity.</p>
           <p class="lead">WHO IS  A START YOUNG BUDDY (SYB)?</p>
@@ -59,7 +70,7 @@
              <p class="mb-0" style="text-align: center;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Re-apply for SYB</a></p>
              {% elif request.user.buddy.status == 'approved' %}
              {% else %}
-             <p class="mb-0" style="text-align: center; max-width: 200px;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Become a Buddy Today!</a></p>
+             <p class="mb-0" style="text-align: center;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Become a Buddy Today!</a></p>
             {% endif %}
               <br>
             <br>

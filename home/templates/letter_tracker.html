@@ -6,23 +6,33 @@
 
 <style>
 
-    .buddy-approval-button-group {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      gap: 10px;
-    }
+.buddy-approval-button-group {
+    display: flex;
+    flex-direction: row; /* Initially show buttons side by side */
+    justify-content: center; /* Center buttons horizontally */
+    gap: 10px;
+    margin-top: 10px; /* Add some margin for spacing */
+  }
 
-    .buddy-approval-button-group button {
-      font-size: 0.8rem;
-      padding: 5px 10px;
-      max-width: fit-content;
+  @media (max-width: 767px) {
+    .buddy-approval-button-group {
+      flex-direction: column; /* Stack buttons vertically on mobile */
+      align-items: center; /* Center buttons horizontally */
     }
+  }
+
+
+  .buddy-approval-button-group button {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    max-width: fit-content;
+  }
     
     div.buddy-table-wrapper {
       overflow:hidden;
       overflow-y: scroll;
       height: 400px; 
+      overflow-x: scroll;
       color: rgb(248, 249, 249);
     }
 </style>
