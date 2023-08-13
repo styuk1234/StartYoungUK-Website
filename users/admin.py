@@ -38,7 +38,7 @@ class StartYoungUKUserAdmin(ExportActionMixin, admin.ModelAdmin):
         "sdp_amount",
         "sdp_frequency",
         "is_buddy",
-        "image",
+        # "image",
         "is_verified",
         "user_type",
         "crn_no",

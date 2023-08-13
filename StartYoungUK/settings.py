@@ -182,7 +182,7 @@ USE_TZ = True
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "/static/"
-STATIC_FILES_DIR = (BASE_DIR / "static",)
+# STATIC_FILES_DIR = (BASE_DIR / "static",)
 STORAGES = {
     "staticfiles": {"BACKEND": "whitenoise.storage.CompressedStaticFilesStorage"},
 }

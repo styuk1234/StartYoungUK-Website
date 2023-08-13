@@ -192,14 +192,14 @@ class BuddyRegistrationForm(forms.Form):
 class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = StartYoungUKUser
-        fields = ["email", "phone_number", "address", "image"]
+        fields = ["email", "phone_number", "address",] # "image"]
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         super(UpdateUserForm, self).__init__(*args, **kwargs)
         self.fields["email"].widget.attrs.update({"readonly": "readonly"})
         self.fields["email"].required = False
-        self.fields["image"].initial = self.user.image
+        #self.fields["image"].initial = self.user.image
 
     def clean_phone_number(self):
         # Validate unique phone_number
