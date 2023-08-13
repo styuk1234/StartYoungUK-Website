@@ -7,6 +7,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from .models import Campaign, Affiliation, EmailContent
+from about.models import CharityDetail
 from users.models import Buddy, StartYoungUKUser
 from django.core.serializers import serialize
 from django.contrib.auth.models import User
@@ -29,6 +30,7 @@ def home(request):
     affiliations = Affiliation.objects.all()
     top_donation = Donation.objects.filter(is_successful=True).order_by("-amount")[:4]
     serial_donation = json.loads(serialize("json", top_donation))
+    number_children = (CharityDetail.objects.get(id=1)).number_children_helped
 
     campaigns = Campaign.objects.filter(campaign_deadline__gte=datetime.today()).order_by("campaign_deadline")[:]
     collection_by_campaign = []
@@ -56,6 +58,7 @@ def home(request):
     cnt_usr = len(User.objects.all())
     cnt_buddy = len(Buddy.objects.all())
     cnt_campaigns = len(campaigns)
+    
 
     return render(
         request,
@@ -67,6 +70,7 @@ def home(request):
             "campaigns_zip": campaigns_zip,
             "cnt_buddy": cnt_buddy,
             "cnt_campaigns": cnt_campaigns,
+            "number_children": number_children
         },
     )
 
