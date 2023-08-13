@@ -29,14 +29,14 @@ def home(request):
     affiliations = Affiliation.objects.all()
     top_donation = Donation.objects.filter(is_successful=True).order_by("-amount")[:4]
     serial_donation = json.loads(serialize("json", top_donation))
-    donor_images = []
-    for donation in top_donation:
-        try:
-            donor_images.append(
-                StartYoungUKUser.objects.get(id=donation.user_id).image.url
-            )
-        except StartYoungUKUser.DoesNotExist:
-            donor_images.append("Unauthenticated donation")
+    # donor_images = []
+    # for donation in top_donation:
+    #     try:
+    #         donor_images.append(
+    #             StartYoungUKUser.objects.get(id=donation.user_id).image.url
+    #         )
+    #     except StartYoungUKUser.DoesNotExist:
+    #         donor_images.append("Unauthenticated donation")
 
     campaigns = Campaign.objects.filter(campaign_deadline__gte=datetime.today()).order_by("campaign_deadline")[:]
     collection_by_campaign = []
@@ -64,14 +64,14 @@ def home(request):
     cnt_usr = len(User.objects.all())
     cnt_buddy = len(Buddy.objects.all())
     cnt_campaigns = len(campaigns)
-    donations_zip = zip(serial_donation, donor_images)
+    # donations_zip = zip(serial_donation, donor_images)
 
     return render(
         request,
         "home.html",
         {
             "affiliations": affiliations,
-            "top_donations": donations_zip,
+            "top_donations": serial_donation,
             "cnt_usr": cnt_usr,
             "campaigns_zip": campaigns_zip,
             "cnt_buddy": cnt_buddy,
