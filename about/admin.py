@@ -29,3 +29,9 @@ class GalleryItem(admin.ModelAdmin):
 @admin.register(CharityDetail)
 class CharityDetail(admin.ModelAdmin):
     list_display = ("id", "email", "address", "phone_number", "charity_number","number_children_helped")
+    
+    def has_delete_permission(self, request, obj=None) -> bool:
+        return False
+
+    def has_add_permission(self, request, obj=None) -> bool:
+        return False
