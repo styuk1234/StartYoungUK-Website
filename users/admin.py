@@ -35,9 +35,9 @@ class StartYoungUKUserAdmin(ExportActionMixin, admin.ModelAdmin):
         "email__startswith",
     )
     readonly_fields = [
-        "sdp_amount",
-        "sdp_frequency",
-        "is_buddy",
+        # "sdp_amount",
+        # "sdp_frequency",
+        # "is_buddy",
         # "image",
         "is_verified",
         "user_type",
@@ -56,11 +56,6 @@ class StartYoungUKUserAdmin(ExportActionMixin, admin.ModelAdmin):
 
     def name(self, obj):
         return obj.user.first_name + " " + obj.user.last_name
-
-
-# @admin.register(Child)
-# class ChildAdmin(admin.ModelAdmin):
-#     pass
 
 
 @admin.register(Buddy)

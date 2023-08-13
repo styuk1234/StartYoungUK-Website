@@ -21,11 +21,12 @@ class PayPalIPNAdmin(PayPalIPNAdmin):
 @admin.register(Donation)
 class DonationAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = (
+        "trxn_id"
         "is_successful",
+        "user_id",
         "name",
         "email",
         "amount",
-        "user_id",
         "date_donation",
     )
     list_filter = ("is_successful",)

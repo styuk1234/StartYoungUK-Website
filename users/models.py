@@ -13,10 +13,11 @@ class StartYoungUKUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(max_length=50, null=False, unique=True)
     address = models.TextField(max_length=100, null=False)
-    phone_number = PhoneNumberField(null=False, blank=False, unique=True)
+    phone_number = PhoneNumberField(null=False, blank=False, unique=True, verbose_name="Phone Number")
     # Customer Registration Number (CRN) is UK-equivalent of GST number
     crn_no = models.CharField(
-        default="00000000", max_length=8, validators=[MinLengthValidator(limit_value=8)]
+        default="00000000", max_length=8, validators=[MinLengthValidator(limit_value=8)],
+        verbose_name="CRN Number"
     )
     user_type = models.CharField(
         max_length=10, choices=[("I", "Individual"), ("C", "Corporate")], null=False
@@ -24,7 +25,7 @@ class StartYoungUKUser(models.Model):
     is_verified = models.BooleanField(default=False)
     is_coordinator = models.BooleanField(default=False)
     is_buddy = models.BooleanField(default=False)
-    sdp_amount = models.PositiveIntegerField(default=0)
+    sdp_amount = models.PositiveIntegerField(default=0, verbose_name="RDP Amount")
     sdp_frequency = models.CharField(
         max_length=10,
         choices=(
@@ -34,6 +35,7 @@ class StartYoungUKUser(models.Model):
             ("N", "None"),
         ),
         default="N",
+        verbose_name="RDP Frequency"
     )
 
     def __str__(self):
