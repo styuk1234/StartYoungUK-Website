@@ -17,7 +17,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.CreateModel(
             name="StartYoungUKUser",
-            fields= [
+            fields = [
+                ("id", models.BigAutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name="ID")),
                 ("email", models.EmailField(max_length=50, null=False, unique=True)),
                 ("address", models.TextField(max_length=100)),
                 (
