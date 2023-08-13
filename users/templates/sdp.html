@@ -2,6 +2,7 @@
 {% block title %}Recurring Donation Plan{% endblock %}
 {% load static %}
 {% block content %}
+
 <style>
     #paypal-container {
         position: relative;
@@ -12,9 +13,11 @@
     p {
         color: #060606
     }
+
+    
 </style>
 
-<div style="padding:140px; background-image: url('{% static 'images/bg_4.jpg' %}');">
+<div style="padding:10%; background-image: url('{% static 'images/bg_4.jpg' %}');">
 
     {% if sdp_frequency == 'N' %}
     <!-- if user has no SDP setup -->

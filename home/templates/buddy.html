@@ -9,7 +9,7 @@
 
 <div class="featured-section overlay-color-2" style="background-image: url('{% static 'images/sdp-buddy-bg.jpg' %}');">
     
-    <div class="container">
+    <div class="container" style="padding:10%;">
       <div class="row">
         
         <div class="col-md-12 pl-md-5" style="background-color:rgba(0, 0, 0, 0.5); margin-top: 40px; margin-right: 40px;">
@@ -54,12 +54,12 @@
             {% endif %}
     
              {% if request.user.buddy.status == 'pending' %}
-             <p class="mb-0" style="text-align: center;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Check Status</a></p>
+             <p class="mb-0" style="text-align: center; "><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Check Status</a></p>
              {% elif request.user.buddy.status == 'rejected' or request.user.buddy.status == 'opted_out' %}
              <p class="mb-0" style="text-align: center;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Re-apply for SYB</a></p>
              {% elif request.user.buddy.status == 'approved' %}
              {% else %}
-             <p class="mb-0" style="text-align: center;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Become a Buddy Today!</a></p>
+             <p class="mb-0" style="text-align: center; max-width: 200px;"><a href="{% url 'mentor' %}" class="btn btn-white px-3 py-2">Become a Buddy Today!</a></p>
             {% endif %}
               <br>
             <br>
