@@ -31,6 +31,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "0").lower() in ["true", "t", "1"]
 
+# Show site under maintenance banner to user if website is LIVE but you are doing some changes
+SITE_UNDER_MAINTENANCE = os.getenv("SITE_UNDER_MAINTENANCE", "0").lower() in ["true", "t", "1"]
+
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME'], "www.startyounguk.com", "startyounguk.com",
                  ] if 'WEBSITE_HOSTNAME' in os.environ else ["127.0.0.1", NGROK_DOMAIN]
 CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME'], "https://startyounguk.com", "https://www.startyounguk.com",
@@ -81,6 +84,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_otp.middleware.OTPMiddleware",
+    # Add site under construction banner when SITE_UNDER_MAINTENANCE is True/1 and not in DEBUG mode
+    "home.maintenance_middleware.MaintenanceMiddleware",
     # 'corsheader.middleware.CorsMiddleware',
 ]
 
