@@ -34,4 +34,4 @@ class CharityDetail(admin.ModelAdmin):
         return False
 
     def has_add_permission(self, request, obj=None) -> bool:
-        return True
+        return False
