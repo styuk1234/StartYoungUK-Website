@@ -7,7 +7,7 @@ from .forms import DonationForm
 from django.contrib import messages
 from .models import Donation
 import os
-
+from django.conf import settings
 
 def sponsor(request):
     if request.method == "POST":
@@ -74,7 +74,7 @@ def sponsor(request):
     else:
         form = DonationForm()
 
-    return render(request, "sponsor.html", {"form": form})
+    return render(request, "sponsor.html", {"form": form, "GSHEETS_DONATE_IN_KIND": settings.GSHEETS_DONATE_IN_KIND})
 
 
 class PaypalReturnView(TemplateView):
