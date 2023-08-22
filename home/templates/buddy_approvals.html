@@ -41,6 +41,8 @@
             <option value="rejected">Show Rejected</option> 
             <option value="opted_out">Show Opted Out</option>
           </select>
+          <br/>
+          <input type="text" id="search-input" placeholder="Search keywords here">
           <br>
             <br />
             {% if filter_status == None %}
@@ -168,5 +170,25 @@
       }
     }
   }
+
+  var searchInput = document.getElementById("search-input");
+  searchInput.addEventListener("input", function() {
+    filterRows(filterDropdown.value); 
+    filterSearch(searchInput.value); 
+  });
+
+  function filterSearch(keyword) {
+    keyword = keyword.toLowerCase();
+    for (var i = 0; i < tableBody.rows.length; i++) {
+      var dateCell = tableBody.rows[i].cells[1].innerText.toLowerCase(); 
+      var nameCell = tableBody.rows[i].cells[2].innerText.toLowerCase(); 
+      var emailCell = tableBody.rows[i].cells[3].innerText.toLowerCase(); 
+      var descriptionCell = tableBody.rows[i].cells[4].innerText.toLowerCase(); 
+      var approverCell = tableBody.rows[i].cells[6].innerText.toLowerCase(); 
+      var shouldDisplay = nameCell.includes(keyword) || emailCell.includes(keyword) || descriptionCell.includes(keyword) || approverCell.includes(keyword) || dateCell.includes(keyword);
+      tableBody.rows[i].style.display = shouldDisplay ? "" : "none";
+    }
+  }
+
 </script>
 {% endblock %}

@@ -50,6 +50,7 @@
           <option value="No">Show Letter Not Received</option>
         </select>
         <br>
+        <input type="text" id="search-input" placeholder="Search by name or email">
         <br> 
         <form action="" method="POST">
           {% csrf_token %}
@@ -180,6 +181,22 @@
       } else {
         tableBody.rows[i].style.display = "none";
       }
+    }
+  }
+
+  var searchInput = document.getElementById("search-input");
+  searchInput.addEventListener("input", function() {
+    filterRows(filterDropdown.value); // Apply filter based on status
+    filterSearch(searchInput.value); // Apply filter based on search input
+  });
+
+  function filterSearch(keyword) {
+    keyword = keyword.toLowerCase();
+    for (var i = 0; i < tableBody.rows.length; i++) {
+      var nameCell = tableBody.rows[i].cells[1].innerText.toLowerCase(); // Name column
+      var emailCell = tableBody.rows[i].cells[3].innerText.toLowerCase(); // Email column
+      var shouldDisplay = nameCell.includes(keyword) || emailCell.includes(keyword);
+      tableBody.rows[i].style.display = shouldDisplay ? "" : "none";
     }
   }
 </script>
