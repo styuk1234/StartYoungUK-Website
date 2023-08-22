@@ -160,7 +160,7 @@
 
   function filterRows(value) {
     for (var i = 0; i < tableBody.rows.length; i++) {
-      var letterReceivedCell = tableBody.rows[i].cells[4];
+      var letterReceivedCell = tableBody.rows[i].cells[5];
       if (value == "all" || letterReceivedCell.innerText.trim() == value) {
         tableBody.rows[i].style.display = "";
       } else {
