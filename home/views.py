@@ -94,10 +94,10 @@ def approve_buddies(request):
                 headers={"Content-Disposition": 'attachment; filename="buddies.csv"'},
             )
             writer = csv.writer(response)
-            writer.writerow(["Name", "Description",	"Request Date","Status",	"Approver"])
+            writer.writerow([	"Request Date", "Name","email" "Description","Status","Approver"])
             for buddy_id in checked_buddies:
                 buddy = Buddy.objects.get(id=buddy_id)
-                writer.writerow([buddy.user.first_name + " " + buddy.user.last_name, buddy.description, buddy.date_status_modified, buddy.status,buddy.approver])
+                writer.writerow([buddy.date_status_modified, buddy.user.first_name + " " + buddy.user.last_name, buddy.user.email, buddy.description,  buddy.status,buddy.approver])
             return response
         else:
             for buddy_id in checked_buddies:

@@ -55,9 +55,10 @@
                 <thead>
                   <tr>
                     <th><input type="checkbox" id="select-all-buddies"></th>
-                    <th>Name</th>
-                    <th>Description</th>
                     <th>Request Date</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Description</th>
                     <th>Status</th>
                     <th>Approver</th>
                   </tr>
@@ -66,9 +67,10 @@
                   {% for buddy in buddies %}
                   <tr>
                     <td><input type="checkbox" name="chosen-buddies" value="{{ buddy.id }}"></td>
-                    <td>{{ buddy.user.first_name }} {{ buddy.user.last_name }}</td>
-                    <td style="max-width: 375px;">{{ buddy.description|linebreaks }}</td>
                     <td style="max-width: 150px;">{{ buddy.date_status_modified }}</td>
+                    <td>{{ buddy.user.first_name }} {{ buddy.user.last_name }}</td>
+                    <td>{{ buddy.user.email }}</td>
+                    <td style="max-width: 375px;">{{ buddy.description|linebreaks }}</td>
                     <td>{{ buddy.status }}</td>
                     <td>{{ buddy.approver }}</td>
 
