@@ -2,7 +2,6 @@
 {% block title %}Contact Us{% endblock %}
 {% load static %}
 {% block content %}
-
 <script>
   document.getElementById("nav-contact").classList.add("active");
 </script>
@@ -12,128 +11,188 @@
     margin-bottom: 3%;
   }
   .card-text {
-  overflow-y: scroll;
-  max-height: 100%;
-}
-.card-top {
-  max-height: 35%;
-}
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+  .card-top {
+    max-height: 35%;
+  }
 
-.login-btn {
-  position: relative;
-  left: 10%;
-  width: 80%;
-}
+  .login-btn {
+    position: relative;
+    left: 10%;
+    width: 80%;
+  }
+
+  #toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000; 
+  }
+
+  #toast.success {
+    background-color: #28a745; /* Green color for success */
+  }
+
+  #toast.error {
+    background-color: #dc3545; /* Red color for error */
+  }
 </style>
 
 <div class="block-31" style="position: relative;">
-    <div class="owl-carousel loop-block-31 homepage-nav">
-      <div class="block-30 block-30-sm item" style="background-image: url('{% static 'images/join-us.jpg' %}');" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-md-7 text-center">
-              <h2 class="heading">Join & Contact Us</h2>
+  <div class="owl-carousel loop-block-31 homepage-nav">
+    <div class="block-30 block-30-sm item" style="background-image: url('{% static 'images/join-us.jpg' %}');"
+      data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-7 text-center">
+            <h2 class="heading">Join & Contact Us</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="site-section">
+  <div class="col-md-12 block-11">
+    <h2 class="heading" style="text-align: center;">Explore our Career Opportunities</h2>
+    <div class="nonloop-block-11 owl-carousel">
+      {% for opportunity in opportunities %}
+      {% if not opportunity.position_filled and today <= opportunity.end_date %}
+      <div class="card fundraise-item">
+        <div class="card-body campaign-card">
+          <div class="card-top">
+            <h3 class="card-title">{{ opportunity.title }}</h3>
+            <p class="card-text">{{ opportunity.description }}</p>
+          </div>
+          <div>
+            <span class="donation-time mb-3 d-block">Deadline: {{ opportunity.end_date }}</span>
+            <span class="donation-time mb-3 d-block">Duration: {{ opportunity.duration }}</span>
+            {% if opportunity.job_paid %}
+            <span class="donation-time mb-3 d-block">Position Type: Paid</span>
+            {% else %}
+            <span class="donation-time mb-3 d-block">Position Type: Volunteer</span>
+            {% endif %}
+            <div class="form-group">
+              <a href="{{ opportunity.form_url }}" class="donate-btn login-btn btn btn-primary" rel="noopener noreferrer"
+                target="_blank">Apply</a>
             </div>
           </div>
         </div>
       </div>
-      
+      {% endif %}
+      {% endfor %}
     </div>
   </div>
 
-  <div class="site-section">
-      <div class="col-md-12 block-11">
-        <h2 class="heading" style="text-align: center;">Explore our Career Opportunities</h2>
-        <div class="nonloop-block-11 owl-carousel">
-        {% for opportunity in opportunities %}
-          {% if not opportunity.position_filled and today <= opportunity.end_date %}
-            <div class="card fundraise-item">
-                <div class="card-body campaign-card">
-                    <div class="card-top">
-                        <h3 class="card-title">{{ opportunity.title }}</h3>
-                        <p class="card-text">{{ opportunity.description }}</p>
-                    </div>
-                    <div>
-                        <span class="donation-time mb-3 d-block">Deadline: {{ opportunity.end_date }}</span>
-                        <span class="donation-time mb-3 d-block">Duration: {{ opportunity.duration }}</span>
-                        {% if opportunity.job_paid %}
-                        <span class="donation-time mb-3 d-block">Position Type: Paid</span>
-                        {% else %}
-                        <span class="donation-time mb-3 d-block">Position Type: Volunteer</span>
-                        {% endif %}
-                        <div class="form-group">
-                          <a href="{{ opportunity.form_url }}" class="donate-btn login-btn btn btn-primary" rel="noopener noreferrer" target="_blank">Apply</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          {% endif %}
-        {% endfor %}
-
-        </div>
-    </div>
-
-    <div class="container">
-      <h2 class="heading" style="text-align: center; margin-bottom: 50px;">Contact Us</h2>
-      <div class="row block-9">
-        <div class="col-md-6 pr-md-5">
-          <form id="ajax-contact" name="google-sheet" method="POST">
-            <div class="form-group">
-              <input type="text" name="Name" id="Name" class="form-control px-3 py-3" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-              <input type="email" name="Email" id="Email" class="form-control px-3 py-3" placeholder="Your Email"required>
-            </div>
-            <div class="form-group">
-              <input type="text" name="Subject" id="Subject" class="form-control px-3 py-3" placeholder="Subject" required>
-            </div>
-            <div class="form-group">
-              <textarea name="Message" id="Message" cols="30" rows="7" class="form-control px-3 py-3" placeholder="Message..." required></textarea>
-            </div>
-            <div class="border-top pt-3">
-              <small class="text-muted">
-                <b>By clicking on "Send Message" below, you agree to our<a class="ml-2" href="{% url 'tnc' %}">Terms and Conditions</a></b>
-                <br>
-                <b>Know how we are using the data collected by reading through our<a class="ml-2" href="{% url 'privacy-policy' %}">Privacy Policy</a></b></small>
+  <div class="container">
+    <h2 class="heading" style="text-align: center; margin-bottom: 50px;">Contact Us</h2>
+    <div class="row block-9">
+      <div class="col-md-6 pr-md-5">
+        <form id="ajax-contact" name="google-sheet" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="Name">Your Name</label>
+            <input type="text" name="Name" id="Name" class="form-control px-3 py-3" placeholder="Your Name" required>
           </div>
-            <div class="form-group">
-              <button id="submit" name="Submit" type="submit" class="btn btn-primary py-3 px-5">Send Message</button>
-            </div>
-            <div id="snackbar"></div>
-          </form>
-        
-        </div>
+          <div class="form-group">
+            <label for="Email">Your Email</label>
+            <input type="email" name="Email" id="Email" class="form-control px-3 py-3" placeholder="Your Email"
+              required>
+          </div>
+          <div class="form-group">
+            <label for="Subject">Subject</label>
+            <input type="text" name="Subject" id="Subject" class="form-control px-3 py-3" placeholder="Subject"
+              required>
+          </div>
+          <div class="form-group">
+            <label for="Message">Message</label>
+            <textarea name="Message" id="Message" cols="30" rows="7" class="form-control px-3 py-3"
+              placeholder="Message..." required></textarea>
+          </div>
+          <div class="border-top pt-3">
+            <small class="text-muted">
+              <b>By clicking on "Send Message" below, you agree to our <a class="ml-2"
+                  href="{% url 'tnc' %}">Terms and Conditions</a></b>
+              <br>
+              <b>Know how we are using the data collected by reading through our <a class="ml-2"
+                  href="{% url 'privacy-policy' %}">Privacy Policy</a></b></small>
+          </div>
+          <div class="form-group">
+            <button id="submit" name="Submit" type="submit" class="btn btn-primary py-3 px-5">Send Message</button>
+          </div>
+          <div id="toast" style="display: none;"></div>
+        </form>
+      </div>
 
-        <script>
-          function showToast(message, color) {
-            // Get the snackbar DIV
-            var x = document.getElementById("snackbar");
-            x.innerHTML = message;
-            x.style.backgroundColor = color;
 
-            // Add the "show" class to DIV
-            x.className = "show";
+      <div class="col-md-6" id="map"></div>
+    </div>
+  </div>
+</div>
 
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+<script>
+  document.getElementById("nav-contact").classList.add("active");
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const toast = document.getElementById("toast");
+
+    const showSuccessToast = () => {
+      toast.innerText = "Message sent successfully!";
+      toast.classList.add("success");
+      toast.style.display = "block";
+      setTimeout(() => {
+        toast.style.display = "none";
+        toast.classList.remove("success");
+      }, 3000); 
+    };
+
+    const showErrorToast = () => {
+      toast.innerText = "Message failed to send.";
+      toast.classList.add("error");
+      toast.style.display = "block";
+      setTimeout(() => {
+        toast.style.display = "none";
+        toast.classList.remove("error");
+      }, 3000); 
+    };
+
+    const form = document.getElementById("ajax-contact");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "success") {
+            showSuccessToast();
+            form.reset(); 
+          } else {
+            showErrorToast();
           }
-        </script>
-        <script>
-          const scriptURL = "{{GSHEETS_CONTACT_US}}"
-          const form = document.forms['google-sheet']
-          
-          form.addEventListener('submit', e => {
-            e.preventDefault()
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => showToast("Message sent successfully!", "green"))
-            .catch(error => showToast("There was an error sending your message, please try again!", "red"))
-          })
-         </script>
+        })
+        .catch(() => {
+          showErrorToast();
+        });
+    });
+  });
+</script>
 
-        <div class="col-md-6" id="map"></div>
-      </div>
-    </div>
-  </div>
 
- 
-  {% endblock %}
+{% endblock %}
