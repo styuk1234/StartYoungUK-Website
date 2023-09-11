@@ -22,7 +22,7 @@ def contact(request):
             f"New Contact Form Submission: {subject}",
             email_body,
             settings.DEFAULT_FROM_EMAIL,
-            ['startyounguk21@gmail.com'],
+            ['startyoung21@gmail.com'],
             fail_silently=False,
         )
 
