@@ -4,6 +4,7 @@ from datetime import date
 from django.conf import settings
 from django.core.mail import send_mail
 from django.http import JsonResponse
+from rest_framework import status
 
 
 def contact(request):
@@ -26,7 +27,7 @@ def contact(request):
                 fail_silently=False,
             )
 
-            response_data = {'message': 'Message sent successfully!', 'status': 'success'}
+            response_data = {'message': 'Message sent successfully!', 'status': 200}
             return JsonResponse(response_data)
         except Exception as e:
             response_data = {'message': e, 'status': 500}

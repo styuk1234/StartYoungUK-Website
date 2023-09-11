@@ -180,11 +180,13 @@
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status === "success") {
-            showSuccessToast(data.message);
+          if (data.status === 200) {
+            console.log(data.status)
+            showSuccessToast(data.status);
             form.reset(); 
           } else {
-            showErrorToast(data.message);
+            console.log(data.status)
+            showErrorToast(data.status);
           }
         })
         .catch(() => {
