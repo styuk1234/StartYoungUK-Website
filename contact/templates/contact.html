@@ -145,8 +145,8 @@
   document.addEventListener("DOMContentLoaded", function () {
     const toast = document.getElementById("toast");
 
-    const showSuccessToast = () => {
-      toast.innerText = "Message sent successfully!";
+    const showSuccessToast = (message) => {
+      toast.innerText = message;
       toast.classList.add("success");
       toast.style.display = "block";
       setTimeout(() => {
@@ -155,8 +155,8 @@
       }, 3000); 
     };
 
-    const showErrorToast = () => {
-      toast.innerText = "Message failed to send.";
+    const showErrorToast = (message) => {
+      toast.innerText = message;
       toast.classList.add("error");
       toast.style.display = "block";
       setTimeout(() => {
@@ -181,10 +181,10 @@
         .then((response) => response.json())
         .then((data) => {
           if (data.status === "success") {
-            showSuccessToast();
+            showSuccessToast(data.message);
             form.reset(); 
           } else {
-            showErrorToast();
+            showErrorToast(data.message);
           }
         })
         .catch(() => {

@@ -16,19 +16,21 @@ def contact(request):
 
         # Format the email body with sender's information
         email_body = f"Name: {name}\nEmail: {email}\nSubject: {subject}\nMessage: {message}"
+        try:
+            # Send the email
+            send_mail(
+                f"New Contact Form Submission: {subject}",
+                email_body,
+                settings.DEFAULT_FROM_EMAIL,
+                ['beta1two3four@gmail.com'],
+                fail_silently=False,
+            )
 
-        # Send the email
-        send_mail(
-            f"New Contact Form Submission: {subject}",
-            email_body,
-            settings.DEFAULT_FROM_EMAIL,
-            ['startyoung21@gmail.com'],
-            fail_silently=False,
-        )
-
-        response_data = {'message': 'Message sent successfully!', 'status': 'success'}
-        return JsonResponse(response_data)
-
+            response_data = {'message': 'Message sent successfully!', 'status': 'success'}
+            return JsonResponse(response_data)
+        except Exception as e:
+            response_data = {'message': e, 'status': 500}
+            return JsonResponse(response_data)
     return render(
         request, "contact.html", {"opportunities": opportunities, "today": date.today(),} #"GSHEETS_CONTACT_US": settings.GSHEETS_CONTACT_US}
     )
