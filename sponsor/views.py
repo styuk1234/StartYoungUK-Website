@@ -37,6 +37,7 @@ def sponsor(request):
                 response_data = {'message': e, 'status': 500}
                 return JsonResponse(response_data)
         else:
+            form = DonationForm(request.POST)
             # Paypal Button instance
             paypal_dict = {
                 "business": os.getenv("PAYPAL_BUSINESS_ACCOUNT"),
