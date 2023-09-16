@@ -155,6 +155,7 @@
             <br>
             <b>Know how we are using the data collected by reading through our<a class="ml-2" href="{% url 'privacy-policy' %}">Privacy Policy</a></b></small>
       </div>
+        <input type="hidden" name="form_type" value="donate_in_kind">
         <button class="signup-btn btn btn-primary" type="submit">Submit</button>
         <div id="snackbar"></div>
       </form>
@@ -183,15 +184,46 @@
     }
   </script>
   <script>
-    const scriptURL = "{{GSHEETS_DONATE_IN_KIND}}"
-    const form = document.forms['google-sheet-donate']
+    // const scriptURL = "{{GSHEETS_DONATE_IN_KIND}}"
+    // const form = document.forms['google-sheet-donate']
     
-    form.addEventListener('submit', e => {
-      e.preventDefault()
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => showToast("Message sent successfully!", "green"))
-      .catch(error => showToast("There was an error sending your message, please try again!", "red"))
-    })
+    // form.addEventListener('submit', e => {
+    //   e.preventDefault()
+    //   fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    //   .then(response => showToast("Message sent successfully!", "green"))
+    //   .catch(error => showToast("There was an error sending your message, please try again!", "red"))
+    // })
+
+    const form = document.getElementById("donate-in-kind-form");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === 200) {
+            console.log(data)
+            // showSuccessToast();
+            showToast("Message sent successfully!", "green")
+            form.reset(); 
+          } else {
+            console.log(data)
+            // showErrorToast();
+            showToast("There was an error sending your message, please try again!", "red")
+          }
+        })
+        .catch(() => {
+          showErrorToast();
+        });
+    });
   </script>
 
 {% endblock %}
