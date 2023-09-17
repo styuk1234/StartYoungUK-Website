@@ -27,7 +27,7 @@ def sponsor(request):
                     f"New Donate In Kind Submission from: {name}",
                     email_body,
                     settings.DEFAULT_FROM_EMAIL,
-                    ['codefest.youngcoders@gmail.com'],
+                    ['startyoung21@gmail.com'],
                     fail_silently=False,
                 )
 
