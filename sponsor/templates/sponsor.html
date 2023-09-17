@@ -156,6 +156,7 @@
             <b>Know how we are using the data collected by reading through our<a class="ml-2" href="{% url 'privacy-policy' %}">Privacy Policy</a></b></small>
       </div>
         <input type="hidden" name="form_type" value="donate_in_kind">
+        {% csrf_token %}
         <button class="signup-btn btn btn-primary" type="submit">Submit</button>
         <div id="snackbar"></div>
       </form>
@@ -183,104 +184,37 @@
       setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
     }
   </script>
-  <!-- <script>
-    // const scriptURL = "{{GSHEETS_DONATE_IN_KIND}}"
-    // const form = document.forms['google-sheet-donate']
-    
-    // form.addEventListener('submit', e => {
-    //   e.preventDefault()
-    //   fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-    //   .then(response => showToast("Message sent successfully!", "green"))
-    //   .catch(error => showToast("There was an error sending your message, please try again!", "red"))
-    // })
-
-    const form = document.getElementById("donate-in-kind-form");
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const formData = new FormData(form);
-
-      fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-          "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status === 200) {
-            console.log(data)
-            // showSuccessToast();
-            showToast("Message sent successfully!", "green")
-            form.reset(); 
-          } else {
-            console.log(data)
-            // showErrorToast();
-            showToast("There was an error sending your message, please try again!", "red")
-          }
-        })
-        .catch(() => {
-          showToast("There was an error sending your message, please try again!", "red")
-        });
-    });
-  </script> -->
 
   <script>
-    document.getElementById("nav-donate").classList.add("active");
+    const form = document.forms['google-sheet-donate']
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const toast = document.getElementById("toast");
-
-      const showSuccessToast = () => {
-        toast.innerText = "Message sent successfully!";
-        toast.classList.add("success");
-        toast.style.display = "block";
-        setTimeout(() => {
-          toast.style.display = "none";
-          toast.classList.remove("success");
-        }, 3000); 
-      };
-
-      const showErrorToast = () => {
-        toast.innerText = "Message failed to send.";
-        toast.classList.add("error");
-        toast.style.display = "block";
-        setTimeout(() => {
-          toast.style.display = "none";
-          toast.classList.remove("error");
-        }, 3000); 
-      };
-
-      const form = document.getElementById("donate-in-kind-form");
-
-      form.addEventListener("submit", function (e) {
+    form.addEventListener('submit', e => {
         e.preventDefault();
+        
+        // Extract form data
         const formData = new FormData(form);
 
-        fetch(form.action, {
-          method: "POST",
-          body: formData,
-          headers: {
-            "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
-          },
+        // Make an AJAX request to the URL for "donate-in-kind"
+        fetch("/donate/", {
+            method: 'POST',
+            body: formData,
+            headers: {
+              "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+            },
         })
-          .then((response) => response.json())
-          .then((data) => {
+        .then(response => response.json())
+        .then(data => {
             if (data.status === 200) {
-              console.log(data)
-              showSuccessToast();
-              form.reset(); 
+                showToast("Message sent successfully!", "green");
+                // Reset the form
+                form.reset();
             } else {
-              console.log(data)
-              showErrorToast();
+                showToast("There was an error sending your message, please try again!", "red");
             }
-          })
-          .catch(() => {
-            showErrorToast();
-          });
-      });
+        })
+        .catch(error => showToast("There was an error sending your message, please try again!", "red"));
     });
-  </script>
+</script>
+
 
 {% endblock %}

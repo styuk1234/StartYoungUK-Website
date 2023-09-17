@@ -36,55 +36,55 @@ def sponsor(request):
             except Exception as e:
                 response_data = {'message': e, 'status': 500}
                 return JsonResponse(response_data)
+    
+        form = DonationForm(request.POST)
+        # Paypal Button instance
+        paypal_dict = {
+            "business": os.getenv("PAYPAL_BUSINESS_ACCOUNT"),
+            "currency_code": "GBP",
+            "notify_url": request.build_absolute_uri(reverse("paypal-ipn")),
+            "return": request.build_absolute_uri(reverse("paypal-return")),
+            "cancel_return": request.build_absolute_uri(reverse("paypal-cancel")),
+        }
+
+        if not request.user.is_authenticated and int(form["amount"].value()) > 40:
+            messages.error(
+                request,
+                "We are not able to accept donations of more than £40 from unathenticated users. Please sign in to donate a larger amount!",
+            )
+
+        elif form.has_error("captcha"):
+            messages.error(
+                request, 'Please solve the Captcha before you click "Donate"'
+            )
+
+        elif form.is_valid():
+            donation = form.save(commit=False)
+            donation.user_id = request.user.id if request.user.is_authenticated else 0
+            form_data = DonationForm(instance=donation)
+
+            paypal_dict["amount"] = donation.amount
+            paypal_dict["invoice"] = donation.trxn_id
+            paypal_btn = PayPalPaymentsForm(initial=paypal_dict)
+            button_enable = True
+            messages.success(
+                request, "Please find the PayPal button below to complete the Donation!"
+            )
+            donation.save()
+            return render(
+                request,
+                "sponsor.html",
+                {
+                    "paypal_btn": paypal_btn,
+                    "form": form_data,
+                    "button_enable": button_enable,
+                },
+            )
+
         else:
-            form = DonationForm(request.POST)
-            # Paypal Button instance
-            paypal_dict = {
-                "business": os.getenv("PAYPAL_BUSINESS_ACCOUNT"),
-                "currency_code": "GBP",
-                "notify_url": request.build_absolute_uri(reverse("paypal-ipn")),
-                "return": request.build_absolute_uri(reverse("paypal-return")),
-                "cancel_return": request.build_absolute_uri(reverse("paypal-cancel")),
-            }
-
-            if not request.user.is_authenticated and int(form["amount"].value()) > 40:
-                messages.error(
-                    request,
-                    "We are not able to accept donations of more than £40 from unathenticated users. Please sign in to donate a larger amount!",
-                )
-
-            elif form.has_error("captcha"):
-                messages.error(
-                    request, 'Please solve the Captcha before you click "Donate"'
-                )
-
-            elif form.is_valid():
-                donation = form.save(commit=False)
-                donation.user_id = request.user.id if request.user.is_authenticated else 0
-                form_data = DonationForm(instance=donation)
-
-                paypal_dict["amount"] = donation.amount
-                paypal_dict["invoice"] = donation.trxn_id
-                paypal_btn = PayPalPaymentsForm(initial=paypal_dict)
-                button_enable = True
-                messages.success(
-                    request, "Please find the PayPal button below to complete the Donation!"
-                )
-                donation.save()
-                return render(
-                    request,
-                    "sponsor.html",
-                    {
-                        "paypal_btn": paypal_btn,
-                        "form": form_data,
-                        "button_enable": button_enable,
-                    },
-                )
-
-            else:
-                messages.error(
-                    request, "There was an error with your donation. Please try again!"
-                )
+            messages.error(
+                request, "There was an error with your donation. Please try again!"
+            )
 
     # Pre-populate user info if user is authenticated
     if request.user.is_authenticated:
