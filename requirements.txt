@@ -20,7 +20,7 @@ django-paypal==2.0
 fpdf==1.7.2
 gunicorn
 phonenumbers==8.13.19
-Pillow==10.0.0
+Pillow==10.0.1
 pymemcache==4.0.0
 pyodbc==4.0.39
 psycopg[binary]
