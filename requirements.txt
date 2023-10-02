@@ -19,7 +19,7 @@ django-otp==1.2.2
 django-paypal==2.0
 fpdf==1.7.2
 gunicorn
-phonenumbers==8.13.19
+phonenumbers==8.13.22
 Pillow==10.0.0
 pymemcache==4.0.0
 pyodbc==4.0.39
