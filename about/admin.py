@@ -28,7 +28,7 @@ class GalleryItem(admin.ModelAdmin):
 
 @admin.register(CharityDetail)
 class CharityDetail(admin.ModelAdmin):
-    list_display = ("id", "email", "address", "phone_number", "charity_number","number_children_helped", "buddies_onboarded","number_of_sponsors"," campaigns_so_far")
+    list_display = ("id", "email", "address", "phone_number", "charity_number","number_children_helped", "buddies_onboarded","number_of_schools","campaigns_so_far")
     
     def has_delete_permission(self, request, obj=None) -> bool:
         return False
