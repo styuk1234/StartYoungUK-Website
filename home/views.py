@@ -55,10 +55,12 @@ def home(request):
             percent_raised.append(percent)
 
     campaigns_zip = zip(campaigns, collection_by_campaign, percent_raised)
-    cnt_usr = len(User.objects.all())
-    cnt_buddy = len(Buddy.objects.all())
-    cnt_campaigns = len(campaigns)
-    
+    # cnt_usr = len(User.objects.all())
+    # cnt_buddy = len(Buddy.objects.all())
+    # cnt_campaigns = len(campaigns)
+    cnt_buddy = (CharityDetail.objects.get(id=1)).buddies_onboarded
+    cnt_campaigns = (CharityDetail.objects.get(id=1)).campaigns_so_far
+    cnt_schools = (CharityDetail.objects.get(id=1)).number_of_schools
 
     return render(
         request,
@@ -66,7 +68,7 @@ def home(request):
         {
             "affiliations": affiliations,
             "top_donations": serial_donation,
-            "cnt_usr": cnt_usr,
+            "cnt_schools": cnt_schools,
             "campaigns_zip": campaigns_zip,
             "cnt_buddy": cnt_buddy,
             "cnt_campaigns": cnt_campaigns,
