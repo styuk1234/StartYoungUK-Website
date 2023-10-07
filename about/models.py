@@ -40,6 +40,9 @@ class CharityDetail(models.Model):
     phone_number = PhoneNumberField(null=False, blank=False, unique=True)
     charity_number = models.CharField(max_length=100)
     number_children_helped = models.IntegerField(null=True, blank=True)
+    buddies_onboarded = models.IntegerField(null=True, blank=True)
+    number_of_sponsors = models.IntegerField(null=True, blank=True)
+    campaigns_so_far = models.IntegerField(null=True, blank=True)
 
     def __str__(self) -> str:
         return f"{self.id, self.email, self.address, self.phone_number, self.charity_number}"
