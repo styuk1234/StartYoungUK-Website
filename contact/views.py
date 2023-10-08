@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from rest_framework import status
+from about.models import CharityDetail
 
 
 def contact(request):
@@ -32,6 +33,10 @@ def contact(request):
         except Exception as e:
             response_data = {'message': e, 'status': 500}
             return JsonResponse(response_data)
+    charity_number = (CharityDetail.objects.get(id=1)).charity_number
+    email = (CharityDetail.objects.get(id=1)).email
+    address = (CharityDetail.objects.get(id=1)).address
+    phone_number = (CharityDetail.objects.get(id=1)).phone_number
     return render(
-        request, "contact.html", {"opportunities": opportunities, "today": date.today(),} #"GSHEETS_CONTACT_US": settings.GSHEETS_CONTACT_US}
+        request, "contact.html", {"opportunities": opportunities, "today": date.today(),"charity_number": charity_number,"email": email, "address":address, "phone_number":phone_number,} #"GSHEETS_CONTACT_US": settings.GSHEETS_CONTACT_US}
     )
