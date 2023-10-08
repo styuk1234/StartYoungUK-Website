@@ -111,7 +111,7 @@
                     <div class="card-body campaign-card">
                         <div>
                             <h3 class="card-title"><a href="#">{{ campaign.campaign_title }}</a></h3>
-                            <p class="card-text">{{ campaign.campaign_description }}</p>
+                            <p class="card-text" style="max-height: 200px; overflow: scroll">{{ campaign.campaign_description }}</p>
                         </div>
                         <div>
                             <span class="donation-time mb-3 d-block">Campaign Deadline: {{ campaign.campaign_deadline }}</span>

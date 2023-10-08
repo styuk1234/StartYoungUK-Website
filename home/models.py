@@ -5,7 +5,7 @@ from django.urls import reverse
 class Campaign(models.Model):
     campaign_id = models.AutoField(primary_key=True)
     campaign_title = models.CharField(max_length=50, null=False)
-    campaign_description = models.TextField(max_length=200, null=False)
+    campaign_description = models.TextField(max_length=1000, null=False)
     collection_target = models.IntegerField(null=False)
     campaign_deadline = models.DateField(null=False)
     campaign_image = models.ImageField(
