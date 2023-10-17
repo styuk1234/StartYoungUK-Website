@@ -19,6 +19,7 @@ from django.views.generic import TemplateView
 import csv
 from django.http import HttpResponse
 from datetime import datetime
+from about.models import GalleryItem
 
 
 # from django.views.generic import ListView
@@ -62,6 +63,18 @@ def home(request):
     cnt_campaigns = (CharityDetail.objects.get(id=1)).campaigns_so_far
     cnt_schools = (CharityDetail.objects.get(id=1)).number_of_schools
 
+    items = GalleryItem.objects.all()
+    item_type = []
+    for item in items:
+        ext = os.path.splitext(item.item_file.name)[1].lower()
+        if ext in [".jpg", ".png", ".jpeg"]:
+            item_type.append("image")
+        elif ext in [".mp4", ".mov"]:
+            item_type.append("video")
+        else:
+            item_type.append("other")
+    item_zip = zip(items, item_type)
+
     return render(
         request,
         "home.html",
@@ -72,7 +85,8 @@ def home(request):
             "campaigns_zip": campaigns_zip,
             "cnt_buddy": cnt_buddy,
             "cnt_campaigns": cnt_campaigns,
-            "number_children": number_children
+            "number_children": number_children,
+            "items": item_zip,
         },
     )
 

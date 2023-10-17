@@ -6,6 +6,46 @@
 <script>
     document.getElementById("nav-home").classList.add("active");
 </script>
+<style>
+    figure {
+        border: thin #c0c0c0 solid;
+        display: flex;
+        flex-flow: column;
+        margin: auto;
+    }
+
+    /* img {
+        max-width: 1500px;
+        max-height: 690px;
+        object-fit: cover;
+    } */
+
+    video {
+      max-width: 1500px;
+      height: 690px;
+      object-fit: cover;
+    }
+
+    figcaption {
+        background-color: #222;
+        color: #fff;
+        font: italic smaller sans-serif;
+        padding: 3px;
+        text-align: center;
+    }
+
+
+    img {
+        max-width: 100%; /* Set the max width to 100% of the container */
+        max-height: 100%; /* Set the max height to 100% of the container */
+        object-fit: cover;
+    }
+    .gallery {
+        max-width: 60%;
+        max-height: 60%;
+    }
+
+  </style>
 
 <div class="block-31" style="position: relative;">
     <div class="owl-carousel loop-block-31 homepage-nav">
@@ -243,5 +283,32 @@
     
 </div>
 </section>
+<div class="site-section fund-raisers">
+    <div class="container">
+        <div class="row mb-3 justify-content-center">
+             <!-- <div class="col-md-12 mb-5 text-center mt-5"> -->
+      <div class="col-md-8 text-center">
+        <h2>Gallery</h2>
+    </div>
+      <!-- </div> -->
+      <div class="container gallery">
+        <div class="block-11 mb-5" style="position: relative;">
+            <div class="owl-carousel loop-block-31">
+              {% for item, item_type in items %}
+                {% if item_type == 'image' %}
+                  
+                    <figure>
+                      <img src="{{ item.item_file.url }}" alt="{{ item.item_title }}" >
+                      <figcaption>{{ item.item_title }}</figcaption>
+                    </figure>            
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+      </div>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}
