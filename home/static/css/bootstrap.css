@@ -8674,7 +8674,7 @@ button.bg-dark:hover {
 
 .mb-5,
 .my-5 {
-    /*margin-bottom: 3rem !important*/ /* Removed by Joanne */
+    margin-bottom: 3rem !important
 }
 
 .ml-5,
