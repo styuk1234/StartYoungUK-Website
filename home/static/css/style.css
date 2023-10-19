@@ -528,8 +528,10 @@ h5,
 }
 
 .btn.btn-primary {
-  background: #f7ca44;
-  border: 2px solid #f7ca44;
+  /*background: #f7ca44;
+  border: 2px solid #f7ca44;*/
+  background: #f152a0;
+  border: 2px solid #f152a0;
   color: #fff;
 }
 
@@ -925,7 +927,8 @@ textarea.form-control {
 }
 
 .bg-primary {
-  background: #f7ca44 !important;
+  /*background: #f7ca44 !important;*/
+  background: #ff9acc !important;
 }
 
 .site-section {
@@ -976,11 +979,13 @@ textarea.form-control {
 }
 
 .footer a {
-  color: #f7ca44;
+  /*color: #f7ca44;*/
+  color: #ff9acc;
 }
 
 .footer a:hover {
-  color: #f7ca44 !important;
+  /*color: #f7ca44 !important;*/
+  color: #ed187f !important;
 }
 
 .ftco-footer-social li {
@@ -1573,7 +1578,8 @@ textarea.form-control {
 
 .block-6 .icon {
   margin-right: 30px;
-  color: #f7ca44;
+  /*color: #f7ca44;*/
+  color: #f152a0;
 }
 
 .block-6 .icon span:before {
