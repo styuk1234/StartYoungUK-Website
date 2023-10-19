@@ -27,17 +27,18 @@
     }
 
     figcaption {
-        background-color: #222;
+        background-color: #f153a0;
         color: #fff;
         font: italic smaller sans-serif;
-        padding: 3px;
+        font-size: 12px;
+        padding: 4px;
         text-align: center;
     }
 
 
     img {
-        max-width: 100%; /* Set the max width to 100% of the container */
-        max-height: 100%; /* Set the max height to 100% of the container - All images uploaded to be the same height */
+        /*max-width: 100%;  Set the max width to 100% of the container */
+        /*max-height: 100%; Set the max height to 100% of the container - All images uploaded to be the same height */
         object-fit: cover;
     }
     .gallery {
@@ -135,7 +136,7 @@
         <h2>Gallery</h2>
     </div>
       <!-- </div> -->
-      <div class="container gallery">
+      <div class="container">
         <div class="block-11 mb-5" style="position: relative;">
             <div class="owl-carousel loop-block-31">
               {% for item, item_type in items %}
