@@ -943,7 +943,8 @@ textarea.form-control {
 }
 
 .bg-yellow {
-  background: #faebd7;
+  /*background: #faebd7;*/
+  background: #fae1ef;
 }
 
 .ftco-bg-dark {
