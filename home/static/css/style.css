@@ -11,7 +11,8 @@ a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
-  color: #f7ca44;
+  /*color: #f7ca44;*/
+  color: #ee6bab;
 }
 
 a:hover {
