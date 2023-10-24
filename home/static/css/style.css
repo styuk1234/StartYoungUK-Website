@@ -2338,7 +2338,8 @@ textarea.form-control {
 
 .block-30.block-30-sm,
 .block-30.block-30-sm .row {
-  min-height: 700px;
+  /*min-height: 700px;*/
+  min-height: 500px;
   height: 70vh;
 }
 
