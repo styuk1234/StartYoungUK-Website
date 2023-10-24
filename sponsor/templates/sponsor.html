@@ -87,12 +87,12 @@
         </div>
       {% endif %}
             <h2>Donate</h2>
-            <p class="lead">Help a child by making a donation. No amount is small.</p>
+            <p class="lead">Help a child by making a donation. No amount is too small.</p>
 
             {% if not user.is_authenticated and not button_enable %}
               <div class="messages">
                 <div class="alert alert-danger">
-                  Unathenticated users have a maximum donation limit of £40. If you wish to donate more, please <a id="login-link" href="{% url 'login' %}?next=/donate/">sign in</a>.
+                  Unauthenticated users have a maximum donation limit of £40. If you wish to donate more, please <a id="login-link" href="{% url 'login' %}?next=/donate/">sign in</a>.
               </div>
         </div>
       {% endif %}
