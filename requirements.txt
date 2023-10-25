@@ -27,7 +27,7 @@ psycopg[binary]
 python-dotenv
 pytz==2023.3.post1
 qrcode==7.4.2
-reportlab<=4.0.4
+reportlab<=4.0.6
 sqlparse==0.4.4
 tzdata==2023.3
 whitenoise==6.5.0
