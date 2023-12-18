@@ -38,12 +38,12 @@
 
     img {
         /*max-width: 100%;  Set the max width to 100% of the container */
-        max-height: 500px; /*Set the max height to 100% of the container - All images uploaded to be the same height */
+        max-height: 400px; /*Set the max height to 100% of the container - All images uploaded to be the same height */
         object-fit: cover;
     }
     .gallery {
-        max-width: 60%;
-        max-height: 60%;
+        max-width: 100%;
+        max-height: 100%;
     }
 
   </style>
@@ -78,8 +78,8 @@
             </div>
             <div class="col-md-6 welcome-text">
                 <h2 class="display-4 mb-3">Our Aim</h2>
-                <p class="mb-4">To work alongside local schools and communities in supporting young people and families in achieving their full potential as a member of the community. Supporting the education career path from 5-16 yrs whilst securing apprenticeships, sponsorships, work experience for the young adults.  We do this by  our buddy system,  imparting knowledge, guidance, life learned lessons, and challenges to instill hope, value and aspiration.</p>
-                <p class="mb-4">We can all be a part of change and it takes a second to sign up. If you would like to support, volunteer, donate, or simply just find out more about what we do , then please contact us, as we look forward to hearing from you!</p>
+                <p class="mb-4">To work alongside local schools and communities, supporting young people and families in achieving their full potential as valued members of the community. We engage with children from 5-18 years, supporting them and their families in education, securing links between school and a career. We do this with a range of activities for younger children, whilst arranging apprenticeships, sponsorships and work experience for the young adults. We enable our children to feel valued and our buddy system forges lifelong resilience and inspiration.</p>
+                <p class="mb-4">If you would like to support, volunteer, donate, or simply just find out more about StartYoungUK and what we do, then please <a href="https://www.startyounguk.com/join-us/">Contact Us</a> or <a href="https://www.startyounguk.com/register">Sign Up</a></p>
                 <!-- <p class="mb-0"><a href="#" class="btn btn-primary px-3 py-2">Learn More</a></p> -->
             </div>
         </div>
@@ -127,16 +127,20 @@
     </div>
 </div>
 
-<!-- J EDIT Moved this from bottom -->
-<div class="site-section fund-raisers">
+<!-- TESTING START -->
+
+<div class="site-section section-counter">
     <div class="container">
-        <div class="row mb-3 justify-content-center">
-             <!-- <div class="col-md-12 mb-5 text-center mt-5"> -->
-      <div class="col-md-8 text-center">
-        <h2>Gallery</h2>
+        <div class="row text-justify">
+            <div class="col-md-6 pr-5">
+					<h2 class="display-4 mb-3">Our Ethos</h2>
+                <p class="mb-4">To establish links with local schools and business to effect change in children’s lives. To have a wide range of people engage with the children and instil hope, value and aspiration in each child. To demonstrate a good work ethic and resilience and be a positive influence in the lives of children.</p>
+	    <p class="mb-4">Ensure that everyone we come into contact with feels valued and that together, we can overcome adversity.</p></div>
+            <div class="col-md-6 welcome-text">
+            <div class="col-md-8">
+		    <h2 class="display-4 mb-3">Gallery</h2>
     </div>
-      <!-- </div> -->
-      <div class="container gallery">
+				      <div class="container gallery">
         <div class="block-11 mb-5" style="position: relative;">
             <div class="owl-carousel loop-block-31">
               {% for item, item_type in items %}
@@ -151,10 +155,13 @@
             </div>
           </div>
       </div>
+
+            </div>
         </div>
     </div>
 </div>
-<!-- J Edit End of move -->
+
+<!-- TESTING END -->
 
 <section id="campaigns">
 <div class="site-section fund-raisers bg-light">
