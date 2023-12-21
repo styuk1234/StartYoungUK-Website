@@ -11,7 +11,7 @@ django-crispy-forms==2.1
 django-import-export
 django-phonenumber-field==7.1.0
 django-phonenumbers==1.0.1
-django-recaptcha==3.0.0
+django-recaptcha==4.0.0
 django-storages[azure]
 Django-Verify-Email==2.0.3
 djangorestframework==3.14.0
