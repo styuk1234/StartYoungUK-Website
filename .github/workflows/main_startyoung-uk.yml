@@ -37,6 +37,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
+          apt install libcairo2-dev pkg-config python3-dev
+          pip install pycairo
           pip install -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
