@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          apt install libcairo2-dev pkg-config python3-dev
+          sudo apt install libcairo2-dev pkg-config python3-dev
           pip install pycairo
           pip install -r requirements.txt
         
