@@ -32,3 +32,5 @@ sqlparse==0.4.4
 tzdata==2023.3
 whitenoise==6.5.0
 xhtml2pdf
+pycairo>=1.20.0
+cairocffi==1.2.0
