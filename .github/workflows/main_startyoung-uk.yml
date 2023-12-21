@@ -23,7 +23,7 @@ jobs:
           
       - name: Install system packages
         run: |
-          sudo apt-get install libcairo2-dev pkg-config
+          sudo apt-get install libcairo2-dev pkg-config python3-dev
           export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
         
 
